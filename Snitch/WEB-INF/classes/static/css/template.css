@@ -1,0 +1,122 @@
+@charset "UTF-8";
+
+.navbar {
+ 	background-color:#293E31;
+ 	height: 147px;
+ }
+
+.logo img {
+	position: relative;
+	float: left;
+	margin-left: -30px;
+	margin-top: -8px;
+	background-size: contain;
+	height: 147px;
+}
+
+.navbar-list {
+	position: absolute;
+	float: left;
+    left: 60%;
+	list-style: none;
+	overflow: hidden;
+
+}
+
+.nav-item {
+	float: left;
+    display: inline-block;
+
+}
+
+.nav-link {
+	position: relative;
+	float: left;
+	text-decoration: none;
+	color: #fff;
+	font-weight: bold;
+}
+
+.logout-btn {
+	padding: 0px;
+	background-color: Transparent;
+    border: none;
+    cursor:pointer;
+    outline:none;
+    color: #fff;
+	font-weight: bold;
+}
+
+.logout-btn:hover {
+   color: #225dbf;
+}
+
+.logout-btn:focus {
+	outline:0;
+}
+.form {
+	height:60px;
+	background-color: #A0ADA7;
+	position: relative;
+	float: left;
+	width: 100%;
+}
+
+.searchErrorMSG {
+	position: relative;
+	padding-top: 107px;
+	padding-left: 578px;
+	font-size: 20px;
+}
+
+#SearchBox{
+	z-index: 100;
+	margin: 0 auto;
+    position:relative;
+    max-width:300px;
+    margin-bottom:20px;
+}
+#sbox1{
+    height:46px;
+    width:303px;
+    padding:0 10px;
+    position:absolute;
+    left:0px;
+    top:7px;
+    border-radius:2px;
+    outline:0;
+    background:#eee;
+}
+
+#sbtn1{
+    height:50px;
+    position:absolute;
+    left:270px;/*アイコン左右の位置調整*/
+    top:7px;
+    background:none;
+    color:#666;
+    border:none;
+    font-size:20px;/*アイコンサイズ*/
+}
+#sbtn5:hover{
+color:#7fbfff;
+}
+
+/*
+.btn btn-info {
+	position: relative;
+	float: left;
+}
+*/
+.contentsClass {
+	background-color: #DACEC2;
+	padding-top: 100px;
+	padding-bottom: 400px;
+	text-align: center;
+}
+
+footer {
+	background-color: #293E31;
+	height: 100px;
+	width: 100%;
+}

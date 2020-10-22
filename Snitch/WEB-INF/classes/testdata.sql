@@ -1,0 +1,1 @@
+INSERT INTO userData(userId, mailAddress, password, role) VALUES('tarako', 'tarako@gmail.co.jp', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', 'ROLE_GENERAL');

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/template}">
+<head>
+	<meta charset="UTF-8">
+	<!-- ログイン画面 -->
+	<title>Login</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="loginClass">
+			<h1>Login</h1>
+			<!-- SecurityConfigで設定したSpringSecurityへ処理が投げられる-->
+			<form th:action="@{/login}" method="post">
+
+				<!--ログインエラー時、セッション属性に属性名「SPRING_SECURITY_LAST_EXCEPTION」で保存された例外オブジェクトのメッセージを表示-->
+				<!--「message.properties」で設定したメッセージが表示される-->
+			    <p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
+			    	th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
+			    	class="text-danger">
+			    	ログインエラーメッセージ
+			    </p>
+				<input class="col-sm-4" type="text" name="userId" placeholder="ログインID"/><br/>
+				<br />
+				<input class="col-sm-4" type="password" name="password" placeholder="パスワード"/><br/>
+				<br />
+
+
+
+				<button class="btn btn-primary col-sm-2" type="submit">ログイン</button>
+			</form>
+			<br />
+			<form class="updatePage" th:action="@{/signup}" method="post">
+				<button class="btn btn-success col-sm-2" type="submit">新規登録</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

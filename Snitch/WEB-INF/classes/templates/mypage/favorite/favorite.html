@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/template}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<meta charset="UTF-8">
+	<title>favorite</title>
+	<script src="https://kit.fontawesome.com/665f18a48e.js" crossorigin="anonymous"></script>
+	<link th:href="@{../css/favorite.css}" rel="stylesheet"></link>
+
+</head>
+<!-- お気に入り一覧ページ -->
+<body layout:fragment="content">
+	<h1>お気に入り</h1>
+	<div class="favOmiyage col-sm-8 offset-sm-2">
+		<!--「MyPageController」の「/mypage/favorite」で「favOmiyageListCount」にセットした件数を表示 -->
+		<p class="resultCount" th:text="${favOmiyageListCount} + '件'"></p><br/>
+		<div class="favOmiyage col-sm-12">
+			<!--「MyPageController」の「/mypage/favorite」で「favOmiyageList」にセットした取得結果を一件ずつ表示 -->
+			<div class="omiyage" th:each="omiyage : ${favOmiyageList}">
+				<div class="omiyage2">
+		    		<a th:href="@{'/omiyageDetail/'+${omiyage.omiyaID}}"><img class="omiyage-picture" th:src="@{'/image/'+${omiyage.image}}" alt="omiyage-image"></a>
+					<p class="omiyage-name" th:text="${omiyage.name}"></p>
+					<p class="omiyage-guest"th:text="${omiyage.guest}"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

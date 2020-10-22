@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+.omiyage.col-sm-12{
+	background-color:#FCF9F4;
+ 	position: relative;
+ 	float:left;
+ }
+
+
+p.resultCount {
+	position: relative;
+ 	float:left;
+	margin-top: 0px;
+	font-size: 20px;
+	margin-left: 15px;
+}
+
+.omiyage {
+	margin: 10px 10.5px;
+	position: relative;
+ 	float:left;
+}
+
+img.omiyage-picture{
+	width: 258.5px;
+	height:  194px;
+}
+
+p.omiyage-name {
+	font-size: 0.85em;
+	font-weight:bold;
+	margin-bottom: 0px;
+}
+
+p.omiyage-guest {
+	padding-top: 4px;
+	font-size: 0.8em;
+	font-weight:bold;
+}

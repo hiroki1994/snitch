@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/template}">
+
+
+<head>
+<meta charset="UTF-8">
+<title>searchResult</title>
+<link th:href="@{css/searchResult.css}" rel="stylesheet"></link>
+
+
+</head>
+<!-- 検索結果画面 -->
+<body>
+	<div layout:fragment="content">
+	<div class="searchResult col-sm-8 offset-sm-2">
+			<!--「SearchController」でmodelオブジェクト「omiyageListCount」に格納した取得件数が「0」の場合、指定のテキストを表示-->
+			<p th:if="${omiyageListCount == 0}" class="resultCount" th:text="キーワードに該当するお土産はありませんでした。"></p><br/>
+			<!--「SearchController」でmodelオブジェクト「omiyageListCount」に格納した取得件数が「−1」でないかつ1以上の場合、件数表示-->
+			<p th:if="${omiyageListCount >= 1 and omiyageListCount != -1}" class="resultCount" th:text="${omiyageListCount} + '件見つかりました。'"></p><br/>
+			<!--「SearchController」でmodelオブジェクト「omiyageListCount」に格納した取得件数が「−1」の場合、テキストは非表示-->
+			<p th:if="${omiyageListCount == -1}" class="resultCount" th:text=""></p><br/>
+		<div class="omiyage col-sm-12">
+			<!--「SearchController」でmodelオブジェクト「omiyageList」に格納した検索結果を繰り返し処理で一件ずつ表示-->
+			<div class="omiyage" th:each="omiyage : ${omiyageList}">
+				<div class="omiyage2">
+		    		<a th:href="@{'/omiyageDetail/'+${omiyage.omiyaID}}"><img class="omiyage-picture" th:src="@{'/image/'+${omiyage.image}}" alt="omiyage-image"></a>
+					<p class="omiyage-name" th:text="${omiyage.name}"></p>
+					<p class="omiyage-guest"th:text="${omiyage.guest}"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</body>
+</html>
