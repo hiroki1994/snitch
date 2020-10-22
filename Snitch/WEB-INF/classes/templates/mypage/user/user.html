@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/template}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<meta charset="UTF-8">
+	<title>user</title>
+	<script src="https://kit.fontawesome.com/665f18a48e.js" crossorigin="anonymous"></script>
+
+</head>
+<body layout:fragment="content">
+	<h1>ユーザ情報</h1>
+    <p>現在、下記のユーザでログインしています。</p>
+    <dl>
+        <dt>username</dt>
+        <dd th:text="${user.userId}">username</dd>
+        <dt>MailAddress</dt>
+        <dd th:text="${user.mailAddress}">mailAddress</dd>
+        <dt>password</dt>
+        <dd th:text="${user.password}">password</dd>
+    </dl>
+</body>
+</html>

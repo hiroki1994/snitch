@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/template}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+
+	<title>updateUser</title>
+	<script src="https://kit.fontawesome.com/665f18a48e.js" crossorigin="anonymous"></script>
+	<link th:href="@{../../css/omiyageDetail.css}" rel="stylesheet"></link>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+<title>omiyageDetail</title>
+</head>
+<!-- お土産詳細画面 -->
+<body layout:fragment="content">
+
+
+	<div class="omiyage col-sm-10 offset-sm-1">
+		<div class="omiyage-left col-sm-5 ">
+			<img  class="omiyage-image" th:src="@{'/image/'+${omiyageDetail.image}}" alt="omiyage-image">
+			<!-- 認証済みのユーザーにのみ「お気に入り」/「お気に入り解除」ボタンを表示 -->
+			<div   sec:authorize="isAuthenticated()">
+
+				<!-- 「お気に入り」ボタンを押すと、「FavOmiyageControleer」の「/addOmiyage」へ処理が投げられる -->
+				<form id="addOmiyage" th:action="@{/addOmiyage}" method="get">
+					<!-- お気に入り登録時に必要な「omiyaID」を取得 ユーザー側からは非表示 -->
+					<input th:value="${omiyageDetail.omiyaID}" name="favOmiyageId" type="hidden" />
+					<!-- お気に入り登録時に必要な認証済みの「UserID」を取得 ユーザー側からは非表示 -->
+					<span id="userIdName" sec:authentication="name" style="visibility:hidden"></span>
+					<!-- お気に入り登録時に発行されるID「favId」がnullの場合表示 -->
+					<button th:if="${favIdResultModel == null}" class="update-btn btn-warning col-sm-4 offset-sm-9" style="color:white" type="submit" ><i class="fas fa-heart" style="color:white"></i> お気に入り</button>
+            	</form>
+
+            	<form id="deleteOmiyage" th:action="@{/deleteFavOmiyage}" method="get">
+            		<!-- お気に入り解除時に必要な「omiyaID」を取得 ユーザー側からは非表示 -->
+					<input th:value="${omiyageDetail.omiyaID}" name="favOmiyageId" type="hidden" />
+					<!-- お気に入り解除時に必要な認証済みの「UserID」を取得 ユーザー側からは非表示 -->
+					<span id="userIdName" sec:authentication="name" style="visibility:hidden"></span>
+					<!-- お気に入り登録時に発行されるID「favId」がnullでない場合表示 -->
+					<button th:unless="${favIdResultModel == null}" class="update-btn btn-danger col-sm-5 offset-sm-8" style="color:white" type="submit" ><i class="fas fa-ban" style="color:white"></i> お気に入り解除</button>
+            	</form>
+
+			</div> <!--「OmiyageDetailController」の「/omiyageDetail/{id}」にて「omiyageDetail」にセットされたデータを表示-->
+			<div class="omiyage-text">
+				<p class="omiyage-guest" th:text="'紹介ゲスト: ' + ${omiyageDetail.guest}"></p>
+				<p class="omiyage-price" th:text="${omiyageDetail.price}"></p>
+				<p class="omiyage-shop" th:text="${omiyageDetail.shop}"></p>
+				<p id="omiyage-address" th:text="${omiyageDetail.address}"></p>
+				<p class="omiyage-phone" th:text="${omiyageDetail.phone}"></p>
+			</div>
+			<!-- Google Maps APIの読み込み-->
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC65XTOXxOp_icTYWlhiPyIQCBoWvmvj6k&callback=initMapWithAddress" defer></script>
+		</div>
+		<div class="omiyage-right offset-sm-6">
+			<p class="omiyage-name" th:text="${omiyageDetail.name}"></p>
+			<p class="omiyage-description"th:text="${omiyageDetail.description}"></p>
+			<!-- Google Mapの表示 -->
+			<div id="map"></div>
+
+
+			<!-- 「住所」取得確認用 Devツールのコンソールに表示 -->
+			<script>console.log(document.getElementById("omiyage-address").textContent);
+			<!-- pタグ内の住所を取得し、変数「my_address」に格納 -->
+			var my_address = document.getElementById("omiyage-address").textContent;
+			function initMapWithAddress() {
+				<!-- マップのzoomレベル、タイプの指定 -->
+			    var opts = {
+			        zoom: 15,
+			        mapTypeId: google.maps.MapTypeId.ROADMAP
+			    };
+			    <!-- id「my_map」要素を取得、Mapクラスのインスタンスを作成することで地図を作成 -->
+			    var my_google_map = new google.maps.Map(document.getElementById('map'), opts);
+
+			    <!-- ジオコードオブジェクト-->
+			    var geocoder = new google.maps.Geocoder();
+			    geocoder.geocode(
+			      {
+			    	<!--Geocoderにジオコーディングリクエストに送信。検索する住所文字列と、国コードを指定 -->
+			        'address': my_address,
+			        'region': 'jp'
+			      },
+			      function(result, status){
+			    	  <!-- ステータスがOKの場合-->
+			          if(status==google.maps.GeocoderStatus.OK){
+			        	  <!-- 緯度経度データを取得-->
+			              var latlng = result[0].geometry.location;
+			              <!-- 指定の座標で中心位置を指定-->
+			              my_google_map.setCenter(latlng);
+			              <!-- マーカーを立てる場所の指定-->
+			              var marker = new google.maps.Marker({position:latlng, map:my_google_map, title:latlng.toString(), draggable:true});
+			              <!-- マーカー」の「ドラッグ操作が終わった時(dragend)」に関数を実行-->
+			              google.maps.event.addListener(marker, 'dragend', function(event){
+			            	  <!-- マーカーにポインターをホバーした時に、文字列に変換された緯度経度が書かれたツールチップ(吹き出し)を表示-->
+			                  marker.setTitle(event.latLng.toString());
+			              });
+
+			          }
+			        }
+			      );
+			    }
+			  </script>
+
+		</div>
+	</div>
+</body>
+
+</html>
