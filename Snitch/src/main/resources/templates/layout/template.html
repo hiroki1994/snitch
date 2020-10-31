@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+
+<head>
+	<meta charset="UTF-8"></meta>
+
+	<link th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}" rel="stylesheet"></link>
+	<script th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+
+    <link th:href="@{css/template.css}" rel="stylesheet"></link>
+    <link th:href="@{../css/template.css}" rel="stylesheet"></link>
+
+	<!-- アイコンツールキット「Font Awesome」読み込み -->
+	<script src="https://kit.fontawesome.com/665f18a48e.js" crossorigin="anonymous"></script>
+
+	<!-- サイト共通部分 -->
+	<title>template</title>
+</head>
+<body>
+	<!-- ヘッダー (ナビゲーションバー) -->
+	<nav class="navbar">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="logo" href="/home"><img alt="siteLogo" src="../../css/logo.png" /></a>
+				<ul class="navbar-list" >
+				    <li class="nav-item">
+						<a class="nav-link" href="/home">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/login">Login</a> <!--「LoginController」の「/login」へ処理が呼ばれる-->
+					</li>
+					<li class="nav-item"> <!--「Snitch」説明ページへ遷移-->
+						<a class="nav-link" href="/aboutsnitch">About Snitch</a>
+					</li>
+					<!-- 認証済みのユーザーのみ表示 マイページへ遷移-->
+					<li class="nav-item" sec:authorize="isAuthenticated()">
+						<a class="nav-link" href="/mypage">MyPage</a>
+					</li>
+					<!-- 認証済みのユーザーのみ表示 ログアウト処理-->
+					<li class="nav-link" sec:authorize="isAuthenticated()">
+						<form class="form-signout" th:action="@{/logout}" method="post">
+					   		<button class="logout-btn" type="submit">Logout</button>
+						</form>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- 検索フォーム 「SearchController」へ処理が投げられる。-->
+	<div class="form">
+		<form id="SearchBox" method="get" th:action="@{/search}" th:object="${searchForm}">
+			<input id="sbox1" type="text" name="keyword" placeholder="Search" th:field="*{keyword}"/>
+			<button type="submit" id="sbtn1"><i class="fas fa-search"></i></button>
+		</form>
+		<!-- 検索フォームバリデーションエラー 検索キーワードで入力エラーが発生した場合、th:errors属性で「messages.properties」で記述したエラーメッセージを表示-->
+		<div class="searchErrorMSG" th:if="${#fields.hasErrors('searchForm.keyword')}" th:errors="*{searchForm.keyword}" style="color: red">
+		</div>
+	</div>
+	<!-- コンテンツ部分-->
+	<div class="contentsClass">
+	    <div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12 main">
+					<div layout:fragment="content"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer>
+	</footer>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/template}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<meta charset="UTF-8">
+	<title>updateUser</title>
+	<script src="https://kit.fontawesome.com/665f18a48e.js" crossorigin="anonymous"></script>
+
+</head>
+<!-- ユーザー登録情報更新ページ -->
+<body layout:fragment="content">
+<div class="col-sm-6 offset-sm-3">
+			<div class="page-header">
+				<h1>登録情報更新</h1>
+				<h6><b>更新後はログアウトが実行されます。</b></h6>
+	        </div>
+	        <!--  更新ボタンが押されると「MypageController」の「/updateUserInfo」へ処理が渡される-->
+	        <form method="post" th:action="@{/updateUserInfo}" th:object="${signupForm}">
+				<table class="table table-bordered table-hover">
+				<tr>
+					<td>
+						<!--  「message.properties」-->
+						<div class="form-group">
+							<!-- modelオブジェクト「signupForm」の「userId」フィールドでエラーが発生したら、class属性を追加し「is-invalid」でテキストボックスの周りを赤くする-->
+							<input type="text" class="form-control" th:field="*{userId}"
+							th:classappend="${#fields.hasErrors('userId')}?'is-invalid'"/>
+							<!-- modelオブジェクト「signupForm」の「userId」フィールドでエラーが発生したら、th:errors属性で「messages.properties」で記述したエラーメッセージを表示-->
+							<span class="text-danger"
+								th:if="${#fields.hasErrors('userId')}"
+								th:errors="*{userId}">
+								userId error
+							</span>
+						</div>
+					</td>
+				<tr>
+				<tr>
+					<td>
+						<div class="form-group">
+							<!-- modelオブジェクト「signupForm」の「mailAddress」フィールドでエラーが発生したら、class属性を追加し「is-invalid」でテキストボックスの周りを赤くする-->
+							<input type="text" class="form-control" th:field="*{mailAddress}"
+							th:classappend="${#fields.hasErrors('mailAddress')}?'is-invalid'"/>
+							<!-- modelオブジェクト「signupForm」の「mailAddress」フィールドでエラーが発生したら、th:errors属性で「messages.properties」で記述したエラーメッセージを表示-->
+							<span class="text-danger"
+								th:if="${#fields.hasErrors('mailAddress')}"
+								th:errors="*{mailAddress}">
+								mailAddress error
+							</span>
+						</div>
+					</td>
+				<tr>
+				<tr>
+					<td>
+						<div class="form-group">
+							<!-- modelオブジェクト「signupForm」の「password」フィールドでエラーが発生したら、class属性を追加し「is-invalid」でテキストボックスの周りを赤くする-->
+							<input type="text" class="form-control" th:field="*{password}"
+							th:classappend="${#fields.hasErrors('password')}?'is-invalid'"/>
+							<!-- modelオブジェクト「signupForm」の「password」フィールドでエラーが発生したら、th:errors属性で「messages.properties」で記述したエラーメッセージ表示-->
+							<span class="text-danger"
+								th:if="${#fields.hasErrors('password')}"
+								th:errors="*{password}">
+								password error
+							</span>
+						</div>
+					</td>
+				<tr>
+				</table>
+				<h6 class="text-danger" ><b>現在のパスワードもしくは新しいパスワードを<br>必ず入力してください。</b></h6>
+				<h6><b>未入力の場合登録時のパスワードが使用できなくなります。</b></h6>
+				<button class="btn btn-primary col-sm-6" type="submit">更新</button>
+			</form>
+	</div>
+</body>
+</html>

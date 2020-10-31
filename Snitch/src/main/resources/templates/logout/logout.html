@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+
+<head>
+	<meta charset="UTF-8"></meta>
+
+	<link th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}" rel="stylesheet"></link>
+	<script th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+
+	<title>logout</title>
+</head>
+<!-- ユーザー登録情報更新後に遷移するログアウトページ-->
+<body>
+	<!-- 「HomeController」の「/logout」へ処理が投げられる -->
+	<form class="form-signout" name="logout" th:action="@{/logout}" method="post">
+		<!-- ログアウト実行用ボタン-->
+		<button class="logout-btn" type="submit" >Logout</button>
+		<!-- アクセス時に自動でボタンが押されるように設計 -->
+		<script>document.logout.submit();</script>
+	</form>
+</body>
+</html>

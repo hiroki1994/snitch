@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/template}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<meta charset="UTF-8">
+	<title>mypage</title>
+	<script src="https://kit.fontawesome.com/665f18a48e.js" crossorigin="anonymous"></script>
+
+	<link th:href="@{css/mypage.css}" rel="stylesheet"></link>
+</head>
+<!-- マイページ -->
+<body layout:fragment="content">
+	<div sec:authorize="isAuthenticated()">
+		<h1><span sec:authentication="name"></span>様のマイページ</h1>
+　　 </div>
+    <div class="mypageTool col-sm-4 offset-sm-4">
+    	<!--「MypageController」の「/mypage/favorite」へ処理が渡される-->
+    	<form class="favoritePage" th:action="@{/mypage/favorite}" method="post">
+			<button class="favorite-btn btn-warning col-sm-12" type="submit" style="color:white"><i class="fas fa-heart" style="color:white"></i> お気に入り</button>
+		</form>
+    	<br />
+    	<!--「MypageController」の「/mypage/updateUser」へ処理が渡される-->
+		<form class="updatePage" th:action="@{/mypage/updateUser}" method="post">
+			<button class="update-btn btn-success col-sm-12" type="submit"><i class="fas fa-user-edit"></i> 登録情報変更</button>
+
+		</form>
+        <br />
+        <!--「MypageController」の「/mypage/deleteUser」へ処理が渡される-->
+        <form class="deletePage" th:action="@{/mypage/deleteUser}" method="post">
+			<button class="delete-btn btn-danger col-sm-12" type="submit"><i class="fas fa-user-slash"></i> 退会</button>
+		</form>
+    </div>
+</body>
+</html>

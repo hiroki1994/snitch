@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/template}">
+
+<head>
+	<meta charset="UTF-8">
+	<title>updateUser</title>
+	<link th:href="@{../css/deleteUser.css}" rel="stylesheet"></link>
+
+</head>
+<!-- 退会用ページ -->
+<body layout:fragment="content">
+	<h1>退会</h1>
+		<div class="mypageTool col-sm-4 offset-sm-4">
+			<h6><b>「退会」を押すとユーザー情報が全て削除されます。</b></h6>
+			<!-- ボタンを押すと「MyPageController」の「/deleteUser」へ処理が投げられる -->
+			<form class="deletePage" th:action="@{/deleteUser}" method="post">
+				<button class="btn btn-danger col-sm-6" type="submit"><i class="fas fa-user-slash"></i> 退会</button>
+			</form>
+	    </div>
+</body>
+</html>
