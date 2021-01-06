@@ -3,6 +3,7 @@ package com.example.demo.login.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,9 +28,15 @@ public class OmiyageDetailController {
 	//{id}で指定されたお土産の詳細画面表示
 	@GetMapping("/omiyageDetail/{id}") //パスの{id}をパラメータ「omiyaID」として取得
 	public String getOmiyageDetail(@ModelAttribute OmiyageDetail detail, Model model, @PathVariable("id") int omiyaID, HttpServletRequest httpServletRequest) {
+		if(Character.isDigit(omiyaID) != true) {
+			model.addAttribute("message", "指定されたページは存在しません");
+			return "error";
+		}
 
 			//パラメータ「omiyaID」と一致するお土産をテーブル「omiyage」内から取得
+		try {
 			Omiyage omiyage = omiyageService.selectOne(omiyaID);
+
 
 			//「omiyage」に格納されているデータを「detail」に格納
 			detail.setOmiyaID(omiyage.getOmiyaID());
@@ -58,7 +65,13 @@ public class OmiyageDetailController {
 			//「お気に入り」「お気に入り解除」ボタンの表示切り替えのために、modelオブジェクト「favIdResultModel」に格納
 			model.addAttribute("favIdResultModel", favIdResult);
 
-		return "omiyageDetail/omiyageDetail";
+			return "omiyageDetail/omiyageDetail";
+
+		} catch(NumberFormatException | EmptyResultDataAccessException e) {
+			model.addAttribute("message", "指定されたページは存在しません");
+			return "error";
+		}
 	}
+
 }
 

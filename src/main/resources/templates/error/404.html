@@ -2,15 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/template}">
+
+
 <head>
 	<meta charset="UTF-8">
-	<title>Error</title>
+	<title>404Error</title>
 </head>
-<!-- 共通エラーページ -->
+<!-- 404エラーページ-->
 <body>
 	<div layout:fragment="content">
-		<!-- 「GlobalControllAdvice」でmodelに登録した内容をthymeleafで表示 -->
-		<p class="errorMessage" th:text="${message}"></p>
+		<p class="errorMessage">指定されたページは存在しません</p>
 	</div>
 </body>
 </html>
