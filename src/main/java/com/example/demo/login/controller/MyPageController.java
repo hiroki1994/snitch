@@ -1,8 +1,10 @@
 package com.example.demo.login.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.demo.SecurityConfig;
 import com.example.demo.login.domain.model.FavOmiyage;
 import com.example.demo.login.domain.model.GroupOrder;
 import com.example.demo.login.domain.model.SignupForm;
@@ -101,16 +104,17 @@ public class MyPageController {
 
 	//ユーザー登録情報更新実行用メソッド
 	@PostMapping("/updateUserInfo") //「GroupOrder」で設定した順序でバリデーションを実行
-	public String postUserUpdate(@ModelAttribute @Validated(GroupOrder.class)SignupForm form, BindingResult bindingResult, Model model, HttpServletRequest httpServletRequest) {
+	public String postUserUpdate(@ModelAttribute @Validated(GroupOrder.class)SignupForm form, BindingResult bindingResult, Model model, HttpServletRequest request,
+			HttpServletResponse response) {
 
 		//バインディングでエラー発生(バリデーションエラー含む)した場合、登録情報更新ページへ遷移
 		if (bindingResult.hasErrors()) {
-			return PostUserUpdatePage(form, model, httpServletRequest);
+			return PostUserUpdatePage(form, model, request);
 
 		}
 
 		//更新対象のユーザーを検索するために認証済みのユーザーIDを取得
-		String userId_LoggedIn = httpServletRequest.getRemoteUser();
+		String userId_LoggedIn = request.getRemoteUser();
 
 		//ユーザーID取得確認用
 		System.out.println("ログインしているのは"+ userId_LoggedIn);
@@ -135,8 +139,18 @@ public class MyPageController {
 			System.out.println("更新失敗");
 		}
 
-		//更新後、再認証をするためにログアウトさせる
-		return "logout/logout";
+		try {
+			String username = String.valueOf(form.getUserId());
+			String password = String.valueOf(form.getPassword());
+			System.out.println(username);
+			System.out.println(password);
+			SecurityConfig.authWithHttpServletRequestLogin(request, username, password, response);
+			 System.out.println("ログイン実行");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 	//お気に入り画面表示用

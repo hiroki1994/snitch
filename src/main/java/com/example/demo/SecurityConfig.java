@@ -1,5 +1,10 @@
 package com.example.demo;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,4 +116,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.passwordEncoder(passwordEncoder()); //ログイン時にパスワード復号
 
 	}
+
+    public static void authWithHttpServletRequestLogin(HttpServletRequest request, String username, String password, HttpServletResponse response) throws IOException {
+
+    	if(request.getUserPrincipal() != null) {
+    		authWithHttpServletRequestLogout(request, response);
+    		System.out.println("認証済みの状態だったからログアウトしたよ");
+    	}
+
+        try {
+            request.login(username, password);
+            System.out.println(username + "＆");
+			System.out.println(password + "＆");
+            String url = "/mypage";
+    		response.sendRedirect(url);
+        } catch (ServletException e) {
+        	String url = "/login";
+    		response.sendRedirect(url);
+        }
+
+
+    }
+    public static void authWithHttpServletRequestLogout(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        try {
+            request.logout();
+            System.out.println("ログアウト実行");
+        } catch (ServletException e) {
+        	String url = "/login";
+    		response.sendRedirect(url);
+        }
+    }
 }
