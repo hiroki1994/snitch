@@ -1,11 +1,14 @@
 package com.example.demo.login.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.login.domain.service.FavOmiyageService;
@@ -19,8 +22,8 @@ public class FavOmiyageController {
 	FavOmiyageService favOmiyageService;
 
 	//お気に入り追加用コントローラー
-	@GetMapping("/addOmiyage")
-	public String getFavOmiyageAdd(Model model, @RequestParam("favOmiyageId") int favOmiyaID, HttpServletRequest httpServletRequest) {
+	@PostMapping("/addOmiyage")
+	public void postFavOmiyageAdd(Model model, @RequestParam("favOmiyageId") int favOmiyaID, HttpServletRequest httpServletRequest, HttpServletResponse response) throws IOException {
 
 		//ログイン中のユーザー名の取得
 		String userId = httpServletRequest.getRemoteUser();
@@ -35,13 +38,13 @@ public class FavOmiyageController {
 			System.out.println("お気に入り登録失敗");
 		}
 
-		//お土産詳細画面のコントローラーへ遷移
-		return "forward:/omiyageDetail/"+favOmiyaID;
+		String url = "/omiyageDetail/" + favOmiyaID;
+		response.sendRedirect(url);
 	}
 
 	//お気に入り登録解除用コントローラー
-	@GetMapping("/deleteFavOmiyage")
-	public String getFavOmiyageDelite(Model model, @RequestParam("favOmiyageId") String favOmiyaID, HttpServletRequest httpServletRequest) {
+	@PostMapping("/deleteFavOmiyage")
+	public void postFavOmiyageDelite(Model model, @RequestParam("favOmiyageId") String favOmiyaID, HttpServletRequest httpServletRequest, HttpServletResponse response) throws IOException {
 
 		//ログイン中のユーザー名の取得
 		String userId = httpServletRequest.getRemoteUser();
@@ -58,8 +61,9 @@ public class FavOmiyageController {
 			System.out.println("お気に入り登録解除成功");
 		}
 
+		String url = "/omiyageDetail/" + favOmiyaID;
 		//お土産詳細画面のコントローラーへ遷移
-		return "forward:/omiyageDetail/"+favOmiyaID;
+		response.sendRedirect(url);
 	}
 }
 

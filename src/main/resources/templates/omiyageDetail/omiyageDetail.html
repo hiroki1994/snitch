@@ -24,7 +24,7 @@
 			<div   sec:authorize="isAuthenticated()">
 
 				<!-- 「お気に入り」ボタンを押すと、「FavOmiyageControleer」の「/addOmiyage」へ処理が投げられる -->
-				<form id="addOmiyage" th:action="@{/addOmiyage}" method="get">
+				<form id="addOmiyage" th:action="@{/addOmiyage}" method="post">
 					<!-- お気に入り登録時に必要な「omiyaID」を取得 ユーザー側からは非表示 -->
 					<input th:value="${omiyageDetail.omiyaID}" name="favOmiyageId" type="hidden" />
 					<!-- お気に入り登録時に必要な認証済みの「UserID」を取得 ユーザー側からは非表示 -->
@@ -33,7 +33,7 @@
 					<button th:if="${favIdResultModel == null}" class="update-btn btn-warning col-sm-4 offset-sm-9" style="color:white" type="submit" ><i class="fas fa-heart" style="color:white"></i> お気に入り</button>
             	</form>
 
-            	<form id="deleteOmiyage" th:action="@{/deleteFavOmiyage}" method="get">
+            	<form id="deleteOmiyage" th:action="@{/deleteFavOmiyage}" method="post">
             		<!-- お気に入り解除時に必要な「omiyaID」を取得 ユーザー側からは非表示 -->
 					<input th:value="${omiyageDetail.omiyaID}" name="favOmiyageId" type="hidden" />
 					<!-- お気に入り解除時に必要な認証済みの「UserID」を取得 ユーザー側からは非表示 -->
