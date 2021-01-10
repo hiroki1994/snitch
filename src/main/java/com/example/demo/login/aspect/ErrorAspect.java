@@ -2,7 +2,9 @@ package com.example.demo.login.aspect;
 
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 //「DataAccessException」発生時にログを出力 AOPのクラスなので＠Aspectを、DIコンテナへBean定義をするため@Componentをつける
@@ -18,6 +20,30 @@ public class ErrorAspect {
 	{
      System.out.println("=========================================");
      System.out.println("DataAccessExceptionが発生しました。:" + ex);
+     System.out.println("=========================================");
+	}
+
+	@AfterThrowing(value="execution(* *..*.*..*(..))" + " &&(bean(*Controller) || bean(*Service) || bean(*Repository))" , throwing="ex")
+	public void throwingNull(Exception ex)
+	{
+     System.out.println("=========================================");
+     System.out.println("Exceptionが発生しました。:" + ex);
+     System.out.println("=========================================");
+	}
+
+	@AfterThrowing(value="execution(* *..*.*..*(..))" + " &&(bean(*Controller) || bean(*Service) || bean(*Repository))" , throwing="ex")
+	public void throwingNull(EmptyResultDataAccessException ex)
+	{
+     System.out.println("=========================================");
+     System.out.println("EmptyResultDataAccessExceptionが発生しました。:" + ex);
+     System.out.println("=========================================");
+	}
+
+	@AfterThrowing(value="execution(* *..*.*..*(..))" + " &&(bean(*Controller) || bean(*Service) || bean(*Repository))" , throwing="ex")
+	public void throwingNull(ConversionFailedException ex)
+	{
+     System.out.println("=========================================");
+     System.out.println("ConversionFailedExceptionが発生しました。:" + ex);
      System.out.println("=========================================");
 	}
 }

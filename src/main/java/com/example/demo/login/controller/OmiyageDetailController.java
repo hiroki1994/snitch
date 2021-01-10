@@ -3,16 +3,14 @@ package com.example.demo.login.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import com.example.demo.login.domain.model.Omiyage;
 import com.example.demo.login.domain.model.OmiyageDetail;
@@ -65,18 +63,33 @@ public class OmiyageDetailController {
 			model.addAttribute("favIdResultModel", favIdResult);
 
 			return "omiyageDetail/omiyageDetail";
+
+
+
 	}
 
-	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
-	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public String handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException e, SearchForm searchform, Model model) {
+	@ExceptionHandler(Exception.class)
+	public String exceptionHandler(Exception e, Model model, SearchForm searchForm) {
+
+		//エラーメッセージをモデルに格納
+		model.addAttribute("message", "指定されたページは存在しません");
+
+
+		return "error";
+	}
+
+	@ExceptionHandler(ConversionFailedException.class)
+	public String handleConversionFailedException(ConversionFailedException e, Model model, SearchForm searchForm) {
+
+
 		model.addAttribute("message", "指定されたページは存在しません");
 		return "error";
 	}
 
 	@ExceptionHandler(EmptyResultDataAccessException.class)
-	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public String handleMethodArgumentTypeMismatch(EmptyResultDataAccessException e, SearchForm searchform, Model model) {
+	public String handleMethodArgumentTypeMismatch(EmptyResultDataAccessException e, Model model, SearchForm searchForm) {
+
+
 		model.addAttribute("message", "指定されたページは存在しません");
 		return "error";
 	}

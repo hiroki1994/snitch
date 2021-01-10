@@ -1,12 +1,12 @@
 package com.example.demo.login.controller;
 
+import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import com.example.demo.login.domain.model.SearchForm;
 
@@ -54,7 +54,7 @@ public class GlobalControllAdvice {
 	}
 
 	@ExceptionHandler(IllegalArgumentException.class)
-	public String illegalArgumentException(IllegalArgumentException e, Model model, SearchForm searchForm) {
+	public String illegalArgumentException(IllegalArgumentException e, Model model) {
 
 
 		System.out.println("4");
@@ -68,7 +68,7 @@ public class GlobalControllAdvice {
 
 
 	@ExceptionHandler(EmptyResultDataAccessException.class)
-	public String emptyResultDataAccessException(EmptyResultDataAccessException e, Model model, SearchForm searchForm) {
+	public String emptyResultDataAccessException(EmptyResultDataAccessException e, Model model) {
 
 
 		System.out.println("5");
@@ -79,13 +79,13 @@ public class GlobalControllAdvice {
 		return "error";
 	}
 
-	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
-	public String methodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e, Model model, SearchForm searchForm) {
+	@ExceptionHandler(ConversionFailedException.class)
+	public String ConversionFailedException(ConversionFailedException e, Model model) {
 
 
 		System.out.println("5");
 		//エラーメッセージをモデルに格納
-		model.addAttribute("message", "指定されたページは存在しませんMethodArgumentTypeMismatchException");
+		model.addAttribute("message", "指定されたページは存在しませんConversionFailedException");
 
 
 		return "error";

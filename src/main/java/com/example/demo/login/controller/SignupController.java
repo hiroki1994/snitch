@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.login.domain.model.GroupOrder;
+import com.example.demo.login.domain.model.SearchForm;
 import com.example.demo.login.domain.model.SignupForm;
 import com.example.demo.login.domain.model.User;
 import com.example.demo.login.domain.service.UserService;
@@ -68,7 +69,8 @@ public class SignupController {
 
 	//「SignUpController」で「DataAccessException」が発生した場合、500エラーページを表示
 	@ExceptionHandler(DataAccessException.class)
-	public String dataAccessExceptionHandler(DataAccessException e, Model model) {
+	public String dataAccessExceptionHandler(DataAccessException e, Model model, SearchForm searchForm) {
+
 
 		//エラーメッセージをキー「error」に格納
 		model.addAttribute("error", "内部サーバーエラー(DB) : ExceptionHandler");
@@ -84,7 +86,7 @@ public class SignupController {
 
 	//「SignUpController」で「Exception」が発生した場合、500エラーページを表示
 	@ExceptionHandler(Exception.class)
-	public String exceptionHandler(Exception e, Model model) {
+	public String exceptionHandler(Exception e, Model model, SearchForm searchForm) {
 
 		//エラーメッセージをキー「error」に格納
 		model.addAttribute("error", "内部サーバーエラー: ExceptionHandler");
