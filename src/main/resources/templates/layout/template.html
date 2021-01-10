@@ -30,7 +30,7 @@
 				    <li class="nav-item">
 						<a class="nav-link" href="/home">Home</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item" sec:authorize="isAnonymous()">
 						<a class="nav-link" href="/login">Login</a> <!--「LoginController」の「/login」へ処理が呼ばれる-->
 					</li>
 					<li class="nav-item"> <!--「Snitch」説明ページへ遷移-->
