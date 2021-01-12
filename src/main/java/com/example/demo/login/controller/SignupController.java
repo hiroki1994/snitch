@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.example.demo.login.domain.model.GroupOrder;
 import com.example.demo.login.domain.model.SignupForm;
@@ -68,34 +69,16 @@ public class SignupController {
 
 	//「SignUpController」で「DataAccessException」が発生した場合、500エラーページを表示
 	@ExceptionHandler(DataAccessException.class)
+	@ResponseStatus(HttpStatus.CONFLICT)
 	public String dataAccessExceptionHandler(DataAccessException e, Model model) {
 
-		//エラーメッセージをキー「error」に格納
-		model.addAttribute("error", "内部サーバーエラー(DB) : ExceptionHandler");
-
+		System.out.println("Signupだよー");
 		//エラーメッセージをキー「message」に格納
-		model.addAttribute("message", "SignupControllerでDataAccessExceptionが発生しました。入力されたログインIDは既に使用されている可能性があります。");
+		model.addAttribute("message", "入力されたログインIDは既に使用されている可能性があります。");
 
-		//500エラーをキー「status」に格納
-		model.addAttribute("status" ,HttpStatus.INTERNAL_SERVER_ERROR);
 
 		return "error";
 	}
 
-	//「SignUpController」で「Exception」が発生した場合、500エラーページを表示
-	@ExceptionHandler(Exception.class)
-	public String exceptionHandler(Exception e, Model model) {
-
-		//エラーメッセージをキー「error」に格納
-		model.addAttribute("error", "内部サーバーエラー: ExceptionHandler");
-
-		//エラーメッセージをキー「message」に格納
-		model.addAttribute("message", "SignupControllerでExceptionが発生しました。");
-
-		//500エラーをキー「status」に格納
-		model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR);
-
-		return "error";
-	}
 
 }

@@ -6,13 +6,6 @@
 </head>
 <!-- 共通エラーページ -->
 <body>
-	<!-- 「GlobalControllAdvice」でmodelに登録した内容をthymeleafで表示 -->
-	<h1 th:text="${status} + '' + ${error}"></h1>
 	<p th:text="${message}"></p>
-	<p>ログイン画面に戻ります。</p>
-	<!-- 認証を解除する -->
-	<form method="post" th:action="@{/logout}">
-		<button class="btn btn-link" type="submit">ログイン画面へ</button>
-	</form>
 </body>
 </html>
