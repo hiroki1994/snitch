@@ -4,13 +4,13 @@ CREATE TABLE IF NOT EXISTS userData (
 	mailAddress VARCHAR(100),
 	password VARCHAR(100),
 	role VARCHAR(20),
-	unavailableFlag INT
+	unavailableFlag INT default 0
 );
 
 CREATE TABLE IF NOT EXISTS guest (
 	guestId INT PRIMARY KEY AUTO_INCREMENT,
 	guestName VARCHAR(20),
-	unavailableFlag INT
+	unavailableFlag INT default 0
 );
 
 CREATE TABLE IF NOT EXISTS gift (
@@ -23,8 +23,7 @@ CREATE TABLE IF NOT EXISTS gift (
   shop VARCHAR(100),
   address VARCHAR(500),
   phone VARCHAR(50),
-  keyword VARCHAR(1000),
-  unavailableFlag INT,
+  unavailableFlag INT default 0,
   CONSTRAINT fk_gift_guest FOREIGN KEY fk_guestId(guestId) REFERENCES guest (guestId)
 );
 
@@ -33,7 +32,7 @@ CREATE TABLE IF NOT EXISTS favGift (
   favId INT PRIMARY KEY AUTO_INCREMENT,
   userId VARCHAR(50),
   giftId INT,
-  unavailableFlag INT,
+  unavailableFlag INT default 0,
   CONSTRAINT fk_fav_user FOREIGN KEY fk_userId(userId) REFERENCES guest (guestId)
   CONSTRAINT fk_fav_gift FOREIGN KEY fk_giftId(giftId) REFERENCES gift (giftId)
 );

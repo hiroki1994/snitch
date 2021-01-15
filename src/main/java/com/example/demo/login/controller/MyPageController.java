@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.SecurityConfig;
-import com.example.demo.login.domain.model.FavOmiyage;
+import com.example.demo.login.domain.model.FavGift;
 import com.example.demo.login.domain.model.GroupOrder;
 import com.example.demo.login.domain.model.SignupForm;
 import com.example.demo.login.domain.model.User;
-import com.example.demo.login.domain.service.FavOmiyageService;
+import com.example.demo.login.domain.service.FavGiftService;
 import com.example.demo.login.domain.service.UserService;
 
 
@@ -32,7 +32,7 @@ public class MyPageController {
 	UserService userService;
 
 	@Autowired
-	FavOmiyageService favOmiyageService;
+	FavGiftService favGiftService;
 
 	//マイページ「mypgae.html」を表示
 	@GetMapping("/mypage")
@@ -164,16 +164,16 @@ public class MyPageController {
 		System.out.println("ログインしているのは"+userId);
 
 		//登録済みのお土産を全件取得、リストに格納
-		List<FavOmiyage> favOmiyageList = favOmiyageService.selectMany(userId);
+		List<FavGift> favGiftList = favGiftService.selectMany(userId);
 
-		//画面表示させるためにmodelオブジェクト「favOmiyageList」に取得結果を格納
-		model.addAttribute("favOmiyageList", favOmiyageList);
+		//画面表示させるためにmodelオブジェクト「favGiftList」に取得結果を格納
+		model.addAttribute("favGiftList", favGiftList);
 
 		//お気に入り済みのお土産の件数を取得
-		int count = favOmiyageService.count(userId);
+		int count = favGiftService.count(userId);
 
-		//画面表示させるためにmodelオブジェクト「favOmiyageListCount」に取得結果を格納
-		model.addAttribute("favOmiyageListCount", count);
+		//画面表示させるためにmodelオブジェクト「favGiftListCount」に取得結果を格納
+		model.addAttribute("favGiftListCount", count);
 
 		return "mypage/favorite/favorite";
 	}

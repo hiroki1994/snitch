@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-.omiyage.col-sm-10.offset-sm-1 {
+.gift.col-sm-10.offset-sm-1 {
 	position: relative;
  	float:left;
 	background-color:#FCF9F4;
@@ -8,7 +8,7 @@
 
 }
 
-.omiyage-left.col-sm-5 {
+.gift-left.col-sm-5 {
  	float: left;
  	margin-left: 10px;
 }
@@ -31,7 +31,7 @@ update-btn.btn-danger.col-sm-4.offset-sm-9 {
  	padding: 0;
 }
 
-img.omiyage-image {
+img.gift-image {
 	position: relative;
  	float:left;
 	width: 480px;
@@ -42,35 +42,35 @@ img.omiyage-image {
  	padding-bottom: 15px;
  }
 
-.omiyage-right.offset-sm-6 {
+.gift-right.offset-sm-6 {
 	margin-top: 40px;
 	margin-right: 10px;
 }
 
-.omiyage-text {
+.gift-text {
 	margin-left: 15px;
 }
 
-p.omiyage-name {
+p.gift-name {
 	text-align: center;
 	font-size: 36px;
 	font-weight:bold;
 }
 
 
-p.omiyage-description {
+p.gift-description {
 	text-align: left;
 	font-size: 16px;
 }
 
 
-p.omiyage-guest{
+p.gift-guest{
 	font-size: 16px;
 	font-weight:bold;
 	text-align: left;
 }
 
-p.omiyage-price {
+p.gift-price {
 	font-size: 16px;
 	text-align: left;
 	font-weight:bold;
@@ -78,21 +78,21 @@ p.omiyage-price {
 
 
 
-p.omiyage-shop {
-	font-size: 16px;
-	text-align: left;
-	font-weight:bold;
-
-}
-
-p#omiyage-address {
+p.gift-shop {
 	font-size: 16px;
 	text-align: left;
 	font-weight:bold;
 
 }
 
-p.omiyage-phone {
+p#gift-address {
+	font-size: 16px;
+	text-align: left;
+	font-weight:bold;
+
+}
+
+p.gift-phone {
 	font-size: 16px;
 	text-align: left;
 	font-weight:bold;

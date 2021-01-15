@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.login.domain.model.Omiyage;
-import com.example.demo.login.domain.repository.OmiyageDao;
+import com.example.demo.login.domain.model.Gift;
+import com.example.demo.login.domain.repository.GiftDao;
 
 
 /*テーブル「omiyage」操作用のサービスメソッド
@@ -15,25 +15,25 @@ import com.example.demo.login.domain.repository.OmiyageDao;
  */
 @Transactional
 @Service
-public class OmiyageService {
+public class GiftService {
 
 	@Autowired
-	OmiyageDao dao;
+	GiftDao dao;
 
 	//Home画面に表示するお土産を複数選出
-	public List<Omiyage> selectMany() {
+	public List<Gift> selectMany() {
 
 	    //リポジトリークラスに処理を投げる
 		return dao.selectMany();
 	}
 
 	//テーブル「omiyage」より1件取得
-	public Omiyage selectOne(int omiyaID) {
-		return dao.selectOne(omiyaID);
+	public Gift selectOne(int giftId) {
+		return dao.selectOne(giftId);
 	}
 
 	//テーブル「omiyage」より該当のkeywordを含むお土産を取得
-	public List<Omiyage> search(String keyword) {
+	public List<Gift> search(String keyword) {
 		System.out.println(keyword+"2");
 
 		//検索キーワード「keyword」を引数にリポジトリークラスに処理を投げる
