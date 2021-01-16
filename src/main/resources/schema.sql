@@ -23,7 +23,8 @@ CREATE TABLE IF NOT EXISTS gift (
   shop VARCHAR(100),
   address VARCHAR(500),
   phone VARCHAR(50),
-  unavailableFlag INT default 0
+  unavailableFlag INT default 0,
+  FOREIGN KEY (guestId) REFERENCES guest(guestId)
 );
 
 
