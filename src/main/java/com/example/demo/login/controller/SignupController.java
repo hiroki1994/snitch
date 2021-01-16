@@ -54,7 +54,7 @@ public class SignupController {
 		User user = new User();
 
 		//登録フォームに入力した内容をUserクラスにセット
-		user.setUserId(form.getUserId());
+		user.setUserName(form.getUserName());
 		user.setMailAddress(form.getMailAddress());
 		user.setPassword(form.getPassword());
 
@@ -69,7 +69,7 @@ public class SignupController {
 		}
 
 		try {
-			String username = String.valueOf(form.getUserId());
+			String username = String.valueOf(form.getUserName());
 			String password = String.valueOf(form.getPassword());
 			SecurityConfig.authWithHttpServletRequestLogin(request, username, password, response);
 		} catch (IOException e) {

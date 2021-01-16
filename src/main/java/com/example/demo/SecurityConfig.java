@@ -40,24 +40,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
-	//UserIdとpassword取得用のSQL文
+	//UserNameとpassword取得用のSQL文
 	private static final String USER_DATA = "SELECT"
-			+ " userId,"
+			+ " userName,"
 			+ " password,"
 			+ " true"
 			+ " FROM"
 			+ " userData"
 			+ " WHERE"
-			+ " userId = ?";
+			+ " userName = ?";
 
 	//権限取得用のSQL文
 	private static final String ROLE_DATA = "SELECT"
-			+ " userId,"
+			+ " userName,"
 			+ " role"
 			+ " FROM"
 			+ " userData"
 			+ " WHERE"
-			+ " userId = ?";
+			+ " userName = ?";
 
 	/*
 	 * configureメソッドをoverrideし引数のWebseCurityについて設定
@@ -90,7 +90,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginProcessingUrl("/login") //ログイン処理をするURLの設定
 				.loginPage("/login") //自作したログインページをリンク先に設定
 				.failureUrl("/login") //ログイン失敗時は再度ログインページへ遷移
-				.usernameParameter("userId") //UserId入力エリアのパラメーター名指定
+				.usernameParameter("userName") //userName入力エリアのパラメーター名指定
 				.passwordParameter("password") //Password入力エリアのパラメーター名指定
 				.defaultSuccessUrl("/mypage",true); //ログイン成功時マイページへ遷移
 

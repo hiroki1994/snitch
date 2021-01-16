@@ -31,7 +31,7 @@ public class UserDaoJdbcImpl implements UserDao {
 
 		//PreparedStatementを使って登録用のSQL文を作成
 		String sql = "INSERT INTO userData("
-			+ " userId,"
+			+ " userName,"
 			+ " mailAddress,"
 			+ " password,"
 			+ " role)"
@@ -39,7 +39,7 @@ public class UserDaoJdbcImpl implements UserDao {
 
 		//Userから値を取得し、SQL文の？に値をセットし、SQL文実行
 		int rowNumber = jdbc.update(sql,
-			user.getUserId(),
+			user.getUserName(),
 			user.getMailAddress(),
 			password,
 			user.getRole());
@@ -50,25 +50,25 @@ public class UserDaoJdbcImpl implements UserDao {
 
 	//ログイン済みのユーザーの登録情報を更新
 	@Override
-	public int updateOne(User user, String userId_LoggedIn) throws DataAccessException {
+	public int updateOne(User user, String userName_LoggedIn) throws DataAccessException {
 
 		//Userに格納されたpasswordを暗号化 BCryptによる暗号化
 		String password = passwordEncoder.encode(user.getPassword());
 
 		//PreparedStatementを使って更新用のSQL文を作成
 		String sql = "UPDATE userData SET"
-			+ " userId = ?,"
+			+ " userName = ?,"
 			+ " mailAddress = ?,"
 			+ " password = ?"
 			+ " WHERE"
-			+ " userId = ?";
+			+ " userName = ?";
 
 		//Userから値を取得し、SQL文の？に値をセットし、SQL文実行
 		int rowNumber = jdbc.update(sql,
-				user.getUserId(),
+				user.getUserName(),
 				user.getMailAddress(),
 				password,
-				userId_LoggedIn);
+				userName_LoggedIn);
 
 
 		return rowNumber;
@@ -76,17 +76,19 @@ public class UserDaoJdbcImpl implements UserDao {
 
 	//ユーザー登録情報更新ページ表示用メソッド ログイン済みのIDで1件検索
 	@Override
-	public User selectOne(String userId) throws DataAccessException {
+	public User selectOne(String userName) throws DataAccessException {
 
 
 
 		//ログイン済みIDでテーブル「userData」の中から該当のユーザーデータのレコードを取得し、マップに格納
-		Map<String, Object> map = jdbc.queryForMap("SELECT * FROM userData" + " WHERE userId = ?", userId);
+		Map<String, Object> map = jdbc.queryForMap("SELECT * FROM userData" + " WHERE userName = ?", userName);
 
 		User user = new User();
 
 		//マップに格納された要素をUserに格納
-		user.setUserId((String)map.get("userId"));
+		System.out.println(map.get("userId"));
+
+		user.setUserName((String)map.get("userName"));
 		user.setMailAddress((String)map.get("mailAddress"));
 		user.setPassword((String)map.get("password"));
 
@@ -98,13 +100,13 @@ public class UserDaoJdbcImpl implements UserDao {
 
 	//退会用メソッド
 	@Override
-	public int deleteOne(String userId) throws DataAccessException {
+	public int deleteOne(String userName) throws DataAccessException {
 
 		//ユーザーのテーブルのユーザーデータの削除
-		int rowNumber = jdbc.update("DELETE FROM userData WHERE userId = ?", userId);
+		int rowNumber = jdbc.update("INSERT INTO userData(unavailableFlag) VALUE(1) WHERE userName = ? AND userDate.unavailableFlag = 0", userName);
 
 		//お気に入りのお土産テーブルからデータを削除
-		int rowNumber2 = jdbc.update("DELETE FROM FavOmiyage WHERE userId = ?", userId);
+		int rowNumber2 = jdbc.update("INSERT INTO favGift(unavailableFlag) VALUE(1) WHERE userName = ? AND userDate.unavailableFlag = 0", userName);
 
 		//お気に入り削除機能の結果をコンソールに表示
         if(rowNumber2 > 0) {

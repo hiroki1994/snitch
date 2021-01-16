@@ -16,4 +16,5 @@ public class FavGift {
 	private String shop;
 	private String address;
 	private String phone;
+	private int unavailableFlag;
 }

@@ -556,7 +556,7 @@ INSERT INTO guest(guestName) VALUES('深田恭子');
 INSERT INTO guest(guestName) VALUES('木村カエラ');
 INSERT INTO guest(guestName) VALUES('黒谷友香');
 INSERT INTO guest(guestName) VALUES('井上和香');
-INSERT INTO guest(guestName) VALUES('南海キャンディーズさんのお土産『りくろーおじ');
+INSERT INTO guest(guestName) VALUES('南海キャンディーズ');
 INSERT INTO guest(guestName) VALUES('堀北真希');
 INSERT INTO guest(guestName) VALUES('石原良純');
 INSERT INTO guest(guestName) VALUES('川合俊一');
@@ -751,6 +751,6 @@ INSERT INTO guest(guestName) VALUES('aiko');
 
 
 
-INSERT INTO userData(userId, mailAddress, password, role) VALUES('userId', 'mailaddress@gmail.co.jp', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', 'ROLE_GENERAL');
+INSERT INTO userData(userName, mailAddress, password, role) VALUES('userName', 'mailaddress@gmail.co.jp', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', 'ROLE_GENERAL');
 
 

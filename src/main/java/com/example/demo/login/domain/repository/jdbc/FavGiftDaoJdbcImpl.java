@@ -25,7 +25,7 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	public List<FavGift> selectMany(String userId) throws DataAccessException {
 
 			//ログイン中のuserIdがカラム「userId」中に含まれているデータを全件取得し、リストに格納
-			List<Map<String, Object>>  getList = jdbc.queryForList("SELECT * FROM favGift INNER JOIN gift ON favGift.giftId = gift.giftId INNER JOIN guest ON favGift.guestId = guest.guestId WHERE userId = ? AND unavailableFlag = 0", userId);
+			List<Map<String, Object>>  getList = jdbc.queryForList("SELECT * FROM favGift INNER JOIN gift ON favGift.giftId = gift.giftId INNER JOIN guest ON favGift.guestId = guest.guestId WHERE userId = ? AND favGift.unavailableFlag = 0", userId);
 
 			List<FavGift> favGiftList = new ArrayList<>();
 
@@ -65,7 +65,7 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 		 * 該当のIDと一致するIDを含むお土産のレコードをテーブル「FavOmiyage」より取得
 		 */
 		try {
-		Map<String, Object> favIdFind = jdbc.queryForMap("SELECT favId FROM favGift WHERE userId = ? AND giftId = ? AND unavailableFlag = 0", userId, giftId);
+		Map<String, Object> favIdFind = jdbc.queryForMap("SELECT favId FROM favGift WHERE userId = ? AND giftId = ? AND favGift.unavailableFlag = 0", userId, giftId);
 
 		String favId2 = (String) favIdFind.get("favId");
 
@@ -83,7 +83,7 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	public int count(String userId) throws DataAccessException {
 
 		//ログイン中のuserIdがカラム「UserId」中に含まれているデータのomiyaIDを全件取得し、リストに格納
-		List<Map<String, Object>>  getList = jdbc.queryForList("SELECT giftId FROM favGift WHERE userId = ? AND unavailableFlag = 0", userId);
+		List<Map<String, Object>>  getList = jdbc.queryForList("SELECT giftId FROM favGift WHERE userId = ? AND favGift.unavailableFlag = 0", userId);
 
 		//要素数をカウント
 		int favCount = getList.size();
@@ -111,7 +111,7 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	public int delete(String userId, int giftId)throws DataAccessException{
 
 		//お気に入りテーブルのユニークID「favId」で登録されたお土産をお気に入りから削除
-		int rowNumber = jdbc.update("INSERT INTO favGift(unavailableFlag) VALUE(1) WHERE userId = ? AND giftId = ? AND unavailableFlag = 0", userId, giftId);
+		int rowNumber = jdbc.update("INSERT INTO favGift(unavailableFlag) VALUE(1) WHERE userId = ? AND giftId = ? AND favGift.unavailableFlag = 0", userId, giftId);
 
 		return rowNumber;
 	}

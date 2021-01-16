@@ -53,13 +53,13 @@ public class MyPageController {
 	public String postDeleteUser(HttpServletRequest httpServletRequest) {
 
 		//認証済みのユーザーのIDを取得
-		String userId = httpServletRequest.getRemoteUser();
+		String userName = httpServletRequest.getRemoteUser();
 
 		//ユーザーID取得確認用
-		System.out.println(userId +"の登録情報を削除します");
+		System.out.println(userName +"の登録情報を削除します");
 
 		//ログイン中のユーザーIDを引数にサービスへ処理を投げる
-	    boolean result = userService.deleteOne(userId);
+	    boolean result = userService.deleteOne(userName);
 
 	    //ユーザーデータ削除動作確認用
 	    if(result == true) {
@@ -79,17 +79,17 @@ public class MyPageController {
 	public String PostUserUpdatePage(@ModelAttribute SignupForm form, Model model, HttpServletRequest httpServletRequest) {
 
 		//認証済みのユーザーのIDを取得
-		String userId = httpServletRequest.getRemoteUser();
+		String userName = httpServletRequest.getRemoteUser();
 
 		//ユーザーID取得確認用
-		System.out.println(userId+"の登録情報を更新します");
+		System.out.println(userName+"の登録情報を更新します");
 
 		/*ユーザーIDが取得できたとき、ユーザーIDからユーザーデータを検索
 		 *Userクラスに取得した値をセットする
 		 */
-		if(userId != null && userId.length() > 0) {
-			User user = userService.selectOne(userId);
-			form.setUserId(user.getUserId());
+		if(userName != null && userName.length() > 0) {
+			User user = userService.selectOne(userName);
+			form.setUserName(user.getUserName());
 			form.setMailAddress(user.getMailAddress());
 
 			//画面表示させるためにmodelオブジェクト「signupForm」に取得結果を格納
@@ -114,22 +114,22 @@ public class MyPageController {
 		}
 
 		//更新対象のユーザーを検索するために認証済みのユーザーIDを取得
-		String userId_LoggedIn = request.getRemoteUser();
+		String userName_LoggedIn = request.getRemoteUser();
 
 		//ユーザーID取得確認用
-		System.out.println("ログインしているのは"+ userId_LoggedIn);
+		System.out.println("ログインしているのは"+ userName_LoggedIn);
 
 
 		//Userインスタンスの生成
 		User user = new User();
 
 		//更新後のデータも含め、SignupFormに格納されているデータをUserクラスにセットする
-		user.setUserId(form.getUserId());
+		user.setUserName(form.getUserName());
 		user.setMailAddress(form.getMailAddress());
 		user.setPassword(form.getPassword());
 
 		//ログインIDと更新後の内容が格納されたUserを引数に更新
-		boolean result = userService.updateOne(user, userId_LoggedIn);
+		boolean result = userService.updateOne(user, userName_LoggedIn);
 
 		//ユーザーデータ更新動作確認用
 		if(result == true) {
@@ -140,7 +140,7 @@ public class MyPageController {
 		}
 
 		try {
-			String username = String.valueOf(form.getUserId());
+			String username = String.valueOf(form.getUserName());
 			String password = String.valueOf(form.getPassword());
 			System.out.println(username);
 			System.out.println(password);
@@ -158,19 +158,19 @@ public class MyPageController {
 	public String getFavorite(Model model, HttpServletRequest httpServletRequest) {
 
 		//更新対象のユーザーを検索するために認証済みのユーザーのIDを取得
-		String userId = httpServletRequest.getRemoteUser();
+		String userName = httpServletRequest.getRemoteUser();
 
 		//ユーザーID取得確認用
-		System.out.println("ログインしているのは"+userId);
+		System.out.println("ログインしているのは"+userName);
 
 		//登録済みのお土産を全件取得、リストに格納
-		List<FavGift> favGiftList = favGiftService.selectMany(userId);
+		List<FavGift> favGiftList = favGiftService.selectMany(userName);
 
 		//画面表示させるためにmodelオブジェクト「favGiftList」に取得結果を格納
 		model.addAttribute("favGiftList", favGiftList);
 
 		//お気に入り済みのお土産の件数を取得
-		int count = favGiftService.count(userId);
+		int count = favGiftService.count(userName);
 
 		//画面表示させるためにmodelオブジェクト「favGiftListCount」に取得結果を格納
 		model.addAttribute("favGiftListCount", count);
