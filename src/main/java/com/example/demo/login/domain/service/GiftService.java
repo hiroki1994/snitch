@@ -10,7 +10,7 @@ import com.example.demo.login.domain.model.Gift;
 import com.example.demo.login.domain.repository.GiftDao;
 
 
-/*テーブル「omiyage」操作用のサービスメソッド
+/*テーブル「gift」操作用のサービスメソッド
  * トランザクション処理を利用
  */
 @Transactional
@@ -27,12 +27,12 @@ public class GiftService {
 		return dao.selectMany();
 	}
 
-	//テーブル「omiyage」より1件取得
+	//テーブル「gift」より1件取得
 	public Gift selectOne(int giftId) {
 		return dao.selectOne(giftId);
 	}
 
-	//テーブル「omiyage」より該当のkeywordを含むお土産を取得
+	//テーブル「gift」より該当のkeywordを含むお土産を取得
 	public List<Gift> search(String keyword) {
 		System.out.println(keyword+"2");
 

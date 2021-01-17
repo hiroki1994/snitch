@@ -25,9 +25,9 @@
 			<!--「SearchController」でmodelオブジェクト「giftList」に格納した検索結果を繰り返し処理で一件ずつ表示-->
 			<div class="gift" th:each="gift : ${giftList}">
 				<div class="gift2">
-		    		<a th:href="@{'/giftDetail/'+${gift.omiyaID}}"><img class="gift-picture" th:src="@{'/image/'+${gift.image}}" alt="gift-image"></a>
-					<p class="gift-name" th:text="${gift.name}"></p>
-					<p class="gift-guest"th:text="${gift.guest}"></p>
+		    		<a th:href="@{'/giftDetail/'+${gift.giftId}}"><img class="gift-picture" th:src="@{'/image/'+${gift.image}}" alt="gift-image"></a>
+					<p class="gift-name" th:text="${gift.giftName}"></p>
+					<p class="gift-guest" th:text="${gift.guestName}"></p>
 				</div>
 			</div>
 		</div>

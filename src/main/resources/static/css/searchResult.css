@@ -15,13 +15,20 @@ p.resultCount {
 	margin-left: 15px;
 }
 
+
 .gift {
-	margin: 10px 10.5px;
+	margin: 10px;
+	margin-left: 18px;
 	position: relative;
  	float:left;
 }
 
-img.gift-picture{
+.gift2 {
+	width: 262px;
+}
+
+
+img.gift-picture {
 	width: 258.5px;
 	height:  194px;
 }
