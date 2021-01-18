@@ -50,10 +50,10 @@ public class MyPageController {
 
 	//退会メソッド
 	@PostMapping("/deleteUser")
-	public String postDeleteUser(HttpServletRequest httpServletRequest) {
+	public void postDeleteUser( HttpServletRequest request, HttpServletResponse response) {
 
 		//認証済みのユーザーのIDを取得
-		String userName = httpServletRequest.getRemoteUser();
+		String userName = request.getRemoteUser();
 
 		//ユーザーID取得確認用
 		System.out.println(userName +"の登録情報を削除します");
@@ -68,20 +68,21 @@ public class MyPageController {
 	    	System.out.println("削除失敗");
 	    }
 
-	    /*「logout.html」へ遷移
-	     * ユーザー退会時に自動で認証を取り消すことができず、ログアウト用のページに一瞬遷移させ認証を取り消すように設計
-	     */
-		return "logout/logout";
+	    try {
+			SecurityConfig.authWithHttpServletRequestLogout(request, response);
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 	}
 
 	//ユーザー登録情報更新ページ表示用メソッド
 	@PostMapping("/mypage/updateUser")
-	public String PostUserUpdatePage(@ModelAttribute SignupForm form, Model model, HttpServletRequest httpServletRequest) {
+	public String PostUserUpdatePage(@ModelAttribute SignupForm form, Model model, HttpServletRequest request) {
 
 		//認証済みのユーザーのIDを取得
-		String userName = httpServletRequest.getRemoteUser();
+		String userName = request.getRemoteUser();
 
-		//ユーザーID取得確認用
 		System.out.println(userName+"の登録情報を更新します");
 
 		/*ユーザーIDが取得できたとき、ユーザーIDからユーザーデータを検索
@@ -95,6 +96,7 @@ public class MyPageController {
 			//画面表示させるためにmodelオブジェクト「signupForm」に取得結果を格納
 			model.addAttribute("signupForm", form);
 		}
+
 
 		return "mypage/updateUser/updateUser";
     }

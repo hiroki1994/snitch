@@ -48,7 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			+ " FROM"
 			+ " userData"
 			+ " WHERE"
-			+ " userName = ?";
+			+ " userName = ?"
+			+ " AND userData.unavailableFlag IS NULL";
 
 	//権限取得用のSQL文
 	private static final String ROLE_DATA = "SELECT"
@@ -57,7 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			+ " FROM"
 			+ " userData"
 			+ " WHERE"
-			+ " userName = ?";
+			+ " userName = ?"
+			+ " AND userData.unavailableFlag IS NULL";
 
 	/*
 	 * configureメソッドをoverrideし引数のWebseCurityについて設定
@@ -137,10 +139,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     }
+
     public static void authWithHttpServletRequestLogout(HttpServletRequest request,HttpServletResponse response) throws IOException {
         try {
             request.logout();
             System.out.println("ログアウト実行");
+            String url = "/login";
+    		response.sendRedirect(url);
         } catch (ServletException e) {
         	String url = "/login";
     		response.sendRedirect(url);

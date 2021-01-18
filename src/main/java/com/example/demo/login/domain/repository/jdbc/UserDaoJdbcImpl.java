@@ -81,7 +81,7 @@ public class UserDaoJdbcImpl implements UserDao {
 
 
 		//ログイン済みIDでテーブル「userData」の中から該当のユーザーデータのレコードを取得し、マップに格納
-		Map<String, Object> map = jdbc.queryForMap("SELECT * FROM userData" + " WHERE userName = ?", userName);
+		Map<String, Object> map = jdbc.queryForMap("SELECT * FROM userData WHERE userName = ?", userName);
 
 		User user = new User();
 
@@ -102,11 +102,15 @@ public class UserDaoJdbcImpl implements UserDao {
 	@Override
 	public int deleteOne(String userName) throws DataAccessException {
 
+		Map<String, Object> map = jdbc.queryForMap("SELECT userId FROM userData WHERE userName = ?", userName);
+
+
 		//ユーザーのテーブルのユーザーデータの削除
-		int rowNumber = jdbc.update("INSERT INTO userData(unavailableFlag) VALUE(1) WHERE userName = ? AND userDate.unavailableFlag = 0", userName);
+		int rowNumber = jdbc.update("UPDATE userData SET unavailableFlag = '1' WHERE userId = ? AND unavailableFlag IS NULL", map.get("userId"));
+
 
 		//お気に入りのお土産テーブルからデータを削除
-		int rowNumber2 = jdbc.update("INSERT INTO favGift(unavailableFlag) VALUE(1) WHERE userName = ? AND userDate.unavailableFlag = 0", userName);
+		int rowNumber2 = jdbc.update("UPDATE favGift SET unavailableFlag = '1' WHERE userId = ? AND unavailableFlag IS NULL", map.get("userId"));
 
 		//お気に入り削除機能の結果をコンソールに表示
         if(rowNumber2 > 0) {

@@ -8,9 +8,14 @@
 
 
 .gift {
-	margin: 10px 10.5px;
+	margin: 10px;
+	margin-left: 18px;
 	position: relative;
  	float:left;
+}
+
+.gift2 {
+	width: 262px;
 }
 
 img.gift-picture{

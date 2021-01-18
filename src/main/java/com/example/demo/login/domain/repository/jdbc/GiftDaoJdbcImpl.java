@@ -27,7 +27,7 @@ public class GiftDaoJdbcImpl implements GiftDao {
 	public int count(String keyword) throws DataAccessException {
 
 		//検索キーワード「keyword」をカラム「keyword」に含むお土産の登録IDのみを取得し、リストに格納
-		List<Map<String, Object>>  getList = jdbc.queryForList("SELECT giftId FROM gift INNER JOIN guest ON gift.guestId = guest.guestId WHERE CONCAT(giftName, description, shop, address, guestName) LIKE '%'||?||'%' AND gift.unavailableFlag = 0", keyword);
+		List<Map<String, Object>>  getList = jdbc.queryForList("SELECT giftId FROM gift INNER JOIN guest ON gift.guestId = guest.guestId WHERE CONCAT(giftName, description, shop, address, guestName) LIKE '%'||?||'%' AND gift.unavailableFlag IS NULL", keyword);
 
 		int searchCount = 0;
 
@@ -49,7 +49,7 @@ public class GiftDaoJdbcImpl implements GiftDao {
 
 
 			//検索キーワード「keyword」登録情報内に含むお土産の登録IDのみを取得し、リストに格納
-			List<Map<String, Object>>  getList = jdbc.queryForList("SELECT * FROM gift INNER JOIN guest ON gift.guestId = guest.guestId WHERE CONCAT(giftName, description, shop, address, guestName) LIKE '%'||?||'%' AND gift.unavailableFlag = 0", keyword);
+			List<Map<String, Object>>  getList = jdbc.queryForList("SELECT * FROM gift INNER JOIN guest ON gift.guestId = guest.guestId WHERE CONCAT(giftName, description, shop, address, guestName) LIKE '%'||?||'%' AND gift.unavailableFlag IS NULL", keyword);
 
 
 			List<Gift> giftList = new ArrayList<>();
@@ -82,7 +82,7 @@ public class GiftDaoJdbcImpl implements GiftDao {
 	public List<Gift> selectMany() throws DataAccessException {
 
 			//テーブル「gift」の中からランダムで27件取得
-			List<Map<String, Object>>  getList = jdbc.queryForList("SELECT * FROM gift INNER JOIN guest ON gift.guestId = guest.guestId WHERE gift.unavailableFlag = 0 ORDER BY RANDOM() LIMIT 27");
+			List<Map<String, Object>>  getList = jdbc.queryForList("SELECT * FROM gift INNER JOIN guest ON gift.guestId = guest.guestId WHERE gift.unavailableFlag IS NULL ORDER BY RANDOM() LIMIT 27");
 
 			List<Gift> giftList = new ArrayList<>();
 
@@ -114,7 +114,7 @@ public class GiftDaoJdbcImpl implements GiftDao {
 	public Gift selectOne(int giftId) throws DataAccessException {
 
 		//カラム「giftId」の中から、該当のgiftIdと一致するお土産を検索。取得したレコードをマップに格納
-		Map<String, Object> map = jdbc.queryForMap("SELECT * FROM gift INNER JOIN guest ON gift.guestId = guest.guestId WHERE giftId = ? AND gift.unavailableFlag = 0", giftId);
+		Map<String, Object> map = jdbc.queryForMap("SELECT * FROM gift INNER JOIN guest ON gift.guestId = guest.guestId WHERE giftId = ? AND gift.unavailableFlag IS NULL", giftId);
 
 		//Omiyageインスタンスを生成
 		Gift gift = new Gift();
