@@ -5,8 +5,8 @@ import lombok.Data;
 //お気に入りテーブル「FavOmiyage」のカラムをフィールドに持つクラス
 @Data
 public class FavGift {
-	private String favId;
-	private String userId;
+	private int favId;
+	private int userId;
 	private int giftId;
 	private String guestName;
 	private String giftName;

@@ -46,11 +46,10 @@ public class GiftDetailController {
 			model.addAttribute("giftDetail", detail);
 
 			//認証済みのユーザーのIDを取得
-			String userId = httpServletRequest.getRemoteUser();
+			String userName = httpServletRequest.getRemoteUser();
 
 
-
-			String favIdResult = favGiftService.searchFavId(userId, giftId);
+			int favIdResult = favGiftService.searchFavId(userName, giftId);
 
 			//「お気に入り」「お気に入り解除」ボタンの表示切り替えのために、modelオブジェクト「favIdResultModel」に格納
 			model.addAttribute("favIdResultModel", favIdResult);

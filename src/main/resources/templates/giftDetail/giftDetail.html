@@ -28,18 +28,18 @@
 					<!-- お気に入り登録時に必要な「giftId」を取得 ユーザー側からは非表示 -->
 					<input th:value="${giftDetail.giftId}" name="giftId" type="hidden" />
 					<!-- お気に入り登録時に必要な認証済みの「UserID」を取得 ユーザー側からは非表示 -->
-					<span id="userIdName" sec:authentication="name" style="visibility:hidden"></span>
-					<!-- お気に入り登録時に発行されるID「favId」がnullの場合表示 -->
-					<button th:if="${favIdResultModel == null}" class="update-btn btn-warning col-sm-4 offset-sm-9" style="color:white" type="submit" ><i class="fas fa-heart" style="color:white"></i> お気に入り</button>
+					<!--<span id="userIdName" sec:authentication="name" style="visibility:hidden"></span>-->
+					<!-- お気に入り登録時に発行されるID「favId」が0の場合表示 -->
+					<button th:if="${favIdResultModel == 0}" class="update-btn btn-warning col-sm-4 offset-sm-9" style="color:white" type="submit" ><i class="fas fa-heart" style="color:white"></i> お気に入り</button>
             	</form>
 
             	<form id="deleteGift" th:action="@{/deleteFavGift}" method="get">
             		<!-- お気に入り解除時に必要な「giftId」を取得 ユーザー側からは非表示 -->
 					<input th:value="${giftDetail.giftId}" name="giftId" type="hidden" />
 					<!-- お気に入り解除時に必要な認証済みの「UserID」を取得 ユーザー側からは非表示 -->
-					<span id="userIdName" sec:authentication="name" style="visibility:hidden"></span>
-					<!-- お気に入り登録時に発行されるID「favId」がnullでない場合表示 -->
-					<button th:unless="${favIdResultModel == null}" class="update-btn btn-danger col-sm-5 offset-sm-8" style="color:white" type="submit" ><i class="fas fa-ban" style="color:white"></i> お気に入り解除</button>
+					<!--<span id="userIdName" sec:authentication="name" style="visibility:hidden"></span>-->
+					<!-- お気に入り登録時に発行されるID「favId」が0でない場合表示 -->
+					<button th:unless="${favIdResultModel == 0}" class="update-btn btn-danger col-sm-5 offset-sm-8" style="color:white" type="submit" ><i class="fas fa-ban" style="color:white"></i> お気に入り解除</button>
             	</form>
 
 			</div> <!--「GiftDetailController」の「/giftDetail/{id}」にて「giftDetail」にセットされたデータを表示-->

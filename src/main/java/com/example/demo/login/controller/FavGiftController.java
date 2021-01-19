@@ -23,10 +23,10 @@ public class FavGiftController {
 	public String getFavGiftAdd(Model model, @RequestParam("giftId") int giftId, HttpServletRequest httpServletRequest) {
 
 		//ログイン中のユーザー名の取得
-		String userId = httpServletRequest.getRemoteUser();
+		String userName = httpServletRequest.getRemoteUser();
 
 		//お土産個別のID「giftId」と「userId」を引数にサービスクラスへ処理を投げる
-		boolean result = favGiftService.insert(userId, giftId);
+		boolean result = favGiftService.insert(userName, giftId);
 
 		//お気に入り新規登録の結果をコンソールに表示
 		if(result == true) {
@@ -44,12 +44,12 @@ public class FavGiftController {
 	public String getFavGiftDelite(Model model, @RequestParam("giftId") int giftId, HttpServletRequest httpServletRequest) {
 
 		//ログイン中のユーザー名の取得
-		String userId = httpServletRequest.getRemoteUser();
+		String userName = httpServletRequest.getRemoteUser();
 
 
 
 		//作成したユニークIDを引数にサービスクラスへ処理を投げる
-		boolean result = favGiftService.delete(userId, giftId);
+		boolean result = favGiftService.delete(userName, giftId);
 
 		//お気に入り登録解除の結果をコンソールに表示
 		if(result == true) {

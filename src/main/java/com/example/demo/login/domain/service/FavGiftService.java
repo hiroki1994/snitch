@@ -20,32 +20,32 @@ public class FavGiftService {
 	FavGiftDao dao;
 
 	//お気に入り済みのお土産全件取得
-	public List<FavGift> selectMany(String userId) {
+	public List<FavGift> selectMany(String userName) {
 
 		//認証済みの「userId」を引数にリポジトリークラスへ処理を投げる
-		return dao.selectMany(userId);
+		return dao.selectMany(userName);
 	}
 
 	//お気に入り登録済みのお土産の件数取得
-	public int count(String userId) {
+	public int count(String userName) {
 
 		//認証済みの「userId」を引数にリポジトリークラスへ処理を投げる
-		return dao.count(userId);
+		return dao.count(userName);
 	}
 
 	//お気に入り登録時に発行されるIDの有無を確認
-	public String searchFavId(String userId, int giftId) {
+	public int searchFavId(String userName, int giftId) {
 
 		//「favId」を引数にリポジトリークラスへ処理を投げる
-		return dao.searchFavId(userId, giftId);
+		return dao.searchFavId(userName, giftId);
 	}
 
 
 	//お気に入り登録用サービスメソッドここどうなるかなぁ
-	public boolean insert(String userId, int giftId) {
+	public boolean insert(String userName, int giftId) {
 
 		//認証済みの「userId」と「favOmiyaID」(OmiyaID)を引数にリポジトリークラスへ処理を投げる
-		int rowNumber = dao.insert(userId, giftId);
+		int rowNumber = dao.insert(userName, giftId);
 
 		boolean result = false;
 

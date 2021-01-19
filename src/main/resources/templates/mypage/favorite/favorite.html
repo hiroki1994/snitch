@@ -22,8 +22,8 @@
 			<div class="gift" th:each="gift : ${favGiftList}">
 				<div class="gift2">
 		    		<a th:href="@{'/giftDetail/'+${gift.giftId}}"><img class="gift-picture" th:src="@{'/image/'+${gift.image}}" alt="gift-image"></a>
-					<p class="gift-name" th:text="${gift.name}"></p>
-					<p class="gift-guest"th:text="${gift.guest}"></p>
+					<p class="gift-name" th:text="${gift.giftName}"></p>
+					<p class="gift-guest"th:text="${gift.guestName}"></p>
 				</div>
 			</div>
 		</div>
