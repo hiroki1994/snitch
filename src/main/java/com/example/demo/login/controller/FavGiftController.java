@@ -11,25 +11,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.login.domain.service.FavOmiyageService;
+import com.example.demo.login.domain.service.FavGiftService;
 
 
 //お気に入り機能コントローラークラス
 @Controller
-public class FavOmiyageController {
+public class FavGiftController {
 
 	@Autowired
-	FavOmiyageService favOmiyageService;
+	FavGiftService favGiftService;
 
 	//お気に入り追加用コントローラー
-	@PostMapping("/addOmiyage")
-	public void postFavOmiyageAdd(Model model, @RequestParam("favOmiyageId") int favOmiyaID, HttpServletRequest httpServletRequest, HttpServletResponse response) throws IOException {
+	@PostMapping("/addGift")
+	public void getFavGiftAdd(Model model, @RequestParam("giftId") int giftId, HttpServletRequest httpServletRequest, HttpServletResponse response) throws IOException {
+
 
 		//ログイン中のユーザー名の取得
-		String userId = httpServletRequest.getRemoteUser();
+		String userName = httpServletRequest.getRemoteUser();
 
-		//お土産個別のID「favOmiyaID(omiyaID)」と「userID」を引数にサービスクラスへ処理を投げる
-		boolean result = favOmiyageService.insert(favOmiyaID, userId);
+		//お土産個別のID「giftId」と「userId」を引数にサービスクラスへ処理を投げる
+		boolean result = favGiftService.insert(userName, giftId);
 
 		//お気に入り新規登録の結果をコンソールに表示
 		if(result == true) {
@@ -38,21 +39,23 @@ public class FavOmiyageController {
 			System.out.println("お気に入り登録失敗");
 		}
 
-		String url = "/omiyageDetail/" + favOmiyaID;
+		String url = "/giftDetail/" + giftId;
+
 		response.sendRedirect(url);
 	}
 
 	//お気に入り登録解除用コントローラー
-	@PostMapping("/deleteFavOmiyage")
-	public void postFavOmiyageDelite(Model model, @RequestParam("favOmiyageId") String favOmiyaID, HttpServletRequest httpServletRequest, HttpServletResponse response) throws IOException {
+	@PostMapping("/deleteFavGift")
+	public void getFavGiftDelite(Model model, @RequestParam("giftId") int giftId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+
 
 		//ログイン中のユーザー名の取得
-		String userId = httpServletRequest.getRemoteUser();
+		String userName = request.getRemoteUser();
 
-		//ユーザーIDとお土産のIDを連結し、テーブルに登録されたお気に入り済みのお土産を判別するユニークIDを作成
-		String favId = userId + favOmiyaID;
+
+
 		//作成したユニークIDを引数にサービスクラスへ処理を投げる
-		boolean result = favOmiyageService.delete(favId);
+		boolean result = favGiftService.delete(userName, giftId);
 
 		//お気に入り登録解除の結果をコンソールに表示
 		if(result == true) {
@@ -61,8 +64,8 @@ public class FavOmiyageController {
 			System.out.println("お気に入り登録解除成功");
 		}
 
-		String url = "/omiyageDetail/" + favOmiyaID;
-		//お土産詳細画面のコントローラーへ遷移
+		String url = "/giftDetail/" + giftId;
+
 		response.sendRedirect(url);
 	}
 }

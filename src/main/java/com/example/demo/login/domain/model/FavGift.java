@@ -4,16 +4,17 @@ import lombok.Data;
 
 //お気に入りテーブル「FavOmiyage」のカラムをフィールドに持つクラス
 @Data
-public class FavOmiyage {
-	private String favId;
-	private String userId;
-	private int omiyaID;
-	private String guest;
-	private String name;
+public class FavGift {
+	private int favId;
+	private int userId;
+	private int giftId;
+	private String guestName;
+	private String giftName;
 	private String price;
 	private String image;
 	private String description;
 	private String shop;
 	private String address;
 	private String phone;
+	private int unavailableFlag;
 }

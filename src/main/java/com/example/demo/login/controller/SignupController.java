@@ -1,5 +1,10 @@
 package com.example.demo.login.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -11,6 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.demo.SecurityConfig;
 import com.example.demo.login.domain.model.GroupOrder;
 import com.example.demo.login.domain.model.SignupForm;
 import com.example.demo.login.domain.model.User;
@@ -32,7 +38,8 @@ public class SignupController {
 
 	//ユーザー新規登録実行用メソッド
 	@PostMapping("/signupUser") //「GroupOrder」で設定した順序でバリデーションを実行
-	public String postSignUp(@ModelAttribute @Validated(GroupOrder.class) SignupForm form, BindingResult bindingResult, Model model) {
+	public String postSignUp(@ModelAttribute @Validated(GroupOrder.class) SignupForm form, BindingResult bindingResult, Model model, HttpServletRequest request,
+			HttpServletResponse response) {
 
 		//バインディングでエラー発生(バリデーションエラー含む)した場合、ユーザー登録画面へ遷移
 		if (bindingResult.hasErrors()) {
@@ -47,7 +54,7 @@ public class SignupController {
 		User user = new User();
 
 		//登録フォームに入力した内容をUserクラスにセット
-		user.setUserId(form.getUserId());
+		user.setUserName(form.getUserName());
 		user.setMailAddress(form.getMailAddress());
 		user.setPassword(form.getPassword());
 
@@ -61,8 +68,15 @@ public class SignupController {
 			System.out.println("insert失敗");
 		}
 
-		//ログイン画面へ遷移
-		return "redirect:/login";
+		try {
+			String username = String.valueOf(form.getUserName());
+			String password = String.valueOf(form.getPassword());
+			SecurityConfig.authWithHttpServletRequestLogin(request, username, password, response);
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		return null;
 
 	}
 

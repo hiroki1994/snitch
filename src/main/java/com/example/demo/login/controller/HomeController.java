@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.demo.login.domain.model.Omiyage;
-import com.example.demo.login.domain.service.OmiyageService;
+import com.example.demo.login.domain.model.Gift;
+import com.example.demo.login.domain.service.GiftService;
 import com.example.demo.login.domain.service.UserService;
 
 //ホーム画面とログアウト機能用のコントローラークラス
@@ -21,7 +21,7 @@ public class HomeController {
 	UserService userService;
 
 	@Autowired
-	OmiyageService omiyageService;
+	GiftService giftService;
 
 
 	//ホーム画面用GETメソッド
@@ -29,10 +29,10 @@ public class HomeController {
 	public String getHome(Model model) {
 
 		//取得したデータをリスト「Omiyage」に格納
-		List<Omiyage> omiyageList = omiyageService.selectMany();
+		List<Gift> giftList = giftService.selectMany();
 
 		//画面表示させるためにモデルオブジェクト「omiyageList」に追加
-		model.addAttribute("omiyageList", omiyageList);
+		model.addAttribute("giftList", giftList);
 
 		return "home/home";
 	}
