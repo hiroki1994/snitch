@@ -15,6 +15,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import com.example.demo.login.domain.model.Omiyage;
 import com.example.demo.login.domain.model.OmiyageDetail;
+import com.example.demo.login.domain.model.SearchForm;
 import com.example.demo.login.domain.service.FavOmiyageService;
 import com.example.demo.login.domain.service.OmiyageService;
 
@@ -67,7 +68,7 @@ public class OmiyageDetailController {
 
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public String methodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e, Model model) {
+	public String methodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e, Model model, SearchForm searchForm) {
 
 		model.addAttribute("message", "指定されたページは存在しません");
 		return "error";
