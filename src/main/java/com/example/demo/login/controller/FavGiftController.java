@@ -1,11 +1,14 @@
 package com.example.demo.login.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.login.domain.service.FavGiftService;
@@ -19,8 +22,9 @@ public class FavGiftController {
 	FavGiftService favGiftService;
 
 	//お気に入り追加用コントローラー
-	@GetMapping("/addGift")
-	public String getFavGiftAdd(Model model, @RequestParam("giftId") int giftId, HttpServletRequest httpServletRequest) {
+	@PostMapping("/addGift")
+	public void getFavGiftAdd(Model model, @RequestParam("giftId") int giftId, HttpServletRequest httpServletRequest, HttpServletResponse response) throws IOException {
+
 
 		//ログイン中のユーザー名の取得
 		String userName = httpServletRequest.getRemoteUser();
@@ -35,16 +39,18 @@ public class FavGiftController {
 			System.out.println("お気に入り登録失敗");
 		}
 
-		//お土産詳細画面のコントローラーへ遷移
-		return "forward:/giftDetail/"+ giftId;
+		String url = "/giftDetail/" + giftId;
+
+		response.sendRedirect(url);
 	}
 
 	//お気に入り登録解除用コントローラー
-	@GetMapping("/deleteFavGift")
-	public String getFavGiftDelite(Model model, @RequestParam("giftId") int giftId, HttpServletRequest httpServletRequest) {
+	@PostMapping("/deleteFavGift")
+	public void getFavGiftDelite(Model model, @RequestParam("giftId") int giftId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+
 
 		//ログイン中のユーザー名の取得
-		String userName = httpServletRequest.getRemoteUser();
+		String userName = request.getRemoteUser();
 
 
 
@@ -58,8 +64,9 @@ public class FavGiftController {
 			System.out.println("お気に入り登録解除成功");
 		}
 
-		//お土産詳細画面のコントローラーへ遷移
-		return "forward:/giftDetail/"+giftId;
+		String url = "/giftDetail/" + giftId;
+
+		response.sendRedirect(url);
 	}
 }
 

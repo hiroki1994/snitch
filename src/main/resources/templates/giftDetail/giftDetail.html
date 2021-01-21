@@ -23,8 +23,9 @@
 			<!-- 認証済みのユーザーにのみ「お気に入り」/「お気に入り解除」ボタンを表示 -->
 			<div   sec:authorize="isAuthenticated()">
 
+
 				<!-- 「お気に入り」ボタンを押すと、「FavGiftControleer」の「/addGift」へ処理が投げられる -->
-				<form id="addGift" th:action="@{/addGift}" method="get">
+				<form id="addGift" th:action="@{/addGift}" method="post">
 					<!-- お気に入り登録時に必要な「giftId」を取得 ユーザー側からは非表示 -->
 					<input th:value="${giftDetail.giftId}" name="giftId" type="hidden" />
 					<!-- お気に入り登録時に必要な認証済みの「UserID」を取得 ユーザー側からは非表示 -->
@@ -33,7 +34,8 @@
 					<button th:if="${favIdResultModel == 0}" class="update-btn btn-warning col-sm-4 offset-sm-9" style="color:white" type="submit" ><i class="fas fa-heart" style="color:white"></i> お気に入り</button>
             	</form>
 
-            	<form id="deleteGift" th:action="@{/deleteFavGift}" method="get">
+
+            	<form id="deleteGift" th:action="@{/deleteFavGift}" method="post">
             		<!-- お気に入り解除時に必要な「giftId」を取得 ユーザー側からは非表示 -->
 					<input th:value="${giftDetail.giftId}" name="giftId" type="hidden" />
 					<!-- お気に入り解除時に必要な認証済みの「UserID」を取得 ユーザー側からは非表示 -->
