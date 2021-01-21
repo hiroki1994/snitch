@@ -83,6 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		//「/mypage」配下は直リンクできないように設定
 		http
 		    .authorizeRequests()
+		    	.antMatchers("/login").anonymous()
 		    	.antMatchers("/mypage").authenticated()
 		        .anyRequest().permitAll(); //「mypage」配下以外は直リンク可能
 
