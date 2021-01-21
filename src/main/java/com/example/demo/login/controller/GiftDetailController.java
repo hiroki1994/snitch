@@ -56,5 +56,14 @@ public class GiftDetailController {
 
 		return "giftDetail/giftDetail";
 	}
+
+	//@ExceptionHandler(MethodArgumentTypeMismatchException.class)
+	//@ResponseStatus(HttpStatus.NOT_FOUND)
+	//public String methodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e, Model model, SearchForm searchForm) {
+
+	//model.addAttribute("message", "指定されたページは存在しません");
+	//return "error";
+
+	//}
 }
 
