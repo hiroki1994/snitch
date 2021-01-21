@@ -6,46 +6,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.login.domain.model.FavOmiyage;
-import com.example.demo.login.domain.repository.FavOmiyageDao;
+import com.example.demo.login.domain.model.FavGift;
+import com.example.demo.login.domain.repository.FavGiftDao;
 
 /*テーブル「FavOmiyage」操作用のサービスメソッド
  * トランザクション処理を利用
  */
 @Transactional
 @Service
-public class FavOmiyageService {
+public class FavGiftService {
 
 	@Autowired
-	FavOmiyageDao dao;
+	FavGiftDao dao;
 
 	//お気に入り済みのお土産全件取得
-	public List<FavOmiyage> selectMany(String userId) {
+	public List<FavGift> selectMany(String userName) {
 
 		//認証済みの「userId」を引数にリポジトリークラスへ処理を投げる
-		return dao.selectMany(userId);
+		return dao.selectMany(userName);
 	}
 
 	//お気に入り登録済みのお土産の件数取得
-	public int count(String userId) {
+	public int count(String userName) {
 
 		//認証済みの「userId」を引数にリポジトリークラスへ処理を投げる
-		return dao.count(userId);
+		return dao.count(userName);
 	}
 
 	//お気に入り登録時に発行されるIDの有無を確認
-	public String searchFavId(String favId) {
+	public int searchFavId(String userName, int giftId) {
 
 		//「favId」を引数にリポジトリークラスへ処理を投げる
-		return dao.searchFavId(favId);
+		return dao.searchFavId(userName, giftId);
 	}
 
 
-	//お気に入り登録用サービスメソッド
-	public boolean insert(int favOmiyaID, String userId) {
+	//お気に入り登録用サービスメソッドここどうなるかなぁ
+	public boolean insert(String userName, int giftId) {
 
 		//認証済みの「userId」と「favOmiyaID」(OmiyaID)を引数にリポジトリークラスへ処理を投げる
-		int rowNumber = dao.insert(favOmiyaID, userId);
+		int rowNumber = dao.insert(userName, giftId);
 
 		boolean result = false;
 
@@ -59,10 +59,10 @@ public class FavOmiyageService {
 	}
 
 	//お気に入り登録解除用サービスメソッド
-	public boolean delete(String favId) {
+	public boolean delete(String userId, int giftId) {
 
 		//「favId」を引数にリポジトリークラスへ処理を投げる
-		int rowNumber = dao.delete(favId);
+		int rowNumber = dao.delete(userId, giftId);
 
 		boolean result = false;
 

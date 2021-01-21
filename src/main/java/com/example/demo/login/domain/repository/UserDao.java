@@ -11,11 +11,11 @@ public interface UserDao {
 	public int insertOne(User user) throws DataAccessException;
 
 	 //Userテーブルを1件更新
-	public int updateOne(User user, String userId_LoggedIn) throws DataAccessException;
+	public int updateOne(User user, String userName_LoggedIn) throws DataAccessException;
 
 	//Userデーブルのデータを1件取得
-	public User selectOne(String userId) throws DataAccessException;
+	public User selectOne(String userName) throws DataAccessException;
 
 	//Userテーブルのデータを1件削除
-	public int deleteOne(String userId) throws DataAccessException;
+	public int deleteOne(String userName) throws DataAccessException;
 }
