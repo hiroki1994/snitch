@@ -40,24 +40,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
-	//UserIdとpassword取得用のSQL文
+	//UserNameとpassword取得用のSQL文
 	private static final String USER_DATA = "SELECT"
-			+ " userId,"
+			+ " userName,"
 			+ " password,"
 			+ " true"
 			+ " FROM"
 			+ " userData"
 			+ " WHERE"
-			+ " userId = ?";
+			+ " userName = ?"
+			+ " AND userData.unavailableFlag IS NULL";
 
 	//権限取得用のSQL文
 	private static final String ROLE_DATA = "SELECT"
-			+ " userId,"
+			+ " userName,"
 			+ " role"
 			+ " FROM"
 			+ " userData"
 			+ " WHERE"
-			+ " userId = ?";
+			+ " userName = ?"
+			+ " AND userData.unavailableFlag IS NULL";
 
 	/*
 	 * configureメソッドをoverrideし引数のWebseCurityについて設定
@@ -91,7 +93,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginProcessingUrl("/login") //ログイン処理をするURLの設定
 				.loginPage("/login") //自作したログインページをリンク先に設定
 				.failureUrl("/login") //ログイン失敗時は再度ログインページへ遷移
-				.usernameParameter("userId") //UserId入力エリアのパラメーター名指定
+				.usernameParameter("userName") //userName入力エリアのパラメーター名指定
 				.passwordParameter("password") //Password入力エリアのパラメーター名指定
 				.defaultSuccessUrl("/mypage",true); //ログイン成功時マイページへ遷移
 
@@ -138,10 +140,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     }
+
     public static void authWithHttpServletRequestLogout(HttpServletRequest request,HttpServletResponse response) throws IOException {
         try {
             request.logout();
             System.out.println("ログアウト実行");
+            String url = "/login";
+    		response.sendRedirect(url);
         } catch (ServletException e) {
         	String url = "/login";
     		response.sendRedirect(url);

@@ -35,21 +35,21 @@ public class UserService {
 
 
 	//ユーザーデータ1件取得
-	public User selectOne(String userId) {
+	public User selectOne(String userName) {
 
 
-		//認証済みの「userId」を引数にリポジトリークラスに処理を投げる
-		return dao.selectOne(userId);
+		//認証済みの「userName」を引数にリポジトリークラスに処理を投げる
+		return dao.selectOne(userName);
 
 	}
 
 	//ユーザーデータ更新
-	public boolean updateOne(User user, String userId_LoggedIn) {
+	public boolean updateOne(User user, String userName_LoggedIn) {
 
 
 
-		 //登録情報更新画面で入力された内容を格納した「user」と認証済みのuserID(userId_LoggedIn)を引数にリポジトリークラスに処理を投げる
-		int rowNumber = dao.updateOne(user, userId_LoggedIn);
+		 //登録情報更新画面で入力された内容を格納した「user」と認証済みのuserName(userName_LoggedIn)を引数にリポジトリークラスに処理を投げる
+		int rowNumber = dao.updateOne(user, userName_LoggedIn);
 
 		boolean result = false;
 
@@ -63,11 +63,11 @@ public class UserService {
 	}
 
 	//ユーザーデータ削除
-	public boolean deleteOne(String userId) {
+	public boolean deleteOne(String userName) {
 
 
-		 //登録情報更新画面で入力された内容を格納した「user」と認証済みのuserID(userId_LoggedIn)を引数にリポジトリークラスに処理を投げる
-		int rowNumber = dao.deleteOne(userId);
+		 //登録情報更新画面で入力された内容を格納した「user」と認証済みのuserName(userName_LoggedIn)を引数にリポジトリークラスに処理を投げる
+		int rowNumber = dao.deleteOne(userName);
 
 		boolean result = false;
 

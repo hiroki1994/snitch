@@ -21,13 +21,13 @@
 				<tr>
 					<td>
 						<div class="form-group">
-							<!-- modelオブジェクト「signupForm」の「userId」フィールドでエラーが発生したら、class属性を追加し「is-invalid」でテキストボックスの周りを赤くする-->
-							<input type="text" class="form-control" placeholder="ログインID" th:field="*{userId}"
-							th:classappend="${#fields.hasErrors('userId')}?'is-invalid'"/>
-							<!-- modelオブジェクト「signupForm」の「userId」フィールドでエラーが発生したら、th:errors属性で「messages.properties」で記述したエラーメッセージを表示-->
+							<!-- modelオブジェクト「signupForm」の「userName」フィールドでエラーが発生したら、class属性を追加し「is-invalid」でテキストボックスの周りを赤くする-->
+							<input type="text" class="form-control" placeholder="ユーザーネーム" th:field="*{userName}"
+							th:classappend="${#fields.hasErrors('userName')}?'is-invalid'"/>
+							<!-- modelオブジェクト「signupForm」の「userName」フィールドでエラーが発生したら、th:errors属性で「messages.properties」で記述したエラーメッセージを表示-->
 							<span class="text-danger"
-								th:if="${#fields.hasErrors('userId')}"
-								th:errors="*{userId}"></span>
+								th:if="${#fields.hasErrors('userName')}"
+								th:errors="*{userName}"></span>
 						</div>
 					</td>
 				<tr>

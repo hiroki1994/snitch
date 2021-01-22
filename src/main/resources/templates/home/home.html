@@ -13,13 +13,13 @@
 <body>
 	<div layout:fragment="content">
 	<div class="home col-sm-8 offset-sm-2">
-		<div class="omiyage col-sm-12">
-			<!-- 「homeController」でmodelオブジェクト「omiyageList」に格納したお土産を繰り返し処理で一件ずつ表示 -->
-			<div class="omiyage" th:each="omiyage : ${omiyageList}">
-				<div class="omiyage2">
-		    		<a th:href="@{'/omiyageDetail/'+${omiyage.omiyaID}}"><img class="omiyage-picture" th:src="@{'/image/'+${omiyage.image}}" alt="omiyage-image"></a>
-					<p class="omiyage-name" th:text="${omiyage.name}"></p>
-					<p class="omiyage-guest"th:text="${omiyage.guest}"></p>
+		<div class="gift col-sm-12">
+			<!-- 「homeController」でmodelオブジェクト「giftList」に格納したお土産を繰り返し処理で一件ずつ表示 -->
+			<div class="gift" th:each="gift : ${giftList}">
+				<div class="gift2">
+		    		<a th:href="@{'/giftDetail/'+${gift.giftId}}"><img class="gift-picture" th:src="@{'/image/'+${gift.image}}" alt="gift-image"></a>
+					<p class="gift-name" th:text="${gift.giftName}"></p>
+					<p class="gift-guest"th:text="${gift.guestName}"></p>
 				</div>
 			</div>
 		</div>

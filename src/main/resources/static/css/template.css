@@ -102,12 +102,6 @@
 color:#7fbfff;
 }
 
-/*
-.btn btn-info {
-	position: relative;
-	float: left;
-}
-*/
 .contentsClass {
 	background-color: #DACEC2;
 	padding-top: 100px;
@@ -115,8 +109,19 @@ color:#7fbfff;
 	text-align: center;
 }
 
+
+
 footer {
+	padding-top: 40px;
+	text-align: center;
 	background-color: #293E31;
 	height: 100px;
 	width: 100%;
+
+}
+
+small {
+	font-size: 15px;
+	color: white;
+	margin: 0 auto;
 }
