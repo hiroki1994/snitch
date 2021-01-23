@@ -122,6 +122,27 @@ public class UserDaoJdbcImpl implements UserDao {
 		return rowNumber;
 	}
 
+	@Override
+	public User findByUserName(String userName) throws DataAccessException{
+
+		try {
+			Map<String, Object> map = jdbc.queryForMap("SELECT * FROM userData WHERE userName = ?", userName);
+
+			User user = new User();
+
+			user.setUserName((String)map.get("userName"));
+			user.setMailAddress((String)map.get("mailAddress"));
+			user.setPassword((String)map.get("password"));
+
+			return user;
+
+		} catch(DataAccessException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+
 }
 
 

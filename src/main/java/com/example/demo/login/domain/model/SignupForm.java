@@ -19,6 +19,7 @@ public class SignupForm {
 	 * 3字以上20字以内、英数字のみ(ValidGroup2に分類)
 	 */
 	@NotBlank(groups = ValidGroup1.class)
+	@UniqueUserName(groups = ValidGroup1.class)
 	@Length(min = 3, max = 20, groups = ValidGroup2.class)
 	@Pattern(regexp = "^[a-zA-Z0-9]+$", groups = ValidGroup2.class)
 	private String userName;

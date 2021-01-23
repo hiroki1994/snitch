@@ -79,4 +79,11 @@ public class UserService {
 
 		return result;
 	}
+
+	public User findByUserName(String userName) {
+
+		User user = dao.findByUserName(userName);
+
+		return user;
+	}
 }
