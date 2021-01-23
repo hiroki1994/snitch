@@ -12,13 +12,10 @@ public class UniqueUserNameValid implements ConstraintValidator<UniqueUserName, 
 	@Autowired
 	UserService userService;
 
-
-
 	public void initialize(UniqueUserName constraintAnnotation) {
 
 
 	}
-
 
 	public boolean isValid(String userName, ConstraintValidatorContext context) {
 
@@ -27,11 +24,5 @@ public class UniqueUserNameValid implements ConstraintValidator<UniqueUserName, 
 			return true;
 		}
 		return false;
-
 	}
-
-
-
-
-
 }

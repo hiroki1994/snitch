@@ -19,14 +19,4 @@ public @interface UniqueUserName {
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};
 
-	@Target({FIELD})
-	@Retention(RUNTIME)
-	public @interface List {
-		UniqueUserName[] value();
-	}
-
-
-
-
-
 }
