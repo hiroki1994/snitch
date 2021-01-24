@@ -18,4 +18,6 @@ public interface UserDao {
 
 	//Userテーブルのデータを1件削除
 	public int deleteOne(String userName) throws DataAccessException;
+
+	public User findByUserName(String userName) throws DataAccessException;
 }
