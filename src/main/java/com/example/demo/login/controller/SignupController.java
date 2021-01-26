@@ -6,16 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.example.demo.SecurityConfig;
 import com.example.demo.login.domain.model.GroupOrder;
@@ -78,21 +74,5 @@ public class SignupController {
 			e.printStackTrace();
 		}
 		return null;
-
 	}
-
-	//「SignUpController」で「DataAccessException」が発生した場合、500エラーページを表示
-	@ExceptionHandler(DataAccessException.class)
-	@ResponseStatus(HttpStatus.CONFLICT)
-	public String dataAccessExceptionHandler(DataAccessException e, Model model) {
-
-		System.out.println("Signupだよー");
-		//エラーメッセージをキー「message」に格納
-		model.addAttribute("message", "入力されたログインIDは既に使用されている可能性があります。");
-
-
-		return "error";
-	}
-
-
 }
