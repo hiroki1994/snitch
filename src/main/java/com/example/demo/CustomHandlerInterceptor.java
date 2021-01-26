@@ -14,9 +14,8 @@ public class CustomHandlerInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-
 		System.out.println(request.getRequestURI());
-		//リクエストをハンドラ(コントローラー)によってさらに処理をするので、trueを返す
+
 		return true;
 	}
 
