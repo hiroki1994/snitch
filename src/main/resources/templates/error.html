@@ -5,11 +5,8 @@
 	<title>Error</title>
 </head>
 <body>
-	<h1 th:text="${status} + '' + ${error}"></h1>
-	<p th:text="${message}"></p>
-	<p>ログイン画面に戻ります。</p>
-	<form method="post" th:action="@{/logout}">
-		<button class="btn btn-link" type="submit">ログイン画面へ</button>
-	</form>
+	<div layout:fragment="content">
+		<p th:text="${message}"></p>
+	</div>
 </body>
 </html>

@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.login.domain.model.SearchForm;
 
+
 public class CustomHandlerInterceptor implements HandlerInterceptor {
 
 	@Override
