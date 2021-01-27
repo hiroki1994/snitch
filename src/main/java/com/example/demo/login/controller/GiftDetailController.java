@@ -14,7 +14,6 @@ import com.example.demo.login.domain.model.GiftDetail;
 import com.example.demo.login.domain.service.FavGiftService;
 import com.example.demo.login.domain.service.GiftService;
 
-//お土産詳細画面用コントローラ
 @Controller
 public class GiftDetailController {
 
@@ -24,14 +23,11 @@ public class GiftDetailController {
 	@Autowired
 	FavGiftService favGiftService;
 
-	//{id}で指定されたお土産の詳細画面表示
-	@GetMapping("/giftDetail/{id}") //パスの{id}をパラメータ「giftId」として取得
+	@GetMapping("/giftDetail/{id}")
 	public String getgiftDetail(@ModelAttribute GiftDetail detail, Model model, @PathVariable("id") int giftId, HttpServletRequest httpServletRequest) {
 
-			//パラメータ「giftId」と一致するお土産をテーブル「gift」内から取得
 			Gift gift = giftService.selectOne(giftId);
 
-			//「gift」に格納されているデータを「detail」に格納
 			detail.setGiftId(gift.getGiftId());
 			detail.setGuestName(gift.getGuestName());
 			detail.setGiftName(gift.getGiftName());
@@ -42,16 +38,12 @@ public class GiftDetailController {
 			detail.setAddress(gift.getAddress());
 			detail.setPhone(gift.getPhone());
 
-			//画面表示させるためにモデルオブジェクト「giftList」に追加
 			model.addAttribute("giftDetail", detail);
 
-			//認証済みのユーザーのIDを取得
 			String userName = httpServletRequest.getRemoteUser();
-
 
 			int favIdResult = favGiftService.searchFavId(userName, giftId);
 
-			//「お気に入り」「お気に入り解除」ボタンの表示切り替えのために、modelオブジェクト「favIdResultModel」に格納
 			model.addAttribute("favIdResultModel", favIdResult);
 
 		return "giftDetail/giftDetail";

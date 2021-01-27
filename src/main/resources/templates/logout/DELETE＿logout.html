@@ -13,13 +13,10 @@
 
 	<title>logout</title>
 </head>
-<!-- ユーザー登録情報更新後に遷移するログアウトページ-->
+
 <body>
-	<!-- 「HomeController」の「/logout」へ処理が投げられる -->
 	<form class="form-signout" name="logout" th:action="@{/logout}" method="post">
-		<!-- ログアウト実行用ボタン-->
 		<button class="logout-btn" type="submit" >Logout</button>
-		<!-- アクセス時に自動でボタンが押されるように設計 -->
 		<script>document.logout.submit();</script>
 	</form>
 </body>
