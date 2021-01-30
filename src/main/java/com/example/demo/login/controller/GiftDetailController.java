@@ -26,6 +26,8 @@ public class GiftDetailController {
 	@GetMapping("/giftDetail/{id}")
 	public String getgiftDetail(@ModelAttribute GiftDetail detail, Model model, @PathVariable("id") int giftId, HttpServletRequest httpServletRequest) {
 
+
+
 			Gift gift = giftService.selectOne(giftId);
 
 			detail.setGiftId(gift.getGiftId());
@@ -42,6 +44,7 @@ public class GiftDetailController {
 
 			String userName = httpServletRequest.getRemoteUser();
 
+			System.out.println("ログインしているんは"+userName);
 			int favIdResult = favGiftService.searchFavId(userName, giftId);
 
 			model.addAttribute("favIdResultModel", favIdResult);

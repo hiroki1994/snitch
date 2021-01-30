@@ -83,6 +83,8 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	@Override
 	public int insert(String userName, int giftId) throws DataAccessException {
 
+		System.out.println(userName+"この情報で検索");
+
 		Map<String, Object> mapForID = jdbc.queryForMap("SELECT userId FROM userData WHERE userName = ?", userName);
 
 		int rowNumber = jdbc.update("INSERT INTO favGift(userId, giftId) VALUES(?, ?)", mapForID.get("userId"), giftId);

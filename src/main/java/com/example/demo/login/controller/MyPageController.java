@@ -61,9 +61,8 @@ public class MyPageController {
 	    }
 
 	    try {
-			SecurityConfig.authWithHttpServletRequestLogout(request, response);
+			SecurityConfig.AutoLogout(request, response);
 		} catch (IOException e) {
-
 			e.printStackTrace();
 		}
 	}
@@ -117,14 +116,13 @@ public class MyPageController {
 		try {
 			String username = String.valueOf(form.getUserName());
 			String password = String.valueOf(form.getPassword());
-			System.out.println(username);
-			System.out.println(password);
-			SecurityConfig.authWithHttpServletRequestLogin(request, username, password, response);
-			 System.out.println("ログイン実行");
+			//SecurityContextHolder.clearContext();
+			SecurityConfig.AutoLogin(request, username, password, response);
 		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
-		return null;
+		return "mypage/mypage";
 	}
 
 	@PostMapping("/mypage/favorite")

@@ -58,7 +58,7 @@ public class SignupController {
 		try {
 			String username = String.valueOf(form.getUserName());
 			String password = String.valueOf(form.getPassword());
-			SecurityConfig.authWithHttpServletRequestLogin(request, username, password, response);
+			SecurityConfig.AutoLogin(request, username, password, response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

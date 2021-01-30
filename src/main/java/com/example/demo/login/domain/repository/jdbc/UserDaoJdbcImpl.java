@@ -59,6 +59,7 @@ public class UserDaoJdbcImpl implements UserDao {
 				password,
 				userName_LoggedIn);
 
+		System.out.println(user.getUserName()+"へ変更");
 
 		return rowNumber;
 	}

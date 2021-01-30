@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -91,36 +92,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.passwordEncoder(passwordEncoder());
 	}
 
-    public static void authWithHttpServletRequestLogin(HttpServletRequest request, String username, String password, HttpServletResponse response) throws IOException {
+    public static void AutoLogin(HttpServletRequest request, String username, String password, HttpServletResponse response) throws IOException {
 
     	if(request.getUserPrincipal() != null) {
-    		authWithHttpServletRequestLogout(request, response);
-    		System.out.println("認証済みの状態だったからログアウトしたよ");
+    		SecurityContextHolder.clearContext();
     	}
 
-        try {
+
+     	try {
             request.login(username, password);
-            System.out.println(username + "＆");
-			System.out.println(password + "＆");
-            String url = "/mypage";
-    		response.sendRedirect(url);
+            String urlMyPage = "/mypage";
+    		response.sendRedirect(urlMyPage);
         } catch (ServletException e) {
-        	String url = "/login";
-    		response.sendRedirect(url);
+        	String urlLogin = "/login";
+    		response.sendRedirect(urlLogin);
         }
 
 
     }
 
-    public static void authWithHttpServletRequestLogout(HttpServletRequest request,HttpServletResponse response) throws IOException {
+    public static void AutoLogout(HttpServletRequest request,HttpServletResponse response) throws IOException {
+
         try {
             request.logout();
             System.out.println("ログアウト実行");
-            String url = "/login";
-    		response.sendRedirect(url);
+            String urlLogin = "/login";
+    		response.sendRedirect(urlLogin);
         } catch (ServletException e) {
-        	String url = "/login";
-    		response.sendRedirect(url);
+        	String urlLogin = "/login";
+    		response.sendRedirect(urlLogin);
         }
     }
 }
