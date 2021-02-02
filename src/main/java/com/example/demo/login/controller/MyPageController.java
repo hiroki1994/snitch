@@ -61,7 +61,7 @@ public class MyPageController {
 	    }
 
 	    try {
-			SecurityConfig.AutoLogout(request, response);
+			SecurityConfig.autoLogout(request, response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -117,7 +117,7 @@ public class MyPageController {
 			String username = String.valueOf(form.getUserName());
 			String password = String.valueOf(form.getPassword());
 			//SecurityContextHolder.clearContext();
-			SecurityConfig.AutoLogin(request, username, password, response);
+			SecurityConfig.autoLogin(request, username, password, response);
 		} catch (IOException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
