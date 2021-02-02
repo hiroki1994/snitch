@@ -92,7 +92,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.passwordEncoder(passwordEncoder());
 	}
 
-    public static void AutoLogin(HttpServletRequest request, String username, String password, HttpServletResponse response) throws IOException {
+    public static void autoLogin(HttpServletRequest request, String username, String password, HttpServletResponse response) throws IOException {
 
     	if(request.getUserPrincipal() != null) {
     		SecurityContextHolder.clearContext();
@@ -111,7 +111,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    public static void AutoLogout(HttpServletRequest request,HttpServletResponse response) throws IOException {
+    public static void autoLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         try {
             request.logout();
