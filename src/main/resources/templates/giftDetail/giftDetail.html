@@ -13,38 +13,23 @@
 
 <title>giftDetail</title>
 </head>
-<!-- お土産詳細画面 -->
 <body layout:fragment="content">
 
 
 	<div class="gift col-sm-10 offset-sm-1">
 		<div class="gift-left col-sm-5 ">
 			<img  class="gift-image" th:src="@{'/image/'+${giftDetail.image}}" alt="gift-image">
-			<!-- 認証済みのユーザーにのみ「お気に入り」/「お気に入り解除」ボタンを表示 -->
 			<div   sec:authorize="isAuthenticated()">
-
-
-				<!-- 「お気に入り」ボタンを押すと、「FavGiftControleer」の「/addGift」へ処理が投げられる -->
 				<form id="addGift" th:action="@{/addGift}" method="post">
-					<!-- お気に入り登録時に必要な「giftId」を取得 ユーザー側からは非表示 -->
 					<input th:value="${giftDetail.giftId}" name="giftId" type="hidden" />
-					<!-- お気に入り登録時に必要な認証済みの「UserID」を取得 ユーザー側からは非表示 -->
-					<!--<span id="userIdName" sec:authentication="name" style="visibility:hidden"></span>-->
-					<!-- お気に入り登録時に発行されるID「favId」が0の場合表示 -->
 					<button th:if="${favIdResultModel == 0}" class="update-btn btn-warning col-sm-4 offset-sm-9" style="color:white" type="submit" ><i class="fas fa-heart" style="color:white"></i> お気に入り</button>
             	</form>
-
-
             	<form id="deleteGift" th:action="@{/deleteFavGift}" method="post">
-            		<!-- お気に入り解除時に必要な「giftId」を取得 ユーザー側からは非表示 -->
 					<input th:value="${giftDetail.giftId}" name="giftId" type="hidden" />
-					<!-- お気に入り解除時に必要な認証済みの「UserID」を取得 ユーザー側からは非表示 -->
-					<!--<span id="userIdName" sec:authentication="name" style="visibility:hidden"></span>-->
-					<!-- お気に入り登録時に発行されるID「favId」が0でない場合表示 -->
 					<button th:unless="${favIdResultModel == 0}" class="update-btn btn-danger col-sm-5 offset-sm-8" style="color:white" type="submit" ><i class="fas fa-ban" style="color:white"></i> お気に入り解除</button>
             	</form>
 
-			</div> <!--「GiftDetailController」の「/giftDetail/{id}」にて「giftDetail」にセットされたデータを表示-->
+			</div>
 			<div class="gift-text">
 				<p class="gift-guest" th:text="'紹介ゲスト: ' + ${giftDetail.guestName}"></p>
 				<p class="gift-price" th:text="${giftDetail.price}"></p>
@@ -61,49 +46,39 @@
 			<!-- Google Mapの表示 -->
 			<div id="map"></div>
 
-
-			<!-- 「住所」取得確認用 Devツールのコンソールに表示 -->
 			<script>console.log(document.getElementById("gift-address").textContent);
-			<!-- pタグ内の住所を取得し、変数「my_address」に格納 -->
 			var my_address = document.getElementById("gift-address").textContent;
 			function initMapWithAddress() {
-				<!-- マップのzoomレベル、タイプの指定 -->
 			    var opts = {
 			        zoom: 15,
 			        mapTypeId: google.maps.MapTypeId.ROADMAP
 			    };
-			    <!-- id「my_map」要素を取得、Mapクラスのインスタンスを作成することで地図を作成 -->
 			    var my_google_map = new google.maps.Map(document.getElementById('map'), opts);
 
-			    <!-- ジオコードオブジェクト-->
 			    var geocoder = new google.maps.Geocoder();
 			    geocoder.geocode(
 			      {
-			    	<!--Geocoderにジオコーディングリクエストに送信。検索する住所文字列と、国コードを指定 -->
 			        'address': my_address,
 			        'region': 'jp'
 			      },
 			      function(result, status){
-			    	  <!-- ステータスがOKの場合-->
 			          if(status==google.maps.GeocoderStatus.OK){
-			        	  <!-- 緯度経度データを取得-->
+
 			              var latlng = result[0].geometry.location;
-			              <!-- 指定の座標で中心位置を指定-->
+
 			              my_google_map.setCenter(latlng);
-			              <!-- マーカーを立てる場所の指定-->
+
 			              var marker = new google.maps.Marker({position:latlng, map:my_google_map, title:latlng.toString(), draggable:true});
-			              <!-- マーカー」の「ドラッグ操作が終わった時(dragend)」に関数を実行-->
+
 			              google.maps.event.addListener(marker, 'dragend', function(event){
-			            	  <!-- マーカーにポインターをホバーした時に、文字列に変換された緯度経度が書かれたツールチップ(吹き出し)を表示-->
+
 			                  marker.setTitle(event.latLng.toString());
 			              });
-
 			          }
 			        }
 			      );
 			    }
 			  </script>
-
 		</div>
 	</div>
 </body>

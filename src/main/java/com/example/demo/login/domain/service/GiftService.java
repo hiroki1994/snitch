@@ -10,9 +10,7 @@ import com.example.demo.login.domain.model.Gift;
 import com.example.demo.login.domain.repository.GiftDao;
 
 
-/*テーブル「gift」操作用のサービスメソッド
- * トランザクション処理を利用
- */
+
 @Transactional
 @Service
 public class GiftService {
@@ -20,30 +18,23 @@ public class GiftService {
 	@Autowired
 	GiftDao dao;
 
-	//Home画面に表示するお土産を複数選出
 	public List<Gift> selectMany() {
 
-	    //リポジトリークラスに処理を投げる
 		return dao.selectMany();
 	}
 
-	//テーブル「gift」より1件取得
 	public Gift selectOne(int giftId) {
 		return dao.selectOne(giftId);
 	}
 
-	//テーブル「gift」より該当のkeywordを含むお土産を取得
 	public List<Gift> search(String keyword) {
 		System.out.println(keyword+"2");
 
-		//検索キーワード「keyword」を引数にリポジトリークラスに処理を投げる
 		return dao.search(keyword);
 	}
 
-	//検索結果の件数取得
 	public int count(String keyword) {
 
-		//検索キーワード「keyword」を引数にリポジトリークラスに処理を投げる
 		return dao.count(keyword);
 	}
 

@@ -7,24 +7,20 @@
     <title>SignUp</title>
 
 </head>
-<!-- ユーザー登録画面 -->
 <body>
     <div layout:fragment="content">
 		<div class="col-sm-4 offset-sm-4">
 			<div class="page-header">
 				<h1>ユーザー登録画面</h1>
 			</div>
-			<!-- ボタンを押すと「SignupController」に処理が投げられる -->
 			<form method="post" th:action="@{/signupUser}" th:object="${signupForm}">
 
 				<table class="table table-bordered table-hover">
 				<tr>
 					<td>
 						<div class="form-group">
-							<!-- modelオブジェクト「signupForm」の「userName」フィールドでエラーが発生したら、class属性を追加し「is-invalid」でテキストボックスの周りを赤くする-->
 							<input type="text" class="form-control" placeholder="ユーザーネーム" th:field="*{userName}"
 							th:classappend="${#fields.hasErrors('userName')}?'is-invalid'"/>
-							<!-- modelオブジェクト「signupForm」の「userName」フィールドでエラーが発生したら、th:errors属性で「messages.properties」で記述したエラーメッセージを表示-->
 							<span class="text-danger"
 								th:if="${#fields.hasErrors('userName')}"
 								th:errors="*{userName}"></span>
@@ -34,10 +30,8 @@
 				<tr>
 					<td>
 						<div class="form-group">
-							<!-- modelオブジェクト「signupForm」の「mailAddress」フィールドでエラーが発生したら、class属性を追加し「is-invalid」でテキストボックスの周りを赤くする-->
 							<input type="text" class="form-control" placeholder="メールアドレス" th:field="*{mailAddress}"
 							th:classappend="${#fields.hasErrors('mailAddress')}?'is-invalid'"/>
-							<!-- modelオブジェクト「signupForm」の「mailAddress」フィールドでエラーが発生したら、th:errors属性で「messages.properties」で記述したエラーメッセージを表示-->
 							<span class="text-danger"
 								th:if="${#fields.hasErrors('mailAddress')}"
 								th:errors="*{mailAddress}">
@@ -48,10 +42,8 @@
 				<tr>
 					<td>
 						<div class="form-group">
-							<!-- modelオブジェクト「signupForm」の「password」フィールドでエラーが発生したら、class属性を追加し「is-invalid」でテキストボックスの周りを赤くする-->
 							<input type="text" class="form-control" placeholder="パスワード" th:field="*{password}"
 							th:classappend="${#fields.hasErrors('password')}?'is-invalid'"/>
-							<!-- modelオブジェクト「signupForm」の「password」フィールドでエラーが発生したら、th:errors属性で「messages.properties」で記述したエラーメッセージ表示-->
 							<span class="text-danger"
 								th:if="${#fields.hasErrors('password')}"
 								th:errors="*{password}">
