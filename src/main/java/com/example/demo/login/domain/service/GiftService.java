@@ -28,7 +28,6 @@ public class GiftService {
 	}
 
 	public List<Gift> search(String keyword) {
-		System.out.println(keyword+"2");
 
 		return dao.search(keyword);
 	}

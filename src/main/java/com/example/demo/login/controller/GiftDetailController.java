@@ -42,7 +42,6 @@ public class GiftDetailController {
 
 			String userName = httpServletRequest.getRemoteUser();
 
-			System.out.println("ログインしているんは"+userName);
 			int favIdResult = favGiftService.searchFavId(userName, giftId);
 
 			model.addAttribute("favIdResultModel", favIdResult);
