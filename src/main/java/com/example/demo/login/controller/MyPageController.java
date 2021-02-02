@@ -68,7 +68,7 @@ public class MyPageController {
 	}
 
 	@PostMapping("/mypage/updateUser")
-	public String PostUserUpdatePage(@ModelAttribute SignupForm form, Model model, HttpServletRequest request) {
+	public String postUserUpdatePage(@ModelAttribute SignupForm form, Model model, HttpServletRequest request) {
 
 		String userName = request.getRemoteUser();
 
@@ -91,7 +91,7 @@ public class MyPageController {
 			HttpServletResponse response) {
 
 		if (bindingResult.hasErrors()) {
-			return PostUserUpdatePage(form, model, request);
+			return postUserUpdatePage(form, model, request);
 
 		}
 
