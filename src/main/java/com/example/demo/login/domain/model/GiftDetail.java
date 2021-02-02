@@ -2,7 +2,6 @@ package com.example.demo.login.domain.model;
 
 import lombok.Data;
 
-//お土産詳細画面表示の際に使用する「GiftDetail」クラス
 @Data
 public class GiftDetail {
 	private int giftId;

@@ -2,7 +2,6 @@ package com.example.demo.login.domain.model;
 
 import lombok.Data;
 
-//テーブル「gift」のカラムをフィールドに持つクラス
 @Data
 public class Gift {
 	private int giftId;

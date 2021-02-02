@@ -2,7 +2,6 @@ package com.example.demo.login.domain.model;
 
 import lombok.Data;
 
-//お気に入りテーブル「FavOmiyage」のカラムをフィールドに持つクラス
 @Data
 public class FavGift {
 	private int favId;

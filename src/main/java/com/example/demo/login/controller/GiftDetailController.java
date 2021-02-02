@@ -14,7 +14,6 @@ import com.example.demo.login.domain.model.GiftDetail;
 import com.example.demo.login.domain.service.FavGiftService;
 import com.example.demo.login.domain.service.GiftService;
 
-//お土産詳細画面用コントローラ
 @Controller
 public class GiftDetailController {
 
@@ -43,7 +42,7 @@ public class GiftDetailController {
 
 			String userName = httpServletRequest.getRemoteUser();
 
-
+			System.out.println("ログインしているんは"+userName);
 			int favIdResult = favGiftService.searchFavId(userName, giftId);
 
 			model.addAttribute("favIdResultModel", favIdResult);

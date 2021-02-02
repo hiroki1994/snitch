@@ -6,7 +6,6 @@
  	float:left;
  }
 
-
 p.resultCount {
 	position: relative;
  	float:left;
@@ -14,7 +13,6 @@ p.resultCount {
 	font-size: 20px;
 	margin-left: 15px;
 }
-
 
 .gift {
 	margin: 10px;
@@ -26,7 +24,6 @@ p.resultCount {
 .gift2 {
 	width: 262px;
 }
-
 
 img.gift-picture {
 	width: 258.5px;

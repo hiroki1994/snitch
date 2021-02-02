@@ -10,24 +10,19 @@
 	<script src="https://kit.fontawesome.com/665f18a48e.js" crossorigin="anonymous"></script>
 
 </head>
-<!-- ユーザー登録情報更新ページ -->
 <body layout:fragment="content">
 <div class="col-sm-6 offset-sm-3">
 			<div class="page-header">
 				<h1>登録情報更新</h1>
 				<h6><b>更新後はログアウトが実行されます。</b></h6>
 	        </div>
-	        <!--  更新ボタンが押されると「MypageController」の「/updateUserInfo」へ処理が渡される-->
 	        <form method="post" th:action="@{/updateUserInfo}" th:object="${signupForm}">
 				<table class="table table-bordered table-hover">
 				<tr>
 					<td>
-						<!--  「message.properties」-->
 						<div class="form-group">
-							<!-- modelオブジェクト「signupForm」の「userName」フィールドでエラーが発生したら、class属性を追加し「is-invalid」でテキストボックスの周りを赤くする-->
 							<input type="text" class="form-control" th:field="*{userName}"
 							th:classappend="${#fields.hasErrors('userName')}?'is-invalid'"/>
-							<!-- modelオブジェクト「signupForm」の「userName」フィールドでエラーが発生したら、th:errors属性で「messages.properties」で記述したエラーメッセージを表示-->
 							<span class="text-danger"
 								th:if="${#fields.hasErrors('userName')}"
 								th:errors="*{userName}">
@@ -39,10 +34,8 @@
 				<tr>
 					<td>
 						<div class="form-group">
-							<!-- modelオブジェクト「signupForm」の「mailAddress」フィールドでエラーが発生したら、class属性を追加し「is-invalid」でテキストボックスの周りを赤くする-->
 							<input type="text" class="form-control" th:field="*{mailAddress}"
 							th:classappend="${#fields.hasErrors('mailAddress')}?'is-invalid'"/>
-							<!-- modelオブジェクト「signupForm」の「mailAddress」フィールドでエラーが発生したら、th:errors属性で「messages.properties」で記述したエラーメッセージを表示-->
 							<span class="text-danger"
 								th:if="${#fields.hasErrors('mailAddress')}"
 								th:errors="*{mailAddress}">
@@ -54,10 +47,8 @@
 				<tr>
 					<td>
 						<div class="form-group">
-							<!-- modelオブジェクト「signupForm」の「password」フィールドでエラーが発生したら、class属性を追加し「is-invalid」でテキストボックスの周りを赤くする-->
 							<input type="text" class="form-control" th:field="*{password}"
 							th:classappend="${#fields.hasErrors('password')}?'is-invalid'"/>
-							<!-- modelオブジェクト「signupForm」の「password」フィールドでエラーが発生したら、th:errors属性で「messages.properties」で記述したエラーメッセージ表示-->
 							<span class="text-danger"
 								th:if="${#fields.hasErrors('password')}"
 								th:errors="*{password}">

@@ -53,7 +53,6 @@ public class GlobalControllAdvice {
 		}
 
 		model.addAttribute("message", "指定されたページは存在しません");
-
 		return "error";
 	}
 
