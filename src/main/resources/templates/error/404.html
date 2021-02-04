@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/template}">
+
+
 <head>
 	<meta charset="UTF-8">
-	<title>Error</title>
+	<title>404Error</title>
 </head>
+<!-- 404エラーページ-->
 <body>
 	<div layout:fragment="content">
-		<p th:text="${message}"></p>
+		<p>指定されたページは存在しません</p>
 	</div>
 </body>
 </html>
