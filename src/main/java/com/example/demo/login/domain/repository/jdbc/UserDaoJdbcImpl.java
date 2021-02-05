@@ -113,7 +113,6 @@ public class UserDaoJdbcImpl implements UserDao {
 			return user;
 
 		} catch(DataAccessException e) {
-			e.printStackTrace();
 			return null;
 		}
 	}
