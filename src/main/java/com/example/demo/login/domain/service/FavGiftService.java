@@ -17,9 +17,9 @@ public class FavGiftService {
 	@Autowired
 	FavGiftDao dao;
 
-	public List<FavGift> selectMany(String userName) {
+	public List<FavGift> selectAll(String userName) {
 
-		return dao.selectMany(userName);
+		return dao.selectAll(userName);
 	}
 
 	public int count(String userName) {
@@ -34,11 +34,11 @@ public class FavGiftService {
 
 	public boolean create(String userName, int giftId) {
 
-		int favGiftRowNumber = dao.create(userName, giftId);
+		int suceededRowNumber = dao.create(userName, giftId);
 
 		boolean result = false;
 
-		if (favGiftRowNumber > 0) {
+		if (suceededRowNumber > 0) {
 			result = true;
 		}
 
@@ -48,11 +48,11 @@ public class FavGiftService {
 
 	public boolean delete(String userId, int giftId) {
 
-		int favGiftRowNumber = dao.delete(userId, giftId);
+		int suceededRowNumber = dao.delete(userId, giftId);
 
 		boolean result = false;
 
-		if (favGiftRowNumber > 0) {
+		if (suceededRowNumber > 0) {
 			result = true;
 		}
 

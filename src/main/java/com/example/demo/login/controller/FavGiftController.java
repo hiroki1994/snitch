@@ -20,7 +20,7 @@ public class FavGiftController {
 	@Autowired
 	FavGiftService favGiftService;
 
-	@PostMapping("/createFavGift")
+	@PostMapping("/favGift")
 	public void create(Model model, @RequestParam("giftId") int giftId, HttpServletRequest httpServletRequest, HttpServletResponse response) throws IOException {
 
 		String userName = httpServletRequest.getRemoteUser();
@@ -38,7 +38,7 @@ public class FavGiftController {
 		response.sendRedirect(url);
 	}
 
-	@PostMapping("/deleteGiftFromFav")
+	@PostMapping("/notFavGift")
 	public void delete(Model model, @RequestParam("giftId") int giftId, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		String userName = request.getRemoteUser();

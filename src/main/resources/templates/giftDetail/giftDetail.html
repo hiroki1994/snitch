@@ -20,13 +20,13 @@
 		<div class="gift-left col-sm-5 ">
 			<img  class="gift-image" th:src="@{'/image/'+${giftDetail.image}}" alt="gift-image">
 			<div   sec:authorize="isAuthenticated()">
-				<form id="createFavGift" th:action="@{/createFavGift}" method="post">
+				<form id="favGift" th:action="@{/favGift}" method="post">
 					<input th:value="${giftDetail.giftId}" name="giftId" type="hidden" />
-					<button th:if="${favIdResultModel == 0}" class="update-btn btn-warning col-sm-4 offset-sm-9" style="color:white" type="submit" ><i class="fas fa-heart" style="color:white"></i> お気に入り</button>
+					<button th:if="${favId == 0}" class="update-btn btn-warning col-sm-4 offset-sm-9" style="color:white" type="submit" ><i class="fas fa-heart" style="color:white"></i> お気に入り</button>
             	</form>
-            	<form id="deleteGiftFromFav" th:action="@{/deleteGiftFromFav}" method="post">
+            	<form id="notFavGift" th:action="@{/notFavGift}" method="post">
 					<input th:value="${giftDetail.giftId}" name="giftId" type="hidden" />
-					<button th:unless="${favIdResultModel == 0}" class="update-btn btn-danger col-sm-5 offset-sm-8" style="color:white" type="submit" ><i class="fas fa-ban" style="color:white"></i> お気に入り解除</button>
+					<button th:unless="${favId == 0}" class="update-btn btn-danger col-sm-5 offset-sm-8" style="color:white" type="submit" ><i class="fas fa-ban" style="color:white"></i> お気に入り解除</button>
             	</form>
 
 			</div>
