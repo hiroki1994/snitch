@@ -20,40 +20,40 @@ public class FavGiftController {
 	@Autowired
 	FavGiftService favGiftService;
 
-	@PostMapping("/addGiftToFav")
-	public void postAddGiftToFav(Model model, @RequestParam("giftId") int giftId, HttpServletRequest httpServletRequest, HttpServletResponse response) throws IOException {
+	@PostMapping("/createFavGift")
+	public void create(Model model, @RequestParam("giftId") int giftId, HttpServletRequest httpServletRequest, HttpServletResponse response) throws IOException {
 
 		String userName = httpServletRequest.getRemoteUser();
 
-		boolean resultAddGiftToFav = favGiftService.addGiftToFav(userName, giftId);
+		boolean result = favGiftService.create(userName, giftId);
 
-		if(resultAddGiftToFav == true) {
+		if(result == true) {
 			System.out.println("お気に入り登録成功");
 		} else {
 			System.out.println("お気に入り登録失敗");
 		}
 
-		String giftDeatllUrl = "/giftDetail/" + giftId;
+		String url = "/giftDetail/" + giftId;
 
-		response.sendRedirect(giftDeatllUrl);
+		response.sendRedirect(url);
 	}
 
 	@PostMapping("/deleteGiftFromFav")
-	public void postdeleteGiftFromFav(Model model, @RequestParam("giftId") int giftId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void delete(Model model, @RequestParam("giftId") int giftId, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		String userName = request.getRemoteUser();
 
-		boolean resultDeleteGiftFromFav = favGiftService.deleteGiftFromFav(userName, giftId);
+		boolean result = favGiftService.delete(userName, giftId);
 
-		if(resultDeleteGiftFromFav == true) {
+		if(result == true) {
 			System.out.println("お気に入り登録解除完了");
 		} else {
 			System.out.println("お気に入り登録解除成功");
 		}
 
-		String giftDeatllUrl = "/giftDetail/" + giftId;
+		String url = "/giftDetail/" + giftId;
 
-		response.sendRedirect(giftDeatllUrl);
+		response.sendRedirect(url);
 	}
 }
 

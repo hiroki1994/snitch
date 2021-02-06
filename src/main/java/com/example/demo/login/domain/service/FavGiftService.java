@@ -32,31 +32,31 @@ public class FavGiftService {
 		return dao.searchFavId(userName, giftId);
 	}
 
-	public boolean addGiftToFav(String userName, int giftId) {
+	public boolean create(String userName, int giftId) {
 
-		int favGiftRowNumber = dao.addGiftToFav(userName, giftId);
+		int favGiftRowNumber = dao.create(userName, giftId);
 
-		boolean resultAddGiftToFav = false;
+		boolean result = false;
 
 		if (favGiftRowNumber > 0) {
-			resultAddGiftToFav = true;
+			result = true;
 		}
 
-		return resultAddGiftToFav;
+		return result;
 
 	}
 
-	public boolean deleteGiftFromFav(String userId, int giftId) {
+	public boolean delete(String userId, int giftId) {
 
-		int favGiftRowNumber = dao.deleteGiftFromFav(userId, giftId);
+		int favGiftRowNumber = dao.delete(userId, giftId);
 
-		boolean resultDeleteGiftFromFav = false;
+		boolean result = false;
 
 		if (favGiftRowNumber > 0) {
-			resultDeleteGiftFromFav = true;
+			result = true;
 		}
 
-		return resultDeleteGiftFromFav;
+		return result;
 
 	}
 

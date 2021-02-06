@@ -20,7 +20,7 @@
 		<div class="gift-left col-sm-5 ">
 			<img  class="gift-image" th:src="@{'/image/'+${giftDetail.image}}" alt="gift-image">
 			<div   sec:authorize="isAuthenticated()">
-				<form id="addGiftToFav" th:action="@{/addGiftToFav}" method="post">
+				<form id="createFavGift" th:action="@{/createFavGift}" method="post">
 					<input th:value="${giftDetail.giftId}" name="giftId" type="hidden" />
 					<button th:if="${favIdResultModel == 0}" class="update-btn btn-warning col-sm-4 offset-sm-9" style="color:white" type="submit" ><i class="fas fa-heart" style="color:white"></i> お気に入り</button>
             	</form>
