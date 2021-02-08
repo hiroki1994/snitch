@@ -25,7 +25,7 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 
 			List<Map<String, Object>> favGifts = jdbc.queryForList("SELECT * FROM favGift INNER JOIN gift ON favGift.giftId = gift.giftId INNER JOIN guest ON gift.guestId = guest.guestId WHERE userId = ? AND favGift.unavailableFlag IS NULL", userId.get("userId"));
 
-			List<FavGift> allfavGifts = new ArrayList<>();
+			List<FavGift> allFavGifts = new ArrayList<>();
 
 			for(Map<String, Object> map: favGifts) {
 
@@ -43,9 +43,9 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 				favGift.setAddress((String)map.get("address"));
 				favGift.setPhone((String)map.get("phone"));
 
-				allfavGifts.add(favGift);
+				allFavGifts.add(favGift);
 			}
-			return allfavGifts;
+			return allFavGifts;
 		}
 
 	@Override
@@ -75,9 +75,7 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 
 		List<Map<String, Object>> giftIds = jdbc.queryForList("SELECT giftId FROM favGift WHERE userId = ? AND favGift.unavailableFlag IS NULL", userId.get("userId"));
 
-		int number = giftIds.size();
-
-		return number;
+		return giftIds.size();
 	}
 
 	@Override
