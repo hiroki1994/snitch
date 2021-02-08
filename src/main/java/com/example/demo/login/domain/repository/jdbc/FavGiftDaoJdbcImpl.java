@@ -49,7 +49,7 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 		}
 
 	@Override
-	public int searchFavId(String userName, int giftId) throws DataAccessException {
+	public int searchFavId(String userName, int giftId) {
 
 		try {
 			Map<String, Object> userId = jdbc.queryForMap("SELECT userId FROM userData WHERE userName = ?", userName);
@@ -62,6 +62,7 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 
 		} catch(DataAccessException e) {
 			int favId = 0;
+
 			return favId;
 		}
 
