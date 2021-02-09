@@ -130,15 +130,13 @@ public class MyPageController {
 
 		String userName = httpServletRequest.getRemoteUser();
 
-		System.out.println("ログインしているのは"+userName);
+		List<FavGift> allFavGifts = favGiftService.selectAll(userName);
 
-		List<FavGift> favGiftList = favGiftService.selectMany(userName);
-
-		model.addAttribute("favGiftList", favGiftList);
+		model.addAttribute("allFavGifts", allFavGifts);
 
 		int count = favGiftService.count(userName);
 
-		model.addAttribute("favGiftListCount", count);
+		model.addAttribute("count", count);
 
 		return "mypage/favorite/favorite";
 	}

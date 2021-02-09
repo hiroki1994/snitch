@@ -19,15 +19,15 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	JdbcTemplate jdbc;
 
 	@Override
-	public List<FavGift> selectMany(String userName) throws DataAccessException {
+	public List<FavGift> selectAll(String userName) throws DataAccessException {
 
-		Map<String, Object> mapForID = jdbc.queryForMap("SELECT userId FROM userData WHERE userName = ?", userName);
+		Map<String, Object> userId = jdbc.queryForMap("SELECT userId FROM userData WHERE userName = ?", userName);
 
-			List<Map<String, Object>>  getList = jdbc.queryForList("SELECT * FROM favGift INNER JOIN gift ON favGift.giftId = gift.giftId INNER JOIN guest ON gift.guestId = guest.guestId WHERE userId = ? AND favGift.unavailableFlag IS NULL", mapForID.get("userId"));
+			List<Map<String, Object>> favGifts = jdbc.queryForList("SELECT * FROM favGift INNER JOIN gift ON favGift.giftId = gift.giftId INNER JOIN guest ON gift.guestId = guest.guestId WHERE userId = ? AND favGift.unavailableFlag IS NULL", userId.get("userId"));
 
-			List<FavGift> favGiftList = new ArrayList<>();
+			List<FavGift> allFavGifts = new ArrayList<>();
 
-			for(Map<String, Object> map: getList) {
+			for(Map<String, Object> map: favGifts) {
 
 				FavGift favGift = new FavGift();
 
@@ -43,26 +43,26 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 				favGift.setAddress((String)map.get("address"));
 				favGift.setPhone((String)map.get("phone"));
 
-				favGiftList.add(favGift);
+				allFavGifts.add(favGift);
 			}
-			return favGiftList;
+			return allFavGifts;
 		}
 
 	@Override
 	public int searchFavId(String userName, int giftId) throws DataAccessException {
 
 		try {
-			Map<String, Object> mapForID = jdbc.queryForMap("SELECT userId FROM userData WHERE userName = ?", userName);
+			Map<String, Object> userId = jdbc.queryForMap("SELECT userId FROM userData WHERE userName = ?", userName);
 
-			Map<String, Object> favIdFind = jdbc.queryForMap("SELECT favId FROM favGift WHERE userId = ? AND giftId = ? AND favGift.unavailableFlag IS NULL", mapForID.get("userId"), giftId);
+			Map<String, Object> favId = jdbc.queryForMap("SELECT favId FROM favGift WHERE userId = ? AND giftId = ? AND favGift.unavailableFlag IS NULL", userId.get("userId"), giftId);
 
-			int favId2 =  (int) favIdFind.get("favId");
+			int castedFavId =  (int) favId.get("favId");
 
-			return favId2;
+			return castedFavId;
 
 		} catch(DataAccessException e) {
-			int favId2 = 0;
-			return favId2;
+			int favId = 0;
+			return favId;
 		}
 
 
@@ -71,35 +71,31 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	@Override
 	public int count(String userName) throws DataAccessException {
 
-		Map<String, Object> mapForID = jdbc.queryForMap("SELECT userId FROM userData WHERE userName = ?", userName);
+		Map<String, Object> userId = jdbc.queryForMap("SELECT userId FROM userData WHERE userName = ?", userName);
 
-		List<Map<String, Object>>  getList = jdbc.queryForList("SELECT giftId FROM favGift WHERE userId = ? AND favGift.unavailableFlag IS NULL", mapForID.get("userId"));
+		List<Map<String, Object>> giftIds = jdbc.queryForList("SELECT giftId FROM favGift WHERE userId = ? AND favGift.unavailableFlag IS NULL", userId.get("userId"));
 
-		int favCount = getList.size();
-
-		return favCount;
+		return giftIds.size();
 	}
 
 	@Override
-	public int insert(String userName, int giftId) throws DataAccessException {
+	public int create(String userName, int giftId) throws DataAccessException {
 
-		System.out.println(userName+"この情報で検索");
+		Map<String, Object> userId = jdbc.queryForMap("SELECT userId FROM userData WHERE userName = ?", userName);
 
-		Map<String, Object> mapForID = jdbc.queryForMap("SELECT userId FROM userData WHERE userName = ?", userName);
+		int suceededRowNumber = jdbc.update("INSERT INTO favGift(userId, giftId) VALUES(?, ?)", userId.get("userId"), giftId);
 
-		int rowNumber = jdbc.update("INSERT INTO favGift(userId, giftId) VALUES(?, ?)", mapForID.get("userId"), giftId);
-
-		return rowNumber;
+		return suceededRowNumber;
 	}
 
 	@Override
 	public int delete(String userName, int giftId)throws DataAccessException{
 
-		Map<String, Object> mapForID = jdbc.queryForMap("SELECT userId FROM userData WHERE userName = ?", userName);
+		Map<String, Object> userId = jdbc.queryForMap("SELECT userId FROM userData WHERE userName = ?", userName);
 
-		int rowNumber = jdbc.update("UPDATE favGift SET unavailableFlag = '1' WHERE userId = ? AND giftId = ? AND favGift.unavailableFlag IS NULL", mapForID.get("userId"), giftId);
+		int suceededRowNumber = jdbc.update("UPDATE favGift SET unavailableFlag = '1' WHERE userId = ? AND giftId = ? AND favGift.unavailableFlag IS NULL", userId.get("userId"), giftId);
 
-		return rowNumber;
+		return suceededRowNumber;
 	}
 
 

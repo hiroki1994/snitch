@@ -20,12 +20,12 @@ public class FavGiftController {
 	@Autowired
 	FavGiftService favGiftService;
 
-	@PostMapping("/addGift")
-	public void getFavGiftAdd(Model model, @RequestParam("giftId") int giftId, HttpServletRequest httpServletRequest, HttpServletResponse response) throws IOException {
+	@PostMapping("/favGift")
+	public void create(Model model, @RequestParam("giftId") int giftId, HttpServletRequest httpServletRequest, HttpServletResponse response) throws IOException {
 
 		String userName = httpServletRequest.getRemoteUser();
 
-		boolean result = favGiftService.insert(userName, giftId);
+		boolean result = favGiftService.create(userName, giftId);
 
 		if(result == true) {
 			System.out.println("お気に入り登録成功");
@@ -38,8 +38,8 @@ public class FavGiftController {
 		response.sendRedirect(url);
 	}
 
-	@PostMapping("/deleteFavGift")
-	public void getFavGiftDelite(Model model, @RequestParam("giftId") int giftId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	@PostMapping("/notFavGift")
+	public void delete(Model model, @RequestParam("giftId") int giftId, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		String userName = request.getRemoteUser();
 
