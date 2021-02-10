@@ -46,9 +46,9 @@ public class FavGiftService {
 
 	}
 
-	public boolean delete(String userId, int giftId) {
+	public boolean delete(String userName, int giftId) {
 
-		int suceededRowNumber = dao.delete(userId, giftId);
+		int suceededRowNumber = dao.delete(userName, giftId);
 
 		boolean result = false;
 

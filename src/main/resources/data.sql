@@ -762,4 +762,5 @@ INSERT INTO gift(guestId, giftName, price, image, description, shop, address, ph
 
 INSERT INTO userData(userName, mailAddress, password, role) VALUES('userName', 'mailaddress@gmail.co.jp', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', 'ROLE_GENERAL');
 
+INSERT INTO favGift(userId, giftId) VALUES(1, 10);
 
