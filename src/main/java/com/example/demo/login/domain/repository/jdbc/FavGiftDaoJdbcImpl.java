@@ -81,11 +81,18 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	@Override
 	public int create(String userName, int giftId) throws DataAccessException {
 
+		int rowNumber = 0;
+
+		if(searchGiftId(giftId) != 0) {
+
 		Map<String, Object> userId = jdbc.queryForMap("SELECT userId FROM userData WHERE userName = ?", userName);
 
 		int suceededRowNumber = jdbc.update("INSERT INTO favGift(userId, giftId) VALUES(?, ?)", userId.get("userId"), giftId);
 
 		return suceededRowNumber;
+		}
+
+		return rowNumber;
 	}
 
 	@Override
@@ -99,5 +106,18 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	}
 
 
+	public int searchGiftId(int giftId) {
+
+		try {
+			int oneGiftId = jdbc.queryForObject("SELECT giftId FROM gift WHERE giftId = ?", Integer.class, giftId);
+			return oneGiftId;
+		} catch(DataAccessException e) {
+			int oneGiftId = 0;
+			System.out.println(giftId + "は未登録のidです。");
+			e.printStackTrace();
+			return oneGiftId;
+		}
+
+	}
 
 }
