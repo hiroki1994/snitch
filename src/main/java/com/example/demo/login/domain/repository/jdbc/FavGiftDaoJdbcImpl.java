@@ -51,7 +51,6 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	@Override
 	public int searchFavId(String userName, int giftId) throws DataAccessException {
 
-		try {
 			Map<String, Object> userId = jdbc.queryForMap("SELECT userId FROM userData WHERE userName = ?", userName);
 
 			Map<String, Object> favId = jdbc.queryForMap("SELECT favId FROM favGift WHERE userId = ? AND giftId = ? AND favGift.unavailableFlag IS NULL", userId.get("userId"), giftId);
@@ -59,12 +58,6 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 			int castedFavId =  (int) favId.get("favId");
 
 			return castedFavId;
-
-		} catch(DataAccessException e) {
-			int favId = 0;
-			return favId;
-		}
-
 
 	}
 
@@ -81,18 +74,19 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	@Override
 	public int create(String userName, int giftId) throws DataAccessException {
 
-		int rowNumber = 0;
 
-		if(searchGiftId(giftId) != 0) {
+		boolean result = searchGiftId(giftId);
+
+		if(result == false) {
+			System.out.println(giftId + "は未登録のidです。");
+			return 0;
+		}
 
 		Map<String, Object> userId = jdbc.queryForMap("SELECT userId FROM userData WHERE userName = ?", userName);
 
 		int suceededRowNumber = jdbc.update("INSERT INTO favGift(userId, giftId) VALUES(?, ?)", userId.get("userId"), giftId);
 
 		return suceededRowNumber;
-		}
-
-		return rowNumber;
 	}
 
 	@Override
@@ -106,18 +100,16 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	}
 
 
-	public int searchGiftId(int giftId) {
+	public boolean searchGiftId(int giftId) throws DataAccessException {
+
+		boolean result = false;
 
 		try {
-			int oneGiftId = jdbc.queryForObject("SELECT giftId FROM gift WHERE giftId = ?", Integer.class, giftId);
-			return oneGiftId;
+			jdbc.queryForObject("SELECT giftId FROM gift WHERE giftId = ?", Integer.class, giftId);
+			result = true;
 		} catch(DataAccessException e) {
-			int oneGiftId = 0;
-			System.out.println(giftId + "は未登録のidです。");
 			e.printStackTrace();
-			return oneGiftId;
 		}
-
+		return result;
 	}
-
 }
