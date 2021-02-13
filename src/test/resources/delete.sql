@@ -1,4 +1,4 @@
-DELETE FROM userData;
-DELETE FROM guest;
 DELETE FROM gift;
+DELETE FROM userData;
 DELETE FROM favGift;
+DELETE FROM guest;
