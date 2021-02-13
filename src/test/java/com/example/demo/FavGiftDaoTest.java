@@ -25,7 +25,7 @@ import com.example.demo.login.domain.repository.FavGiftDao;
 @SpringBootTest
 @Transactional
 @ActiveProfiles("test")
-@Sql({"/Delete.sql", "/Insert.sql"})
+@Sql({"/Delete.sql","/Schema.sql", "/Insert.sql"})
 public class FavGiftDaoTest {
 
 
@@ -37,7 +37,7 @@ public class FavGiftDaoTest {
 	public void お気に入り件数() throws Exception {
 		String userName = "userName3";
 
-		assertEquals(favGiftDao.count(userName), 1);
+		assertEquals(favGiftDao.count(userName), 2);
 	}
 
 	@Test
@@ -46,7 +46,7 @@ public class FavGiftDaoTest {
 
 		List<FavGift> allFavGifts = favGiftDao.selectAll(userName);
 		assertThat(allFavGifts, hasItems(hasProperty("favId", is(0))));
-		assertThat(allFavGifts, hasItems(hasProperty("userId", is(2))));
+		assertThat(allFavGifts, hasItems(hasProperty("userId", is(1))));
 		assertThat(allFavGifts, hasItems(hasProperty("giftId", is(1000))));
 		assertThat(allFavGifts, hasItems(hasProperty("guestName", is("中越典子"))));
 		assertThat(allFavGifts, hasItems(hasProperty("giftName", is("マカロン"))));
@@ -80,7 +80,7 @@ public class FavGiftDaoTest {
 	@Test
 	public void お気に入りID取得()throws Exception {
 
-		String userName = "userName";
+		String userName = "userName3";
 
 		int giftId = 1001;
 

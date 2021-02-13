@@ -7,3 +7,4 @@ INSERT INTO gift(giftId, guestId, giftName, price, image, description, shop, add
 INSERT INTO gift(giftId, guestId, giftName, price, image, description, shop, address, phone) VALUES('1001', '1001', '五家寶', '細巻6本入り 170円', '1001.jpg', '各種詰め合わせあります。ぷうん、と香るきな粉の香ばしさ、サクッとした歯応え、そしてすうっと溶け入る舌触り・・・・・・。主原料である大豆、糯米、砂糖、水飴等が織りなすこの豊かな風味は、総て独自のものを用い、心のこもった手造りによる『花堤五家寳』ならではのものです。', '花堤', '玉県熊谷市榎町3', '048-521-0471');
 
 INSERT INTO favGift(userId, giftId) VALUES('1', '1000');
+INSERT INTO favGift(userId, giftId) VALUES('1', '1001');
