@@ -1,0 +1,4 @@
+DELETE FROM guest;
+DELETE FROM gift;
+DELETE FROM userData;
+DELETE FROM favGift;
