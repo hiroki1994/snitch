@@ -66,4 +66,26 @@ public class FavGiftControllerTest {
 			.andExpect(status().isFound())
 			.andExpect(redirectedUrl("/giftDetail/" + giftId));
 	}
+
+	@Test
+	@WithMockUser(username="userName3")
+	@Sql({"/Delete.sql", "/Schema.sql", "/Insert.sql"})
+	public void お気に入り削除() throws Exception {
+
+
+		String userName = "userName3";
+
+		int giftId = 1001;
+
+		boolean result = true;
+
+		when(favGiftService.delete(userName, giftId)).thenReturn(result);
+
+		mockMvc.perform(post("/notFavGift")
+			.param("userName", userName)
+			.param("giftId", "1001")
+			.with(csrf()))
+			.andExpect(status().isFound())
+			.andExpect(redirectedUrl("/giftDetail/" + giftId));
+	}
 }
