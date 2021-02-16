@@ -1,0 +1,70 @@
+package com.example.demo;
+
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
+
+import com.example.demo.login.domain.model.Gift;
+import com.example.demo.login.domain.repository.jdbc.GiftDaoJdbcImpl;
+
+
+
+@SpringBootTest
+@AutoConfigureMockMvc
+@Sql({"/Delete.sql", "/Schema.sql", "/Insert.sql"})
+public class GiftDaoJdbcImplTest {
+
+	@Autowired
+	GiftDaoJdbcImpl giftDaoJdbcImpl;
+
+	@Test
+	public void お土産件数取得成功() {
+
+		String keyword = "マカロン";
+
+		assertEquals(giftDaoJdbcImpl.count(keyword), 1);
+
+	}
+
+	@Test
+	public void お土産件数取得失敗() {
+
+		String keyword = "アイス";
+
+		assertEquals(giftDaoJdbcImpl.count(keyword), 0);
+
+	}
+
+	@Test
+	public void お土産検索成功() {
+		String keyword = "マカロン";
+
+		List<Gift> giftList = giftDaoJdbcImpl.search(keyword);
+		assertThat(giftList, hasItems(hasProperty("giftId", is(1000))));
+		assertThat(giftList, hasItems(hasProperty("guestName", is("中越典子"))));
+		assertThat(giftList, hasItems(hasProperty("giftName", is("マカロン"))));
+		assertThat(giftList, hasItems(hasProperty("price", is("120個入　3938円"))));
+		assertThat(giftList, hasItems(hasProperty("image", is("1000.jpg"))));
+		assertThat(giftList, hasItems(hasProperty("shop", is("ジャン＝ポール･エヴァン伊勢丹新宿店"))));
+		assertThat(giftList, hasItems(hasProperty("address", is("東京都新宿区新宿3-14-1伊勢丹新宿店本館B1階"))));
+		assertThat(giftList, hasItems(hasProperty("phone", is("03-3352-1111"))));
+	}
+
+	@Test
+	public void お土産検索失敗() {
+		String keyword = "アイス";
+
+		List<Gift> giftList = giftDaoJdbcImpl.search(keyword);
+
+		assertThat(giftList, is(empty()));
+	}
+}

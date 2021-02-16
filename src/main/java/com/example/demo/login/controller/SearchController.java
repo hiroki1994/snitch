@@ -21,14 +21,16 @@ public class SearchController {
 	GiftService giftService;
 
 	@GetMapping("/search")
-	public String postSearchGift(@Validated SearchForm form,  BindingResult bindingResult, Model model, @RequestParam("keyword") String keyword) {
+	public String search(@Validated SearchForm form,  BindingResult bindingResult, Model model, @RequestParam("keyword") String keyword) {
 
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("searchForm", form);
 			return "searchResult/searchResult";
 		}
 
+
 		List<Gift> giftList = giftService.search(keyword);
+
 
 		model.addAttribute("giftList", giftList);
 

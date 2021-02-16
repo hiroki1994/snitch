@@ -24,13 +24,8 @@ public class GiftDaoJdbcImpl implements GiftDao {
 
 		List<Map<String, Object>>  getList = jdbc.queryForList("SELECT giftId FROM gift INNER JOIN guest ON gift.guestId = guest.guestId WHERE CONCAT(giftName, description, shop, address, guestName) LIKE '%'||?||'%' AND gift.unavailableFlag IS NULL", keyword);
 
-		int searchCount = 0;
+        int searchCount= getList.size();
 
-        if(getList != null) {
-        	searchCount= getList.size();
-        } else if(getList == null){
-        	searchCount = -1;
-        }
 		return searchCount;
 	}
 
