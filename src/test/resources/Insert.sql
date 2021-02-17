@@ -32,12 +32,12 @@ INSERT INTO guest(guestName) VALUES('上村愛子');
 INSERT INTO guest(guestName) VALUES('中居正広');
 INSERT INTO guest(guestName) VALUES('石井一久');
 
-INSERT INTO gift(guestId, giftName, price, image, description, shop, address, phone) VALUES('1001', 'マカロン', '120個入　3938円', '1001.jpg', 'ショコラアメール/ショコラヴァニーユ/ショコラフランボワーズショコラキャラメル/ショコラカフェ/ショコラミエルショコラピスターシュ/ショコラベルガモット/ショコラパッションポムアニス/マングコリアンドル/パンオレザン上記、12種類', 'ジャン＝ポール･エヴァン伊勢丹新宿店', '東京都新宿区新宿3-14-1伊勢丹新宿店本館B1階', '03-3352-1111');
-INSERT INTO gift(guestId, giftName, price, image, description, shop, address, phone) VALUES('2', '五家寶', '細巻6本入り 170円', '2.jpg', '各種詰め合わせあります。ぷうん、と香るきな粉の香ばしさ、サクッとした歯応え、そしてすうっと溶け入る舌触り・・・・・・。主原料である大豆、糯米、砂糖、水飴等が織りなすこの豊かな風味は、総て独自のものを用い、心のこもった手造りによる『花堤五家寳』ならではのものです。', '花堤', '玉県熊谷市榎町3', '048-521-0471');
-INSERT INTO gift(guestId, giftName, price, image, description, shop, address, phone) VALUES('3', 'ロールケーキ', '1円 ', '3.jpg', 'ロールケーキ専門店で、手作りしている為、1日80本限定販売です。平飼地鶏の有精自然卵、国内産の小麦粉、砂糖、低脂肪の純生クリームと厳選された素材を使用しています。もちろん、添加物、保存料は一切使用していません。このロールケーキはプレーンとチョコの２種類で、カフェでは、ロールケーキと飲み物のセットがあります。', 'Flat', '豊中市上野東3-18-8', '06-6848-7505');
-INSERT INTO gift(guestId, giftName, price, image, description, shop, address, phone) VALUES('4', 'ピロシキ', '1個　120円', '4.jpg', '', '木村屋', '大阪府大阪市天王寺区石ケ辻町13-20', '06-6771-4107');
-INSERT INTO gift(guestId, giftName, price, image, description, shop, address, phone) VALUES('5', 'いちご大福', '1箱10個入　1900円', '5.jpg', '11月中旬4月下旬限定白餡を羽二重餅で包み、みずみずしいイチゴを丸ごとサンドしました。', '御菓子司福岡屋', '愛知県豊田市保見町塚原15', '056-548-8036');
-INSERT INTO gift(guestId, giftName, price, image, description, shop, address, phone) VALUES('6', 'フロマージュロワイヤル', '1箱　2100円 ', '6.jpg', '★数量限定発売★有名パティシエ高木康政の濃厚チーズケーキ【フロマージュロワイヤル】３ヶ国の厳選したチーズと、タカギオリジナルの製法で焼き上げた濃厚なチーズケーキです。ずっしりとした重量感があるのに食べてみると、ちーずの芳醇な香りとまろやかな口当たりでしつこさを感じさせません。一度食べるとやめられないタカギで大人気のケーキです。', 'ルパティシエタカギ', '東京都世田谷区深沢5-5-21', '03-5420-2929');
+INSERT INTO gift(guestId, giftName, price, image, description, shop, address, phone) VALUES('1000', 'マカロン', '120個入　3938円', '1000.jpg', 'ショコラアメール/ショコラヴァニーユ/ショコラフランボワーズショコラキャラメル/ショコラカフェ/ショコラミエルショコラピスターシュ/ショコラベルガモット/ショコラパッションポムアニス/マングコリアンドル/パンオレザン上記、12種類', 'ジャン＝ポール･エヴァン伊勢丹新宿店', '東京都新宿区新宿3-14-1伊勢丹新宿店本館B1階', '03-3352-1111');
+INSERT INTO gift(guestId, giftName, price, image, description, shop, address, phone) VALUES('1001', '五家寶', '細巻6本入り 170円', '1001.jpg', '各種詰め合わせあります。ぷうん、と香るきな粉の香ばしさ、サクッとした歯応え、そしてすうっと溶け入る舌触り・・・・・・。主原料である大豆、糯米、砂糖、水飴等が織りなすこの豊かな風味は、総て独自のものを用い、心のこもった手造りによる『花堤五家寳』ならではのものです。', '花堤', '玉県熊谷市榎町3', '048-521-0471');
+INSERT INTO gift(guestId, giftName, price, image, description, shop, address, phone) VALUES('1002', 'ロールケーキ', '1円 ', '1003.jpg', 'ロールケーキ専門店で、手作りしている為、1日80本限定販売です。平飼地鶏の有精自然卵、国内産の小麦粉、砂糖、低脂肪の純生クリームと厳選された素材を使用しています。もちろん、添加物、保存料は一切使用していません。このロールケーキはプレーンとチョコの２種類で、カフェでは、ロールケーキと飲み物のセットがあります。', 'Flat', '豊中市上野東3-18-8', '06-6848-7505');
+INSERT INTO gift(guestId, giftName, price, image, description, shop, address, phone) VALUES('1003', 'ピロシキ', '1個　120円', '4.jpg', '', '木村屋', '大阪府大阪市天王寺区石ケ辻町13-20', '06-6771-4107');
+INSERT INTO gift(guestId, giftName, price, image, description, shop, address, phone) VALUES('1004', 'いちご大福', '1箱10個入　1900円', '1004.jpg', '11月中旬4月下旬限定白餡を羽二重餅で包み、みずみずしいイチゴを丸ごとサンドしました。', '御菓子司福岡屋', '愛知県豊田市保見町塚原15', '056-548-8036');
+INSERT INTO gift(guestId, giftName, price, image, description, shop, address, phone) VALUES('1005', 'フロマージュロワイヤル', '1箱　2100円 ', '1005.jpg', '★数量限定発売★有名パティシエ高木康政の濃厚チーズケーキ【フロマージュロワイヤル】３ヶ国の厳選したチーズと、タカギオリジナルの製法で焼き上げた濃厚なチーズケーキです。ずっしりとした重量感があるのに食べてみると、ちーずの芳醇な香りとまろやかな口当たりでしつこさを感じさせません。一度食べるとやめられないタカギで大人気のケーキです。', 'ルパティシエタカギ', '東京都世田谷区深沢5-5-21', '03-5420-2929');
 INSERT INTO gift(guestId, giftName, price, image, description, shop, address, phone) VALUES('1006', 'だだちゃ・アイスクリーム', '120ml×8個入 2,400円(税込)', '1006.jpg', 'こだわりアイスセット8ヶ入（だだちゃ豆・ラ・フランス・胡麻アイス）こころづくし山形だだちゃ・は、鶴岡の人々から頑固なまでに守られ、属まれた独特の香りと深みのある甘さを持った枝・の王様です。半月程度の短い夏の旬の味覚を、心を込めてアイスクリームにしました。', 'ＪＡ鶴岡', '山形県鶴岡市大字覚岸寺字水上199', '0235-29-2828');
 INSERT INTO gift(guestId, giftName, price, image, description, shop, address, phone) VALUES('1007', '栗饅頭', '1個 140円', '1007.jpg', '店の前にできる行列が目印。1日5000個は売れるという名物の栗饅頭は、しっとりとした薄皮に、ほんのり甘い白あんとホクホクの大栗が入った一品。手みやげとしてもおすすめ。', 'ひと本石田屋', '東京都板橋区上板橋2-32-16', '03-3933-3305');
 INSERT INTO gift(guestId, giftName, price, image, description, shop, address, phone) VALUES('1008', '辛子明太子伝統', '1箱/360g入　5250円', '1008.jpg', '｢新･食わず嫌い王決定戦｣で紹介されました！TV放映記念★期間限定送料無料!!【TV放映記念...血筋の少ない選び抜かれた原卵を使用し、やまや独自の匠のたれに漬け込んで、168時間熟成させた”明太子を極めた明太子”「伝統シリーズ」です。', 'やまや', '福岡県福岡市東区松島5-27-5', '0120-15-7102');
@@ -66,5 +66,5 @@ INSERT INTO gift(guestId, giftName, price, image, description, shop, address, ph
 
 
 
-INSERT INTO favGift(userId, giftId) VALUES('1', '1');
-INSERT INTO favGift(userId, giftId) VALUES('1', '2');
+INSERT INTO favGift(userId, giftId) VALUES('1', '1000');
+INSERT INTO favGift(userId, giftId) VALUES('1', '1001');
