@@ -72,15 +72,15 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	}
 
 	@Override
-	public int create(String userName, int giftId) throws DataAccessException {
+	public Integer create(String userName, int giftId) throws DataAccessException {
 
 
-		boolean result = searchGiftId(giftId);
+		//boolean result = searchGiftId(giftId);
 
-		if(result == false) {
-			System.out.println(giftId + "は未登録のidです。");
-			return 0;
-		}
+		//if(result == false) {
+			//System.out.println(giftId + "は未登録のidです。");
+			//return null;
+		//}
 
 		Map<String, Object> userId = jdbc.queryForMap("SELECT userId FROM userData WHERE userName = ?", userName);
 

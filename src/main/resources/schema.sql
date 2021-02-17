@@ -33,4 +33,6 @@ CREATE TABLE IF NOT EXISTS favGift (
   	userId INT,
   	giftId INT,
   	unavailableFlag INT
+  	FOREIGN KEY (userId) REFERENCES userData(userId)
+  	FOREIGN KEY (giftId) REFERENCES gift(giftId)
 );

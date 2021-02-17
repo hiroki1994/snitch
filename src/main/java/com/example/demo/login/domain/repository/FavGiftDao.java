@@ -13,7 +13,7 @@ public interface FavGiftDao  {
 
 	public int count(String userName) throws DataAccessException;
 
-	public int create(String userName, int giftId) throws DataAccessException;
+	public Integer create(String userName, int giftId) throws DataAccessException;
 
 	public int searchFavId(String userName, int giftId) throws DataAccessException;
 
