@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS guest (
 	guestId INT PRIMARY KEY AUTO_INCREMENT,
 	guestName VARCHAR(30),
 	unavailableFlag INT default 0
-);
+)AUTO_INCREMENT = 1000;
 
 CREATE TABLE IF NOT EXISTS gift (
   	giftId INT PRIMARY KEY AUTO_INCREMENT,
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS gift (
   	phone VARCHAR(50),
   	unavailableFlag INT,
   	FOREIGN KEY (guestId) REFERENCES guest(guestId)
-);
+)AUTO_INCREMENT = 1000;
 
 
 CREATE TABLE IF NOT EXISTS favGift (
@@ -34,3 +34,5 @@ CREATE TABLE IF NOT EXISTS favGift (
   	giftId INT,
   	unavailableFlag INT
 );
+
+--外部キーの設定必要では？？？

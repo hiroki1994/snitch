@@ -49,7 +49,7 @@ public class GiftDaoJdbcImplTest {
 		String keyword = "マカロン";
 
 		List<Gift> giftList = giftDaoJdbcImpl.search(keyword);
-		assertThat(giftList, hasItems(hasProperty("giftId", is(1000))));
+		assertThat(giftList, hasItems(hasProperty("giftId", is(1))));
 		assertThat(giftList, hasItems(hasProperty("guestName", is("中越典子"))));
 		assertThat(giftList, hasItems(hasProperty("giftName", is("マカロン"))));
 		assertThat(giftList, hasItems(hasProperty("price", is("120個入　3938円"))));
@@ -66,5 +66,13 @@ public class GiftDaoJdbcImplTest {
 		List<Gift> giftList = giftDaoJdbcImpl.search(keyword);
 
 		assertThat(giftList, is(empty()));
+	}
+
+	@Test
+	public void お土産一覧() {
+
+		List<Gift> giftList = giftDaoJdbcImpl.selectMany();
+
+		assertThat(giftList, hasSize(27));
 	}
 }
