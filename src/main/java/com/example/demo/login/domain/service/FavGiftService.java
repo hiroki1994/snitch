@@ -22,6 +22,7 @@ public class FavGiftService {
 	public List<FavGift> selectAll(String userName) {
 
 		return dao.selectAll(userName);
+
 	}
 
 	public int count(String userName) {
@@ -29,17 +30,21 @@ public class FavGiftService {
 		return dao.count(userName);
 	}
 
-	public int searchFavId(String userName, int giftId) {
+	public boolean existFavId(String userName, int giftId) {
+		boolean result = false;
 
 		try {
 
-			return dao.searchFavId(userName, giftId);
+			dao.existFavId(userName, giftId);
+
+			result = true;
+
+			return result;
 
 		} catch(DataAccessException e) {
 
-			int notExist = 0;
+			return result;
 
-			return notExist;
 		}
 	}
 
@@ -54,7 +59,9 @@ public class FavGiftService {
 			result = true;
 
 		} catch(DataIntegrityViolationException e) {
+
 			result = false;
+
 		}
 
 		return result;

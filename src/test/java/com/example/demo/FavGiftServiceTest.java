@@ -83,5 +83,23 @@ public class FavGiftServiceTest {
 		assertEquals(expected, actual);
 	}
 
+	@Test
+	public void お気に入りId発行済み() throws Exception {
+		String userName = "userName";
+		int giftId = 1;
+		boolean expected = true;
+		boolean actual = favGiftService.existFavId(userName, giftId);
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void お気に入りId未発行() throws Exception {
+		String userName = "userName";
+		int giftId = 101;
+		boolean expected = false;
+		boolean actual = favGiftService.existFavId(userName, giftId);
+		assertEquals(expected, actual);
+	}
+
 
 }
