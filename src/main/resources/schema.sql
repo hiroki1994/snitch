@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS favGift (
   	favId INT PRIMARY KEY AUTO_INCREMENT,
   	userId INT,
   	giftId INT,
-  	unavailableFlag INT
-  	FOREIGN KEY (userId) REFERENCES userData(userId)
+  	unavailableFlag INT,
+  	FOREIGN KEY (userId) REFERENCES userData(userId),
   	FOREIGN KEY (giftId) REFERENCES gift(giftId)
 );

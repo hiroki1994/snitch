@@ -3,6 +3,8 @@ package com.example.demo.login.domain.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,21 +31,33 @@ public class FavGiftService {
 
 	public int searchFavId(String userName, int giftId) {
 
-		return dao.searchFavId(userName, giftId);
+		try {
+
+			return dao.searchFavId(userName, giftId);
+
+		} catch(DataAccessException e) {
+
+			int notExist = 0;
+
+			return notExist;
+		}
 	}
 
 	public boolean create(String userName, int giftId) {
 
-		int suceededRowNumber = dao.create(userName, giftId);
-
 		boolean result = false;
 
-		if (suceededRowNumber > 0) {
+		try {
+
+			dao.create(userName, giftId);
+
 			result = true;
+
+		} catch(DataIntegrityViolationException e) {
+			result = false;
 		}
 
 		return result;
-
 	}
 
 	public boolean delete(String userId, int giftId) {

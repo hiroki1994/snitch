@@ -35,7 +35,7 @@ public class FavGiftServiceTest {
 	@Test
 	public void お気に入り登録失敗() throws Exception {
 		String userName = "userName";
-		int giftId = -100;
+		int giftId = 9999;
 		boolean expected = false;
 		boolean actual = favGiftService.create(userName, giftId);
 		assertEquals(expected, actual);
