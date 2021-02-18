@@ -331,7 +331,7 @@ INSERT INTO guest(guestName) VALUES('aiko');
 
 
 -- gift
-INSERT INTO gift(guestId, giftName, price, image, description, shop, address, phone) VALUES('1', 'ロールケーキ', '1000円 ', '1.jpg', 'ロールケーキ専門店で、手作りしている為、1日80本限定販売です。平飼地鶏の有精自然卵、国内産の小麦粉、砂糖、低脂肪の純生クリームと厳選された素材を使用しています。もちろん、添加物、保存料は一切使用していません。このロールケーキはプレーンとチョコの２種類で、カフェでは、ロールケーキと飲み物のセットがあります。', 'Flat', '豊中市上野東3-18-8', '06-6848-7505');
+INSERT INTO gift(guestId, giftName, price, image, description, shop, address, phone) VALUES('1', 'ロールケーキ', '1000円', '1.jpg', 'ロールケーキ専門店で、手作りしている為、1日80本限定販売です。平飼地鶏の有精自然卵、国内産の小麦粉、砂糖、低脂肪の純生クリームと厳選された素材を使用しています。もちろん、添加物、保存料は一切使用していません。このロールケーキはプレーンとチョコの２種類で、カフェでは、ロールケーキと飲み物のセットがあります。', 'Flat', '豊中市上野東3-18-8', '06-6848-7505');
 INSERT INTO gift(guestId, giftName, price, image, description, shop, address, phone) VALUES('2', 'ざるとうふ', '大ざる500円(650g)小ざる(350円)', '2.jpg', '(650g)小ざる(350円)まろやかな豆の香りとうまみをぎゅっととじこめました。黒胡麻の風味豊かな“胡麻のざる”や「幻の秩父黒豆」を贅沢に使った、高麗豆腐だけのオリジナル“黒豆のざる”など種類も豊富です。', '高麗豆腐', '埼玉県日高市台1221', '042-982-3450');
 INSERT INTO gift(guestId, giftName, price, image, description, shop, address, phone) VALUES('3', 'うなぎの佃煮', '100g 1600円', '3.jpg', '', '佃煮中野屋', '東京都荒川区西日暮里3-2-5', '03-3821-4055');
 INSERT INTO gift(guestId, giftName, price, image, description, shop, address, phone) VALUES('4', '黒豆さらさら', '1個　420円', '4.jpg', '【正庵】「黒豆さらさらセット」-秋元康さんや寺島しのぶさんなど、著名人から御好評の品！-別添えの黒みつで、甘さも自分で調整して楽しめます。食感が普通の寒天よりもまったりとした感じです。黒豆の煮汁だけを黒豆からとり、甘露煮の黒豆は別に作ります。あんも正庵の自慢のひとつです。', '果匠正庵', '東京都渋谷区広尾1920', '03-3441-1822');

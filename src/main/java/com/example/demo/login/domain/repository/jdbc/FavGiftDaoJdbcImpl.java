@@ -64,7 +64,7 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 
 		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
 
-		int giftIds = jdbc.queryForObject("SELECT COUNT(userId=?) FROM favGift WHERE favGift.unavailableFlag IS NULL", Integer.class, userId);
+		int giftIds = jdbc.queryForObject("SELECT COUNT(userId) FROM favGift WHERE userId = ? AND favGift.unavailableFlag IS NULL", Integer.class, userId);
 
 		return giftIds;
 	}
