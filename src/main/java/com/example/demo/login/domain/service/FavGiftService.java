@@ -60,18 +60,23 @@ public class FavGiftService {
 		return result;
 	}
 
-	public boolean delete(String userId, int giftId) {
-
-		int suceededRowNumber = dao.delete(userId, giftId);
+	public boolean delete(String userName, int giftId) {
 
 		boolean result = false;
 
-		if (suceededRowNumber > 0) {
+
+		int suceededRowNumber = dao.delete(userName, giftId);
+
+		System.out.println(suceededRowNumber);
+
+		if(suceededRowNumber > 0) {
+
 			result = true;
+
+			return result;
 		}
 
 		return result;
-
 	}
 
 }

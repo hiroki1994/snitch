@@ -64,9 +64,9 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 
 		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
 
-		List<Map<String, Object>> giftIds = jdbc.queryForList("SELECT giftId FROM favGift WHERE userId = ? AND favGift.unavailableFlag IS NULL", userId);
+		int giftIds = jdbc.queryForObject("SELECT COUNT(userId=?) FROM favGift WHERE favGift.unavailableFlag IS NULL", Integer.class, userId);
 
-		return giftIds.size();
+		return giftIds;
 	}
 
 	@Override
@@ -89,18 +89,4 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 
 		return suceededRowNumber;
 	}
-
-
-	//public boolean searchGiftId(int giftId) throws DataAccessException {
-//
-//		boolean result = false;
-//
-//		try {
-//			jdbc.queryForObject("SELECT giftId FROM gift WHERE giftId = ?", Integer.class, giftId);
-//			result = true;
-//		} catch(DataAccessException e) {
-//			e.printStackTrace();
-//		}
-//		return result;
-//	}
 }
