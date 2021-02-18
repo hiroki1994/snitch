@@ -8,18 +8,16 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.login.domain.model.FavGift;
 import com.example.demo.login.domain.service.FavGiftService;
 
 
-@ExtendWith(SpringExtension.class)
+
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
@@ -57,7 +55,7 @@ public class FavGiftServiceTest {
 	public void 登録済お気に入り削除成功() throws Exception {
 
 		String userName = "userName";
-		int giftId = 100;
+		int giftId = 1;
 
 		boolean expected = true;
 		boolean actual = favGiftService.delete(userName, giftId);
@@ -142,16 +140,16 @@ public class FavGiftServiceTest {
 
 		List<FavGift> allFavGifts = favGiftService.selectAll(userName);
 
-		assertThat(allFavGifts, hasItems(hasProperty("favId"), is(0)));
-		assertThat(allFavGifts, hasItems(hasProperty("userId"), is(1)));
-		assertThat(allFavGifts, hasItems(hasProperty("giftId"), is(1)));
-		assertThat(allFavGifts, hasItems(hasProperty("guestName"), is("掛布雅之")));
-		assertThat(allFavGifts, hasItems(hasProperty("giftName"), is("ロールケーキ")));
-		assertThat(allFavGifts, hasItems(hasProperty("price"), is("1000円")));
-		assertThat(allFavGifts, hasItems(hasProperty("image"), is("1.jpg")));
-		assertThat(allFavGifts, hasItems(hasProperty("shop"), is("Flat")));
-		assertThat(allFavGifts, hasItems(hasProperty("address"), is("豊中市上野東3-18-8")));
-		assertThat(allFavGifts, hasItems(hasProperty("phone"), is("06-6848-7505")));
+		assertThat(allFavGifts, hasItems(hasProperty("favId", is(0))));
+		assertThat(allFavGifts, hasItems(hasProperty("userId", is(1))));
+		assertThat(allFavGifts, hasItems(hasProperty("giftId", is(1))));
+		assertThat(allFavGifts, hasItems(hasProperty("guestName", is("掛布雅之"))));
+		assertThat(allFavGifts, hasItems(hasProperty("giftName", is("ロールケーキ"))));
+		assertThat(allFavGifts, hasItems(hasProperty("price", is("1000円"))));
+		assertThat(allFavGifts, hasItems(hasProperty("image", is("1.jpg"))));
+		assertThat(allFavGifts, hasItems(hasProperty("shop", is("Flat"))));
+		assertThat(allFavGifts, hasItems(hasProperty("address", is("豊中市上野東3-18-8"))));
+		assertThat(allFavGifts, hasItems(hasProperty("phone", is("06-6848-7505"))));
 	}
 
 
