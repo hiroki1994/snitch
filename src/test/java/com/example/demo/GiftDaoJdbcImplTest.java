@@ -75,4 +75,20 @@ public class GiftDaoJdbcImplTest {
 
 		assertThat(giftList, hasSize(27));
 	}
+
+	@Test
+	public void お土産1件取得() {
+
+		int giftId = 1000;
+
+		Gift gift = giftDaoJdbcImpl.selectOne(giftId);
+		assertThat(gift, hasProperty("giftId", equalTo(1000)));
+		assertThat(gift, hasProperty("guestName", equalTo("中越典子")));
+		assertThat(gift, hasProperty("giftName", equalTo("マカロン")));
+		assertThat(gift, hasProperty("price", equalTo("120個入　3938円")));
+		assertThat(gift, hasProperty("image", equalTo("1000.jpg")));
+		assertThat(gift, hasProperty("shop", equalTo("ジャン＝ポール･エヴァン伊勢丹新宿店")));
+		assertThat(gift, hasProperty("address", equalTo("東京都新宿区新宿3-14-1伊勢丹新宿店本館B1階")));
+		assertThat(gift, hasProperty("phone", equalTo("03-3352-1111")));
+	}
 }

@@ -15,8 +15,8 @@
 <body>
 	<div layout:fragment="content">
 	<div class="searchResult col-sm-8 offset-sm-2">
-			<p th:if="${giftListCount == 0}" class="resultCount" th:text="キーワードに該当するお土産はありませんでした。"></p><br/>
-			<p th:if="${giftListCount >= 1}" class="resultCount" th:text="${giftListCount} + '件見つかりました。'"></p><br/>
+			<p th:if="${giftIds == 0}" class="resultCount" th:text="キーワードに該当するお土産はありませんでした。"></p><br/>
+			<p th:if="${giftIds >= 1}" class="resultCount" th:text="${giftIds} + '件見つかりました。'"></p><br/>
 		<div class="gift col-sm-12">
 			<div class="gift" th:each="gift : ${giftList}">
 				<div class="gift2">

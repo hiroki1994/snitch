@@ -24,19 +24,24 @@ public class SearchController {
 	public String search(@Validated SearchForm form,  BindingResult bindingResult, Model model, @RequestParam("keyword") String keyword) {
 
 		if(bindingResult.hasErrors()) {
+
 			model.addAttribute("searchForm", form);
+
 			return "searchResult/searchResult";
 		}
 
+		int giftIds = giftService.count(keyword);
+
+		model.addAttribute("giftIds", giftIds);
+
+		if(giftIds == 0) {
+
+			return "searchResult/searchResult";
+		}
 
 		List<Gift> giftList = giftService.search(keyword);
 
-
 		model.addAttribute("giftList", giftList);
-
-		int count = giftService.count(keyword);
-
-		model.addAttribute("giftListCount", count);
 
 		return "searchResult/searchResult";
 	}
