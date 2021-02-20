@@ -55,5 +55,4 @@ public class GiftDetailControllerTest {
 			.andExpect(status().isOk())
 			.andExpect(view().name("giftDetail/giftDetail"));
 	}
-
 }
