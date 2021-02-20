@@ -20,7 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.example.demo.login.controller.GiftDetailController;
+import com.example.demo.login.controller.SearchController;
 import com.example.demo.login.domain.model.Gift;
 import com.example.demo.login.domain.service.GiftService;
 
@@ -37,7 +37,7 @@ public class SearchControllerTest {
 	GiftService giftService;
 
 	@InjectMocks
-	GiftDetailController giftDetailcontroller;
+	SearchController searchController;
 
 	@BeforeEach
 	public void initMock() {
