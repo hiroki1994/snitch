@@ -24,9 +24,9 @@ public class HomeController {
 	@GetMapping("/home")
 	public String getHome(Model model) {
 
-		List<Gift> giftList = giftService.selectMany();
+		List<Gift> selectedGifts = giftService.selectMany();
 
-		model.addAttribute("giftList", giftList);
+		model.addAttribute("giftList", selectedGifts);
 
 		return "home/home";
 	}
@@ -35,7 +35,7 @@ public class HomeController {
 	public String postLogout() {
 		return "redirect:login";
 	}
-
+	//いるか？？これ
 
 
 }

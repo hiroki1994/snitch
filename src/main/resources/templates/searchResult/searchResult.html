@@ -18,7 +18,7 @@
 			<p th:if="${giftIds == 0}" class="resultCount" th:text="キーワードに該当するお土産はありませんでした。"></p><br/>
 			<p th:if="${giftIds >= 1}" class="resultCount" th:text="${giftIds} + '件見つかりました。'"></p><br/>
 		<div class="gift col-sm-12">
-			<div class="gift" th:each="gift : ${giftList}">
+			<div class="gift" th:each="gift : ${selectedGifts}">
 				<div class="gift2">
 		    		<a th:href="@{'/giftDetail/'+${gift.giftId}}"><img class="gift-picture" th:src="@{'/image/'+${gift.image}}" alt="gift-image"></a>
 					<p class="gift-name" th:text="${gift.giftName}"></p>
