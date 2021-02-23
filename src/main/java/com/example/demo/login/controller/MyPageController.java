@@ -92,12 +92,9 @@ public class MyPageController {
 
 		if (bindingResult.hasErrors()) {
 			return postUserUpdatePage(form, model, request);
-
 		}
 
-		String userName_LoggedIn = request.getRemoteUser();
-
-		System.out.println("ログインしているのは"+ userName_LoggedIn);
+		String userName = request.getRemoteUser();
 
 		User user = new User();
 
@@ -105,7 +102,7 @@ public class MyPageController {
 		user.setMailAddress(form.getMailAddress());
 		user.setPassword(form.getPassword());
 
-		boolean result = userService.updateOne(user, userName_LoggedIn);
+		boolean result = userService.updateOne(user, userName);
 
 		if(result == true) {
 		   System.out.println("更新成功");
@@ -114,10 +111,10 @@ public class MyPageController {
 		}
 
 		try {
-			String username = String.valueOf(form.getUserName());
-			String password = String.valueOf(form.getPassword());
+			String newUsername = String.valueOf(form.getUserName());
+			String newPassword = String.valueOf(form.getPassword());
 			//SecurityContextHolder.clearContext();
-			SecurityConfig.autoLogin(request, username, password, response);
+			SecurityConfig.autoLogin(request, newUsername, newPassword, response);
 		} catch (IOException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();

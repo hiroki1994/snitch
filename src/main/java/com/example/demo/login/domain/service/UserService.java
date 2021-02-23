@@ -62,10 +62,12 @@ public class UserService {
 		return result;
 	}
 
-	public User findByUserName(String userName) {
 
-		User user = dao.findByUserName(userName);
 
-		return user;
+	public int exist(String userName) {
+
+		int userNameExist = dao.exist(userName);
+
+		return userNameExist;
 	}
 }
