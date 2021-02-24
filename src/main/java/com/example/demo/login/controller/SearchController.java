@@ -30,11 +30,11 @@ public class SearchController {
 			return "searchResult/searchResult";
 		}
 
-		int giftIds = giftService.count(keyword);
+		int giftCount = giftService.count(keyword);
 
-		model.addAttribute("giftIds", giftIds);
+		model.addAttribute("giftCount", giftCount);
 
-		if(giftIds == 0) {
+		if(giftCount == 0) {
 
 			return "searchResult/searchResult";
 		}

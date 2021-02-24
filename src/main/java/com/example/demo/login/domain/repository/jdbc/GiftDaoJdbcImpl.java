@@ -22,10 +22,8 @@ public class GiftDaoJdbcImpl implements GiftDao {
 	@Override
 	public int count(String keyword) throws DataAccessException {
 
-		int giftIds = jdbc.queryForObject("SELECT COUNT(giftId) FROM gift INNER JOIN guest ON gift.guestId = guest.guestId WHERE CONCAT(giftName, description, shop, address, guestName) LIKE '%'||?||'%' AND gift.unavailableFlag IS NULL", Integer.class, keyword);
-
-
-		return giftIds;
+		return jdbc.queryForObject("SELECT COUNT(giftId) FROM gift INNER JOIN guest ON gift.guestId = guest.guestId "
+				+ "WHERE CONCAT(giftName, description, shop, address, guestName) LIKE '%'||?||'%' AND gift.unavailableFlag IS NULL", Integer.class, keyword);
 	}
 
 	@Override
