@@ -185,7 +185,7 @@ INSERT INTO guest(guestName) VALUES('瑛太');
 INSERT INTO guest(guestName) VALUES('永井大');
 INSERT INTO guest(guestName) VALUES('乙葉');
 INSERT INTO guest(guestName) VALUES('はしのえみ');
-INSERT INTO guest(guestName) VALUES('モーニング娘｡(石川梨華&小川麻琴)');
+INSERT INTO guest(guestName) VALUES('石川梨華 小川麻琴');
 INSERT INTO guest(guestName) VALUES('福原愛');
 INSERT INTO guest(guestName) VALUES('広末涼子');
 INSERT INTO guest(guestName) VALUES('TIM');
