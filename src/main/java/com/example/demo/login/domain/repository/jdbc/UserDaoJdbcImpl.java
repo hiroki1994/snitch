@@ -79,11 +79,12 @@ public class UserDaoJdbcImpl implements UserDao {
 	@Override
 	public int deleteOne(String userName) throws DataAccessException {
 
-		Map<String, Object> map = jdbc.queryForMap("SELECT userId FROM userData WHERE userName = ?", userName);
+		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
 
-		int rowNumber = jdbc.update("UPDATE userData SET unavailableFlag = '1' WHERE userId = ? AND unavailableFlag IS NULL", map.get("userId"));
+		int rowNumber = jdbc.update("UPDATE userData SET unavailableFlag = '1' WHERE userId = ? AND unavailableFlag IS NULL", userId);
 
-		int rowNumber2 = jdbc.update("UPDATE favGift SET unavailableFlag = '1' WHERE userId = ? AND unavailableFlag IS NULL", map.get("userId"));
+		//このメソッドはfavGiftDaoに移行させます。　今だとコンフリクトが起きるのでfavGiftのブランチがマージされた後に対応します。
+		int rowNumber2 = jdbc.update("UPDATE favGift SET unavailableFlag = '1' WHERE userId = ? AND unavailableFlag IS NULL", userId);
 
         if(rowNumber2 > 0) {
         	System.out.println("お気に入り削除完了");

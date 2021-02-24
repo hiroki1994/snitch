@@ -14,7 +14,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.login.domain.model.User;
-import com.example.demo.login.domain.repository.jdbc.UserDaoJdbcImpl;
+import com.example.demo.login.domain.service.UserService;
 
 
 
@@ -23,13 +23,13 @@ import com.example.demo.login.domain.repository.jdbc.UserDaoJdbcImpl;
 @AutoConfigureMockMvc
 @Transactional
 @Sql({"/Delete.sql", "/Schema.sql", "/Insert.sql"})
-public class UserDaoJdbcImpleTest {
+public class UserServiceTest {
 
 	@Autowired
-	UserDaoJdbcImpl userDaoJdbcImpl;
+	UserService userService;
 
 	@Test
-	public void 新規登録() throws Exception {
+	public void 新規登録成功() throws Exception {
 
 		User user = new User();
 
@@ -37,9 +37,25 @@ public class UserDaoJdbcImpleTest {
 		user.setMailAddress("mail@gmail.com");
 		user.setPassword("7777");
 
-		int expected = 1;
+		boolean expected = true;
 
-		int actual = userDaoJdbcImpl.insertOne(user);
+		boolean actual = userService.insertOne(user);
+
+		assertThat(expected, equalTo(actual));
+	}
+
+	@Test
+	public void 新規登録失敗() throws Exception {
+
+		User user = new User();
+
+		user.setUserName("userName3");
+		user.setMailAddress("mail@gmail.com");
+		user.setPassword("7777");
+
+		boolean expected = false;
+
+		boolean actual = userService.insertOne(user);
 
 		assertThat(expected, equalTo(actual));
 	}
@@ -57,7 +73,7 @@ public class UserDaoJdbcImpleTest {
 
 		int expected = 1;
 
-		int actual = userDaoJdbcImpl.updateOne(user, userName);
+		boolean actual = userService.updateOne(user, userName);
 
 		assertThat(expected, equalTo(actual));
 
@@ -68,7 +84,7 @@ public class UserDaoJdbcImpleTest {
 	public void 登録情報取得() throws Exception {
 
 		String userName = "userName3";
-		User user = userDaoJdbcImpl.selectOne(userName);
+		User user = userService.selectOne(userName);
 
 		assertThat(user, hasProperty("userName", equalTo("userName3")));
 		assertThat(user, hasProperty("mailAddress", equalTo("mailaddress3@gmail.co.jp")));
@@ -86,7 +102,7 @@ public class UserDaoJdbcImpleTest {
 
 		String userName = "userName3";
 		int expected = 1;
-	    int actual = userDaoJdbcImpl.exist(userName);
+	    int actual = userService.exist(userName);
 
 	    assertThat(expected, is(actual));
 	}
@@ -96,9 +112,8 @@ public class UserDaoJdbcImpleTest {
 
 		String userName = "uniqueUserName";
 		int expected = 0;
-	    int actual = userDaoJdbcImpl.exist(userName);
+	    int actual = userService.exist(userName);
 
 	    assertThat(expected, is(actual));
 	}
-
 }

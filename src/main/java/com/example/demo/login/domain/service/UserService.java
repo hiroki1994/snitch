@@ -1,6 +1,7 @@
 package com.example.demo.login.domain.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,13 +18,20 @@ public class UserService {
 
 	public boolean insertOne(User user) {
 
-		int rowNumber = dao.insertOne(user);
-
 		boolean result = false;
 
-		if (rowNumber > 0) {
+		try {
+
+			dao.insertOne(user);
+
 			result = true;
+
+		} catch(DataAccessException e) {
+
+			return result;
+
 		}
+
 		return result;
 	}
 
