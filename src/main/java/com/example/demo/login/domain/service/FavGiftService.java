@@ -39,13 +39,12 @@ public class FavGiftService {
 
 			result = true;
 
-			return result;
-
 		} catch(DataAccessException e) {
 
 			return result;
 
 		}
+		return result;
 	}
 
 	public boolean create(String userName, int giftId) {
@@ -60,8 +59,7 @@ public class FavGiftService {
 
 		} catch(DataIntegrityViolationException e) {
 
-			result = false;
-
+			return result;
 		}
 
 		return result;
