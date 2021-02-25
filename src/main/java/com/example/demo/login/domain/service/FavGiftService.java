@@ -31,44 +31,33 @@ public class FavGiftService {
 	}
 
 	public boolean existFavId(String userName, int giftId) {
-		boolean result = false;
 
 		try {
-
 			dao.existFavId(userName, giftId);
 
-			result = true;
+			return true;
 
 		} catch(DataAccessException e) {
 
-			return result;
+			return false;
 
 		}
-		return result;
 	}
 
 	public boolean create(String userName, int giftId) {
 
-		boolean result = false;
-
 		try {
-
 			dao.create(userName, giftId);
 
-			result = true;
+			return true;
 
 		} catch(DataIntegrityViolationException e) {
 
-			return result;
+			return false;
 		}
-
-		return result;
 	}
 
 	public boolean delete(String userName, int giftId) {
-
-		boolean result = false;
-
 
 		int suceededRowNumber = dao.delete(userName, giftId);
 
@@ -76,12 +65,10 @@ public class FavGiftService {
 
 		if(suceededRowNumber > 0) {
 
-			result = true;
-
-			return result;
+			return true;
 		}
 
-		return result;
+		return false;
 	}
 
 }
