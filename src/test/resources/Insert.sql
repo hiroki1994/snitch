@@ -1,4 +1,5 @@
 INSERT INTO userData(userName, mailAddress, password, role) VALUES('userName3', 'mailaddress3@gmail.co.jp', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', 'ROLE_GENERAL');
+INSERT INTO userData(userName, mailAddress, password, role) VALUES('userName5', 'mailaddress3@gmail.co.jp', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', 'ROLE_GENERAL');
 
 INSERT INTO guest(guestId, guestName) VALUES('1000', '中越典子');
 INSERT INTO guest(guestId, guestName) VALUES('1001', 'ミムラ');

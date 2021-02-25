@@ -38,7 +38,6 @@ public class UserServiceTest {
 		user.setPassword("7777");
 
 		boolean expected = true;
-
 		boolean actual = userService.insertOne(user);
 
 		assertThat(expected, equalTo(actual));
@@ -54,30 +53,9 @@ public class UserServiceTest {
 		user.setPassword("7777");
 
 		boolean expected = false;
-
 		boolean actual = userService.insertOne(user);
 
 		assertThat(expected, equalTo(actual));
-	}
-
-	@Test
-	public void 登録情報更新() throws Exception {
-
-		String userName = "userName3";
-
-		User user = new User();
-
-		user.setUserName("userName4");
-		user.setMailAddress("mailaddress3@gmail.co.jp");
-		user.setPassword("password2");
-
-		int expected = 1;
-
-		boolean actual = userService.updateOne(user, userName);
-
-		assertThat(expected, equalTo(actual));
-
-
 	}
 
 	@Test
@@ -92,8 +70,63 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void ユーザー登録情報削除() throws Exception {
+	public void 登録情報更新成功() throws Exception {
+
 		String userName = "userName3";
+
+		User user = new User();
+
+		user.setUserName("userName4");
+		user.setMailAddress("mailaddress3@gmail.co.jp");
+		user.setPassword("password2");
+
+		boolean expected = true;
+
+		boolean actual = userService.updateOne(user, userName);
+
+		assertThat(expected, equalTo(actual));
+	}
+
+	@Test
+	public void 登録情報更新失敗() throws Exception {
+
+		String userName = "userName3";
+
+		User user = new User();
+
+		user.setUserName("userName5");
+		user.setMailAddress("mailaddress3@gmail.co.jp");
+		user.setPassword("password2");
+
+		boolean expected = false;
+
+		boolean actual = userService.updateOne(user, userName);
+
+		assertThat(expected, equalTo(actual));
+	}
+
+	@Test
+	public void ユーザー登録情報削除成功() throws Exception {
+
+		String userName = "userName3";
+
+		boolean expected = true;
+		boolean actual = userService.deleteOne(userName);
+
+		assertThat(expected, equalTo(actual));
+
+	}
+
+	@Test
+	public void ユーザー登録情報削除失敗() throws Exception {
+
+		String userName = "userName4";
+
+		boolean expected = false;
+		boolean actual = userService.deleteOne(userName);
+
+		assertThat(expected, equalTo(actual));
+
 	}
 
 
