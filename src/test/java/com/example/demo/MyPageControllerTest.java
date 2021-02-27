@@ -15,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +32,7 @@ import com.example.demo.login.domain.service.UserService;
 @AutoConfigureMockMvc
 @Transactional
 @Sql({"/Delete.sql", "/Schema.sql", "/Insert.sql"})
-public class SignupControllerTest {
+public class MyPageControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -48,11 +49,46 @@ public class SignupControllerTest {
 	}
 
 	@Test
-	public void 新規登録成功() throws Exception {
+	@WithMockUser(username="userName3")
+	public void ユーザー登録情報削除() throws Exception {
+
+		String userName = "userName3";
+
+		when(userService.deleteOne(userName)).thenReturn(true);
+
+		mockMvc.perform(post("/deleteUser").with(csrf()))
+			   .andExpect(status().isFound())
+			   .andExpect(redirectedUrl("/login"));
+	}
+
+	@Test
+	@WithMockUser(username="userName3")
+	public void 登録情報取得() throws Exception {
 
 		User user = new User();
 
-		when(userService.insertOne(user)).thenReturn(true);
+		String userName = "userName3";
+
+		user.setUserName(userName);
+		user.setMailAddress("mailaddress3@gmail.co.jp");
+
+		when(userService.selectOne(userName)).thenReturn(user);
+
+		mockMvc.perform(post("/mypage/updateUser").with(csrf()))
+			   .andExpect(status().isOk())
+			   .andExpect(content().string(containsString("userName3")))
+			   .andExpect(content().string(containsString("mailaddress3@gmail.co.jp")));
+	}
+
+	@Test
+	@WithMockUser(username="userName3")
+	public void 登録情報更新成功() throws Exception {
+
+		User user = new User();
+
+		String userName = "userName3";
+
+		when(userService.updateOne(user, userName)).thenReturn(true);
 
 		UserForm form = new UserForm();
 
@@ -60,18 +96,20 @@ public class SignupControllerTest {
 		form.setMailAddress("mail@gmail.com");
 		form.setPassword("7777");
 
-
-		mockMvc.perform(post("/signupUser").flashAttr("userForm", form).with(csrf()))
-			   .andExpect(status().isFound())
-			   .andExpect(redirectedUrl("/mypage"));
+		mockMvc.perform(post("/updateUserInfo").flashAttr("userForm", form).with(csrf()))
+		   	   .andExpect(status().isFound())
+		       .andExpect(redirectedUrl("/mypage"));
 	}
 
 	@Test
-	public void 新規登録失敗_ユーザーネームユニークエラー() throws Exception {
+	@WithMockUser(username="userName3")
+	public void 登録情報更新失敗_ユーザーネームユニークエラー() throws Exception {
 
 		User user = new User();
 
-		when(userService.insertOne(user)).thenReturn(false);
+		String userName = "userName3";
+
+		when(userService.updateOne(user, userName)).thenReturn(false);
 
 		UserForm form = new UserForm();
 
@@ -79,18 +117,19 @@ public class SignupControllerTest {
 		form.setMailAddress("mail@gmail.com");
 		form.setPassword("7777");
 
-		mockMvc.perform(post("/signupUser").flashAttr("userForm", form).with(csrf()))
+		mockMvc.perform(post("/updateUserInfo").flashAttr("userForm", form).with(csrf()))
 			   .andExpect(status().isOk())
-			   .andExpect(view().name("signup/signup"))
 			   .andExpect(content().string(containsString("入力されたユーザーネームは既に使用されています")));
 	}
 
 	@Test
-	public void 新規登録失敗_バリデーションエラー() throws Exception {
+	public void 登録情報更新失敗_バリデーションエラー() throws Exception {
 
 		User user = new User();
 
-		when(userService.insertOne(user)).thenReturn(false);
+		String userName = "userName3";
+
+		when(userService.updateOne(user, userName)).thenReturn(false);
 
 		UserForm form = new UserForm();
 
