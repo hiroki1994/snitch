@@ -68,6 +68,7 @@ public class UserDaoJdbcImpleTest {
 	public void 登録情報取得() throws Exception {
 
 		String userName = "userName3";
+
 		User user = userDaoJdbcImpl.selectOne(userName);
 
 		assertThat(user, hasProperty("userName", equalTo("userName3")));
@@ -76,8 +77,25 @@ public class UserDaoJdbcImpleTest {
 	}
 
 	@Test
-	public void ユーザー登録情報削除() throws Exception {
+	public void ユーザー登録情報削除成功() throws Exception {
+
 		String userName = "userName3";
+
+		int expected = 1;
+		int actual = userDaoJdbcImpl.deleteOne(userName);
+
+		 assertThat(expected, is(actual));
+	}
+
+	@Test
+	public void ユーザー登録情報削除失敗() throws Exception {
+
+		String userName = "userName4";
+
+		int expected = 0;
+		int actual = userDaoJdbcImpl.deleteOne(userName);
+
+		 assertThat(expected, is(actual));
 	}
 
 
@@ -85,6 +103,7 @@ public class UserDaoJdbcImpleTest {
 	public void userNameユニークチェック_重複あり() throws Exception {
 
 		String userName = "userName3";
+
 		int expected = 1;
 	    int actual = userDaoJdbcImpl.exist(userName);
 
@@ -95,6 +114,7 @@ public class UserDaoJdbcImpleTest {
 	public void userNameユニークチェック_重複なし() throws Exception {
 
 		String userName = "uniqueUserName";
+
 		int expected = 0;
 	    int actual = userDaoJdbcImpl.exist(userName);
 

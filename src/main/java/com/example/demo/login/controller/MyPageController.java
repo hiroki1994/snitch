@@ -75,7 +75,7 @@ public class MyPageController {
 		form.setUserName(user.getUserName());
 		form.setMailAddress(user.getMailAddress());
 
-		model.addAttribute("signupForm", form);
+		model.addAttribute("userForm", form);
 
 		return "mypage/updateUser/updateUser";
     }
