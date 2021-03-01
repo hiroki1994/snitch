@@ -61,6 +61,7 @@ public class SearchControllerTest {
 			.param("keyword", keyword))
 			.andExpect(status().isOk())
 			.andExpect(view().name("searchResult/searchResult"))
+			.andExpect(content().string(containsString("2件見つかりました。")))
 			.andExpect(content().string(containsString("水川あさみ")));
 	}
 
