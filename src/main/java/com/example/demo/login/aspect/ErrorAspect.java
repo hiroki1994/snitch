@@ -17,4 +17,12 @@ public class ErrorAspect {
      System.out.println("DataAccessExceptionが発生しました。:" + ex);
      System.out.println("=========================================");
 	}
+
+	@AfterThrowing(value="execution(* *..*.*..*(..))" + " &&(bean(*Controller) || bean(*Service) || bean(*Repository))" , throwing="ex")
+	public void throwingNull(Exception ex)
+	{
+     System.out.println("=========================================");
+     System.out.println("Exceptionが発生しました。:" + ex);
+     System.out.println("=========================================");
+	}
 }
