@@ -54,7 +54,7 @@ public class MyPageController {
 			System.out.println("削除成功");
 		} else {
 			System.out.println("削除失敗");
-	    }
+		}
 
 		try {
 			SecurityConfig.autoLogout(request, response);

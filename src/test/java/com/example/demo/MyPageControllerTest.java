@@ -57,8 +57,8 @@ public class MyPageControllerTest {
 		when(userService.deleteOne(userName)).thenReturn(true);
 
 		mockMvc.perform(post("/deleteUser").with(csrf()))
-		.andExpect(status().isFound())
-		.andExpect(redirectedUrl("/login"));
+			.andExpect(status().isFound())
+			.andExpect(redirectedUrl("/login"));
 	}
 
 	@Test
@@ -75,9 +75,9 @@ public class MyPageControllerTest {
 		when(userService.selectOne(userName)).thenReturn(user);
 
 		mockMvc.perform(post("/mypage/updateUser").with(csrf()))
-		.andExpect(status().isOk())
-		.andExpect(content().string(containsString("userName3")))
-		.andExpect(content().string(containsString("mailaddress3@gmail.co.jp")));
+			.andExpect(status().isOk())
+			.andExpect(content().string(containsString("userName3")))
+			.andExpect(content().string(containsString("mailaddress3@gmail.co.jp")));
 	}
 
 	@Test
@@ -97,8 +97,8 @@ public class MyPageControllerTest {
 		form.setPassword("7777");
 
 		mockMvc.perform(post("/updateUserInfo").flashAttr("userForm", form).with(csrf()))
-		.andExpect(status().isFound())
-		.andExpect(redirectedUrl("/mypage"));
+			.andExpect(status().isFound())
+			.andExpect(redirectedUrl("/mypage"));
 	}
 
 	@Test
@@ -118,8 +118,8 @@ public class MyPageControllerTest {
 		form.setPassword("7777");
 
 		mockMvc.perform(post("/updateUserInfo").flashAttr("userForm", form).with(csrf()))
-		.andExpect(status().isOk())
-		.andExpect(content().string(containsString("入力されたユーザーネームは既に使用されています")));
+			.andExpect(status().isOk())
+			.andExpect(content().string(containsString("入力されたユーザーネームは既に使用されています")));
 	}
 
 	@Test
@@ -139,13 +139,13 @@ public class MyPageControllerTest {
 
 
 		mockMvc.perform(post("/signupUser").flashAttr("userForm", form).with(csrf()))
-		.andExpect(status().isOk())
-		.andExpect(view().name("signup/signup"))
-		.andExpect(content().string(containsString("ユーザーネームは3字以上20字以下で入力してください")))
-		.andExpect(content().string(containsString("ユーザーネームは半角英数字で入力してください")))
-		.andExpect(content().string(containsString("ユーザーネームは3字以上20字以下で入力してください")))
-		.andExpect(content().string(containsString("メールアドレス形式で入力してください")))
-		.andExpect(content().string(containsString("パスワードは3字以上20字以下で入力してください")))
-		.andExpect(content().string(containsString("パスワードは半角英数字で入力してください")));
+			.andExpect(status().isOk())
+			.andExpect(view().name("signup/signup"))
+			.andExpect(content().string(containsString("ユーザーネームは3字以上20字以下で入力してください")))
+			.andExpect(content().string(containsString("ユーザーネームは半角英数字で入力してください")))
+			.andExpect(content().string(containsString("ユーザーネームは3字以上20字以下で入力してください")))
+			.andExpect(content().string(containsString("メールアドレス形式で入力してください")))
+			.andExpect(content().string(containsString("パスワードは3字以上20字以下で入力してください")))
+			.andExpect(content().string(containsString("パスワードは半角英数字で入力してください")));
 	}
 }

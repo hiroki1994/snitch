@@ -137,7 +137,7 @@ public class UserServiceTest {
 		int expected = 1;
 		int actual = userService.exist(userName);
 
-	    assertThat(expected, is(actual));
+		assertThat(expected, is(actual));
 	}
 
 	@Test
@@ -147,6 +147,6 @@ public class UserServiceTest {
 		int expected = 0;
 		int actual = userService.exist(userName);
 
-	    assertThat(expected, is(actual));
+		assertThat(expected, is(actual));
 	}
 }
