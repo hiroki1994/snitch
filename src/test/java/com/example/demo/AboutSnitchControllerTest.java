@@ -6,15 +6,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class AboutSnitchControllerTest {
@@ -25,10 +21,9 @@ public class AboutSnitchControllerTest {
 	@Test
 	public void サイト説明画面() throws Exception {
 
-
 		mockMvc.perform(get("/aboutsnitch"))
 			.andExpect(status().isOk())
-			.andExpect(content().string(containsString("Snitchとは")));
+			.andExpect(view().name("about/aboutSnitch"))
+			.andExpect(content().string(containsString("Snitchとは?")));
 	}
-
 }
