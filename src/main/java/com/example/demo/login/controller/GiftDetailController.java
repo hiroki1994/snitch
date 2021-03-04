@@ -42,9 +42,9 @@ public class GiftDetailController {
 
 			String userName = httpServletRequest.getRemoteUser();
 
-			int favId = favGiftService.searchFavId(userName, giftId);
+			boolean result = favGiftService.existFavId(userName, giftId);
 
-			model.addAttribute("favId", favId);
+			model.addAttribute("result", result);
 
 		return "giftDetail/giftDetail";
 	}

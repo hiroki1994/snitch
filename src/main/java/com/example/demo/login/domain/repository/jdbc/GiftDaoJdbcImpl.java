@@ -26,6 +26,8 @@ public class GiftDaoJdbcImpl implements GiftDao {
 				+ "WHERE CONCAT(giftName, description, shop, address, guestName) LIKE '%'||?||'%' AND gift.unavailableFlag IS NULL", Integer.class, keyword);
 	}
 
+	//SQLのCOUNTでいいのでは??
+
 	@Override
 	public List<Gift> search(String keyword) throws DataAccessException {
 

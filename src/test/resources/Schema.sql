@@ -35,4 +35,3 @@ CREATE TABLE IF NOT EXISTS favGift (
   	unavailableFlag INT
 );
 
---外部キーの設定必要では？？？
