@@ -3,6 +3,8 @@ package com.example.demo.login.domain.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,7 @@ public class FavGiftService {
 	public List<FavGift> selectAll(String userName) {
 
 		return dao.selectAll(userName);
+
 	}
 
 	public int count(String userName) {
@@ -27,37 +30,45 @@ public class FavGiftService {
 		return dao.count(userName);
 	}
 
-	public int searchFavId(String userName, int giftId) {
+	public boolean existFavId(String userName, int giftId) {
 
-		return dao.searchFavId(userName, giftId);
+		try {
+			dao.existFavId(userName, giftId);
+
+			return true;
+
+		} catch(DataAccessException e) {
+
+			return false;
+
+		}
 	}
 
 	public boolean create(String userName, int giftId) {
 
-		int suceededRowNumber = dao.create(userName, giftId);
+		try {
+			dao.create(userName, giftId);
 
-		boolean result = false;
+			return true;
 
-		if (suceededRowNumber > 0) {
-			result = true;
+		} catch(DataIntegrityViolationException e) {
+
+			return false;
 		}
-
-		return result;
-
 	}
 
 	public boolean delete(String userName, int giftId) {
 
 		int suceededRowNumber = dao.delete(userName, giftId);
 
-		boolean result = false;
+		System.out.println(suceededRowNumber);
 
-		if (suceededRowNumber > 0) {
-			result = true;
+		if(suceededRowNumber > 0) {
+
+			return true;
 		}
 
-		return result;
-
+		return false;
 	}
 
 }

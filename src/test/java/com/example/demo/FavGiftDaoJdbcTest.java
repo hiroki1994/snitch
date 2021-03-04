@@ -80,6 +80,6 @@ public class FavGiftDaoJdbcTest {
 
 		int giftId = 1001;
 
-		assertEquals(favGiftDaoJdbcImpl.searchFavId(userName, giftId), 2);
+		assertEquals(favGiftDaoJdbcImpl.existFavId(userName, giftId), 2);
 	}
 }

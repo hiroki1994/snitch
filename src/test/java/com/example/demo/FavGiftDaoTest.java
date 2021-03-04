@@ -82,6 +82,6 @@ public class FavGiftDaoTest {
 
 		int giftId = 1001;
 
-		assertEquals(favGiftDao.searchFavId(userName, giftId), 2);
+		assertEquals(favGiftDao.existFavId(userName, giftId), 2);
 	}
 }

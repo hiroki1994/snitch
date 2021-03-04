@@ -34,6 +34,8 @@ public class SearchController {
 
 		int count = giftService.count(keyword);
 
+		//先にカウントのメソッド走らせて0ならクエリ動かさない。方がいい。
+
 		model.addAttribute("giftListCount", count);
 
 		return "searchResult/searchResult";
