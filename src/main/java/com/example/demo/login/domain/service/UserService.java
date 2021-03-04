@@ -23,7 +23,6 @@ public class UserService {
 
 			return true;
 		} catch(DataAccessException e) {
-
 			return false;
 		}
 	}
@@ -52,13 +51,11 @@ public class UserService {
 			dao.deleteOne(userName);
 
 			return true;
-		}  catch(DataAccessException e) {
+		} catch(DataAccessException e) {
 
 			return false;
 		}
 	}
-
-
 
 	public int exist(String userName) {
 

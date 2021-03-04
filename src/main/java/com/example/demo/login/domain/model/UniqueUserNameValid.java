@@ -18,7 +18,6 @@ public class UniqueUserNameValid implements ConstraintValidator<UniqueUserName, 
 
 	public void initialize(UniqueUserName constraintAnnotation) {
 
-
 	}
 
 	public boolean isValid(String userName, ConstraintValidatorContext context) {
@@ -27,10 +26,10 @@ public class UniqueUserNameValid implements ConstraintValidator<UniqueUserName, 
 			return true;
 		}
 
-	    int userNameExist = userService.exist(userName);
+		int userNameExist = userService.exist(userName);
 
-	    if(userNameExist == 0) {
-	    	return true;
+		if(userNameExist == 0) {
+			return true;
 		}
 
 		return false;

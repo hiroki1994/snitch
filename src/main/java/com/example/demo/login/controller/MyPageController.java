@@ -35,13 +35,11 @@ public class MyPageController {
 
 	@GetMapping("/mypage")
 	public String getMypage() {
-
 		return "mypage/mypage";
 	}
 
 	@PostMapping("/mypage/deleteUser")
 	public String getDelete() {
-
 		return "mypage/deleteUser/deleteUser";
 	}
 
@@ -50,15 +48,15 @@ public class MyPageController {
 
 		String userName = request.getRemoteUser();
 
-	    boolean result = userService.deleteOne(userName);
+		boolean result = userService.deleteOne(userName);
 
-	    if(result == true) {
-	    	System.out.println("削除成功");
-	    } else {
-	    	System.out.println("削除失敗");
+		if(result == true) {
+			System.out.println("削除成功");
+		} else {
+			System.out.println("削除失敗");
 	    }
 
-	    try {
+		try {
 			SecurityConfig.autoLogout(request, response);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -99,7 +97,7 @@ public class MyPageController {
 		boolean result = userService.updateOne(user, userName);
 
 		if(result == true) {
-		   System.out.println("更新成功");
+			System.out.println("更新成功");
 		} else {
 			System.out.println("更新失敗");
 		}
