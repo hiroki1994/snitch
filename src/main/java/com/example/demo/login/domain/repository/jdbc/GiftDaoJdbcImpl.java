@@ -34,6 +34,8 @@ public class GiftDaoJdbcImpl implements GiftDao {
 		return searchCount;
 	}
 
+	//SQLのCOUNTでいいのでは??
+
 	@Override
 	public List<Gift> search(String keyword) throws DataAccessException {
 

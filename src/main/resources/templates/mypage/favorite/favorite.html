@@ -14,7 +14,7 @@
 <body layout:fragment="content">
 	<h1>お気に入り</h1>
 	<div class="favGift col-sm-8 offset-sm-2">
-		<p class="resultNumber" th:text="${count} + '件'"></p><br/>
+		<p class="resultNumber" th:text="${favIds} + '件'"></p><br/>
 		<div class="favGift col-sm-12">
 			<div class="gift" th:each="gift : ${allFavGifts}">
 				<div class="gift2">
