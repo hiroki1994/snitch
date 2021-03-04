@@ -25,12 +25,12 @@ public class UniqueUserNameValid implements ConstraintValidator<UniqueUserName, 
 
 		if(userName.equals(request.getRemoteUser())) {
 			return true;
-	    }
+		}
 
-		int userNameExist = userService.exist(userName);
+	    int userNameExist = userService.exist(userName);
 
-		if(userNameExist == 0) {
-			return true;
+	    if(userNameExist == 0) {
+	    	return true;
 		}
 
 		return false;
