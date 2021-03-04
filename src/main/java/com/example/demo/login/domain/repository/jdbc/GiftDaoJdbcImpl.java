@@ -22,16 +22,8 @@ public class GiftDaoJdbcImpl implements GiftDao {
 	@Override
 	public int count(String keyword) throws DataAccessException {
 
-		List<Map<String, Object>>  getList = jdbc.queryForList("SELECT giftId FROM gift INNER JOIN guest ON gift.guestId = guest.guestId WHERE CONCAT(giftName, description, shop, address, guestName) LIKE '%'||?||'%' AND gift.unavailableFlag IS NULL", keyword);
-
-		int searchCount = 0;
-
-        if(getList != null) {
-        	searchCount= getList.size();
-        } else if(getList == null){
-        	searchCount = -1;
-        }
-		return searchCount;
+		return jdbc.queryForObject("SELECT COUNT(giftId) FROM gift INNER JOIN guest ON gift.guestId = guest.guestId "
+				+ "WHERE CONCAT(giftName, description, shop, address, guestName) LIKE '%'||?||'%' AND gift.unavailableFlag IS NULL", Integer.class, keyword);
 	}
 
 	//SQLのCOUNTでいいのでは??
@@ -39,11 +31,11 @@ public class GiftDaoJdbcImpl implements GiftDao {
 	@Override
 	public List<Gift> search(String keyword) throws DataAccessException {
 
-			List<Map<String, Object>>  getList = jdbc.queryForList("SELECT * FROM gift INNER JOIN guest ON gift.guestId = guest.guestId WHERE CONCAT(giftName, description, shop, address, guestName) LIKE '%'||?||'%' AND gift.unavailableFlag IS NULL", keyword);
+			List<Map<String, Object>>  gifts = jdbc.queryForList("SELECT * FROM gift INNER JOIN guest ON gift.guestId = guest.guestId WHERE CONCAT(giftName, description, shop, address, guestName) LIKE '%'||?||'%' AND gift.unavailableFlag IS NULL", keyword);
 
-			List<Gift> giftList = new ArrayList<>();
+			List<Gift> selectedGifts = new ArrayList<>();
 
-			for(Map<String, Object> map: getList) {
+			for(Map<String, Object> map: gifts) {
 
 				Gift gift = new Gift();
 
@@ -57,19 +49,21 @@ public class GiftDaoJdbcImpl implements GiftDao {
 				gift.setAddress((String)map.get("address"));
 				gift.setPhone((String)map.get("phone"));
 
-				giftList.add(gift);
+				selectedGifts.add(gift);
 			}
-			return giftList;
+
+			return selectedGifts;
+
 		}
 
 	@Override
 	public List<Gift> selectMany() throws DataAccessException {
 
-			List<Map<String, Object>>  getList = jdbc.queryForList("SELECT * FROM gift INNER JOIN guest ON gift.guestId = guest.guestId WHERE gift.unavailableFlag IS NULL ORDER BY RANDOM() LIMIT 27");
+			List<Map<String, Object>>  gifts = jdbc.queryForList("SELECT * FROM gift INNER JOIN guest ON gift.guestId = guest.guestId WHERE gift.unavailableFlag IS NULL ORDER BY RANDOM() LIMIT 27");
 
-			List<Gift> giftList = new ArrayList<>();
+			List<Gift> selectedGifts = new ArrayList<>();
 
-			for(Map<String, Object> map: getList) {
+			for(Map<String, Object> map: gifts) {
 
 				Gift gift = new Gift();
 
@@ -83,27 +77,27 @@ public class GiftDaoJdbcImpl implements GiftDao {
 				gift.setAddress((String)map.get("address"));
 				gift.setPhone((String)map.get("phone"));
 
-				giftList.add(gift);
+				selectedGifts.add(gift);
 			}
-			return giftList;
+			return selectedGifts;
 		}
 
 	@Override
 	public Gift selectOne(int giftId) throws DataAccessException {
 
-		Map<String, Object> map = jdbc.queryForMap("SELECT * FROM gift INNER JOIN guest ON gift.guestId = guest.guestId WHERE giftId = ? AND gift.unavailableFlag IS NULL", giftId);
+		Map<String, Object> singleGift = jdbc.queryForMap("SELECT * FROM gift INNER JOIN guest ON gift.guestId = guest.guestId WHERE giftId = ? AND gift.unavailableFlag IS NULL", giftId);
 
 		Gift gift = new Gift();
 
-		gift.setGiftId((int)map.get("giftId"));
-		gift.setGuestName((String)map.get("guestName"));
-		gift.setGiftName((String)map.get("giftName"));
-		gift.setPrice((String)map.get("price"));
-		gift.setImage((String)map.get("image"));
-		gift.setDescription((String)map.get("description"));
-		gift.setShop((String)map.get("shop"));
-		gift.setAddress((String)map.get("address"));
-		gift.setPhone((String)map.get("phone"));
+		gift.setGiftId((int)singleGift.get("giftId"));
+		gift.setGuestName((String)singleGift.get("guestName"));
+		gift.setGiftName((String)singleGift.get("giftName"));
+		gift.setPrice((String)singleGift.get("price"));
+		gift.setImage((String)singleGift.get("image"));
+		gift.setDescription((String)singleGift.get("description"));
+		gift.setShop((String)singleGift.get("shop"));
+		gift.setAddress((String)singleGift.get("address"));
+		gift.setPhone((String)singleGift.get("phone"));
 
 		return gift;
 	}

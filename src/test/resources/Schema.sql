@@ -8,13 +8,13 @@ CREATE TABLE IF NOT EXISTS userData (
 );
 
 CREATE TABLE IF NOT EXISTS guest (
-	guestId INT PRIMARY KEY AUTO_INCREMENT,
+	guestId INT PRIMARY KEY AUTO_INCREMENT(1000),
 	guestName VARCHAR(30),
 	unavailableFlag INT default 0
 );
 
 CREATE TABLE IF NOT EXISTS gift (
-  	giftId INT PRIMARY KEY AUTO_INCREMENT,
+  	giftId INT PRIMARY KEY AUTO_INCREMENT(1000),
   	guestId INT,
   	giftName VARCHAR(50),
   	price VARCHAR(100),
@@ -34,3 +34,4 @@ CREATE TABLE IF NOT EXISTS favGift (
   	giftId INT,
   	unavailableFlag INT
 );
+

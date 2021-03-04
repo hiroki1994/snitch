@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.login.domain.model.Gift;
 import com.example.demo.login.domain.service.GiftService;
@@ -24,18 +23,10 @@ public class HomeController {
 	@GetMapping("/home")
 	public String getHome(Model model) {
 
-		List<Gift> giftList = giftService.selectMany();
+		List<Gift> selectedGifts = giftService.selectMany();
 
-		model.addAttribute("giftList", giftList);
+		model.addAttribute("giftList", selectedGifts);
 
 		return "home/home";
 	}
-
-	@PostMapping("/logout")
-	public String postLogout() {
-		return "redirect:login";
-	}
-
-
-
 }

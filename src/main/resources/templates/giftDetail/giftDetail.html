@@ -47,18 +47,18 @@
 			<div id="map"></div>
 
 			<script>console.log(document.getElementById("gift-address").textContent);
-			var my_address = document.getElementById("gift-address").textContent;
+			var gift_address = document.getElementById("gift-address").textContent;
 			function initMapWithAddress() {
-			    var opts = {
+			    var options = {
 			        zoom: 15,
 			        mapTypeId: google.maps.MapTypeId.ROADMAP
 			    };
-			    var my_google_map = new google.maps.Map(document.getElementById('map'), opts);
+			    var gift_google_map = new google.maps.Map(document.getElementById('map'), options);
 
 			    var geocoder = new google.maps.Geocoder();
 			    geocoder.geocode(
 			      {
-			        'address': my_address,
+			        'address': gift_address,
 			        'region': 'jp'
 			      },
 			      function(result, status){
@@ -66,9 +66,9 @@
 
 			              var latlng = result[0].geometry.location;
 
-			              my_google_map.setCenter(latlng);
+			              gift_google_map.setCenter(latlng);
 
-			              var marker = new google.maps.Marker({position:latlng, map:my_google_map, title:latlng.toString(), draggable:true});
+			              var marker = new google.maps.Marker({position:latlng, map:gift_google_map, title:latlng.toString(), draggable:true});
 
 			              google.maps.event.addListener(marker, 'dragend', function(event){
 
