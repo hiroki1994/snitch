@@ -23,7 +23,7 @@ import com.example.demo.login.domain.repository.FavGiftDao;
 @SpringBootTest
 @Transactional
 @ActiveProfiles("test")
-@Sql({"/Delete.sql","/Schema.sql", "/Insert.sql"})
+@Sql({"/test_schema.sql", "/test_data.sql"})
 public class FavGiftDaoTest {
 
 
@@ -60,7 +60,7 @@ public class FavGiftDaoTest {
 
 		String userName = "userName3";
 
-		int giftId = 1001;
+		int giftId = 1002;
 
 		assertEquals(favGiftDao.create(userName, giftId), 1);
 	}

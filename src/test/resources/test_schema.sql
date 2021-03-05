@@ -37,7 +37,9 @@ CREATE TABLE IF NOT EXISTS favGift (
   	favId SERIAL PRIMARY KEY,
   	userId INT,
   	giftId INT,
-  	unavailableFlag INT
+  	unavailableFlag INT,
+  	FOREIGN KEY (userId) REFERENCES userData(userId),
+  	FOREIGN KEY (giftId) REFERENCES gift(giftId)
 );
 
 

@@ -20,7 +20,7 @@ import com.example.demo.login.domain.repository.jdbc.GiftDaoJdbcImpl;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Sql({"/Delete.sql", "/Schema.sql", "/Insert.sql"})
+@Sql({"/test_schema.sql", "/test_data.sql"})
 public class GiftDaoJdbcImplTest {
 
 	@Autowired

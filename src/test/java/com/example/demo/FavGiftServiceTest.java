@@ -30,8 +30,8 @@ public class FavGiftServiceTest {
 	@Test
 	public void お気に入り登録成功() throws Exception {
 
-		String userName = "userName";
-		int giftId = 100;
+		String userName = "userName3";
+		int giftId = 1000;
 
 		boolean expected = true;
 		boolean actual = favGiftService.create(userName, giftId);
@@ -42,7 +42,7 @@ public class FavGiftServiceTest {
 	@Test
 	public void お気に入り登録失敗() throws Exception {
 
-		String userName = "userName";
+		String userName = "userName3";
 		int giftId = 9999;
 
 		boolean expected = false;
@@ -54,8 +54,8 @@ public class FavGiftServiceTest {
 	@Test
 	public void 登録済お気に入り削除成功() throws Exception {
 
-		String userName = "userName";
-		int giftId = 1;
+		String userName = "userName3";
+		int giftId = 1001;
 
 		boolean expected = true;
 		boolean actual = favGiftService.delete(userName, giftId);
@@ -66,8 +66,8 @@ public class FavGiftServiceTest {
 	@Test
 	public void 未登録お気に入り削除失敗() throws Exception {
 
-		String userName = "userName";
-		int giftId = 101;
+		String userName = "userName3";
+		int giftId = 1002;
 
 		boolean expected = false;
 		boolean actual = favGiftService.delete(userName, giftId);
@@ -78,7 +78,7 @@ public class FavGiftServiceTest {
 	@Test
 	public void 未登録giftId_お気に入り削除失敗() throws Exception {
 
-		String userName = "userName";
+		String userName = "userName3";
 		int giftId = 9999;
 
 		boolean expected = false;
@@ -90,9 +90,9 @@ public class FavGiftServiceTest {
 	@Test
 	public void お気に入り件数() throws Exception {
 
-		String userName = "userName";
+		String userName = "userName3";
 
-		int expected = 1;
+		int expected = 2;
 		int actual = favGiftService.count(userName);
 
 		assertEquals(expected, actual);
@@ -101,7 +101,7 @@ public class FavGiftServiceTest {
 	@Test
 	public void お気に入り未登録_お気に入り件数() throws Exception {
 
-		String userName = "userName2";
+		String userName = "userName4";
 
 		int expected = 0;
 		int actual = favGiftService.count(userName);
@@ -112,8 +112,8 @@ public class FavGiftServiceTest {
 	@Test
 	public void お気に入りId発行済み() throws Exception {
 
-		String userName = "userName";
-		int giftId = 1;
+		String userName = "userName3";
+		int giftId = 1000;
 
 		boolean expected = true;
 		boolean actual = favGiftService.existFavId(userName, giftId);
@@ -124,8 +124,8 @@ public class FavGiftServiceTest {
 	@Test
 	public void お気に入りId未発行() throws Exception {
 
-		String userName = "userName";
-		int giftId = 101;
+		String userName = "userName3";
+		int giftId = 1002;
 
 		boolean expected = false;
 		boolean actual = favGiftService.existFavId(userName, giftId);
@@ -136,22 +136,19 @@ public class FavGiftServiceTest {
 	@Test
 	public void お気に入り一覧() throws Exception {
 
-		String userName = "userName";
+		String userName = "userName3";
 
 		List<FavGift> allFavGifts = favGiftService.selectAll(userName);
 
 		assertThat(allFavGifts, hasItems(hasProperty("favId", is(0))));
 		assertThat(allFavGifts, hasItems(hasProperty("userId", is(1))));
-		assertThat(allFavGifts, hasItems(hasProperty("giftId", is(1))));
-		assertThat(allFavGifts, hasItems(hasProperty("guestName", is("掛布雅之"))));
-		assertThat(allFavGifts, hasItems(hasProperty("giftName", is("ロールケーキ"))));
-		assertThat(allFavGifts, hasItems(hasProperty("price", is("1000円"))));
-		assertThat(allFavGifts, hasItems(hasProperty("image", is("1.jpg"))));
-		assertThat(allFavGifts, hasItems(hasProperty("shop", is("Flat"))));
-		assertThat(allFavGifts, hasItems(hasProperty("address", is("豊中市上野東3-18-8"))));
-		assertThat(allFavGifts, hasItems(hasProperty("phone", is("06-6848-7505"))));
+		assertThat(allFavGifts, hasItems(hasProperty("giftId", is(1000))));
+		assertThat(allFavGifts, hasItems(hasProperty("guestName", is("中越典子"))));
+		assertThat(allFavGifts, hasItems(hasProperty("giftName", is("マカロン"))));
+		assertThat(allFavGifts, hasItems(hasProperty("price", is("120個入　3938円"))));
+		assertThat(allFavGifts, hasItems(hasProperty("image", is("1000.jpg"))));
+		assertThat(allFavGifts, hasItems(hasProperty("shop", is("ジャン＝ポール･エヴァン伊勢丹新宿店"))));
+		assertThat(allFavGifts, hasItems(hasProperty("address", is("東京都新宿区新宿3-14-1伊勢丹新宿店本館B1階"))));
+		assertThat(allFavGifts, hasItems(hasProperty("phone", is("03-3352-1111"))));
 	}
-
-
-
 }

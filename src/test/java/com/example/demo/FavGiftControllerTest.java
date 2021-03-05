@@ -26,6 +26,7 @@ import com.example.demo.login.domain.service.FavGiftService;
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
+@Sql({"/test_schema.sql", "/test_data.sql"})
 public class FavGiftControllerTest {
 
 	@Autowired
@@ -44,7 +45,6 @@ public class FavGiftControllerTest {
 
 	@Test
 	@WithMockUser(username="userName3")
-	@Sql({"/Delete.sql", "/Schema.sql", "/Insert.sql"})
 	public void お気に入り追加() throws Exception {
 
 
@@ -66,7 +66,6 @@ public class FavGiftControllerTest {
 
 	@Test
 	@WithMockUser(username="userName3")
-	@Sql({"/Delete.sql", "/Schema.sql", "/Insert.sql"})
 	public void お気に入り削除() throws Exception {
 
 
