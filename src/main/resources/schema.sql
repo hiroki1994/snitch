@@ -3,6 +3,7 @@ TRUNCATE TABLE gift RESTART IDENTITY CASCADE;
 TRUNCATE TABLE guest RESTART IDENTITY CASCADE;
 TRUNCATE TABLE userData RESTART IDENTITY CASCADE;
 
+
 CREATE TABLE IF NOT EXISTS userData (
 	userId SERIAL PRIMARY KEY,
 	userName VARCHAR(20) UNIQUE,
@@ -29,7 +30,7 @@ CREATE TABLE IF NOT EXISTS gift (
   	address VARCHAR(500),
   	phone VARCHAR(50),
   	unavailableFlag INT,
-  	FOREIGN KEY (guestId) REFERENCES guest(guestId)
+  	CONSTRAINT FK_guestId FOREIGN KEY (guestId) REFERENCES guest(guestId)
 );
 
 
@@ -38,6 +39,6 @@ CREATE TABLE IF NOT EXISTS favGift (
   	userId INT,
   	giftId INT,
   	unavailableFlag INT,
-  	FOREIGN KEY (userId) REFERENCES userData(userId),
-  	FOREIGN KEY (giftId) REFERENCES gift(giftId)
+  	CONSTRAINT FK_userId FOREIGN KEY (userId) REFERENCES userData(userId),
+  	CONSTRAINT FK_giftId FOREIGN KEY (giftId) REFERENCES gift(giftId)
 );

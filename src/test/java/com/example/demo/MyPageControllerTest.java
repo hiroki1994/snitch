@@ -50,7 +50,7 @@ public class MyPageControllerTest {
 
 	@Test
 	@WithMockUser(username="userName3")
-	@Sql({"/Delete.sql", "/Schema.sql", "/Insert.sql"})
+	@Sql({"/test_schema.sql", "/test_data.sql"})
 	public void お気に入り一覧() throws Exception {
 
 		String userName = "userName3";

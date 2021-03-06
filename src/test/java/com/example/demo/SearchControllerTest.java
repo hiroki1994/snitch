@@ -45,7 +45,7 @@ public class SearchControllerTest {
 	}
 
 	@Test
-	@Sql({"/Delete.sql", "/Schema.sql", "/Insert.sql"})
+	@Sql({"/test_schema.sql", "/test_data.sql"})
 	public void お土産検索成功() throws Exception {
 
 		String keyword = "マカロン";
@@ -66,7 +66,7 @@ public class SearchControllerTest {
 	}
 
 	@Test
-	@Sql({"/Delete.sql", "/Schema.sql", "/Insert.sql"})
+	@Sql({"/test_schema.sql", "/test_data.sql"})
 	public void お土産検索バリデーションエラー() throws Exception {
 
 		String keyword = " ";
@@ -79,7 +79,7 @@ public class SearchControllerTest {
 	}
 
 	@Test
-	@Sql({"/Delete.sql", "/Schema.sql", "/Insert.sql"})
+	@Sql({"/test_schema.sql", "/test_data.sql"})
 	public void お土産検索該当なし() throws Exception {
 
 		String keyword = "H#4kこ";

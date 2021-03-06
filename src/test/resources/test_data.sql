@@ -65,5 +65,6 @@ INSERT INTO gift(guestId, giftName, price, image, description, shop, address, ph
 INSERT INTO gift(guestId, giftName, price, image, description, shop, address, phone) VALUES('1029', '中居くんお気に入りのかすてら', 'プレーン（大）2877円', '1029.jpg', 'カステラの概念が変わる、深く、濃厚な味わい。【金澤烏鶏庵】烏骨鶏かすていらプレーン（大）本品は、なかなか生まれない希少な天来烏骨鶏卵をふんだんに使って、職人が1本1本丁寧に焼いております。天来烏骨鶏卵の深い味わいを生かすために、甘味を抑えしっとりと仕上げました。お菓子の街金沢で生まれた逸品を是非ご堪能ください。', '金澤烏鶏庵', '石川県金沢市西念4丁目22', '0120-367-054');
 INSERT INTO gift(guestId, giftName, price, image, description, shop, address, phone) VALUES('1030', 'いちごの微笑', 'いちごの微笑（5000円) 25粒入×2カゴ', '1030.jpg', ')25粒入 【送料無料！】産地直送便お取り寄せグルメ京都レマン館いちごの微笑（5000円) 25粒入×2カゴ特製シロップにつけこんだ苺の中にとろーりまろやかな練乳アイスを入れました。優しいいちごの酸味と練乳の甘みがお口の中でハーモニーを奏でます。大人気商品。', 'レマン舘本店（京都円町）', '京都市中京区西ノ京南円町83', '075-841-4144');
 
+
 INSERT INTO favGift(userId, giftId) VALUES('1', '1000');
 INSERT INTO favGift(userId, giftId) VALUES('1', '1001');
