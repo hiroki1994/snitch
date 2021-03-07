@@ -3,7 +3,7 @@
 .gift.col-sm-10.offset-sm-1 {
 	position: relative;
  	float:left;
-	background-color:#FCF9F4;
+	background-color: #FCF9F4;
 	padding-bottom: 80px;
 
 }
@@ -13,22 +13,18 @@
  	margin-left: 10px;
 }
 
-update-btn.btn-warning.col-sm-4.offset-sm-9 {
-	height: 13px;
- 	line-height: 13px;
- 	margin-bottom: 13px;
- 	font-color: white;
- 	font-size: 10px;
- 	padding: 0;
+#favGift {
+	float:left;
+	margin-left: 10px;
+	margin-right: 400px;
+	margin-bottom: 16px;
 }
 
-update-btn.btn-danger.col-sm-4.offset-sm-9 {
-	height: 13px;
- 	line-height: 13px;
- 	margin-bottom: 13px;
- 	font-color: white;
- 	font-size: 10px;
- 	padding: 0;
+#notFavGift {
+	float:left;
+	margin-left: 10px;
+	margin-right: 400px;
+	margin-bottom: 16px;
 }
 
 img.gift-image {
