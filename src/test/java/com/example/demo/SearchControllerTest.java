@@ -50,12 +50,10 @@ public class SearchControllerTest {
 
 		String keyword = "マカロン";
 
-
 		List<Gift> selectedGifts = new ArrayList<Gift>();
 
 		when(giftService.count(keyword)).thenReturn(2);
 		when(giftService.search(keyword)).thenReturn(selectedGifts);
-
 
 		mockMvc.perform(get("/search")
 			.param("keyword", keyword))

@@ -51,6 +51,7 @@ public class GiftDaoTest {
 		String keyword = "マカロン";
 
 		List<Gift> giftList = giftDao.search(keyword);
+
 		assertThat(giftList, hasItems(hasProperty("giftId", is(1000))));
 		assertThat(giftList, hasItems(hasProperty("guestName", is("中越典子"))));
 		assertThat(giftList, hasItems(hasProperty("giftName", is("マカロン"))));
@@ -84,6 +85,7 @@ public class GiftDaoTest {
 		int giftId = 1000;
 
 		Gift gift = giftDao.selectOne(giftId);
+
 		assertThat(gift, hasProperty("giftId", equalTo(1000)));
 		assertThat(gift, hasProperty("guestName", equalTo("中越典子")));
 		assertThat(gift, hasProperty("giftName", equalTo("マカロン")));

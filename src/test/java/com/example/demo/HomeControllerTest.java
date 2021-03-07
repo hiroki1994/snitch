@@ -51,7 +51,6 @@ public class HomeControllerTest {
 
 		when(giftService.selectMany()).thenReturn(selectedGifts);
 
-
 		mockMvc.perform(get("/home"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("home/home"));

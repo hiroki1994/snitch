@@ -47,7 +47,6 @@ public class FavGiftControllerTest {
 	@WithMockUser(username="userName3")
 	public void お気に入り追加() throws Exception {
 
-
 		String userName = "userName3";
 
 		int giftId = 1002;

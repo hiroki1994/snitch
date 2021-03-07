@@ -26,7 +26,6 @@ public class FavGiftServiceTest {
 	@Autowired
 	FavGiftService favGiftService;
 
-
 	@Test
 	public void お気に入り登録成功() throws Exception {
 

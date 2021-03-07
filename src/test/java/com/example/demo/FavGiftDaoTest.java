@@ -26,7 +26,6 @@ import com.example.demo.login.domain.repository.FavGiftDao;
 @Sql({"/test_schema.sql", "/test_data.sql"})
 public class FavGiftDaoTest {
 
-
 	@Autowired
 	@Qualifier("favGiftDaoJdbcImpl")
 	FavGiftDao favGiftDao;
@@ -43,6 +42,7 @@ public class FavGiftDaoTest {
 		String userName = "userName3";
 
 		List<FavGift> allFavGifts = favGiftDao.selectAll(userName);
+
 		assertThat(allFavGifts, hasItems(hasProperty("favId", is(0))));
 		assertThat(allFavGifts, hasItems(hasProperty("userId", is(1))));
 		assertThat(allFavGifts, hasItems(hasProperty("giftId", is(1000))));

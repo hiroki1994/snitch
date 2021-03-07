@@ -49,6 +49,7 @@ public class GiftServiceTest {
 		String keyword = "マカロン";
 
 		List<Gift> selectedGifts = giftService.search(keyword);
+
 		assertThat(selectedGifts, hasItems(hasProperty("giftId", is(1000))));
 		assertThat(selectedGifts, hasItems(hasProperty("guestName", is("中越典子"))));
 		assertThat(selectedGifts, hasItems(hasProperty("giftName", is("マカロン"))));
@@ -82,6 +83,7 @@ public class GiftServiceTest {
 		int giftId = 1000;
 
 		Gift gift = giftService.selectOne(giftId);
+
 		assertThat(gift, hasProperty("giftId", equalTo(1000)));
 		assertThat(gift, hasProperty("guestName", equalTo("中越典子")));
 		assertThat(gift, hasProperty("giftName", equalTo("マカロン")));
