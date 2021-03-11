@@ -7,11 +7,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title>403Error</title>
+	<link th:href="@{css/403.css}" rel="stylesheet"></link>
 </head>
-<!-- 400エラーページ-->
 <body>
 	<div layout:fragment="content">
-		<p>ログアウト後アクセス可能です</p>
+		<div class="error403Wrapper">
+			<p>ログアウト後アクセス可能です</p>
+		</div>
 	</div>
 </body>
 </html>

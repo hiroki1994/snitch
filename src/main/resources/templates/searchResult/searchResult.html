@@ -19,12 +19,14 @@
 			<p th:if="${giftListCount >= 1 and giftListCount != -1}" class="resultCount" th:text="${giftListCount} + '件見つかりました。'"></p><br/>
 			<p th:if="${giftListCount == -1}" class="resultCount" th:text=""></p><br/>
 		<div class="gift col-sm-12">
+			<div class="giftList">
 			<div class="gift" th:each="gift : ${giftList}">
 				<div class="gift2">
 		    		<a th:href="@{'/giftDetail/'+${gift.giftId}}"><img class="gift-picture" th:src="@{'/image/'+${gift.image}}" alt="gift-image"></a>
 					<p class="gift-name" th:text="${gift.giftName}"></p>
 					<p class="gift-guest" th:text="${gift.guestName}"></p>
 				</div>
+			</div>
 			</div>
 		</div>
 	</div>

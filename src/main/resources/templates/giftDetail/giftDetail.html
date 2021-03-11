@@ -15,7 +15,7 @@
 </head>
 <body layout:fragment="content">
 
-
+<div class="giftDetailWrapper">
 	<div class="gift col-sm-10 offset-sm-1">
 		<div class="gift-left col-sm-5 ">
 			<img  class="gift-image" th:src="@{'/image/'+${giftDetail.image}}" alt="gift-image">
@@ -28,7 +28,6 @@
 					<input th:value="${giftDetail.giftId}" name="giftId" type="hidden" />
 					<button th:unless="${favId == 0}" class="update-btn btn-danger text-nowrap" style="color:white" type="submit" ><i class="fas fa-ban" style="color:white"></i> お気に入り解除</button>
             	</form>
-
 			</div>
 			<div class="gift-text">
 				<p class="gift-guest" th:text="'紹介ゲスト: ' + ${giftDetail.guestName}"></p>
@@ -81,6 +80,6 @@
 			  </script>
 		</div>
 	</div>
+</div>
 </body>
-
 </html>
