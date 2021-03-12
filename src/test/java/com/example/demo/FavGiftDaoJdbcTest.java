@@ -22,9 +22,8 @@ import com.example.demo.login.domain.repository.jdbc.FavGiftDaoJdbcImpl;
 @SpringBootTest
 @Transactional
 @ActiveProfiles("test")
-@Sql({"/Delete.sql","/Schema.sql", "/Insert.sql"})
+@Sql({"/test_schema.sql", "/test_data.sql"})
 public class FavGiftDaoJdbcTest {
-
 
 	@Autowired
 	FavGiftDaoJdbcImpl favGiftDaoJdbcImpl;
@@ -41,6 +40,7 @@ public class FavGiftDaoJdbcTest {
 		String userName = "userName3";
 
 		List<FavGift> allFavGifts = favGiftDaoJdbcImpl.selectAll(userName);
+
 		assertThat(allFavGifts, hasItems(hasProperty("favId", is(0))));
 		assertThat(allFavGifts, hasItems(hasProperty("userId", is(1))));
 		assertThat(allFavGifts, hasItems(hasProperty("giftId", is(1000))));
@@ -58,7 +58,7 @@ public class FavGiftDaoJdbcTest {
 
 		String userName = "userName3";
 
-		int giftId = 1001;
+		int giftId = 1002;
 
 		assertEquals(favGiftDaoJdbcImpl.create(userName, giftId), 1);
 	}

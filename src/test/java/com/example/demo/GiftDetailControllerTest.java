@@ -41,7 +41,7 @@ public class GiftDetailControllerTest {
 	}
 
 	@Test
-	@Sql({"/Delete.sql", "/Schema.sql", "/Insert.sql"})
+	@Sql({"/test_schema.sql", "/test_data.sql"})
 	public void お土産詳細画面() throws Exception {
 
 		int giftId = 1000;

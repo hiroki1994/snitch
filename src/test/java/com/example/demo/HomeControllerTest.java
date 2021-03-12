@@ -44,13 +44,12 @@ public class HomeControllerTest {
 	}
 
 	@Test
-	@Sql({"/Delete.sql", "/Schema.sql", "/Insert.sql"})
+	@Sql({"/test_schema.sql", "/test_data.sql"})
 	public void ホーム画面表示() throws Exception {
 
 		List<Gift> selectedGifts = new ArrayList<Gift>();
 
 		when(giftService.selectMany()).thenReturn(selectedGifts);
-
 
 		mockMvc.perform(get("/home"))
 			.andExpect(status().isOk())
