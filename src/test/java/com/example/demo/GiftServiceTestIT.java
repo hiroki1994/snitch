@@ -21,7 +21,7 @@ import com.example.demo.login.domain.service.GiftService;
 @SpringBootTest
 @AutoConfigureMockMvc
 @Sql({"/test_schema.sql", "/test_data.sql"})
-public class GiftServiceTest {
+public class GiftServiceTestIT {
 
 	@Autowired
 	GiftService giftService;
@@ -31,7 +31,10 @@ public class GiftServiceTest {
 
 		String keyword = "マカロン";
 
-		assertEquals(giftService.count(keyword), 2);
+		int expected = 2;
+		int actual = giftService.count(keyword);
+
+		assertEquals(expected, actual);
 
 	}
 
@@ -40,7 +43,10 @@ public class GiftServiceTest {
 
 		String keyword = "H#4kこ";
 
-		assertEquals(giftService.count(keyword), 0);
+		int expected = 0;
+		int actual = giftService.count(keyword);
+
+		assertEquals(expected, actual);
 
 	}
 

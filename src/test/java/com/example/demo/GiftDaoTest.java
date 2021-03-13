@@ -33,7 +33,10 @@ public class GiftDaoTest {
 
 		String keyword = "マカロン";
 
-		assertEquals(giftDao.count(keyword), 2);
+		int expected = 2;
+		int actual = giftDao.count(keyword);
+
+		assertEquals(expected, actual);
 
 	}
 
@@ -42,8 +45,10 @@ public class GiftDaoTest {
 
 		String keyword = "H#4kこ";
 
-		assertEquals(giftDao.count(keyword), 0);
+		int expected = 0;
+		int actual = giftDao.count(keyword);
 
+		assertEquals(expected, actual);
 	}
 
 	@Test

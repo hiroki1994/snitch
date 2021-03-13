@@ -34,7 +34,10 @@ public class FavGiftDaoTest {
 	public void お気に入り件数() throws Exception {
 		String userName = "userName3";
 
-		assertEquals(favGiftDao.count(userName), 2);
+		int expected = 2;
+		int actual = favGiftDao.count(userName);
+
+		assertEquals(expected, actual);
 	}
 
 	@Test
@@ -62,7 +65,10 @@ public class FavGiftDaoTest {
 
 		int giftId = 1002;
 
-		assertEquals(favGiftDao.create(userName, giftId), 1);
+		int expected = 1;
+		int actual = favGiftDao.create(userName, giftId);
+
+		assertEquals(expected, actual);
 	}
 
 	@Test
@@ -72,7 +78,10 @@ public class FavGiftDaoTest {
 
 		int giftId = 1000;
 
-		assertEquals(favGiftDao.delete(userName, giftId), 1);
+		int expected = 1;
+		int actual = favGiftDao.delete(userName, giftId);
+
+		assertEquals(expected, actual);
 	}
 
 	@Test
@@ -82,6 +91,9 @@ public class FavGiftDaoTest {
 
 		int giftId = 1001;
 
-		assertEquals(favGiftDao.existFavId(userName, giftId), 2);
+		int expected = 2;
+		int actual = favGiftDao.existFavId(userName, giftId);
+
+		assertEquals(expected, actual);
 	}
 }

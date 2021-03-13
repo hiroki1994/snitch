@@ -32,7 +32,10 @@ public class FavGiftDaoJdbcTest {
 	public void お気に入り件数() throws Exception {
 		String userName = "userName3";
 
-		assertEquals(favGiftDaoJdbcImpl.count(userName), 2);
+		int expected = 2;
+		int actual = favGiftDaoJdbcImpl.count(userName);
+
+		assertEquals(expected, actual);
 	}
 
 	@Test
@@ -60,7 +63,10 @@ public class FavGiftDaoJdbcTest {
 
 		int giftId = 1002;
 
-		assertEquals(favGiftDaoJdbcImpl.create(userName, giftId), 1);
+		int expected = 1;
+		int actual = favGiftDaoJdbcImpl.create(userName, giftId);
+
+		assertEquals(expected, actual);
 	}
 
 	@Test
@@ -70,7 +76,10 @@ public class FavGiftDaoJdbcTest {
 
 		int giftId = 1000;
 
-		assertEquals(favGiftDaoJdbcImpl.delete(userName, giftId), 1);
+		int expected = 1;
+		int actual = favGiftDaoJdbcImpl.delete(userName, giftId);
+
+		assertEquals(expected, actual);
 	}
 
 	@Test
@@ -80,6 +89,9 @@ public class FavGiftDaoJdbcTest {
 
 		int giftId = 1001;
 
-		assertEquals(favGiftDaoJdbcImpl.existFavId(userName, giftId), 2);
+		int expected = 2;
+		int actual = favGiftDaoJdbcImpl.existFavId(userName, giftId);
+
+		assertEquals(expected, actual);
 	}
 }

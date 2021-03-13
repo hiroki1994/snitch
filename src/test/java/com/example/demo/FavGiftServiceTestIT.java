@@ -21,7 +21,7 @@ import com.example.demo.login.domain.service.FavGiftService;
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
-public class FavGiftServiceTest {
+public class FavGiftServiceTestIT {
 
 	@Autowired
 	FavGiftService favGiftService;

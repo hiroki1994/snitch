@@ -2,7 +2,6 @@ package com.example.demo;
 
 
 import static org.mockito.Mockito.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -15,19 +14,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.example.demo.login.controller.FavGiftController;
 import com.example.demo.login.domain.service.FavGiftService;
 
 
 @SpringBootTest
-@Transactional
 @AutoConfigureMockMvc
-@Sql({"/test_schema.sql", "/test_data.sql"})
-public class FavGiftControllerTest {
+public class FavGiftControllerTestUT {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -41,6 +37,7 @@ public class FavGiftControllerTest {
 	@BeforeEach
 	public void initMock() {
 		MockitoAnnotations.initMocks(this);
+		mockMvc = MockMvcBuilders.standaloneSetup(favGiftController).build();
 	}
 
 	@Test
@@ -57,8 +54,7 @@ public class FavGiftControllerTest {
 
 		mockMvc.perform(post("/favGift")
 			.param("userName", userName)
-			.param("giftId", "1002")
-			.with(csrf()))
+			.param("giftId", "1002"))
 			.andExpect(status().isFound())
 			.andExpect(redirectedUrl("/giftDetail/" + giftId));
 	}
@@ -66,7 +62,6 @@ public class FavGiftControllerTest {
 	@Test
 	@WithMockUser(username="userName3")
 	public void お気に入り削除() throws Exception {
-
 
 		String userName = "userName3";
 
@@ -78,8 +73,7 @@ public class FavGiftControllerTest {
 
 		mockMvc.perform(post("/notFavGift")
 			.param("userName", userName)
-			.param("giftId", "1001")
-			.with(csrf()))
+			.param("giftId", "1001"))
 			.andExpect(status().isFound())
 			.andExpect(redirectedUrl("/giftDetail/" + giftId));
 	}

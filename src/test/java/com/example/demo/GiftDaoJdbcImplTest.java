@@ -31,8 +31,10 @@ public class GiftDaoJdbcImplTest {
 
 		String keyword = "マカロン";
 
-		assertEquals(giftDaoJdbcImpl.count(keyword), 2);
+		int expected = 2;
+		int actual = giftDaoJdbcImpl.count(keyword);
 
+		assertEquals(expected, actual);
 	}
 
 	@Test
@@ -40,8 +42,10 @@ public class GiftDaoJdbcImplTest {
 
 		String keyword = "H#4kこ";
 
-		assertEquals(giftDaoJdbcImpl.count(keyword), 0);
+		int expected = 0;
+		int actual = giftDaoJdbcImpl.count(keyword);
 
+		assertEquals(expected, actual);
 	}
 
 	@Test
