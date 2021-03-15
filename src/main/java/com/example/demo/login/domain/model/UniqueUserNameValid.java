@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.demo.login.domain.service.UserService;
 
+
 public class UniqueUserNameValid implements ConstraintValidator<UniqueUserName, String> {
 
 	@Autowired
@@ -14,13 +15,13 @@ public class UniqueUserNameValid implements ConstraintValidator<UniqueUserName, 
 
 	public void initialize(UniqueUserName constraintAnnotation) {
 
-
 	}
 
 	public boolean isValid(String userName, ConstraintValidatorContext context) {
 
-		User user = userService.findByUserName(userName);
-		if(user == null) {
+		int userNameExist = userService.exist(userName);
+
+		if(userNameExist == 0) {
 			return true;
 		}
 		return false;

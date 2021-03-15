@@ -4,7 +4,6 @@ package com.example.demo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 import java.util.Set;
 
@@ -20,7 +19,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
 import com.example.demo.login.domain.model.SignupForm;
-import com.example.demo.login.domain.model.UniqueUserNameValid;
 import com.example.demo.login.domain.model.ValidGroup1;
 import com.example.demo.login.domain.model.ValidGroup2;
 
@@ -30,8 +28,6 @@ public class SignupFormTest {
 
 	private Validator validator;
 
-	private UniqueUserNameValid uniqueUserNameValid;
-
 	@BeforeEach
 	public void init() {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -39,7 +35,8 @@ public class SignupFormTest {
 	}
 
 	@Test
-	public void 登録情報投入取得() throws Exception {
+	@Sql({"/test_schema.sql", "/test_data.sql"})
+	public void 登録情報投入取得_バリデーションエラーなし() throws Exception {
 
 		SignupForm signupForm = new SignupForm();
 
@@ -50,9 +47,6 @@ public class SignupFormTest {
 		signupForm.setUserName(userName);
 		signupForm.setMailAddress(mailAddress);
 		signupForm.setPassword(password);
-
-		when(uniqueUserNameValid.isValid(userName, null)).thenReturn(true);
-
 
 		String actualUserName = signupForm.getUserName();
 		String actualMailAddress = signupForm.getMailAddress();

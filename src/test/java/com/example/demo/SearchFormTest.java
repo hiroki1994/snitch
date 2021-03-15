@@ -32,7 +32,7 @@ public class SearchFormTest {
 	}
 
 	@Test
-	public void 検索キーワード情報投入取得() throws Exception {
+	public void 検索キーワード情報投入取得＿バリデーションエラーなし() throws Exception {
 
 		SearchForm searchForm = new SearchForm();
 
@@ -41,6 +41,10 @@ public class SearchFormTest {
 		String actualKeyword = searchForm.getKeyword();
 
 		assertEquals("チョコ", actualKeyword);
+
+		Set<ConstraintViolation<SearchForm>> constraintValidation = validator.validate(searchForm);
+
+		assertThat(constraintValidation, is(empty()));
 	}
 
 	@Test
