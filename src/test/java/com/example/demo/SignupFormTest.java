@@ -80,7 +80,7 @@ public class SignupFormTest {
 
 			if(propertyPath.equals("userName")){
 				assertThat(result.getInvalidValue(), is(""));
-			}else if(propertyPath.equals("password")){
+			}else if(propertyPath.equals("mailAddress")){
 				assertThat(result.getInvalidValue(), is(""));
 			}else if(propertyPath.equals("password")){
 				assertThat(result.getInvalidValue(), is(""));
