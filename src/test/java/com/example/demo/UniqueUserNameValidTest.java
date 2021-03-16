@@ -71,13 +71,4 @@ public class UniqueUserNameValidTest {
 
 		assertThat(uniqueUserNameValid.isValid(userName, null), is(true));
 	}
-
-	@Test
-	public void userServiceNull() throws Exception {
-
-		String userName = "testUser10";
-		when(request.getRemoteUser()).thenReturn(null);
-
-		assertThat(uniqueUserNameValid.isValid(userName, null), is(true));
-	}
 }
