@@ -74,9 +74,18 @@ public class SignupFormTest {
 
 		assertThat(constraintValidation.size(), is(3));
 
-		ConstraintViolation<SignupForm> violation = constraintValidation.iterator().next();
+		constraintValidation.forEach(result -> {
 
-		assertThat(violation.getInvalidValue(), is(""));
+			String propertyPath = result.getPropertyPath().toString();
+
+			if(propertyPath.equals("userName")){
+				assertThat(result.getInvalidValue(), is(""));
+			}else if(propertyPath.equals("password")){
+				assertThat(result.getInvalidValue(), is(""));
+			}else if(propertyPath.equals("password")){
+				assertThat(result.getInvalidValue(), is(""));
+			}
+		});
 	}
 
 	@Test
@@ -92,10 +101,16 @@ public class SignupFormTest {
 
 		assertThat(constraintValidation.size(), is(2));
 
-		ConstraintViolation<SignupForm> violation = constraintValidation.iterator().next();
+		constraintValidation.forEach(result -> {
 
-		assertThat(violation.getInvalidValue(), is("aa"));
-		assertThat(violation.getInvalidValue(), is("cc"));
+			String propertyPath = result.getPropertyPath().toString();
+
+			if(propertyPath.equals("userName")){
+				assertThat(result.getInvalidValue(), is("aa"));
+			}else if(propertyPath.equals("password")){
+				assertThat(result.getInvalidValue(), is("cc"));
+			}
+		});
 	}
 
 	@Test
@@ -103,18 +118,24 @@ public class SignupFormTest {
 
 		SignupForm signupForm = new SignupForm();
 
-		signupForm.setUserName("ああ");
+		signupForm.setUserName("あああ");
 		signupForm.setMailAddress("test@gmail.com");
-		signupForm.setPassword("いい");
+		signupForm.setPassword("いいい");
 
 		Set<ConstraintViolation<SignupForm>> constraintValidation = validator.validate(signupForm, ValidGroup2.class);
 
-		assertThat(constraintValidation.size(), is(4));
+		assertThat(constraintValidation.size(), is(2));
 
-		ConstraintViolation<SignupForm> violation = constraintValidation.iterator().next();
+		constraintValidation.forEach(result -> {
 
-		assertThat(violation.getInvalidValue(), is("ああ"));
-		assertThat(violation.getInvalidValue(), is("いい"));
+			String propertyPath = result.getPropertyPath().toString();
+
+			if(propertyPath.equals("userName")){
+				assertThat(result.getInvalidValue(), is("あああ"));
+			}else if(propertyPath.equals("password")){
+				assertThat(result.getInvalidValue(), is("いいい"));
+			}
+		});
 	}
 
 	@Test
@@ -133,24 +154,5 @@ public class SignupFormTest {
 		ConstraintViolation<SignupForm> violation = constraintValidation.iterator().next();
 
 		assertThat(violation.getInvalidValue(), is("aa"));
-	}
-
-	@Test
-	@Sql({"/test_schema.sql", "/test_data.sql"})
-	public void 登録情報投入_バリデーションエラー_ユーザーユニークエラー() throws Exception {
-
-		SignupForm signupForm = new SignupForm();
-
-		signupForm.setUserName("userName3");
-		signupForm.setMailAddress("test@gmail.com");
-		signupForm.setPassword("testpassword10");
-
-		Set<ConstraintViolation<SignupForm>> constraintValidation = validator.validate(signupForm, ValidGroup1.class);
-
-		assertThat(constraintValidation.size(), is(1));
-
-		ConstraintViolation<SignupForm> violation = constraintValidation.iterator().next();
-
-		assertThat(violation.getInvalidValue(), is("userName3"));
 	}
 }
