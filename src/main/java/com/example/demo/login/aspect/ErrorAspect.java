@@ -11,18 +11,16 @@ import org.springframework.stereotype.Component;
 public class ErrorAspect {
 
 	@AfterThrowing(value="execution(* *..*.*..*(..))" + " &&(bean(*Controller) || bean(*Service) || bean(*Repository))" , throwing="ex")
-	public void throwingNull(DataAccessException ex)
-	{
-     System.out.println("=========================================");
-     System.out.println("DataAccessExceptionが発生しました。:" + ex);
-     System.out.println("=========================================");
+	public void throwingDataAccessException(DataAccessException ex){
+		System.out.println("=========================================");
+		System.out.println("DataAccessExceptionが発生しました。:" + ex);
+		System.out.println("=========================================");
 	}
 
 	@AfterThrowing(value="execution(* *..*.*..*(..))" + " &&(bean(*Controller) || bean(*Service) || bean(*Repository))" , throwing="ex")
-	public void throwingNull(Exception ex)
-	{
-     System.out.println("=========================================");
-     System.out.println("Exceptionが発生しました。:" + ex);
-     System.out.println("=========================================");
+	public void throwingException(Exception ex){
+		System.out.println("=========================================");
+		System.out.println("Exceptionが発生しました。:" + ex);
+		System.out.println("=========================================");
 	}
 }

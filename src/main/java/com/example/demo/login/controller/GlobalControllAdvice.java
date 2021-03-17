@@ -2,7 +2,7 @@ package com.example.demo.login.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,8 +15,8 @@ import com.example.demo.login.domain.model.SearchForm;
 public class GlobalControllAdvice {
 
 
-	@ExceptionHandler(DataAccessException.class)
-	public String dataAccessExceptionHandler(DataAccessException e, Model model, HttpServletRequest request) {
+	@ExceptionHandler(EmptyResultDataAccessException.class)
+	public String emptyResultDataAccessExceptionHandler(EmptyResultDataAccessException e, Model model, HttpServletRequest request) {
 
 		if(request.getAttribute("searchForm")!=null) {
 			model.addAttribute((SearchForm)request.getAttribute("searchForm"));
