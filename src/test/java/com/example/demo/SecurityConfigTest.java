@@ -19,8 +19,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Sql({"/Delete.sql", "/Schema.sql", "/Insert.sql"})
 @Transactional
+@Sql({"/test_schema.sql", "/test_data.sql"})
 public class SecurityConfigTest {
 
 	@Autowired
@@ -55,7 +55,7 @@ public class SecurityConfigTest {
 	@Test
 	public void ログイン失敗() throws Exception{
 
-		String userName = "userName4";
+		String userName = "userName5";
 
 		String password = "password";
 
