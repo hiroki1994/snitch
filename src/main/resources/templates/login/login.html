@@ -5,11 +5,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Login</title>
+	<link th:href="@{../../css/login.css}" rel="stylesheet"></link>
 </head>
 <body>
 	<div layout:fragment="content">
-		<div class="loginClass">
-			<h1>Login</h1>
+		<div class="loginWrapper">
+			<p class="pageTitle">Login</p>
 			<form th:action="@{/login}" method="post">
 			    <p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
 			    	th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"

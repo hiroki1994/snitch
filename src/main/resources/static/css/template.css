@@ -1,32 +1,45 @@
 @charset "UTF-8";
 
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
 .navbar {
+ 	padding-top: 0vh;
+	padding-bottom: 0vh;
+	padding-left: 0vw;
+	paddinf-right: 0vw;
  	background-color:#293E31;
- 	height: 147px;
+ 	height: 10vw;
  }
+
+.navbar-header{
+    width: 10vw;
+}
 
 .logo img {
 	position: relative;
 	float: left;
-	margin-left: -30px;
-	margin-top: -8px;
+	right: 15px;
 	background-size: contain;
-	height: 147px;
+	height: 10vw;
 }
 
 .navbar-list {
 	position: absolute;
 	float: left;
-    left: 60%;
+    left: calc((100vw - 500px)/1.31 + 95px);
 	list-style: none;
 	overflow: hidden;
-
 }
 
 .nav-item {
 	float: left;
     display: inline-block;
-
 }
 
 .nav-link {
@@ -34,6 +47,7 @@
 	float: left;
 	text-decoration: none;
 	color: #fff;
+	font-size: calc((100vw - 500px)/200 + 13px);
 	font-weight: bold;
 }
 
@@ -54,49 +68,46 @@
 .logout-btn:focus {
 	outline:0;
 }
+
 .form {
-	height:60px;
+	height: 40px;
 	background-color: #A0ADA7;
 	position: relative;
 	float: left;
 	width: 100%;
 }
 
-.searchErrorMSG {
-	position: relative;
+.searchErrorMSG.text-nowrap {
 	padding-top: 107px;
-	padding-left: 578px;
-	font-size: 20px;
+	text-align: center;
+	font-size: 25px;
 }
 
 #SearchBox{
 	z-index: 100;
 	margin: 0 auto;
-    position:relative;
-    max-width:300px;
-    margin-bottom:20px;
+    position: relative;
+    max-width: calc((100vw - 500px)/10 + 200px);
 }
+
 #sbox1{
-    height:46px;
-    width:303px;
+    width: 100%;
     padding:0 10px;
-    position:absolute;
-    left:0px;
-    top:7px;
-    border-radius:2px;
+    position: absolute;
+    top: 7px;
     outline:0;
-    background:#eee;
+    background: #eee;
 }
 
 #sbtn1{
-    height:50px;
-    position:absolute;
-    left:270px;/*アイコン左右の位置調整*/
-    top:7px;
-    background:none;
+    position: absolute;
+    max-width: 21.5vw;
+    left: calc((100vw - 500px)/10 + 170px);
+    top: 8px;
+    background: none;
     color:#666;
-    border:none;
-    font-size:20px;/*アイコンサイズ*/
+    border: none;
+    font-size: 16px;
 }
 #sbtn5:hover{
 color:#7fbfff;
@@ -105,7 +116,7 @@ color:#7fbfff;
 .contentsClass {
 	background-color: #DACEC2;
 	padding-top: 100px;
-	padding-bottom: 400px;
+	padding-bottom: 100px;
 	text-align: center;
 }
 

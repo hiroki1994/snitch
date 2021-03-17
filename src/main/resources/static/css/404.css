@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+}
+
+.error404Wrapper{
+	height: 100vh;
+}

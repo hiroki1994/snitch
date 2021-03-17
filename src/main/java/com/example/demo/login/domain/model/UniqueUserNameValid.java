@@ -22,9 +22,15 @@ public class UniqueUserNameValid implements ConstraintValidator<UniqueUserName, 
 
 	public boolean isValid(String userName, ConstraintValidatorContext context) {
 
+
+		if(userService == null){
+			return true;
+		}
+
 		if(userName.equals(request.getRemoteUser())) {
 			return true;
 		}
+
 
 		int userNameExist = userService.exist(userName);
 

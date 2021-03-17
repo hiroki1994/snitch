@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+}
+
+.errorWrapper{
+	height: 100vh;
+}

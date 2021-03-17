@@ -83,7 +83,6 @@ public class UserDaoJdbcImpl implements UserDao {
 
 		int rowNumber = jdbc.update("UPDATE userData SET unavailableFlag = '1' WHERE userId = ? AND unavailableFlag IS NULL", userId);
 
-		//このメソッドはfavGiftDaoに移行させます。　今だとコンフリクトが起きるのでfavGiftのブランチがマージされた後に対応します。
 		int rowNumber2 = jdbc.update("UPDATE favGift SET unavailableFlag = '1' WHERE userId = ? AND unavailableFlag IS NULL", userId);
 
 		if(rowNumber2 > 0) {
@@ -98,9 +97,9 @@ public class UserDaoJdbcImpl implements UserDao {
 	@Override
 	public int exist(String userName) throws DataAccessException{
 
-		int userNameExist = jdbc.queryForObject("SELECT COUNT(userName) FROM userData WHERE userName = ?", Integer.class, userName);
+			int userNameExist = jdbc.queryForObject("SELECT COUNT(userName) FROM userData WHERE userName = ?", Integer.class, userName);
 
-		return userNameExist;
+			return userNameExist;
 	}
 
 	public User findUser(String userName) throws DataAccessException{
