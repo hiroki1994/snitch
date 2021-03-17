@@ -7,11 +7,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title>404Error</title>
+	<link th:href="@{css/404.css}" rel="stylesheet"></link>
 </head>
-<!-- 404エラーページ-->
 <body>
 	<div layout:fragment="content">
-		<p>指定されたページは存在しません</p>
+		<div class="error404Wrapper">
+			<p>指定されたページは存在しません</p>
+		</div>
 	</div>
 </body>
 </html>

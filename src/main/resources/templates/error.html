@@ -5,10 +5,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Error</title>
+	<link th:href="@{/css/error.css}" rel="stylesheet"></link>
 </head>
 <body>
 	<div layout:fragment="content">
-		<p th:text="${message}"></p>
+		<div class="errorWrapper">
+			<p th:text="${message}"></p>
+		</div>
 	</div>
 </body>
 </html>

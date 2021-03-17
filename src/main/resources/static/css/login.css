@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+}
+
+.loginWrapper{
+	height: 100vh;
+	min-width: 300px;
+}
+
+p.pageTitle {
+	font-size: 32px;
+}
+
+button.btn.btn-primary.col-sm-2{
+	width: 150px;
+}
+
+button.btn.btn-success.col-sm-2 {
+	width: 150px;
+}
