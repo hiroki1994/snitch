@@ -6,7 +6,7 @@ import com.example.demo.login.domain.model.User;
 
 public interface UserDao {
 
-	public int insertOne(User user) throws DataAccessException;
+	public int create(User user) throws DataAccessException;
 
 	public int updateOne(User user, String userName_LoggedIn) throws DataAccessException;
 

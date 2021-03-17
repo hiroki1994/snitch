@@ -23,7 +23,7 @@ import com.example.demo.login.domain.repository.UserDao;
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-@Sql({"/Delete.sql", "/Schema.sql", "/Insert.sql"})
+@Sql({"/test_schema.sql", "/test_data.sql"})
 public class UserDaoTest {
 
 	@Autowired
@@ -41,7 +41,7 @@ public class UserDaoTest {
 
 		int expected = 1;
 
-		int actual = userDao.insertOne(user);
+		int actual = userDao.create(user);
 
 		assertThat(expected, equalTo(actual));
 	}
@@ -78,8 +78,26 @@ public class UserDaoTest {
 	}
 
 	@Test
-	public void ユーザー登録情報削除() throws Exception {
+	public void ユーザー登録情報成功() throws Exception {
+
 		String userName = "userName3";
+
+		int expected = 1;
+
+		int actual = userDao.deleteOne(userName);
+
+		assertThat(expected, equalTo(actual));
+	}
+
+	@Test
+	public void ユーザー登録情報削除失敗() throws Exception {
+		String userName = "userName5";
+
+		int expected = 0;
+
+		int actual = userDao.deleteOne(userName);
+
+		assertThat(expected, equalTo(actual));
 	}
 
 
@@ -88,15 +106,10 @@ public class UserDaoTest {
 
 		String userName = "userName3";
 		int expected = 1;
-<<<<<<< HEAD
-	    int actual = userDao.exist(userName);
 
-	    assertThat(expected, is(actual));
-=======
 		int actual = userDao.exist(userName);
 
 		assertThat(expected, is(actual));
->>>>>>> main
 	}
 
 	@Test
@@ -104,14 +117,9 @@ public class UserDaoTest {
 
 		String userName = "uniqueUserName";
 		int expected = 0;
-<<<<<<< HEAD
-	    int actual = userDao.exist(userName);
 
-	    assertThat(expected, is(actual));
-=======
 		int actual = userDao.exist(userName);
 
 		assertThat(expected, is(actual));
->>>>>>> main
 	}
 }

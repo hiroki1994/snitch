@@ -16,10 +16,10 @@ public class UserService {
 	@Autowired
 	UserDao dao;
 
-	public boolean insertOne(User user) {
+	public boolean create(User user) {
 
 		try {
-			dao.insertOne(user);
+			dao.create(user);
 
 			return true;
 

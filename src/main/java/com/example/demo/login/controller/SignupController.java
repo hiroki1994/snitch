@@ -47,7 +47,7 @@ public class SignupController {
 		user.setMailAddress(form.getMailAddress());
 		user.setPassword(form.getPassword());
 
-		boolean result = userService.insertOne(user);
+		boolean result = userService.create(user);
 
 		if (result == true) {
 			System.out.println("insert成功");

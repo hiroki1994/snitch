@@ -21,7 +21,7 @@ public class UserDaoJdbcImpl implements UserDao {
 	PasswordEncoder passwordEncoder;
 
 	@Override
-	public int insertOne(User user) throws DataAccessException {
+	public int create(User user) throws DataAccessException {
 
 		String password = passwordEncoder.encode(user.getPassword());
 
