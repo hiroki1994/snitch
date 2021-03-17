@@ -83,41 +83,25 @@ public class UserDaoJdbcImpl implements UserDao {
 
 		int rowNumber = jdbc.update("UPDATE userData SET unavailableFlag = '1' WHERE userId = ? AND unavailableFlag IS NULL", userId);
 
-		//このメソッドはfavGiftDaoに移行させます。　今だとコンフリクトが起きるのでfavGiftのブランチがマージされた後に対応します。
-		int rowNumber2 = jdbc.update("UPDATE favGift SET unavailableFlag = '1' WHERE userId = ? AND unavailableFlag IS NULL", userId);
-
-        if(rowNumber2 > 0) {
-        	System.out.println("お気に入り削除完了");
-        } else {
-        	System.out.println("お気に入り削除失敗");
-        }
-
 		return rowNumber;
 	}
 
 	@Override
-	public int exist(String userName) throws DataAccessException{
+	public int exist(String userName) throws DataAccessException {
 
-			int userNameExist = jdbc.queryForObject("SELECT COUNT(userName) FROM userData WHERE userName = ?", Integer.class, userName);
-
-			return userNameExist;
+		return jdbc.queryForObject("SELECT COUNT(userName) FROM userData WHERE userName = ?", Integer.class, userName);
 	}
 
-	public User findUser(String userName) throws DataAccessException{
+	public User findUser(String userName) throws DataAccessException {
 
-			Map<String, Object> map = jdbc.queryForMap("SELECT * FROM userData WHERE userName = ?", userName);
+		Map<String, Object> map = jdbc.queryForMap("SELECT * FROM userData WHERE userName = ?", userName);
 
-			User user = new User();
+		User user = new User();
 
-			user.setUserName((String)map.get("userName"));
-			user.setMailAddress((String)map.get("mailAddress"));
-			user.setPassword((String)map.get("password"));
-			return user;
+		user.setUserName((String)map.get("userName"));
+		user.setMailAddress((String)map.get("mailAddress"));
+		user.setPassword((String)map.get("password"));
+
+		return user;
 	}
-
-
 }
-
-
-
-

@@ -88,9 +88,15 @@ public class UserDaoTest {
 
 		String userName = "userName3";
 		int expected = 1;
+<<<<<<< HEAD
 	    int actual = userDao.exist(userName);
 
 	    assertThat(expected, is(actual));
+=======
+		int actual = userDao.exist(userName);
+
+		assertThat(expected, is(actual));
+>>>>>>> main
 	}
 
 	@Test
@@ -98,8 +104,14 @@ public class UserDaoTest {
 
 		String userName = "uniqueUserName";
 		int expected = 0;
+<<<<<<< HEAD
 	    int actual = userDao.exist(userName);
 
 	    assertThat(expected, is(actual));
+=======
+		int actual = userDao.exist(userName);
+
+		assertThat(expected, is(actual));
+>>>>>>> main
 	}
 }

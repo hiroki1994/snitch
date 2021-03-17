@@ -22,6 +22,7 @@ public class UserService {
 			dao.insertOne(user);
 
 			return true;
+
 		} catch(DataAccessException e) {
 
 			return false;
@@ -40,6 +41,7 @@ public class UserService {
 			dao.updateOne(user, userName_LoggedIn);
 
 			return true;
+
 		} catch(DataAccessException e) {
 
 			return false;
@@ -52,18 +54,15 @@ public class UserService {
 			dao.deleteOne(userName);
 
 			return true;
-		}  catch(DataAccessException e) {
+
+		} catch(DataAccessException e) {
 
 			return false;
 		}
 	}
 
-
-
 	public int exist(String userName) {
 
-		int userNameExist = dao.exist(userName);
-
-		return userNameExist;
+		return dao.exist(userName);
 	}
 }

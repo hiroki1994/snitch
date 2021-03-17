@@ -101,25 +101,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
      	try {
             request.login(username, password);
+
             String urlMyPage = "/mypage";
+
     		response.sendRedirect(urlMyPage);
         } catch (ServletException e) {
         	String urlLogin = "/login";
+
     		response.sendRedirect(urlLogin);
         }
-
-
     }
 
     public static void autoLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         try {
             request.logout();
-            System.out.println("ログアウト実行");
+
             String urlLogin = "/login";
+
     		response.sendRedirect(urlLogin);
         } catch (ServletException e) {
         	String urlLogin = "/login";
+
     		response.sendRedirect(urlLogin);
         }
     }

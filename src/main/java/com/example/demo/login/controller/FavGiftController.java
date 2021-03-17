@@ -48,7 +48,7 @@ public class FavGiftController {
 		if(result == true) {
 			System.out.println("お気に入り登録解除完了");
 		} else {
-			System.out.println("お気に入り登録解除成功");
+			System.out.println("お気に入り登録解除失敗");
 		}
 
 		String url = "/giftDetail/" + giftId;

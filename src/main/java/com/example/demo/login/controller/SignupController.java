@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.SecurityConfig;
 import com.example.demo.login.domain.model.GroupOrder;
-import com.example.demo.login.domain.model.UserForm;
 import com.example.demo.login.domain.model.User;
+import com.example.demo.login.domain.model.UserForm;
 import com.example.demo.login.domain.service.UserService;
 
 @Controller

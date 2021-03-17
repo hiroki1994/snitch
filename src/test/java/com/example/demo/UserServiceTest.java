@@ -135,9 +135,10 @@ public class UserServiceTest {
 
 		String userName = "userName3";
 		int expected = 1;
-	    int actual = userService.exist(userName);
 
-	    assertThat(expected, is(actual));
+		int actual = userService.exist(userName);
+
+		assertThat(expected, is(actual));
 	}
 
 	@Test
@@ -145,8 +146,9 @@ public class UserServiceTest {
 
 		String userName = "uniqueUserName";
 		int expected = 0;
-	    int actual = userService.exist(userName);
 
-	    assertThat(expected, is(actual));
+		int actual = userService.exist(userName);
+
+		assertThat(expected, is(actual));
 	}
 }

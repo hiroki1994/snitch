@@ -60,8 +60,11 @@ public class UserDaoJdbcImpleTest {
 		int actual = userDaoJdbcImpl.updateOne(user, userName);
 
 		assertThat(expected, equalTo(actual));
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> main
 	}
 
 	@Test
@@ -84,7 +87,11 @@ public class UserDaoJdbcImpleTest {
 		int expected = 1;
 		int actual = userDaoJdbcImpl.deleteOne(userName);
 
+<<<<<<< HEAD
 		 assertThat(expected, is(actual));
+=======
+		assertThat(expected, is(actual));
+>>>>>>> main
 	}
 
 	@Test
@@ -95,7 +102,11 @@ public class UserDaoJdbcImpleTest {
 		int expected = 0;
 		int actual = userDaoJdbcImpl.deleteOne(userName);
 
+<<<<<<< HEAD
 		 assertThat(expected, is(actual));
+=======
+		assertThat(expected, is(actual));
+>>>>>>> main
 	}
 
 
@@ -105,9 +116,15 @@ public class UserDaoJdbcImpleTest {
 		String userName = "userName3";
 
 		int expected = 1;
+<<<<<<< HEAD
 	    int actual = userDaoJdbcImpl.exist(userName);
 
 	    assertThat(expected, is(actual));
+=======
+		int actual = userDaoJdbcImpl.exist(userName);
+
+		assertThat(expected, is(actual));
+>>>>>>> main
 	}
 
 	@Test
@@ -116,9 +133,16 @@ public class UserDaoJdbcImpleTest {
 		String userName = "uniqueUserName";
 
 		int expected = 0;
+<<<<<<< HEAD
 	    int actual = userDaoJdbcImpl.exist(userName);
 
 	    assertThat(expected, is(actual));
 	}
 
+=======
+		int actual = userDaoJdbcImpl.exist(userName);
+
+		assertThat(expected, is(actual));
+	}
+>>>>>>> main
 }

@@ -15,7 +15,9 @@ public interface FavGiftDao  {
 
 	public int create(String userName, int giftId) throws DataAccessException;
 
-	public int searchFavId(String userName, int giftId) throws DataAccessException;
+	public int existFavId(String userName, int giftId) throws DataAccessException;
 
 	public int delete(String userName, int giftId) throws DataAccessException;
+
+	public int deleteMany(String userName) throws DataAccessException;
 }

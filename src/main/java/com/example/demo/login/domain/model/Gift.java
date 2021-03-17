@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Gift {
 	private int giftId;
-	private String guestId;
+	private int guestId;
 	private String guestName;
 	private String giftName;
 	private String price;

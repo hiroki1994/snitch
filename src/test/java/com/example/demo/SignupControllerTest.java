@@ -62,8 +62,13 @@ public class SignupControllerTest {
 
 
 		mockMvc.perform(post("/signupUser").flashAttr("userForm", form).with(csrf()))
+<<<<<<< HEAD
 			   .andExpect(status().isFound())
 			   .andExpect(redirectedUrl("/mypage"));
+=======
+			.andExpect(status().isFound())
+			.andExpect(redirectedUrl("/mypage"));
+>>>>>>> main
 	}
 
 	@Test
@@ -80,9 +85,15 @@ public class SignupControllerTest {
 		form.setPassword("7777");
 
 		mockMvc.perform(post("/signupUser").flashAttr("userForm", form).with(csrf()))
+<<<<<<< HEAD
 			   .andExpect(status().isOk())
 			   .andExpect(view().name("signup/signup"))
 			   .andExpect(content().string(containsString("入力されたユーザーネームは既に使用されています")));
+=======
+			.andExpect(status().isOk())
+			.andExpect(view().name("signup/signup"))
+			.andExpect(content().string(containsString("入力されたユーザーネームは既に使用されています")));
+>>>>>>> main
 	}
 
 	@Test
@@ -100,6 +111,7 @@ public class SignupControllerTest {
 
 
 		mockMvc.perform(post("/signupUser").flashAttr("userForm", form).with(csrf()))
+<<<<<<< HEAD
 			   .andExpect(status().isOk())
 			   .andExpect(view().name("signup/signup"))
 			   .andExpect(content().string(containsString("ユーザーネームは3字以上20字以下で入力してください")))
@@ -108,5 +120,15 @@ public class SignupControllerTest {
 			   .andExpect(content().string(containsString("メールアドレス形式で入力してください")))
 			   .andExpect(content().string(containsString("パスワードは3字以上20字以下で入力してください")))
 			   .andExpect(content().string(containsString("パスワードは半角英数字で入力してください")));
+=======
+			.andExpect(status().isOk())
+			.andExpect(view().name("signup/signup"))
+			.andExpect(content().string(containsString("ユーザーネームは3字以上20字以下で入力してください")))
+			.andExpect(content().string(containsString("ユーザーネームは半角英数字で入力してください")))
+			.andExpect(content().string(containsString("ユーザーネームは3字以上20字以下で入力してください")))
+			.andExpect(content().string(containsString("メールアドレス形式で入力してください")))
+			.andExpect(content().string(containsString("パスワードは3字以上20字以下で入力してください")))
+			.andExpect(content().string(containsString("パスワードは半角英数字で入力してください")));
+>>>>>>> main
 	}
 }

@@ -12,22 +12,24 @@
 	<link th:href="@{css/mypage.css}" rel="stylesheet"></link>
 </head>
 <body layout:fragment="content">
+<div class= "mypageWrapper">
 	<div sec:authorize="isAuthenticated()">
-		<h1><span sec:authentication="name"></span>様のマイページ</h1>
+		<p class="pageTitle"><span sec:authentication="name"></span>様のマイページ</p>
 　　 </div>
     <div class="mypageTool col-sm-4 offset-sm-4">
     	<form class="favoritePage" th:action="@{/mypage/favorite}" method="post">
-			<button class="favorite-btn btn-warning col-sm-12" type="submit" style="color:white"><i class="fas fa-heart" style="color:white"></i> お気に入り</button>
+			<button class="favorite-btn btn-warning col-sm-12 text-nowrap" type="submit" style="color:white"><i class="fas fa-heart"></i> お気に入り</button>
 		</form>
     	<br />
 		<form class="updatePage" th:action="@{/mypage/updateUser}" method="post">
-			<button class="update-btn btn-success col-sm-12" type="submit"><i class="fas fa-user-edit"></i> 登録情報更新</button>
+			<button class="update-btn btn-success col-sm-12 text-nowrap" type="submit"><i class="fas fa-user-edit"></i> 登録情報更新</button>
 
 		</form>
         <br />
         <form class="deletePage" th:action="@{/mypage/deleteUser}" method="post">
-			<button class="delete-btn btn-danger col-sm-12" type="submit"><i class="fas fa-user-slash"></i> 退会</button>
+			<button class="delete-btn btn-danger col-sm-12 text-nowrap" type="submit"><i class="fas fa-user-slash"></i> 退会</button>
 		</form>
     </div>
+</div>
 </body>
 </html>

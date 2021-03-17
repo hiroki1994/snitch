@@ -35,13 +35,11 @@ public class MyPageController {
 
 	@GetMapping("/mypage")
 	public String getMypage() {
-
 		return "mypage/mypage";
 	}
 
 	@PostMapping("/mypage/deleteUser")
 	public String getDelete() {
-
 		return "mypage/deleteUser/deleteUser";
 	}
 
@@ -50,15 +48,23 @@ public class MyPageController {
 
 		String userName = request.getRemoteUser();
 
-	    boolean result = userService.deleteOne(userName);
+		boolean resultDeleteFav = favGiftService.deleteMany(userName);
 
-	    if(result == true) {
-	    	System.out.println("削除成功");
-	    } else {
-	    	System.out.println("削除失敗");
-	    }
+		if(resultDeleteFav == true) {
+			System.out.println("お気に入り全件削除成功");
+		} else {
+			System.out.println("お気に入り全件削除失敗");
+		}
 
-	    try {
+		boolean resultDeleteUser = userService.deleteOne(userName);
+
+		if(resultDeleteUser == true) {
+			System.out.println("ユーザー削除成功");
+		} else {
+			System.out.println("ユーザー削除失敗");
+		}
+
+		try {
 			SecurityConfig.autoLogout(request, response);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -99,7 +105,7 @@ public class MyPageController {
 		boolean result = userService.updateOne(user, userName);
 
 		if(result == true) {
-		   System.out.println("更新成功");
+			System.out.println("更新成功");
 		} else {
 			System.out.println("更新失敗");
 		}
@@ -124,9 +130,9 @@ public class MyPageController {
 
 		model.addAttribute("allFavGifts", allFavGifts);
 
-		int count = favGiftService.count(userName);
+		int favIds = favGiftService.count(userName);
 
-		model.addAttribute("count", count);
+		model.addAttribute("favIds", favIds);
 
 		return "mypage/favorite/favorite";
 	}
