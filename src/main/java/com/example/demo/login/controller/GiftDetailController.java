@@ -24,7 +24,7 @@ public class GiftDetailController {
 	FavGiftService favGiftService;
 
 	@GetMapping("/giftDetail/{id}")
-	public String getgiftDetail(@ModelAttribute GiftDetail detail, Model model, @PathVariable("id") int giftId, HttpServletRequest httpServletRequest) {
+	public String show(@ModelAttribute GiftDetail detail, Model model, @PathVariable("id") int giftId, HttpServletRequest httpServletRequest) {
 
 			Gift gift = giftService.selectOne(giftId);
 
@@ -42,9 +42,9 @@ public class GiftDetailController {
 
 			String userName = httpServletRequest.getRemoteUser();
 
-			int favId = favGiftService.searchFavId(userName, giftId);
+			boolean result = favGiftService.existFavId(userName, giftId);
 
-			model.addAttribute("favId", favId);
+			model.addAttribute("result", result);
 
 		return "giftDetail/giftDetail";
 	}

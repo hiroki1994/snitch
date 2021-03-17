@@ -134,9 +134,9 @@ public class MyPageController {
 
 		model.addAttribute("allFavGifts", allFavGifts);
 
-		int count = favGiftService.count(userName);
+		int favIds = favGiftService.count(userName);
 
-		model.addAttribute("count", count);
+		model.addAttribute("favIds", favIds);
 
 		return "mypage/favorite/favorite";
 	}

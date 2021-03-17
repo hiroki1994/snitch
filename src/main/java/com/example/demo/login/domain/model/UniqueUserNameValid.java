@@ -1,5 +1,6 @@
 package com.example.demo.login.domain.model;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
@@ -12,17 +13,30 @@ public class UniqueUserNameValid implements ConstraintValidator<UniqueUserName, 
 	@Autowired
 	UserService userService;
 
-	public void initialize(UniqueUserName constraintAnnotation) {
+	@Autowired
+	HttpServletRequest request;
 
+	public void initialize(UniqueUserName constraintAnnotation) {
 
 	}
 
 	public boolean isValid(String userName, ConstraintValidatorContext context) {
 
-		User user = userService.findByUserName(userName);
-		if(user == null) {
+		if(userService == null){
 			return true;
 		}
+
+		if(userName.equals(request.getRemoteUser())) {
+			return true;
+		}
+
+
+		int userNameExist = userService.exist(userName);
+
+		if(userNameExist == 0) {
+			return true;
+		}
+
 		return false;
 	}
 }

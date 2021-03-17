@@ -14,5 +14,5 @@ public interface UserDao {
 
 	public int deleteOne(String userName) throws DataAccessException;
 
-	public User findByUserName(String userName) throws DataAccessException;
+	public int exist(String userName) throws DataAccessException;
 }

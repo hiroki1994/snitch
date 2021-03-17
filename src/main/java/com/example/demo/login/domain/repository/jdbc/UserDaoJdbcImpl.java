@@ -99,6 +99,13 @@ public class UserDaoJdbcImpl implements UserDao {
 	}
 
 	@Override
+	public int exist(String userName) throws DataAccessException{
+
+			int userNameExist = jdbc.queryForObject("SELECT COUNT(userName) FROM userData WHERE userName = ?", Integer.class, userName);
+
+			return userNameExist;
+	}
+
 	public User findByUserName(String userName) throws DataAccessException{
 
 		try {
@@ -116,7 +123,7 @@ public class UserDaoJdbcImpl implements UserDao {
 			return null;
 		}
 	}
-
+//checkExistUserID 型が想像できる命名する　上のメソッドでcatchする　selectでなくでcountにしてしまう。
 
 }
 
