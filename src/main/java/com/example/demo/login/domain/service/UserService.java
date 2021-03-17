@@ -1,6 +1,7 @@
 package com.example.demo.login.domain.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,14 +18,13 @@ public class UserService {
 
 	public boolean insertOne(User user) {
 
-		int rowNumber = dao.insertOne(user);
+		try {
+			dao.insertOne(user);
 
-		boolean result = false;
-
-		if (rowNumber > 0) {
-			result = true;
+			return true;
+		} catch(DataAccessException e) {
+			return false;
 		}
-		return result;
 	}
 
 	public User selectOne(String userName) {
@@ -35,31 +35,26 @@ public class UserService {
 
 	public boolean updateOne(User user, String userName_LoggedIn) {
 
+		try {
+			dao.updateOne(user, userName_LoggedIn);
 
-		int rowNumber = dao.updateOne(user, userName_LoggedIn);
+			return true;
+		} catch(DataAccessException e) {
 
-		boolean result = false;
-
-		if (rowNumber > 0) {
-
-			result = true;
+			return false;
 		}
-
-		return result;
 	}
 
 	public boolean deleteOne(String userName) {
 
-		int rowNumber = dao.deleteOne(userName);
+		try {
+			dao.deleteOne(userName);
 
-		boolean result = false;
+			return true;
+		} catch(DataAccessException e) {
 
-		if (rowNumber > 0) {
-
-			result = true;
+			return false;
 		}
-
-		return result;
 	}
 
 	public int exist(String userName) {
