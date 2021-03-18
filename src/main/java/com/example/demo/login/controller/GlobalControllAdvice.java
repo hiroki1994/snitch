@@ -1,5 +1,7 @@
 package com.example.demo.login.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -29,6 +31,19 @@ public class GlobalControllAdvice {
 		return "error";
 	}
 
+	@ExceptionHandler(IOException.class)
+	public String IOExceptionExceptionHandler(IOException e, Model model, HttpServletRequest request) {
+
+		if(request.getAttribute("searchForm")!=null) {
+			model.addAttribute((SearchForm)request.getAttribute("searchForm"));
+		}else{
+			model.addAttribute("searchForm", new SearchForm());
+		}
+
+		model.addAttribute("message", "指定されたページは存在しません");
+
+		return "error";
+	}
 
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e, Model model, HttpServletRequest request) {
