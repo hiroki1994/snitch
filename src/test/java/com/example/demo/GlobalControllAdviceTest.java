@@ -20,7 +20,7 @@ public class GlobalControllAdviceTest {
 	private MockMvc mockMvc;
 
     @Test
-	public void DataAccessException発生() throws Exception {
+	public void EmptyResultDataAccessException発生() throws Exception {
 
 		int giftId = 9999;
 
