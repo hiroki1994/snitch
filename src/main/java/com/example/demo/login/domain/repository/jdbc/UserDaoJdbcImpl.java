@@ -89,11 +89,11 @@ public class UserDaoJdbcImpl implements UserDao {
 
 		int rowNumber2 = jdbc.update("UPDATE favGift SET unavailableFlag = '1' WHERE userId = ? AND unavailableFlag IS NULL", map.get("userId"));
 
-        if(rowNumber2 > 0) {
-        	System.out.println("お気に入り削除完了");
-        } else {
-        	System.out.println("お気に入り削除失敗");
-        }
+		if(rowNumber2 > 0) {
+			System.out.println("お気に入り削除完了");
+		} else {
+			System.out.println("お気に入り削除失敗");
+		}
 
 		return rowNumber;
 	}
@@ -117,7 +117,3 @@ public class UserDaoJdbcImpl implements UserDao {
 		}
 	}
 }
-
-
-
-

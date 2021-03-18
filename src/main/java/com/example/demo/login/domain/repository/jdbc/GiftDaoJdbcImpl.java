@@ -36,56 +36,56 @@ public class GiftDaoJdbcImpl implements GiftDao {
 	@Override
 	public List<Gift> search(String keyword) throws DataAccessException {
 
-			List<Map<String, Object>>  gifts = jdbc.queryForList("SELECT * FROM gift INNER JOIN guest ON gift.guestId = guest.guestId WHERE CONCAT(giftName, description, shop, address, guestName) LIKE '%'||?||'%' AND gift.unavailableFlag IS NULL", keyword);
+		List<Map<String, Object>>  gifts = jdbc.queryForList("SELECT * FROM gift INNER JOIN guest ON gift.guestId = guest.guestId WHERE CONCAT(giftName, description, shop, address, guestName) LIKE '%'||?||'%' AND gift.unavailableFlag IS NULL", keyword);
 
-			List<Gift> selectedGifts = new ArrayList<>();
+		List<Gift> selectedGifts = new ArrayList<>();
 
-			for(Map<String, Object> map: gifts) {
+		for(Map<String, Object> map: gifts) {
 
-				Gift gift = new Gift();
+			Gift gift = new Gift();
 
-				gift.setGiftId((int)map.get("giftId"));
-				gift.setGuestName((String)map.get("guestName"));
-				gift.setGiftName((String)map.get("giftName"));
-				gift.setPrice((String)map.get("price"));
-				gift.setImage((String)map.get("image"));
-				gift.setDescription((String)map.get("description"));
-				gift.setShop((String)map.get("shop"));
-				gift.setAddress((String)map.get("address"));
-				gift.setPhone((String)map.get("phone"));
+			gift.setGiftId((int)map.get("giftId"));
+			gift.setGuestName((String)map.get("guestName"));
+			gift.setGiftName((String)map.get("giftName"));
+			gift.setPrice((String)map.get("price"));
+			gift.setImage((String)map.get("image"));
+			gift.setDescription((String)map.get("description"));
+			gift.setShop((String)map.get("shop"));
+			gift.setAddress((String)map.get("address"));
+			gift.setPhone((String)map.get("phone"));
 
-				selectedGifts.add(gift);
-			}
-
-			return selectedGifts;
-
+			selectedGifts.add(gift);
 		}
+
+		return selectedGifts;
+
+	}
 
 	@Override
 	public List<Gift> selectMany() throws DataAccessException {
 
-			List<Map<String, Object>>  gifts = jdbc.queryForList("SELECT * FROM gift INNER JOIN guest ON gift.guestId = guest.guestId WHERE gift.unavailableFlag IS NULL ORDER BY RANDOM() LIMIT 27");
+		List<Map<String, Object>>  gifts = jdbc.queryForList("SELECT * FROM gift INNER JOIN guest ON gift.guestId = guest.guestId WHERE gift.unavailableFlag IS NULL ORDER BY RANDOM() LIMIT 27");
 
-			List<Gift> selectedGifts = new ArrayList<>();
+		List<Gift> selectedGifts = new ArrayList<>();
 
-			for(Map<String, Object> map: gifts) {
+		for(Map<String, Object> map: gifts) {
 
-				Gift gift = new Gift();
+			Gift gift = new Gift();
 
-				gift.setGiftId((int)map.get("giftId"));
-				gift.setGuestName((String)map.get("guestName"));
-				gift.setGiftName((String)map.get("giftName"));
-				gift.setPrice((String)map.get("price"));
-				gift.setImage((String)map.get("image"));
-				gift.setDescription((String)map.get("description"));
-				gift.setShop((String)map.get("shop"));
-				gift.setAddress((String)map.get("address"));
-				gift.setPhone((String)map.get("phone"));
+			gift.setGiftId((int)map.get("giftId"));
+			gift.setGuestName((String)map.get("guestName"));
+			gift.setGiftName((String)map.get("giftName"));
+			gift.setPrice((String)map.get("price"));
+			gift.setImage((String)map.get("image"));
+			gift.setDescription((String)map.get("description"));
+			gift.setShop((String)map.get("shop"));
+			gift.setAddress((String)map.get("address"));
+			gift.setPhone((String)map.get("phone"));
 
-				selectedGifts.add(gift);
-			}
-			return selectedGifts;
+			selectedGifts.add(gift);
 		}
+		return selectedGifts;
+	}
 
 	@Override
 	public Gift selectOne(int giftId) throws EmptyResultDataAccessException {

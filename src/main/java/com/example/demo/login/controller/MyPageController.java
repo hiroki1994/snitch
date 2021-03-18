@@ -52,15 +52,15 @@ public class MyPageController {
 
 		System.out.println(userName +"の登録情報を削除します");
 
-	    boolean result = userService.deleteOne(userName);
+		boolean result = userService.deleteOne(userName);
 
-	    if(result == true) {
-	    	System.out.println("削除成功");
-	    } else {
-	    	System.out.println("削除失敗");
-	    }
+		if(result == true) {
+			System.out.println("削除成功");
+		} else {
+			System.out.println("削除失敗");
+		}
 
-	    try {
+		try {
 			SecurityConfig.autoLogout(request, response);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -84,7 +84,7 @@ public class MyPageController {
 
 
 		return "mypage/updateUser/updateUser";
-    }
+	}
 
 	@PostMapping("/updateUserInfo")
 	public String postUserUpdate(@ModelAttribute @Validated(GroupOrder.class)SignupForm form, BindingResult bindingResult, Model model, HttpServletRequest request,
@@ -108,7 +108,7 @@ public class MyPageController {
 		boolean result = userService.updateOne(user, userName_LoggedIn);
 
 		if(result == true) {
-		   System.out.println("更新成功");
+			System.out.println("更新成功");
 		} else {
 			System.out.println("更新失敗");
 		}

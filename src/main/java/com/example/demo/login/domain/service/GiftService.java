@@ -43,5 +43,4 @@ public class GiftService {
 
 		return dao.countById(giftId);
 	}
-
 }

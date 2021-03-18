@@ -67,14 +67,11 @@ public class FavGiftService {
 			if(suceededRowNumber > 0) {
 				return true;
 			}
-
 			return false;
 
 		} catch (EmptyResultDataAccessException e) {
 
 			return false;
 		}
-
 	}
-
 }
