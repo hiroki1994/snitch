@@ -38,31 +38,58 @@ public class GiftServiceTestUT {
 
 
 	@Test
-	public void お土産件数取得成功() {
+	public void 指定キーワードを含むお土産件数取得成功() {
 
 		String keyword = "マカロン";
 
-		when(giftDao.count(keyword)).thenReturn(2);
+		when(giftDao.countByKeyword(keyword)).thenReturn(2);
 
 		int expected = 2;
-		int actual = giftService.count(keyword);
+		int actual = giftService.countByKeyword(keyword);
 
 		assertEquals(expected, actual);
 
 	}
 
 	@Test
-	public void お土産件数取得失敗() {
+	public void 指定キーワードを含むお土産件数取得失敗() {
 
 		String keyword = "H#4kこ";
 
-		when(giftDao.count(keyword)).thenReturn(0);
+		when(giftDao.countByKeyword(keyword)).thenReturn(0);
 
 		int expected = 0;
-		int actual = giftService.count(keyword);
+		int actual = giftService.countByKeyword(keyword);
 
 		assertEquals(expected, actual);
 	}
+
+	@Test
+	public void 指定giftIdのお土産件数取得1件() {
+
+		int giftId = 1000;
+
+		when(giftDao.countById(giftId)).thenReturn(1);
+
+		int expected = 1;
+		int actual = giftService.countById(giftId);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void 未登録giftId_お土産件数取得0件() {
+
+		int giftId = 9999;
+
+		when(giftDao.countById(giftId)).thenReturn(0);
+
+		int expected = 0;
+		int actual = giftService.countById(giftId);
+
+		assertEquals(expected, actual);
+	}
+
 
 	@Test
 	public void お土産検索() {

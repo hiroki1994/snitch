@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.login.domain.model.Gift;
 import com.example.demo.login.domain.service.GiftService;
@@ -20,6 +21,7 @@ import com.example.demo.login.domain.service.GiftService;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 @Sql({"/test_schema.sql", "/test_data.sql"})
 public class GiftServiceTestIT {
 
@@ -27,27 +29,47 @@ public class GiftServiceTestIT {
 	GiftService giftService;
 
 	@Test
-	public void お土産件数取得成功() {
+	public void 指定キーワードを含むお土産件数取得成功() {
 
 		String keyword = "マカロン";
 
 		int expected = 2;
-		int actual = giftService.count(keyword);
+		int actual = giftService.countByKeyword(keyword);
 
 		assertEquals(expected, actual);
-
 	}
 
 	@Test
-	public void お土産件数取得失敗() {
+	public void 指定キーワードを含むお土産件数取得失敗() {
 
 		String keyword = "H#4kこ";
 
 		int expected = 0;
-		int actual = giftService.count(keyword);
+		int actual = giftService.countByKeyword(keyword);
 
 		assertEquals(expected, actual);
+	}
 
+	@Test
+	public void 指定giftIdのお土産件数取得1件() {
+
+		int giftId = 1000;
+
+		int expected = 1;
+		int actual = giftService.countById(giftId);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void 未登録giftId_お土産件数取得0件() {
+
+		int giftId = 9999;
+
+		int expected = 0;
+		int actual = giftService.countById(giftId);
+
+		assertEquals(expected, actual);
 	}
 
 	@Test

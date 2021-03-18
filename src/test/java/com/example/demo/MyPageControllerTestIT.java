@@ -32,10 +32,27 @@ public class MyPageControllerTestIT {
 
 		String userName = "userName3";
 
-		mockMvc.perform(post("/mypage/favorite").param("userName", userName).with(csrf()))
+		mockMvc.perform(post("/mypage/favorite").param("userName", userName)
+			.with(csrf()))
 			.andExpect(status().isOk())
 			.andExpect(view().name("mypage/favorite/favorite"))
-			.andExpect(content().string(containsString("お気に入り")));
+			.andExpect(content().string(containsString("お気に入り")))
+			.andExpect(content().string(containsString("2件")))
+			.andExpect(content().string(containsString("マカロン")));
+	}
+
+	@Test
+	@WithMockUser(username="userName4")
+	public void お気に入り一覧_0件() throws Exception {
+
+		String userName = "userName4";
+
+		mockMvc.perform(post("/mypage/favorite").param("userName", userName)
+			.with(csrf()))
+			.andExpect(status().isOk())
+			.andExpect(view().name("mypage/favorite/favorite"))
+			.andExpect(content().string(containsString("お気に入り")))
+			.andExpect(content().string(containsString("0件")));
 	}
 
 }

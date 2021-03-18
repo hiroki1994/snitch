@@ -42,7 +42,23 @@ public class FavGiftControllerTestIT {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void お気に入り削除() throws Exception {
+	public void お気に入り追加_失敗() throws Exception {
+
+		String userName = "userName3";
+
+		int giftId = 9999;
+
+		mockMvc.perform(post("/favGift")
+			.param("userName", userName)
+			.param("giftId", "9999")
+			.with(csrf()))
+			.andExpect(status().isFound())
+			.andExpect(redirectedUrl("/giftDetail/" + giftId));
+	}
+
+	@Test
+	@WithMockUser(username="userName3")
+	public void お気に入り削除_成功() throws Exception {
 
 
 		String userName = "userName3";
@@ -52,6 +68,22 @@ public class FavGiftControllerTestIT {
 		mockMvc.perform(post("/notFavGift")
 			.param("userName", userName)
 			.param("giftId", "1001")
+			.with(csrf()))
+			.andExpect(status().isFound())
+			.andExpect(redirectedUrl("/giftDetail/" + giftId));
+	}
+
+	@Test
+	@WithMockUser(username="userName3")
+	public void お気に入り削除＿失敗() throws Exception {
+
+		String userName = "userName3";
+
+		int giftId = 9999;
+
+		mockMvc.perform(post("/notFavGift")
+			.param("userName", userName)
+			.param("giftId", "9999")
 			.with(csrf()))
 			.andExpect(status().isFound())
 			.andExpect(redirectedUrl("/giftDetail/" + giftId));

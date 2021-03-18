@@ -2,6 +2,7 @@ package com.example.demo;
 
 
 import static org.mockito.Mockito.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -42,15 +43,13 @@ public class FavGiftControllerTestUT {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void お気に入り追加() throws Exception {
+	public void お気に入り追加_成功() throws Exception {
 
 		String userName = "userName3";
 
 		int giftId = 1002;
 
-		boolean result = true;
-
-		when(favGiftService.create(userName, giftId)).thenReturn(result);
+		when(favGiftService.create(userName, giftId)).thenReturn(true);
 
 		mockMvc.perform(post("/favGift")
 			.param("userName", userName)
@@ -61,19 +60,53 @@ public class FavGiftControllerTestUT {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void お気に入り削除() throws Exception {
+	public void お気に入り追加_失敗() throws Exception {
+
+		String userName = "userName3";
+
+		int giftId = 9999;
+
+		when(favGiftService.create(userName, giftId)).thenReturn(false);
+
+		mockMvc.perform(post("/favGift")
+			.param("userName", userName)
+			.param("giftId", "9999")
+			.with(csrf()))
+			.andExpect(status().isFound())
+			.andExpect(redirectedUrl("/giftDetail/" + giftId));
+	}
+
+	@Test
+	@WithMockUser(username="userName3")
+	public void お気に入り削除＿成功() throws Exception {
 
 		String userName = "userName3";
 
 		int giftId = 1001;
 
-		boolean result = true;
-
-		when(favGiftService.delete(userName, giftId)).thenReturn(result);
+		when(favGiftService.delete(userName, giftId)).thenReturn(true);
 
 		mockMvc.perform(post("/notFavGift")
 			.param("userName", userName)
 			.param("giftId", "1001"))
+			.andExpect(status().isFound())
+			.andExpect(redirectedUrl("/giftDetail/" + giftId));
+	}
+
+	@Test
+	@WithMockUser(username="userName3")
+	public void お気に入り削除＿失敗() throws Exception {
+
+		String userName = "userName3";
+
+		int giftId = 9999;
+
+		when(favGiftService.delete(userName, giftId)).thenReturn(false);
+
+		mockMvc.perform(post("/notFavGift")
+			.param("userName", userName)
+			.param("giftId", "9999")
+			.with(csrf()))
 			.andExpect(status().isFound())
 			.andExpect(redirectedUrl("/giftDetail/" + giftId));
 	}

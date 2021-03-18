@@ -27,23 +27,45 @@ public class GiftDaoJdbcImplTest {
 	GiftDaoJdbcImpl giftDaoJdbcImpl;
 
 	@Test
-	public void お土産件数取得成功() {
+	public void 指定キーワードを含むお土産件数取得成功() {
 
 		String keyword = "マカロン";
 
 		int expected = 2;
-		int actual = giftDaoJdbcImpl.count(keyword);
+		int actual = giftDaoJdbcImpl.countByKeyword(keyword);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void お土産件数取得失敗() {
+	public void 指定キーワードを含むお土産件数取得失敗() {
 
 		String keyword = "H#4kこ";
 
 		int expected = 0;
-		int actual = giftDaoJdbcImpl.count(keyword);
+		int actual = giftDaoJdbcImpl.countByKeyword(keyword);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void 指定giftIdのお土産件数取得1件() {
+
+		int giftId = 1000;
+
+		int expected = 1;
+		int actual = giftDaoJdbcImpl.countById(giftId);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void 未登録giftId_お土産件数取得0件() {
+
+		int giftId = 9999;
+
+		int expected = 0;
+		int actual = giftDaoJdbcImpl.countById(giftId);
 
 		assertEquals(expected, actual);
 	}

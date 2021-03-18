@@ -58,12 +58,31 @@ public class MyPageControllerTestUT {
 		List<FavGift> allFavGifts = new ArrayList<>();
 
 		when(favGiftService.selectAll(userName)).thenReturn(allFavGifts);
-		when(favGiftService.count(userName)).thenReturn(3);
+		when(favGiftService.count(userName)).thenReturn(2);
 
-		mockMvc.perform(post("/mypage/favorite").param("userName", userName).with(csrf()))
+		mockMvc.perform(post("/mypage/favorite").param("userName", userName)
+			.with(csrf()))
 			.andExpect(status().isOk())
 			.andExpect(view().name("mypage/favorite/favorite"))
 			.andExpect(content().string(containsString("お気に入り")));
 	}
 
+	@Test
+	@WithMockUser(username="userName4")
+	public void お気に入り一覧_0件() throws Exception {
+
+		String userName = "userName4";
+
+		List<FavGift> allFavGifts = new ArrayList<>();
+
+		when(favGiftService.selectAll(userName)).thenReturn(allFavGifts);
+		when(favGiftService.count(userName)).thenReturn(0);
+
+		mockMvc.perform(post("/mypage/favorite").param("userName", userName)
+			.with(csrf()))
+			.andExpect(status().isOk())
+			.andExpect(view().name("mypage/favorite/favorite"))
+			.andExpect(content().string(containsString("お気に入り")))
+			.andExpect(content().string(containsString("0件")));
+	}
 }

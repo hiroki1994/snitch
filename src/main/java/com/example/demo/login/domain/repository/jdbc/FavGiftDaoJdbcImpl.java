@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +20,7 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	JdbcTemplate jdbc;
 
 	@Override
-	public List<FavGift> selectAll(String userName) throws DataAccessException {
+	public List<FavGift> selectAll(String userName) throws EmptyResultDataAccessException {
 
 		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
 
@@ -49,7 +50,7 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 		}
 
 	@Override
-	public int existFavId(String userName, int giftId) throws DataAccessException {
+	public int existFavId(String userName, int giftId) throws EmptyResultDataAccessException {
 
 			int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
 
@@ -60,7 +61,7 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	}
 
 	@Override
-	public int count(String userName) throws DataAccessException {
+	public int count(String userName) throws EmptyResultDataAccessException {
 
 		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
 
@@ -70,7 +71,7 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	}
 
 	@Override
-	public int create(String userName, int giftId) throws DataAccessException {
+	public int create(String userName, int giftId) throws DataIntegrityViolationException, EmptyResultDataAccessException {
 
 
 		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
@@ -83,7 +84,7 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	}
 
 	@Override
-	public int delete(String userName, int giftId)throws DataAccessException{
+	public int delete(String userName, int giftId)throws EmptyResultDataAccessException {
 
 		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
 

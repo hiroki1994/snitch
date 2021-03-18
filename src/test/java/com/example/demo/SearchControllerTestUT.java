@@ -58,7 +58,7 @@ public class SearchControllerTestUT {
 
 		selectedGifts.add(gift);
 
-		when(giftService.count(keyword)).thenReturn(2);
+		when(giftService.countByKeyword(keyword)).thenReturn(2);
 		when(giftService.search(keyword)).thenReturn(selectedGifts);
 
 		mockMvc.perform(get("/search")
@@ -86,7 +86,7 @@ public class SearchControllerTestUT {
 
 		String keyword = "H#4kこ";
 
-		when(giftService.count(keyword)).thenReturn(0);
+		when(giftService.countByKeyword(keyword)).thenReturn(0);
 
 		mockMvc.perform(get("/search")
 			.param("keyword", keyword))

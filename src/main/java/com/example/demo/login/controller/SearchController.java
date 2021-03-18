@@ -30,7 +30,7 @@ public class SearchController {
 			return "searchResult/searchResult";
 		}
 
-		int giftCount = giftService.count(keyword);
+		int giftCount = giftService.countByKeyword(keyword);
 
 		model.addAttribute("giftCount", giftCount);
 

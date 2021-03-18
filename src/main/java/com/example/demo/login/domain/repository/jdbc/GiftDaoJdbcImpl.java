@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -20,13 +21,17 @@ public class GiftDaoJdbcImpl implements GiftDao {
 	JdbcTemplate jdbc;
 
 	@Override
-	public int count(String keyword) throws DataAccessException {
+	public int countByKeyword(String keyword) throws DataAccessException {
 
 		return jdbc.queryForObject("SELECT COUNT(giftId) FROM gift INNER JOIN guest ON gift.guestId = guest.guestId "
 				+ "WHERE CONCAT(giftName, description, shop, address, guestName) LIKE '%'||?||'%' AND gift.unavailableFlag IS NULL", Integer.class, keyword);
 	}
 
-	//SQLのCOUNTでいいのでは??
+	@Override
+	public int countById(int giftId) throws DataAccessException {
+
+		return jdbc.queryForObject("SELECT COUNT(giftId) FROM gift WHERE giftId = ? AND gift.unavailableFlag IS NULL", Integer.class, giftId);
+	}
 
 	@Override
 	public List<Gift> search(String keyword) throws DataAccessException {
@@ -83,7 +88,7 @@ public class GiftDaoJdbcImpl implements GiftDao {
 		}
 
 	@Override
-	public Gift selectOne(int giftId) throws DataAccessException {
+	public Gift selectOne(int giftId) throws EmptyResultDataAccessException {
 
 		Map<String, Object> singleGift = jdbc.queryForMap("SELECT * FROM gift INNER JOIN guest ON gift.guestId = guest.guestId WHERE giftId = ? AND gift.unavailableFlag IS NULL", giftId);
 
@@ -101,6 +106,4 @@ public class GiftDaoJdbcImpl implements GiftDao {
 
 		return gift;
 	}
-
-
 }

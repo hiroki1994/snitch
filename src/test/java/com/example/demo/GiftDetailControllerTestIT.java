@@ -25,7 +25,7 @@ public class GiftDetailControllerTestIT {
 	private MockMvc mockMvc;
 
 	@Test
-	public void お土産詳細画面() throws Exception {
+	public void お土産詳細画面_成功() throws Exception {
 
 		int giftId = 1000;
 
@@ -34,6 +34,18 @@ public class GiftDetailControllerTestIT {
 			.andDo(print())
 			.andExpect(status().isOk())
 			.andExpect(view().name("giftDetail/giftDetail"));
+	}
+
+	@Test
+	public void お土産詳細画面_失敗() throws Exception {
+
+		int giftId = 9999;
+
+		mockMvc.perform(get("/giftDetail/" + giftId)
+			.param("giftId", "9999"))
+			.andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(view().name("error/404"));
 	}
 
 	@Test

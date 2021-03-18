@@ -57,12 +57,40 @@ public class FavGiftServiceTestUT {
 	}
 
 	@Test
-	public void お気に入り登録失敗() throws Exception {
+	public void 未登録giftId_お気に入り登録失敗() throws Exception {
 
 		String userName = "userName3";
 		int giftId = 9999;
 
 		when(favGiftDao.create(userName, giftId)).thenThrow(DataIntegrityViolationException.class);
+
+		boolean expected = false;
+		boolean actual = favGiftService.create(userName, giftId);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void 未登録userName_お気に入り登録失敗() throws Exception {
+
+		String userName = "userName5";
+		int giftId = 1000;
+
+		when(favGiftDao.create(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+		boolean expected = false;
+		boolean actual = favGiftService.create(userName, giftId);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void 未登録userName_未登録giftId_お気に入り登録失敗() throws Exception {
+
+		String userName = "userName5";
+		int giftId = 9999;
+
+		when(favGiftDao.create(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
 
 		boolean expected = false;
 		boolean actual = favGiftService.create(userName, giftId);
@@ -85,7 +113,7 @@ public class FavGiftServiceTestUT {
 	}
 
 	@Test
-	public void 未登録お気に入り削除失敗() throws Exception {
+	public void 未追加お気に入り削除失敗() throws Exception {
 
 		String userName = "userName3";
 		int giftId = 1002;
@@ -105,6 +133,34 @@ public class FavGiftServiceTestUT {
 		int giftId = 9999;
 
 		when(favGiftDao.delete(userName, giftId)).thenReturn(0);
+
+		boolean expected = false;
+		boolean actual = favGiftService.delete(userName, giftId);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void 未登録userName_お気に入り削除失敗() throws Exception {
+
+		String userName = "userName5";
+		int giftId = 1000;
+
+		when(favGiftDao.delete(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+		boolean expected = false;
+		boolean actual = favGiftService.delete(userName, giftId);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void 未登録userName_未登録giftId_お気に入り削除失敗() throws Exception {
+
+		String userName = "userName5";
+		int giftId = 9999;
+
+		when(favGiftDao.delete(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
 
 		boolean expected = false;
 		boolean actual = favGiftService.delete(userName, giftId);

@@ -116,8 +116,6 @@ public class UserDaoJdbcImpl implements UserDao {
 			return null;
 		}
 	}
-//checkExistUserID 型が想像できる命名する　上のメソッドでcatchする　selectでなくでcountにしてしまう。
-
 }
 
 

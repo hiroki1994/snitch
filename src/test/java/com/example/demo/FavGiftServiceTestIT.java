@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.login.domain.model.FavGift;
@@ -19,8 +20,9 @@ import com.example.demo.login.domain.service.FavGiftService;
 
 
 @SpringBootTest
-@Transactional
 @AutoConfigureMockMvc
+@Transactional
+@Sql({"/test_schema.sql", "/test_data.sql"})
 public class FavGiftServiceTestIT {
 
 	@Autowired
@@ -39,9 +41,33 @@ public class FavGiftServiceTestIT {
 	}
 
 	@Test
-	public void お気に入り登録失敗() throws Exception {
+	public void 未登録giftId_お気に入り登録失敗() throws Exception {
 
 		String userName = "userName3";
+		int giftId = 9999;
+
+		boolean expected = false;
+		boolean actual = favGiftService.create(userName, giftId);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void 未登録userName_お気に入り登録失敗() throws Exception {
+
+		String userName = "userName5";
+		int giftId = 1000;
+
+		boolean expected = false;
+		boolean actual = favGiftService.create(userName, giftId);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void 未登録userName_未登録giftId_お気に入り登録失敗() throws Exception {
+
+		String userName = "userName5";
 		int giftId = 9999;
 
 		boolean expected = false;
@@ -63,7 +89,7 @@ public class FavGiftServiceTestIT {
 	}
 
 	@Test
-	public void 未登録お気に入り削除失敗() throws Exception {
+	public void 未追加お気に入り削除失敗() throws Exception {
 
 		String userName = "userName3";
 		int giftId = 1002;
@@ -78,6 +104,30 @@ public class FavGiftServiceTestIT {
 	public void 未登録giftId_お気に入り削除失敗() throws Exception {
 
 		String userName = "userName3";
+		int giftId = 9999;
+
+		boolean expected = false;
+		boolean actual = favGiftService.delete(userName, giftId);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void 未登録userName_お気に入り削除失敗() throws Exception {
+
+		String userName = "userName5";
+		int giftId = 1000;
+
+		boolean expected = false;
+		boolean actual = favGiftService.delete(userName, giftId);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void 未登録userName_未登録giftId_お気に入り削除失敗() throws Exception {
+
+		String userName = "userName5";
 		int giftId = 9999;
 
 		boolean expected = false;
@@ -149,5 +199,15 @@ public class FavGiftServiceTestIT {
 		assertThat(allFavGifts, hasItems(hasProperty("shop", is("ジャン＝ポール･エヴァン伊勢丹新宿店"))));
 		assertThat(allFavGifts, hasItems(hasProperty("address", is("東京都新宿区新宿3-14-1伊勢丹新宿店本館B1階"))));
 		assertThat(allFavGifts, hasItems(hasProperty("phone", is("03-3352-1111"))));
+	}
+
+	@Test
+	public void お気に入り未追加_お気に入り一覧() throws Exception {
+
+		String userName = "userName4";
+
+		List<FavGift> allFavGifts = favGiftService.selectAll(userName);
+
+		assertThat(allFavGifts, is(empty()));
 	}
 }
