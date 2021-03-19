@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.login.domain.model.User;
@@ -22,14 +21,13 @@ import com.example.demo.login.domain.repository.jdbc.UserDaoJdbcImpl;
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-@Sql({"/Delete.sql", "/Schema.sql", "/Insert.sql"})
-public class UserDaoJdbcImpleTest {
+public class UserDaoJdbcImplTest {
 
 	@Autowired
 	UserDaoJdbcImpl userDaoJdbcImpl;
 
 	@Test
-	public void 新規登録() throws Exception {
+	public void signup_suceess() throws Exception {
 
 		User user = new User();
 
@@ -39,19 +37,19 @@ public class UserDaoJdbcImpleTest {
 
 		int expected = 1;
 
-		int actual = userDaoJdbcImpl.insertOne(user);
+		int actual = userDaoJdbcImpl.create(user);
 
 		assertThat(expected, equalTo(actual));
 	}
 
 	@Test
-	public void 登録情報更新() throws Exception {
+	public void updateUserInfo_success() throws Exception {
 
 		String userName = "userName3";
 
 		User user = new User();
 
-		user.setUserName("userName4");
+		user.setUserName("userName5");
 		user.setMailAddress("mailaddress3@gmail.co.jp");
 		user.setPassword("password2");
 
@@ -60,15 +58,10 @@ public class UserDaoJdbcImpleTest {
 		int actual = userDaoJdbcImpl.updateOne(user, userName);
 
 		assertThat(expected, equalTo(actual));
-<<<<<<< HEAD
-
-
-=======
->>>>>>> main
 	}
 
 	@Test
-	public void 登録情報取得() throws Exception {
+	public void getUserInfo_success() throws Exception {
 
 		String userName = "userName3";
 
@@ -80,69 +73,38 @@ public class UserDaoJdbcImpleTest {
 	}
 
 	@Test
-	public void ユーザー登録情報削除成功() throws Exception {
+	public void deleteUser_success() throws Exception {
 
 		String userName = "userName3";
 
 		int expected = 1;
 		int actual = userDaoJdbcImpl.deleteOne(userName);
 
-<<<<<<< HEAD
-		 assertThat(expected, is(actual));
-=======
 		assertThat(expected, is(actual));
->>>>>>> main
+
 	}
 
 	@Test
-	public void ユーザー登録情報削除失敗() throws Exception {
-
-		String userName = "userName4";
-
-		int expected = 0;
-		int actual = userDaoJdbcImpl.deleteOne(userName);
-
-<<<<<<< HEAD
-		 assertThat(expected, is(actual));
-=======
-		assertThat(expected, is(actual));
->>>>>>> main
-	}
-
-
-	@Test
-	public void userNameユニークチェック_重複あり() throws Exception {
+	public void searchEqualUserName_found() throws Exception {
 
 		String userName = "userName3";
 
 		int expected = 1;
-<<<<<<< HEAD
-	    int actual = userDaoJdbcImpl.exist(userName);
 
-	    assertThat(expected, is(actual));
-=======
 		int actual = userDaoJdbcImpl.exist(userName);
 
 		assertThat(expected, is(actual));
->>>>>>> main
 	}
 
 	@Test
-	public void userNameユニークチェック_重複なし() throws Exception {
+	public void searchEqualUserName_notFound() throws Exception {
 
 		String userName = "uniqueUserName";
 
 		int expected = 0;
-<<<<<<< HEAD
-	    int actual = userDaoJdbcImpl.exist(userName);
 
-	    assertThat(expected, is(actual));
-	}
-
-=======
 		int actual = userDaoJdbcImpl.exist(userName);
 
 		assertThat(expected, is(actual));
 	}
->>>>>>> main
 }

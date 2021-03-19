@@ -29,7 +29,7 @@ public class MyPageControllerTestIT {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void ユーザー登録情報削除() throws Exception {
+	public void deleteUser() throws Exception {
 
 		mockMvc.perform(post("/deleteUser").with(csrf()))
 			.andExpect(status().isFound())
@@ -38,7 +38,7 @@ public class MyPageControllerTestIT {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void 登録情報取得() throws Exception {
+	public void showUserInfo() throws Exception {
 
 		mockMvc.perform(post("/mypage/updateUser").with(csrf()))
 			.andExpect(status().isOk())
@@ -48,7 +48,7 @@ public class MyPageControllerTestIT {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void 登録情報更新成功() throws Exception {
+	public void updateUserInfo_success() throws Exception {
 
 		UserForm form = new UserForm();
 
@@ -63,7 +63,7 @@ public class MyPageControllerTestIT {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void 登録情報更新成功_認証済みユーザーネームと同名() throws Exception {
+	public void updateUserInfo_success_UsernameIsEqualToAuthentivatedUserName() throws Exception {
 
 		UserForm form = new UserForm();
 
@@ -78,7 +78,7 @@ public class MyPageControllerTestIT {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void 登録情報更新失敗_ユーザーネームユニークエラー() throws Exception {
+	public void updateUserInfo_fail_UsernameUniqueError() throws Exception {
 
 		UserForm form = new UserForm();
 
@@ -93,7 +93,7 @@ public class MyPageControllerTestIT {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void 登録情報更新失敗_バリデーションエラー() throws Exception {
+	public void updateUserInfo_fail_ValidationError() throws Exception {
 
 		UserForm form = new UserForm();
 
@@ -114,7 +114,7 @@ public class MyPageControllerTestIT {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void お気に入り一覧() throws Exception {
+	public void showFavoriteList() throws Exception {
 
 		String userName = "userName3";
 

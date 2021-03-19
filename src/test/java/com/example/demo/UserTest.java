@@ -14,7 +14,7 @@ import com.example.demo.login.domain.model.User;
 public class UserTest {
 
 	@Test
-	public void ユーザー情報投入取得() throws Exception {
+	public void setGetUser() throws Exception {
 
 		User user = new User();
 
@@ -42,7 +42,7 @@ public class UserTest {
 	}
 
 	@Test
-	public void ユーザー情報投入取得_空() throws Exception {
+	public void User_empty() throws Exception {
 
 		User user = new User();
 
@@ -59,6 +59,5 @@ public class UserTest {
 		assertEquals(null, actualPassword);
 		assertEquals(null, actualRole);
 		assertEquals(0, actualFlag);
-
 	}
 }

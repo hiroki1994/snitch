@@ -32,48 +32,48 @@ public class SecurityConfigTest {
 	@BeforeEach
 	public void setup() {
 		mockMvc = MockMvcBuilders
-				.webAppContextSetup(context)
-				.apply(springSecurity())
-				.build();
+			.webAppContextSetup(context)
+			.apply(springSecurity())
+			.build();
 	}
 
 	@Test
-	public void ログイン成功() throws Exception{
+	public void login_success() throws Exception{
 
 		String userName = "userName3";
 
 		String password = "password";
 
 		mockMvc.perform(post("/login")
-			   .with(csrf())
-			   .param("userName", userName)
-			   .param("password", password))
-			   .andExpect(status().isFound())
-			   .andExpect(redirectedUrl("/mypage"));
+			.with(csrf())
+			.param("userName", userName)
+			.param("password", password))
+			.andExpect(status().isFound())
+			.andExpect(redirectedUrl("/mypage"));
 	}
 
 	@Test
-	public void ログイン失敗() throws Exception{
+	public void login_fail() throws Exception{
 
 		String userName = "userName5";
 
 		String password = "password";
 
 		mockMvc.perform(post("/login")
-			   .with(csrf())
-			   .param("userName", userName)
-			   .param("password", password))
-			   .andExpect(status().isFound())
-			   .andExpect(redirectedUrl("/login"));
+			.with(csrf())
+			.param("userName", userName)
+			.param("password", password))
+			.andExpect(status().isFound())
+			.andExpect(redirectedUrl("/login"));
 	}
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void ログアウト() throws Exception{
+	public void logout() throws Exception{
 
 		mockMvc.perform(post("/logout")
-			   .with(csrf()))
-			   .andExpect(status().isFound())
-			   .andExpect(redirectedUrl("/login"));
+			.with(csrf()))
+			.andExpect(status().isFound())
+			.andExpect(redirectedUrl("/login"));
 	}
 }

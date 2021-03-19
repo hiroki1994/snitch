@@ -39,7 +39,7 @@ public class UniqueUserNameValidTest {
 	}
 
 	@Test
-	public void ユーザー名バリデーション通過() throws Exception {
+	public void userName_validatedSuccessfully() throws Exception {
 
 		String userName = "testUser10";
 
@@ -50,7 +50,7 @@ public class UniqueUserNameValidTest {
 	}
 
 	@Test
-	public void ユーザーユニークエラー() throws Exception {
+	public void userName_UniqueError() throws Exception {
 
 		String userName = "userName3";
 
@@ -63,7 +63,7 @@ public class UniqueUserNameValidTest {
 
 
 	@Test
-	public void 認証済みユーザーネームと同名() throws Exception {
+	public void Username_EqualToAuthentivatedUserName() throws Exception {
 
 		String userName = "userName3";
 
