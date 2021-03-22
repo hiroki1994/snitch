@@ -29,7 +29,7 @@ public class FavGiftServiceTestIT {
 	FavGiftService favGiftService;
 
 	@Test
-	public void お気に入り登録成功() throws Exception {
+	public void createFavGift_success() throws Exception {
 
 		String userName = "userName3";
 		int giftId = 1000;
@@ -41,7 +41,7 @@ public class FavGiftServiceTestIT {
 	}
 
 	@Test
-	public void 未登録giftId_お気に入り登録失敗() throws Exception {
+	public void createFavGift_fail_giftIdDoesNotExist() throws Exception {
 
 		String userName = "userName3";
 		int giftId = 9999;
@@ -53,7 +53,7 @@ public class FavGiftServiceTestIT {
 	}
 
 	@Test
-	public void 未登録userName_お気に入り登録失敗() throws Exception {
+	public void createFavGift_fail_userNameDoesNotExist() throws Exception {
 
 		String userName = "userName5";
 		int giftId = 1000;
@@ -65,7 +65,7 @@ public class FavGiftServiceTestIT {
 	}
 
 	@Test
-	public void 未登録userName_未登録giftId_お気に入り登録失敗() throws Exception {
+	public void createFavGift_fail_userNameAndUserIdDoesNotExist() throws Exception {
 
 		String userName = "userName5";
 		int giftId = 9999;
@@ -77,7 +77,7 @@ public class FavGiftServiceTestIT {
 	}
 
 	@Test
-	public void 登録済お気に入り削除成功() throws Exception {
+	public void deleteFavGift_success() throws Exception {
 
 		String userName = "userName3";
 		int giftId = 1001;
@@ -89,7 +89,7 @@ public class FavGiftServiceTestIT {
 	}
 
 	@Test
-	public void 未追加お気に入り削除失敗() throws Exception {
+	public void deleteFavGift_fail_giftIsNotAddedToFavGift() throws Exception {
 
 		String userName = "userName3";
 		int giftId = 1002;
@@ -101,7 +101,7 @@ public class FavGiftServiceTestIT {
 	}
 
 	@Test
-	public void 未登録giftId_お気に入り削除失敗() throws Exception {
+	public void deleteFavGift_fail_giftIdDoesNotExist() throws Exception {
 
 		String userName = "userName3";
 		int giftId = 9999;
@@ -113,7 +113,7 @@ public class FavGiftServiceTestIT {
 	}
 
 	@Test
-	public void 未登録userName_お気に入り削除失敗() throws Exception {
+	public void deleteFavGift_fail_userNameDoesNotExist() throws Exception {
 
 		String userName = "userName5";
 		int giftId = 1000;
@@ -125,7 +125,7 @@ public class FavGiftServiceTestIT {
 	}
 
 	@Test
-	public void 未登録userName_未登録giftId_お気に入り削除失敗() throws Exception {
+	public void deleteFavGift_fail_userNameAndUserIdDoesNotExist() throws Exception {
 
 		String userName = "userName5";
 		int giftId = 9999;
@@ -137,7 +137,7 @@ public class FavGiftServiceTestIT {
 	}
 
 	@Test
-	public void お気に入り件数() throws Exception {
+	public void countFavGift_success() throws Exception {
 
 		String userName = "userName3";
 
@@ -148,7 +148,7 @@ public class FavGiftServiceTestIT {
 	}
 
 	@Test
-	public void お気に入り未登録_お気に入り件数() throws Exception {
+	public void countFavGift_NoFavGift() throws Exception {
 
 		String userName = "userName4";
 
@@ -159,7 +159,7 @@ public class FavGiftServiceTestIT {
 	}
 
 	@Test
-	public void お気に入りId発行済み() throws Exception {
+	public void searchFavId_found() throws Exception {
 
 		String userName = "userName3";
 		int giftId = 1000;
@@ -171,7 +171,7 @@ public class FavGiftServiceTestIT {
 	}
 
 	@Test
-	public void お気に入りId未発行() throws Exception {
+	public void searchFavId_notFound() throws Exception {
 
 		String userName = "userName3";
 		int giftId = 1002;
@@ -183,7 +183,7 @@ public class FavGiftServiceTestIT {
 	}
 
 	@Test
-	public void お気に入り一覧() throws Exception {
+	public void listFavGift() throws Exception {
 
 		String userName = "userName3";
 
@@ -202,7 +202,7 @@ public class FavGiftServiceTestIT {
 	}
 
 	@Test
-	public void お気に入り未追加_お気に入り一覧() throws Exception {
+	public void listFavGift_NoFavGift() throws Exception {
 
 		String userName = "userName4";
 

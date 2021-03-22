@@ -57,7 +57,6 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 		int favId = jdbc.queryForObject("SELECT favId FROM favGift WHERE userId = ? AND giftId = ? AND favGift.unavailableFlag IS NULL", Integer.class, userId, giftId);
 
 		return favId;
-
 	}
 
 	@Override

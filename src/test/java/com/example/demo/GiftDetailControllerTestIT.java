@@ -25,7 +25,7 @@ public class GiftDetailControllerTestIT {
 	private MockMvc mockMvc;
 
 	@Test
-	public void お土産詳細画面_成功() throws Exception {
+	public void showGiftDetail_success() throws Exception {
 
 		int giftId = 1000;
 
@@ -37,7 +37,7 @@ public class GiftDetailControllerTestIT {
 	}
 
 	@Test
-	public void お土産詳細画面_失敗() throws Exception {
+	public void showGiftDetail_fail_giftIdDoesNotExist() throws Exception {
 
 		int giftId = 9999;
 
@@ -45,12 +45,12 @@ public class GiftDetailControllerTestIT {
 			.param("giftId", "9999"))
 			.andDo(print())
 			.andExpect(status().isOk())
-			.andExpect(view().name("error/404"));
+			.andExpect(view().name("error"));
 	}
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void お土産詳細画面＿お気に入りボタン表示() throws Exception {
+	public void showGiftDetail_showAddFavButton() throws Exception {
 
 		int giftId = 1002;
 
@@ -64,7 +64,7 @@ public class GiftDetailControllerTestIT {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void お土産詳細画面_お気に入り解除ボタン表示() throws Exception {
+	public void showGiftDetail_showRemoveFavButton() throws Exception {
 
 		int giftId = 1000;
 

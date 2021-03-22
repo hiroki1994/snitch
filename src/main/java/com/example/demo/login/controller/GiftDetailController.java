@@ -26,12 +26,6 @@ public class GiftDetailController {
 	@GetMapping("/giftDetail/{id}")
 	public String show(@ModelAttribute GiftDetail detail, Model model, @PathVariable("id") int giftId, HttpServletRequest httpServletRequest) {
 
-		int giftCount = giftService.countById(giftId);
-
-		if(giftCount == 0) {
-			return "error/404";
-		}
-
 		Gift gift = giftService.selectOne(giftId);
 
 		detail.setGiftId(gift.getGiftId());

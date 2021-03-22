@@ -26,7 +26,7 @@ public class FavGiftControllerTestIT {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void お気に入り追加() throws Exception {
+	public void createFavGift_success() throws Exception {
 
 		String userName = "userName3";
 
@@ -42,7 +42,7 @@ public class FavGiftControllerTestIT {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void お気に入り追加_失敗() throws Exception {
+	public void createFavGift_fail_giftIdDoesNotExist() throws Exception {
 
 		String userName = "userName3";
 
@@ -58,7 +58,7 @@ public class FavGiftControllerTestIT {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void お気に入り削除_成功() throws Exception {
+	public void deleteFavGift_success() throws Exception {
 
 
 		String userName = "userName3";
@@ -75,7 +75,7 @@ public class FavGiftControllerTestIT {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void お気に入り削除＿失敗() throws Exception {
+	public void deleteFavGift_fail_giftIdDoesNotExist() throws Exception {
 
 		String userName = "userName3";
 

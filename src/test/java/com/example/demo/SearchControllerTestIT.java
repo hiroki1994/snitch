@@ -23,7 +23,7 @@ public class SearchControllerTestIT {
 	private MockMvc mockMvc;
 
 	@Test
-	public void お土産検索成功() throws Exception {
+	public void searchGift_found() throws Exception {
 
 		String keyword = "マカロン";
 
@@ -36,19 +36,7 @@ public class SearchControllerTestIT {
 	}
 
 	@Test
-	public void お土産検索バリデーションエラー() throws Exception {
-
-		String keyword = " ";
-
-		mockMvc.perform(get("/search")
-			.param("keyword", keyword))
-			.andExpect(status().isOk())
-			.andExpect(view().name("searchResult/searchResult"))
-			.andExpect(content().string(containsString("キーワードを入力してください")));
-	}
-
-	@Test
-	public void お土産検索該当なし() throws Exception {
+	public void searchGift_notFound() throws Exception {
 
 		String keyword = "H#4kこ";
 
@@ -57,5 +45,17 @@ public class SearchControllerTestIT {
 			.andExpect(status().isOk())
 			.andExpect(view().name("searchResult/searchResult"))
 			.andExpect(content().string(containsString("キーワードに該当するお土産はありませんでした。")));
+	}
+
+	@Test
+	public void searchGift_validationError() throws Exception {
+
+		String keyword = " ";
+
+		mockMvc.perform(get("/search")
+			.param("keyword", keyword))
+			.andExpect(status().isOk())
+			.andExpect(view().name("searchResult/searchResult"))
+			.andExpect(content().string(containsString("キーワードを入力してください")));
 	}
 }

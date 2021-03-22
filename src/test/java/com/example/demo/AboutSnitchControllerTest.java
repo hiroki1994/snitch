@@ -19,7 +19,7 @@ public class AboutSnitchControllerTest {
 	private MockMvc mockMvc;
 
 	@Test
-	public void サイト説明画面() throws Exception {
+	public void showAbout() throws Exception {
 
 		mockMvc.perform(get("/aboutsnitch"))
 			.andExpect(status().isOk())

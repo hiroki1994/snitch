@@ -36,63 +36,35 @@ public class GiftServiceTestUT {
 		MockitoAnnotations.initMocks(this);
 	}
 
-
 	@Test
-	public void 指定キーワードを含むお土産件数取得成功() {
+	public void countGiftByKeyword() {
 
 		String keyword = "マカロン";
 
-		when(giftDao.countByKeyword(keyword)).thenReturn(2);
+		when(giftDao.count(keyword)).thenReturn(2);
 
 		int expected = 2;
-		int actual = giftService.countByKeyword(keyword);
+		int actual = giftService.count(keyword);
 
 		assertEquals(expected, actual);
 
 	}
 
 	@Test
-	public void 指定キーワードを含むお土産件数取得失敗() {
+	public void countGiftByKeyword_zero() {
 
 		String keyword = "H#4kこ";
 
-		when(giftDao.countByKeyword(keyword)).thenReturn(0);
+		when(giftDao.count(keyword)).thenReturn(0);
 
 		int expected = 0;
-		int actual = giftService.countByKeyword(keyword);
+		int actual = giftService.count(keyword);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void 指定giftIdのお土産件数取得1件() {
-
-		int giftId = 1000;
-
-		when(giftDao.countById(giftId)).thenReturn(1);
-
-		int expected = 1;
-		int actual = giftService.countById(giftId);
-
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	public void 未登録giftId_お土産件数取得0件() {
-
-		int giftId = 9999;
-
-		when(giftDao.countById(giftId)).thenReturn(0);
-
-		int expected = 0;
-		int actual = giftService.countById(giftId);
-
-		assertEquals(expected, actual);
-	}
-
-
-	@Test
-	public void お土産検索() {
+	public void searchGift() {
 
 		String keyword = "マカロン";
 
@@ -107,7 +79,7 @@ public class GiftServiceTestUT {
 	}
 
 	@Test
-	public void お土産一覧() {
+	public void listGifts() {
 
 		List<Gift> selectedGifts = new ArrayList<>();
 
@@ -120,7 +92,7 @@ public class GiftServiceTestUT {
 	}
 
 	@Test
-	public void お土産1件取得() {
+	public void selectOneGift() {
 
 		int giftId = 1000;
 

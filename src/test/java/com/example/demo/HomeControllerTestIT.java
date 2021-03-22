@@ -23,7 +23,7 @@ public class HomeControllerTestIT {
 
 	@Test
 	@Sql({"/test_schema.sql", "/test_data.sql"})
-	public void ホーム画面表示() throws Exception {
+	public void showHome() throws Exception {
 
 		mockMvc.perform(get("/home"))
 			.andExpect(status().isOk())

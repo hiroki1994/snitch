@@ -28,7 +28,7 @@ public class MyPageControllerTestIT {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void お気に入り一覧() throws Exception {
+	public void listFavGift() throws Exception {
 
 		String userName = "userName3";
 
@@ -43,7 +43,7 @@ public class MyPageControllerTestIT {
 
 	@Test
 	@WithMockUser(username="userName4")
-	public void お気に入り一覧_0件() throws Exception {
+	public void listFavGift_NoFavGift() throws Exception {
 
 		String userName = "userName4";
 

@@ -29,7 +29,7 @@ public class FavGiftDaoJdbcTest {
 	FavGiftDaoJdbcImpl favGiftDaoJdbcImpl;
 
 	@Test
-	public void お気に入り件数() throws Exception {
+	public void countFavGift() throws Exception {
 		String userName = "userName3";
 
 		int expected = 2;
@@ -39,7 +39,7 @@ public class FavGiftDaoJdbcTest {
 	}
 
 	@Test
-	public void お気に入り一覧() throws Exception {
+	public void listFavGift() throws Exception {
 		String userName = "userName3";
 
 		List<FavGift> allFavGifts = favGiftDaoJdbcImpl.selectAll(userName);
@@ -57,7 +57,7 @@ public class FavGiftDaoJdbcTest {
 	}
 
 	@Test
-	public void お気に入り登録()throws Exception {
+	public void createFavGift()throws Exception {
 
 		String userName = "userName3";
 
@@ -70,7 +70,7 @@ public class FavGiftDaoJdbcTest {
 	}
 
 	@Test
-	public void お気に入り削除()throws Exception {
+	public void deleteFavGift()throws Exception {
 
 		String userName = "userName3";
 
@@ -83,7 +83,7 @@ public class FavGiftDaoJdbcTest {
 	}
 
 	@Test
-	public void お気に入りID取得()throws Exception {
+	public void searchFavId_found()throws Exception {
 
 		String userName = "userName3";
 
