@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.unittest;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -9,22 +9,24 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
 import com.example.demo.login.domain.model.Gift;
-import com.example.demo.login.domain.repository.jdbc.GiftDaoJdbcImpl;
+import com.example.demo.login.domain.repository.GiftDao;
 
 
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @Sql({"/test_schema.sql", "/test_data.sql"})
-public class GiftDaoJdbcImplTest {
+public class GiftDaoTest {
 
 	@Autowired
-	GiftDaoJdbcImpl giftDaoJdbcImpl;
+	@Qualifier("giftDaoJdbcImpl")
+	GiftDao giftDao;
 
 	@Test
 	public void countGiftByKeyword() {
@@ -32,7 +34,7 @@ public class GiftDaoJdbcImplTest {
 		String keyword = "マカロン";
 
 		int expected = 2;
-		int actual = giftDaoJdbcImpl.count(keyword);
+		int actual = giftDao.count(keyword);
 
 		assertEquals(expected, actual);
 	}
@@ -43,7 +45,7 @@ public class GiftDaoJdbcImplTest {
 		String keyword = "H#4kこ";
 
 		int expected = 0;
-		int actual = giftDaoJdbcImpl.count(keyword);
+		int actual = giftDao.count(keyword);
 
 		assertEquals(expected, actual);
 	}
@@ -52,7 +54,7 @@ public class GiftDaoJdbcImplTest {
 	public void searchGift_found() {
 		String keyword = "マカロン";
 
-		List<Gift> giftList = giftDaoJdbcImpl.search(keyword);
+		List<Gift> giftList = giftDao.search(keyword);
 
 		assertThat(giftList, hasItems(hasProperty("giftId", is(1000))));
 		assertThat(giftList, hasItems(hasProperty("guestName", is("中越典子"))));
@@ -68,7 +70,7 @@ public class GiftDaoJdbcImplTest {
 	public void searchGift_notFound() {
 		String keyword = "H#4kこ";
 
-		List<Gift> giftList = giftDaoJdbcImpl.search(keyword);
+		List<Gift> giftList = giftDao.search(keyword);
 
 		assertThat(giftList, is(empty()));
 	}
@@ -76,7 +78,7 @@ public class GiftDaoJdbcImplTest {
 	@Test
 	public void listGifts() {
 
-		List<Gift> giftList = giftDaoJdbcImpl.selectMany();
+		List<Gift> giftList = giftDao.selectMany();
 
 		assertThat(giftList, hasSize(27));
 	}
@@ -86,7 +88,7 @@ public class GiftDaoJdbcImplTest {
 
 		int giftId = 1000;
 
-		Gift gift = giftDaoJdbcImpl.selectOne(giftId);
+		Gift gift = giftDao.selectOne(giftId);
 
 		assertThat(gift, hasProperty("giftId", equalTo(1000)));
 		assertThat(gift, hasProperty("guestName", equalTo("中越典子")));

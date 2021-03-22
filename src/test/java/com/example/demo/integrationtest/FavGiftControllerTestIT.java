@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.integrationtest;
 
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;

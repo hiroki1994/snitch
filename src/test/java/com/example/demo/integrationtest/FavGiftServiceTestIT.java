@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.integrationtest;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;

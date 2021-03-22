@@ -10,9 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogAspect {
 
-
 	@Around("@within(org.springframework.stereotype.Controller)")
-	public Object startLog(ProceedingJoinPoint jp) throws Throwable {
+	public Object controllerLog(ProceedingJoinPoint jp) throws Throwable {
 
 		System.out.println("メソッド開始:" + jp.getSignature());
 
