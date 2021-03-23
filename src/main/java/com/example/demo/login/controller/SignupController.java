@@ -33,7 +33,7 @@ public class SignupController {
 
 	@PostMapping("/signupUser")
 	public String postSignUp(@ModelAttribute @Validated(GroupOrder.class) UserForm form, BindingResult bindingResult, Model model, HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws IOException {
 
 		if (bindingResult.hasErrors()) {
 			return postSignUp(form, model);
@@ -55,14 +55,11 @@ public class SignupController {
 			System.out.println("insert失敗");
 		}
 
-		try {
-			String username = String.valueOf(form.getUserName());
-			String password = String.valueOf(form.getPassword());
+		String username = String.valueOf(form.getUserName());
+		String password = String.valueOf(form.getPassword());
 
-			SecurityConfig.autoLogin(request, username, password, response);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		SecurityConfig.autoLogin(request, username, password, response);
+
 		return null;
 	}
 }

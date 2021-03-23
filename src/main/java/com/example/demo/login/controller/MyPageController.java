@@ -44,7 +44,7 @@ public class MyPageController {
 	}
 
 	@PostMapping("/deleteUser")
-	public void postDeleteUser( HttpServletRequest request, HttpServletResponse response) {
+	public void postDeleteUser( HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		String userName = request.getRemoteUser();
 
@@ -64,11 +64,7 @@ public class MyPageController {
 			System.out.println("ユーザー削除失敗");
 		}
 
-		try {
-			SecurityConfig.autoLogout(request, response);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		SecurityConfig.autoLogout(request, response);
 	}
 
 	@PostMapping("/mypage/updateUser")
@@ -88,7 +84,7 @@ public class MyPageController {
 
 	@PostMapping("/updateUserInfo")
 	public String postUserUpdate(@ModelAttribute @Validated(GroupOrder.class)UserForm form, BindingResult bindingResult, Model model, HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws IOException {
 
 		if (bindingResult.hasErrors()) {
 			return postUserUpdatePage(form, model, request);
@@ -110,14 +106,11 @@ public class MyPageController {
 			System.out.println("更新失敗");
 		}
 
-		try {
-			String newUsername = String.valueOf(form.getUserName());
-			String newPassword = String.valueOf(form.getPassword());
+		String newUsername = String.valueOf(form.getUserName());
+		String newPassword = String.valueOf(form.getPassword());
 
-			SecurityConfig.autoLogin(request, newUsername, newPassword, response);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		SecurityConfig.autoLogin(request, newUsername, newPassword, response);
+
 		return null;
 	}
 
