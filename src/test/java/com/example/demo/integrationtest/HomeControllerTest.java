@@ -1,9 +1,12 @@
-package com.example.demo;
+package com.example.demo.integrationtest;
 
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.example.demo.login.controller.GiftDetailController;
+import com.example.demo.login.controller.HomeController;
 import com.example.demo.login.domain.model.Gift;
 import com.example.demo.login.domain.service.GiftService;
 
@@ -24,7 +27,7 @@ import com.example.demo.login.domain.service.GiftService;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class GiftDetailControllerTest {
+public class HomeControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -33,7 +36,7 @@ public class GiftDetailControllerTest {
 	GiftService giftService;
 
 	@InjectMocks
-	GiftDetailController giftDetailcontroller;
+	HomeController homeController;
 
 	@BeforeEach
 	public void initMock() {
@@ -42,17 +45,14 @@ public class GiftDetailControllerTest {
 
 	@Test
 	@Sql({"/test_schema.sql", "/test_data.sql"})
-	public void お土産詳細画面() throws Exception {
+	public void ホーム画面表示() throws Exception {
 
-		int giftId = 1000;
+		List<Gift> selectedGifts = new ArrayList<Gift>();
 
-		Gift gift = new Gift();
+		when(giftService.selectMany()).thenReturn(selectedGifts);
 
-		when(giftService.selectOne(giftId)).thenReturn(gift);
-
-		mockMvc.perform(get("/giftDetail/" + giftId)
-			.param("giftId", "1000"))
+		mockMvc.perform(get("/home"))
 			.andExpect(status().isOk())
-			.andExpect(view().name("giftDetail/giftDetail"));
+			.andExpect(view().name("home/home"));
 	}
 }

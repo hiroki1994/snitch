@@ -1,7 +1,10 @@
 package com.example.demo.login.domain.service;
 
+import java.sql.SQLException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +26,7 @@ public class UserService {
 
 			return true;
 
-		} catch(DataAccessException e) {
+		} catch(DataAccessException | SQLException e) {
 
 			return false;
 		}
@@ -42,7 +45,7 @@ public class UserService {
 
 			return true;
 
-		} catch(DataAccessException e) {
+		} catch(DataAccessException | SQLException e) {
 
 			return false;
 		}
@@ -55,7 +58,7 @@ public class UserService {
 
 			return true;
 
-		} catch(DataAccessException e) {
+		} catch(EmptyResultDataAccessException e) {
 
 			return false;
 		}

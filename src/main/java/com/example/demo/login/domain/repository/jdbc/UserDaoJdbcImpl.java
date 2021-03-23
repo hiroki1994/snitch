@@ -1,9 +1,11 @@
 package com.example.demo.login.domain.repository.jdbc;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
@@ -21,7 +23,7 @@ public class UserDaoJdbcImpl implements UserDao {
 	PasswordEncoder passwordEncoder;
 
 	@Override
-	public int create(User user) throws DataAccessException {
+	public int create(User user) throws DataAccessException, SQLException {
 
 		String password = passwordEncoder.encode(user.getPassword());
 
@@ -42,7 +44,7 @@ public class UserDaoJdbcImpl implements UserDao {
 	}
 
 	@Override
-	public int updateOne(User user, String userName_LoggedIn) throws DataAccessException {
+	public int updateOne(User user, String userName_LoggedIn) throws DataAccessException, SQLException {
 
 		String password = passwordEncoder.encode(user.getPassword());
 
@@ -77,7 +79,7 @@ public class UserDaoJdbcImpl implements UserDao {
 	}
 
 	@Override
-	public int deleteOne(String userName) throws DataAccessException {
+	public int deleteOne(String userName) throws EmptyResultDataAccessException {
 
 		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
 
