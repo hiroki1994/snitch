@@ -1,7 +1,6 @@
-package com.example.demo.unittest;
+package com.example.demo;
 
 
-import static org.hamcrest.CoreMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -11,19 +10,23 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.example.demo.login.domain.model.SearchForm;
+
+
+
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AboutSnitchControllerTest {
+public class CustomHandlerInterceptorTest {
 
 	@Autowired
 	private MockMvc mockMvc;
 
 	@Test
-	public void showAbout() throws Exception {
+	public void addSearchFormObject() throws Exception {
 
-		mockMvc.perform(get("/aboutsnitch"))
-			.andExpect(status().isOk())
-			.andExpect(view().name("about/aboutSnitch"))
-			.andExpect(content().string(containsString("Snitchとは?")));
+		SearchForm searchForm = new SearchForm();
+
+		mockMvc.perform(get("/home"))
+			.andExpect(model().attribute("searchForm", searchForm));
 	}
 }

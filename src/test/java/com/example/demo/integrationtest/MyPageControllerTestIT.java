@@ -16,11 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.login.domain.model.UserForm;
 
-
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
-public class MyPageControllerTest {
+public class MyPageControllerTestIT {
 
 	@Autowired
 	private MockMvc mockMvc;

@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -19,48 +21,47 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	JdbcTemplate jdbc;
 
 	@Override
-	public List<FavGift> selectAll(String userName) throws DataAccessException {
+	public List<FavGift> selectAll(String userName) throws EmptyResultDataAccessException {
 
 		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
 
-			List<Map<String, Object>> favGifts = jdbc.queryForList("SELECT * FROM favGift INNER JOIN gift ON favGift.giftId = gift.giftId INNER JOIN guest ON gift.guestId = guest.guestId WHERE userId = ? AND favGift.unavailableFlag IS NULL", userId);
+		List<Map<String, Object>> favGifts = jdbc.queryForList("SELECT * FROM favGift INNER JOIN gift ON favGift.giftId = gift.giftId INNER JOIN guest ON gift.guestId = guest.guestId WHERE userId = ? AND favGift.unavailableFlag IS NULL", userId);
 
-			List<FavGift> allFavGifts = new ArrayList<>();
+		List<FavGift> allFavGifts = new ArrayList<>();
 
-			for(Map<String, Object> map: favGifts) {
+		for(Map<String, Object> map: favGifts) {
 
-				FavGift favGift = new FavGift();
+			FavGift favGift = new FavGift();
 
-				favGift.setUserId((int)map.get("favId"));
-				favGift.setUserId((int)map.get("userId"));
-				favGift.setGiftId((int)map.get("giftId"));
-				favGift.setGuestName((String)map.get("guestName"));
-				favGift.setGiftName((String)map.get("giftName"));
-				favGift.setPrice((String)map.get("price"));
-				favGift.setImage((String)map.get("image"));
-				favGift.setDescription((String)map.get("description"));
-				favGift.setShop((String)map.get("shop"));
-				favGift.setAddress((String)map.get("address"));
-				favGift.setPhone((String)map.get("phone"));
+			favGift.setUserId((int)map.get("favId"));
+			favGift.setUserId((int)map.get("userId"));
+			favGift.setGiftId((int)map.get("giftId"));
+			favGift.setGuestName((String)map.get("guestName"));
+			favGift.setGiftName((String)map.get("giftName"));
+			favGift.setPrice((String)map.get("price"));
+			favGift.setImage((String)map.get("image"));
+			favGift.setDescription((String)map.get("description"));
+			favGift.setShop((String)map.get("shop"));
+			favGift.setAddress((String)map.get("address"));
+			favGift.setPhone((String)map.get("phone"));
 
-				allFavGifts.add(favGift);
-			}
-			return allFavGifts;
+			allFavGifts.add(favGift);
 		}
-
-	@Override
-	public int existFavId(String userName, int giftId) throws DataAccessException {
-
-			int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
-
-			int favId = jdbc.queryForObject("SELECT favId FROM favGift WHERE userId = ? AND giftId = ? AND favGift.unavailableFlag IS NULL", Integer.class, userId, giftId);
-
-			return favId;
-
+		return allFavGifts;
 	}
 
 	@Override
-	public int count(String userName) throws DataAccessException {
+	public int existFavId(String userName, int giftId) throws EmptyResultDataAccessException {
+
+		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
+
+		int favId = jdbc.queryForObject("SELECT favId FROM favGift WHERE userId = ? AND giftId = ? AND favGift.unavailableFlag IS NULL", Integer.class, userId, giftId);
+
+		return favId;
+	}
+
+	@Override
+	public int count(String userName) throws EmptyResultDataAccessException {
 
 		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
 
@@ -70,7 +71,7 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	}
 
 	@Override
-	public int create(String userName, int giftId) throws DataAccessException {
+	public int create(String userName, int giftId) throws DataIntegrityViolationException, EmptyResultDataAccessException {
 
 
 		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
@@ -83,7 +84,7 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	}
 
 	@Override
-	public int delete(String userName, int giftId)throws DataAccessException{
+	public int delete(String userName, int giftId)throws EmptyResultDataAccessException {
 
 		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
 

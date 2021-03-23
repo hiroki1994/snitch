@@ -29,25 +29,29 @@ public class GiftDaoTest {
 	GiftDao giftDao;
 
 	@Test
-	public void お土産件数取得成功() {
+	public void countGiftByKeyword() {
 
 		String keyword = "マカロン";
 
-		assertEquals(giftDao.count(keyword), 2);
+		int expected = 2;
+		int actual = giftDao.count(keyword);
 
+		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void お土産件数取得失敗() {
+	public void countGiftByKeyword_zero() {
 
 		String keyword = "H#4kこ";
 
-		assertEquals(giftDao.count(keyword), 0);
+		int expected = 0;
+		int actual = giftDao.count(keyword);
 
+		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void お土産検索成功() {
+	public void searchGift_found() {
 		String keyword = "マカロン";
 
 		List<Gift> giftList = giftDao.search(keyword);
@@ -63,7 +67,7 @@ public class GiftDaoTest {
 	}
 
 	@Test
-	public void お土産検索失敗() {
+	public void searchGift_notFound() {
 		String keyword = "H#4kこ";
 
 		List<Gift> giftList = giftDao.search(keyword);
@@ -72,7 +76,7 @@ public class GiftDaoTest {
 	}
 
 	@Test
-	public void お土産一覧() {
+	public void listGifts() {
 
 		List<Gift> giftList = giftDao.selectMany();
 
@@ -80,7 +84,7 @@ public class GiftDaoTest {
 	}
 
 	@Test
-	public void お土産1件取得() {
+	public void selectOneGift() {
 
 		int giftId = 1000;
 

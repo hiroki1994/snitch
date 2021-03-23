@@ -84,7 +84,7 @@ public class MyPageController {
 		model.addAttribute("userForm", form);
 
 		return "mypage/updateUser/updateUser";
-    }
+	}
 
 	@PostMapping("/updateUserInfo")
 	public String postUserUpdate(@ModelAttribute @Validated(GroupOrder.class)UserForm form, BindingResult bindingResult, Model model, HttpServletRequest request,
@@ -126,13 +126,18 @@ public class MyPageController {
 
 		String userName = httpServletRequest.getRemoteUser();
 
-		List<FavGift> allFavGifts = favGiftService.selectAll(userName);
-
-		model.addAttribute("allFavGifts", allFavGifts);
-
 		int favIds = favGiftService.count(userName);
 
 		model.addAttribute("favIds", favIds);
+
+		if(favIds == 0) {
+
+			return "mypage/favorite/favorite";
+		}
+
+		List<FavGift> allFavGifts = favGiftService.selectAll(userName);
+
+		model.addAttribute("allFavGifts", allFavGifts);
 
 		return "mypage/favorite/favorite";
 	}

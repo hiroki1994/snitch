@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest
 @AutoConfigureMockMvc
 @Sql({"/test_schema.sql", "/test_data.sql"})
-public class SearchControllerTest {
+public class SearchControllerTestIT {
 
 	@Autowired
 	private MockMvc mockMvc;

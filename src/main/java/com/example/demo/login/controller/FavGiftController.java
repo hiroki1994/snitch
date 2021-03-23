@@ -27,7 +27,7 @@ public class FavGiftController {
 
 		boolean result = favGiftService.create(userName, giftId);
 
-		if(result == true) {
+		if(result) {
 			System.out.println("お気に入り登録成功");
 		} else {
 			System.out.println("お気に入り登録失敗");
@@ -45,7 +45,7 @@ public class FavGiftController {
 
 		boolean result = favGiftService.delete(userName, giftId);
 
-		if(result == true) {
+		if(result) {
 			System.out.println("お気に入り登録解除完了");
 		} else {
 			System.out.println("お気に入り登録解除失敗");

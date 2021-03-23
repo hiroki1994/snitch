@@ -10,10 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogAspect {
 
-
 	@Around("@within(org.springframework.stereotype.Controller)")
-
-     public Object startControllerLog(ProceedingJoinPoint jp) throws Throwable {
+	public Object controllerLog(ProceedingJoinPoint jp) throws Throwable {
 
 		System.out.println("メソッド開始:" + jp.getSignature());
 
@@ -31,8 +29,7 @@ public class LogAspect {
 	}
 
 	@Around("@within(org.springframework.stereotype.Service)")
-
-    public Object startServiceLog(ProceedingJoinPoint jp) throws Throwable {
+	public Object serviceLog(ProceedingJoinPoint jp) throws Throwable {
 
 		System.out.println("メソッド開始:" + jp.getSignature());
 
@@ -55,6 +52,7 @@ public class LogAspect {
 
 		try {
 			Object result = jp.proceed();
+
 			System.out.println("メソッド終了:" + jp.getSignature());
 
 			return result;
@@ -64,5 +62,4 @@ public class LogAspect {
 				throw e;
 		}
 	}
-
 }

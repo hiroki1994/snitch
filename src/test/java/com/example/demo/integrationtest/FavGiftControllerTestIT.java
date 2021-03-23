@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @AutoConfigureMockMvc
 @Sql({"/test_schema.sql", "/test_data.sql"})
-public class FavGiftControllerTest {
+public class FavGiftControllerTestIT {
 
 	@Autowired
 	private MockMvc mockMvc;

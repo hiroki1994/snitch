@@ -26,25 +26,25 @@ public class GiftDetailController {
 	@GetMapping("/giftDetail/{id}")
 	public String show(@ModelAttribute GiftDetail detail, Model model, @PathVariable("id") int giftId, HttpServletRequest httpServletRequest) {
 
-			Gift gift = giftService.selectOne(giftId);
+		Gift gift = giftService.selectOne(giftId);
 
-			detail.setGiftId(gift.getGiftId());
-			detail.setGuestName(gift.getGuestName());
-			detail.setGiftName(gift.getGiftName());
-			detail.setPrice(gift.getPrice());
-			detail.setImage(gift.getImage());
-			detail.setDescription(gift.getDescription());
-			detail.setShop(gift.getShop());
-			detail.setAddress(gift.getAddress());
-			detail.setPhone(gift.getPhone());
+		detail.setGiftId(gift.getGiftId());
+		detail.setGuestName(gift.getGuestName());
+		detail.setGiftName(gift.getGiftName());
+		detail.setPrice(gift.getPrice());
+		detail.setImage(gift.getImage());
+		detail.setDescription(gift.getDescription());
+		detail.setShop(gift.getShop());
+		detail.setAddress(gift.getAddress());
+		detail.setPhone(gift.getPhone());
 
-			model.addAttribute("giftDetail", detail);
+		model.addAttribute("giftDetail", detail);
 
-			String userName = httpServletRequest.getRemoteUser();
+		String userName = httpServletRequest.getRemoteUser();
 
-			boolean result = favGiftService.existFavId(userName, giftId);
+		boolean result = favGiftService.existFavId(userName, giftId);
 
-			model.addAttribute("result", result);
+		model.addAttribute("result", result);
 
 		return "giftDetail/giftDetail";
 	}
