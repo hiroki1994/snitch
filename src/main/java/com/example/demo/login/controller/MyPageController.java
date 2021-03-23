@@ -50,7 +50,7 @@ public class MyPageController {
 
 		boolean resultDeleteFav = favGiftService.deleteMany(userName);
 
-		if(resultDeleteFav == true) {
+		if(resultDeleteFav) {
 			System.out.println("お気に入り全件削除成功");
 		} else {
 			System.out.println("お気に入り全件削除失敗");
@@ -58,7 +58,7 @@ public class MyPageController {
 
 		boolean resultDeleteUser = userService.deleteOne(userName);
 
-		if(resultDeleteUser == true) {
+		if(resultDeleteUser) {
 			System.out.println("ユーザー削除成功");
 		} else {
 			System.out.println("ユーザー削除失敗");
@@ -104,7 +104,7 @@ public class MyPageController {
 
 		boolean result = userService.updateOne(user, userName);
 
-		if(result == true) {
+		if(result) {
 			System.out.println("更新成功");
 		} else {
 			System.out.println("更新失敗");

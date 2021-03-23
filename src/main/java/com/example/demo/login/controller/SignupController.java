@@ -49,7 +49,7 @@ public class SignupController {
 
 		boolean result = userService.create(user);
 
-		if (result == true) {
+		if (result) {
 			System.out.println("insert成功");
 		} else {
 			System.out.println("insert失敗");
