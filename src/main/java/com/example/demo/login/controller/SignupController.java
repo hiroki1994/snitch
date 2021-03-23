@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.SecurityConfig;
 import com.example.demo.login.domain.model.GroupOrder;
-import com.example.demo.login.domain.model.SignupForm;
 import com.example.demo.login.domain.model.User;
+import com.example.demo.login.domain.model.UserForm;
 import com.example.demo.login.domain.service.UserService;
 
 @Controller
@@ -26,13 +26,13 @@ public class SignupController {
 	private UserService userService;
 
 	@PostMapping("/signup")
-	public String postSignUp(@ModelAttribute SignupForm form, Model model) {
+	public String postSignUp(@ModelAttribute UserForm form, Model model) {
 
 		return "signup/signup";
 	}
 
 	@PostMapping("/signupUser")
-	public String postSignUp(@ModelAttribute @Validated(GroupOrder.class) SignupForm form, BindingResult bindingResult, Model model, HttpServletRequest request,
+	public String postSignUp(@ModelAttribute @Validated(GroupOrder.class) UserForm form, BindingResult bindingResult, Model model, HttpServletRequest request,
 			HttpServletResponse response) {
 
 		if (bindingResult.hasErrors()) {
@@ -58,6 +58,7 @@ public class SignupController {
 		try {
 			String username = String.valueOf(form.getUserName());
 			String password = String.valueOf(form.getPassword());
+
 			SecurityConfig.autoLogin(request, username, password, response);
 		} catch (IOException e) {
 			e.printStackTrace();

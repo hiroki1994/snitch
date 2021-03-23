@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+}
+
+.aboutPageWrapper{
+	height: 100vh;
+}
+
+p.title{
+ 	font-color: white;
+ 	font-size: 55px;
+}
+
+p.outline{
+	font-size: 33px;
+}
+
+p.description{
+	font-size: 23px;
+}

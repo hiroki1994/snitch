@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.Length;
 import lombok.Data;
 
 @Data
-public class SignupForm {
+public class UserForm {
 
 	@NotBlank(groups = ValidGroup1.class)
 	@UniqueUserName(groups = ValidGroup1.class)
