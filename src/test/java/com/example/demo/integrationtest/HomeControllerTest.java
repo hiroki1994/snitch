@@ -16,7 +16,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.demo.login.controller.HomeController;
@@ -44,7 +43,6 @@ public class HomeControllerTest {
 	}
 
 	@Test
-	@Sql({"/test_schema.sql", "/test_data.sql"})
 	public void ホーム画面表示() throws Exception {
 
 		List<Gift> selectedGifts = new ArrayList<Gift>();
