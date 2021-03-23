@@ -21,20 +21,27 @@ public class SearchController {
 	GiftService giftService;
 
 	@GetMapping("/search")
-	public String postSearchGift(@Validated SearchForm form,  BindingResult bindingResult, Model model, @RequestParam("keyword") String keyword) {
+	public String search(@Validated SearchForm form,  BindingResult bindingResult, Model model, @RequestParam("keyword") String keyword) {
 
 		if(bindingResult.hasErrors()) {
+
 			model.addAttribute("searchForm", form);
+
 			return "searchResult/searchResult";
 		}
 
-		List<Gift> giftList = giftService.search(keyword);
+		int giftCount = giftService.count(keyword);
 
-		model.addAttribute("giftList", giftList);
+		model.addAttribute("giftCount", giftCount);
 
-		int count = giftService.count(keyword);
+		if(giftCount == 0) {
 
-		model.addAttribute("giftListCount", count);
+			return "searchResult/searchResult";
+		}
+
+		List<Gift> selectedGifts = giftService.search(keyword);
+
+		model.addAttribute("selectedGifts", selectedGifts);
 
 		return "searchResult/searchResult";
 	}

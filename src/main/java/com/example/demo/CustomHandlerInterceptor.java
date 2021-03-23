@@ -25,6 +25,5 @@ public class CustomHandlerInterceptor implements HandlerInterceptor {
         if(modelAndView != null && !modelAndView.getModel().containsKey("searchForm")) {
             modelAndView.addObject("searchForm", new SearchForm());
         }
-
 	}
 }

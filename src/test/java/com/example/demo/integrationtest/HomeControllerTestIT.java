@@ -1,33 +1,32 @@
-package com.example.demo;
+package com.example.demo.integrationtest;
 
 
-import static org.hamcrest.CoreMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
 
-@RunWith(SpringRunner.class)
+
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AboutSnitchController {
+public class HomeControllerTestIT {
 
 	@Autowired
 	private MockMvc mockMvc;
 
+
 	@Test
-	public void サイト説明画面() throws Exception {
+	@Sql({"/test_schema.sql", "/test_data.sql"})
+	public void showHome() throws Exception {
 
-		mockMvc.perform(get(""))
+		mockMvc.perform(get("/home"))
 			.andExpect(status().isOk())
-			.andExpect(content().string(containsString("Snitchとは?")));
+			.andExpect(view().name("home/home"));
 	}
-
 }

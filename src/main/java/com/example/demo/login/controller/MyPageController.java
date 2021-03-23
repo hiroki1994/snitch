@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.demo.SecurityConfig;
 import com.example.demo.login.domain.model.FavGift;
 import com.example.demo.login.domain.model.GroupOrder;
-import com.example.demo.login.domain.model.SignupForm;
 import com.example.demo.login.domain.model.User;
+import com.example.demo.login.domain.model.UserForm;
 import com.example.demo.login.domain.service.FavGiftService;
 import com.example.demo.login.domain.service.UserService;
 
@@ -35,13 +35,11 @@ public class MyPageController {
 
 	@GetMapping("/mypage")
 	public String getMypage() {
-
 		return "mypage/mypage";
 	}
 
 	@PostMapping("/mypage/deleteUser")
 	public String getDelete() {
-
 		return "mypage/deleteUser/deleteUser";
 	}
 
@@ -50,17 +48,15 @@ public class MyPageController {
 
 		String userName = request.getRemoteUser();
 
-		System.out.println(userName +"の登録情報を削除します");
+		boolean result = userService.deleteOne(userName);
 
-	    boolean result = userService.deleteOne(userName);
+		if(result == true) {
+			System.out.println("削除成功");
+		} else {
+			System.out.println("削除失敗");
+		}
 
-	    if(result == true) {
-	    	System.out.println("削除成功");
-	    } else {
-	    	System.out.println("削除失敗");
-	    }
-
-	    try {
+		try {
 			SecurityConfig.autoLogout(request, response);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -68,36 +64,29 @@ public class MyPageController {
 	}
 
 	@PostMapping("/mypage/updateUser")
-	public String postUserUpdatePage(@ModelAttribute SignupForm form, Model model, HttpServletRequest request) {
+	public String postUserUpdatePage(@ModelAttribute UserForm form, Model model, HttpServletRequest request) {
 
 		String userName = request.getRemoteUser();
 
-		System.out.println(userName+"の登録情報を更新します");
+		User user = userService.selectOne(userName);
 
-		if(userName != null && userName.length() > 0) {
-			User user = userService.selectOne(userName);
-			form.setUserName(user.getUserName());
-			form.setMailAddress(user.getMailAddress());
+		form.setUserName(user.getUserName());
+		form.setMailAddress(user.getMailAddress());
 
-			model.addAttribute("signupForm", form);
-		}
-
+		model.addAttribute("userForm", form);
 
 		return "mypage/updateUser/updateUser";
-    }
+	}
 
 	@PostMapping("/updateUserInfo")
-	public String postUserUpdate(@ModelAttribute @Validated(GroupOrder.class)SignupForm form, BindingResult bindingResult, Model model, HttpServletRequest request,
+	public String postUserUpdate(@ModelAttribute @Validated(GroupOrder.class)UserForm form, BindingResult bindingResult, Model model, HttpServletRequest request,
 			HttpServletResponse response) {
 
 		if (bindingResult.hasErrors()) {
 			return postUserUpdatePage(form, model, request);
-
 		}
 
-		String userName_LoggedIn = request.getRemoteUser();
-
-		System.out.println("ログインしているのは"+ userName_LoggedIn);
+		String userName = request.getRemoteUser();
 
 		User user = new User();
 
@@ -105,24 +94,23 @@ public class MyPageController {
 		user.setMailAddress(form.getMailAddress());
 		user.setPassword(form.getPassword());
 
-		boolean result = userService.updateOne(user, userName_LoggedIn);
+		boolean result = userService.updateOne(user, userName);
 
 		if(result == true) {
-		   System.out.println("更新成功");
+			System.out.println("更新成功");
 		} else {
 			System.out.println("更新失敗");
 		}
 
 		try {
-			String username = String.valueOf(form.getUserName());
-			String password = String.valueOf(form.getPassword());
-			//SecurityContextHolder.clearContext();
-			SecurityConfig.autoLogin(request, username, password, response);
+			String newUsername = String.valueOf(form.getUserName());
+			String newPassword = String.valueOf(form.getPassword());
+
+			SecurityConfig.autoLogin(request, newUsername, newPassword, response);
 		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
-		return "mypage/mypage";
+		return null;
 	}
 
 	@PostMapping("/mypage/favorite")
@@ -130,13 +118,18 @@ public class MyPageController {
 
 		String userName = httpServletRequest.getRemoteUser();
 
+		int favIds = favGiftService.count(userName);
+
+		model.addAttribute("favIds", favIds);
+
+		if(favIds == 0) {
+
+			return "mypage/favorite/favorite";
+		}
+
 		List<FavGift> allFavGifts = favGiftService.selectAll(userName);
 
 		model.addAttribute("allFavGifts", allFavGifts);
-
-		int count = favGiftService.count(userName);
-
-		model.addAttribute("count", count);
 
 		return "mypage/favorite/favorite";
 	}

@@ -15,20 +15,19 @@
 </head>
 <body layout:fragment="content">
 
-
+<div class="giftDetailWrapper">
 	<div class="gift col-sm-10 offset-sm-1">
 		<div class="gift-left col-sm-5 ">
 			<img  class="gift-image" th:src="@{'/image/'+${giftDetail.image}}" alt="gift-image">
 			<div   sec:authorize="isAuthenticated()">
 				<form id="favGift" th:action="@{/favGift}" method="post">
 					<input th:value="${giftDetail.giftId}" name="giftId" type="hidden" />
-					<button th:if="${favId == 0}" class="update-btn btn-warning col-sm-4 offset-sm-9" style="color:white" type="submit" ><i class="fas fa-heart" style="color:white"></i> お気に入り</button>
+					<button th:if="${#bools.isFalse(result)}" class="update-btn btn-warning text-nowrap" style="color:white" type="submit" ><i class="fas fa-heart" style="color:white"></i> お気に入り</button>
             	</form>
             	<form id="notFavGift" th:action="@{/notFavGift}" method="post">
 					<input th:value="${giftDetail.giftId}" name="giftId" type="hidden" />
-					<button th:unless="${favId == 0}" class="update-btn btn-danger col-sm-5 offset-sm-8" style="color:white" type="submit" ><i class="fas fa-ban" style="color:white"></i> お気に入り解除</button>
+					<button th:if="${#bools.isTrue(result)}" class="update-btn btn-danger text-nowrap" style="color:white" type="submit" ><i class="fas fa-ban" style="color:white"></i> お気に入り解除</button>
             	</form>
-
 			</div>
 			<div class="gift-text">
 				<p class="gift-guest" th:text="'紹介ゲスト: ' + ${giftDetail.guestName}"></p>
@@ -47,18 +46,18 @@
 			<div id="map"></div>
 
 			<script>console.log(document.getElementById("gift-address").textContent);
-			var my_address = document.getElementById("gift-address").textContent;
+			var gift_address = document.getElementById("gift-address").textContent;
 			function initMapWithAddress() {
-			    var opts = {
+			    var options = {
 			        zoom: 15,
 			        mapTypeId: google.maps.MapTypeId.ROADMAP
 			    };
-			    var my_google_map = new google.maps.Map(document.getElementById('map'), opts);
+			    var gift_google_map = new google.maps.Map(document.getElementById('map'), options);
 
 			    var geocoder = new google.maps.Geocoder();
 			    geocoder.geocode(
 			      {
-			        'address': my_address,
+			        'address': gift_address,
 			        'region': 'jp'
 			      },
 			      function(result, status){
@@ -66,9 +65,9 @@
 
 			              var latlng = result[0].geometry.location;
 
-			              my_google_map.setCenter(latlng);
+			              gift_google_map.setCenter(latlng);
 
-			              var marker = new google.maps.Marker({position:latlng, map:my_google_map, title:latlng.toString(), draggable:true});
+			              var marker = new google.maps.Marker({position:latlng, map:gift_google_map, title:latlng.toString(), draggable:true});
 
 			              google.maps.event.addListener(marker, 'dragend', function(event){
 
@@ -81,6 +80,6 @@
 			  </script>
 		</div>
 	</div>
+</div>
 </body>
-
 </html>
