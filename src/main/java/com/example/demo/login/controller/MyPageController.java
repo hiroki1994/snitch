@@ -48,13 +48,7 @@ public class MyPageController {
 
 		String userName = request.getRemoteUser();
 
-		boolean resultDeleteFav = favGiftService.deleteMany(userName);
-
-		if(resultDeleteFav) {
-			System.out.println("お気に入り全件削除成功");
-		} else {
-			System.out.println("お気に入り全件削除失敗");
-		}
+		favGiftService.deleteMany(userName);
 
 		boolean resultDeleteUser = userService.deleteOne(userName);
 

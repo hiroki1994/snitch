@@ -3,7 +3,6 @@ package com.example.demo.login.domain.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +27,7 @@ public class FavGiftService {
 	public int count(String userName) {
 
 		return dao.count(userName);
+
 	}
 
 	public boolean existFavId(String userName, int giftId) {
@@ -44,49 +44,21 @@ public class FavGiftService {
 		}
 	}
 
-	public boolean create(String userName, int giftId) {
+	public int create(String userName, int giftId) {
 
-		try {
-			dao.create(userName, giftId);
+		return dao.create(userName, giftId);
 
-			return true;
-
-		} catch(DataIntegrityViolationException | EmptyResultDataAccessException e) {
-
-			return false;
-		}
 	}
 
-	public boolean delete(String userName, int giftId) {
+	public int delete(String userName, int giftId) {
 
-		try {
-			int suceededRowNumber = dao.delete(userName, giftId);
+		return dao.delete(userName, giftId);
 
-			System.out.println(suceededRowNumber);
-
-			if(suceededRowNumber > 0) {
-				return true;
-			}
-			return false;
-
-		} catch (EmptyResultDataAccessException e) {
-
-			return false;
-		}
 	}
 
-	public boolean deleteMany(String userName) {
+	public int deleteMany(String userName) {
 
-		int suceededRowNumber = dao.deleteMany(userName);
-
-		System.out.println(suceededRowNumber);
-
-		if(suceededRowNumber > 0) {
-
-			return true;
-		}
-
-		return false;
+		return dao.deleteMany(userName);
 	}
 
 }
