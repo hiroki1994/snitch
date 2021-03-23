@@ -24,6 +24,7 @@ public class GiftService {
 	}
 
 	public Gift selectOne(int giftId) {
+
 		return dao.selectOne(giftId);
 	}
 
@@ -36,5 +37,4 @@ public class GiftService {
 
 		return dao.count(keyword);
 	}
-
 }

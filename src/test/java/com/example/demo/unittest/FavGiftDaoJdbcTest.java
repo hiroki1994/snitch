@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.unittest;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -29,14 +29,17 @@ public class FavGiftDaoJdbcTest {
 	FavGiftDaoJdbcImpl favGiftDaoJdbcImpl;
 
 	@Test
-	public void お気に入り件数() throws Exception {
+	public void countFavGift() throws Exception {
 		String userName = "userName3";
 
-		assertEquals(favGiftDaoJdbcImpl.count(userName), 2);
+		int expected = 2;
+		int actual = favGiftDaoJdbcImpl.count(userName);
+
+		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void お気に入り一覧() throws Exception {
+	public void listFavGift() throws Exception {
 		String userName = "userName3";
 
 		List<FavGift> allFavGifts = favGiftDaoJdbcImpl.selectAll(userName);
@@ -54,32 +57,41 @@ public class FavGiftDaoJdbcTest {
 	}
 
 	@Test
-	public void お気に入り登録()throws Exception {
+	public void createFavGift()throws Exception {
 
 		String userName = "userName3";
 
 		int giftId = 1002;
 
-		assertEquals(favGiftDaoJdbcImpl.create(userName, giftId), 1);
+		int expected = 1;
+		int actual = favGiftDaoJdbcImpl.create(userName, giftId);
+
+		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void お気に入り削除()throws Exception {
+	public void deleteFavGift()throws Exception {
 
 		String userName = "userName3";
 
 		int giftId = 1000;
 
-		assertEquals(favGiftDaoJdbcImpl.delete(userName, giftId), 1);
+		int expected = 1;
+		int actual = favGiftDaoJdbcImpl.delete(userName, giftId);
+
+		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void お気に入りID取得()throws Exception {
+	public void searchFavId_found()throws Exception {
 
 		String userName = "userName3";
 
 		int giftId = 1001;
 
-		assertEquals(favGiftDaoJdbcImpl.existFavId(userName, giftId), 2);
+		int expected = 2;
+		int actual = favGiftDaoJdbcImpl.existFavId(userName, giftId);
+
+		assertEquals(expected, actual);
 	}
 }

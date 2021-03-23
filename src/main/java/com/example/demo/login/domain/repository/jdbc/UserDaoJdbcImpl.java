@@ -115,7 +115,3 @@ public class UserDaoJdbcImpl implements UserDao {
 		return user;
 	}
 }
-
-
-
-

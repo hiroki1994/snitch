@@ -3,8 +3,8 @@ package com.example.demo.login.domain.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +37,7 @@ public class FavGiftService {
 
 			return true;
 
-		} catch(DataAccessException e) {
+		} catch(EmptyResultDataAccessException e) {
 
 			return false;
 
@@ -51,7 +51,7 @@ public class FavGiftService {
 
 			return true;
 
-		} catch(DataIntegrityViolationException e) {
+		} catch(DataIntegrityViolationException | EmptyResultDataAccessException e) {
 
 			return false;
 		}
@@ -59,16 +59,19 @@ public class FavGiftService {
 
 	public boolean delete(String userName, int giftId) {
 
-		int suceededRowNumber = dao.delete(userName, giftId);
+		try {
+			int suceededRowNumber = dao.delete(userName, giftId);
 
-		System.out.println(suceededRowNumber);
+			System.out.println(suceededRowNumber);
 
-		if(suceededRowNumber > 0) {
+			if(suceededRowNumber > 0) {
+				return true;
+			}
+			return false;
 
-			return true;
+		} catch (EmptyResultDataAccessException e) {
+
+			return false;
 		}
-
-		return false;
 	}
-
 }

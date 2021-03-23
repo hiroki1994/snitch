@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.integrationtest;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.login.domain.model.Gift;
 import com.example.demo.login.domain.service.GiftService;
@@ -20,32 +21,37 @@ import com.example.demo.login.domain.service.GiftService;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 @Sql({"/test_schema.sql", "/test_data.sql"})
-public class GiftServiceTest {
+public class GiftServiceTestIT {
 
 	@Autowired
 	GiftService giftService;
 
 	@Test
-	public void お土産件数取得成功() {
+	public void countGiftByKeyword() {
 
 		String keyword = "マカロン";
 
-		assertEquals(giftService.count(keyword), 2);
+		int expected = 2;
+		int actual = giftService.count(keyword);
 
+		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void お土産件数取得失敗() {
+	public void countGiftByKeyword_zero() {
 
 		String keyword = "H#4kこ";
 
-		assertEquals(giftService.count(keyword), 0);
+		int expected = 0;
+		int actual = giftService.count(keyword);
 
+		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void お土産検索成功() {
+	public void searchGift_found() {
 		String keyword = "マカロン";
 
 		List<Gift> selectedGifts = giftService.search(keyword);
@@ -61,7 +67,7 @@ public class GiftServiceTest {
 	}
 
 	@Test
-	public void お土産検索失敗() {
+	public void searchGift_notFound() {
 		String keyword = "H#4kこ";
 
 		List<Gift> selectedGifts = giftService.search(keyword);
@@ -70,7 +76,7 @@ public class GiftServiceTest {
 	}
 
 	@Test
-	public void お土産一覧() {
+	public void listGifts() {
 
 		List<Gift> selectedGifts = giftService.selectMany();
 
@@ -78,7 +84,7 @@ public class GiftServiceTest {
 	}
 
 	@Test
-	public void お土産1件取得() {
+	public void selectOneGift() {
 
 		int giftId = 1000;
 
