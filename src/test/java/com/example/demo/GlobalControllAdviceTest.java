@@ -20,7 +20,7 @@ public class GlobalControllAdviceTest {
 	private MockMvc mockMvc;
 
     @Test
-	public void EmptyResultDataAccessException発生() throws Exception {
+	public void catchEmptyResultDataAccessException() throws Exception {
 
 		int giftId = 9999;
 
@@ -32,7 +32,7 @@ public class GlobalControllAdviceTest {
 	}
 
 	@Test
-	public void Exception発生() throws Exception {
+	public void catchException() throws Exception {
 
 		String giftId = "H#4kこ";
 
