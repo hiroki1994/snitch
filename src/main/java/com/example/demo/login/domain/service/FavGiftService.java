@@ -60,5 +60,4 @@ public class FavGiftService {
 
 		return dao.deleteMany(userName);
 	}
-
 }
