@@ -1,6 +1,5 @@
 package com.example.demo.unittest;
 
-
 import static org.hamcrest.CoreMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -13,17 +12,17 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AboutSnitchControllerTest {
+public class LoginControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
 
 	@Test
-	public void showAboutPage() throws Exception {
+	public void showLoginPage() throws Exception {
 
-		mockMvc.perform(get("/aboutsnitch"))
-			.andExpect(status().isOk())
-			.andExpect(view().name("about/aboutSnitch"))
-			.andExpect(content().string(containsString("Snitchとは?")));
+		mockMvc.perform(get("/login"))
+				.andExpect(status().isOk())
+				.andExpect(view().name("login/login"))
+				.andExpect(content().string(containsString("Login")));
 	}
 }

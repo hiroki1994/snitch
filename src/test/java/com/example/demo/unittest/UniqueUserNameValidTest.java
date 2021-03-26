@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.demo.login.domain.model.UniqueUserNameValid;
@@ -49,7 +48,7 @@ public class UniqueUserNameValidTest {
 	}
 
 	@Test
-	public void userName_UniqueError() throws Exception {
+	public void userName_uniqueError() throws Exception {
 
 		String userName = "userName3";
 
@@ -62,7 +61,7 @@ public class UniqueUserNameValidTest {
 
 
 	@Test
-	public void Username_EqualToAuthentivatedUserName() throws Exception {
+	public void username_equalToAuthentivatedUserName() throws Exception {
 
 		String userName = "userName3";
 

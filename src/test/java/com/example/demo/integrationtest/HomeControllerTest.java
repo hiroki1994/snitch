@@ -43,7 +43,7 @@ public class HomeControllerTest {
 	}
 
 	@Test
-	public void ホーム画面表示() throws Exception {
+	public void showHomePage() throws Exception {
 
 		List<Gift> selectedGifts = new ArrayList<Gift>();
 

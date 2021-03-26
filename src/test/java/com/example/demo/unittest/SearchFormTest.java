@@ -14,7 +14,6 @@ import javax.validation.ValidatorFactory;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.demo.login.domain.model.SearchForm;
@@ -31,7 +30,7 @@ public class SearchFormTest {
 	}
 
 	@Test
-	public void 検索キーワード情報投入取得＿バリデーションエラーなし() throws Exception {
+	public void setSearchGift_empty() throws Exception {
 
 		SearchForm searchForm = new SearchForm();
 
@@ -47,7 +46,7 @@ public class SearchFormTest {
 	}
 
 	@Test
-	public void 検索キーワード情報投入_バリデーションエラー() throws Exception {
+	public void searchGift_validationError() throws Exception {
 
 		SearchForm searchForm = new SearchForm();
 

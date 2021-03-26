@@ -51,7 +51,7 @@ public class SecurityConfigTest {
 	}
 
 	@Test
-	public void login_fail() throws Exception{
+	public void login_fail_userNameDoesNotExist() throws Exception{
 
 		String userName = "userName5";
 

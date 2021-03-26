@@ -1,16 +1,11 @@
 package com.example.demo.login.domain.service;
 
-import java.sql.SQLException;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.login.domain.model.User;
 import com.example.demo.login.domain.repository.UserDao;
-
 
 @Transactional
 @Service
@@ -19,49 +14,24 @@ public class UserService {
 	@Autowired
 	UserDao dao;
 
-	public boolean create(User user) {
+	public int create(User user) {
 
-		try {
-			dao.create(user);
-
-			return true;
-
-		} catch(DataAccessException | SQLException e) {
-
-			return false;
-		}
+		return dao.create(user);
 	}
 
-	public User selectOne(String userName) {
+	public User select(String userName) {
 
-		return dao.selectOne(userName);
-
+		return dao.select(userName);
 	}
 
-	public boolean updateOne(User user, String userName_LoggedIn) {
+	public int update(User user, String userName_LoggedIn) {
 
-		try {
-			dao.updateOne(user, userName_LoggedIn);
-
-			return true;
-
-		} catch(DataAccessException | SQLException e) {
-
-			return false;
-		}
+		return dao.update(user, userName_LoggedIn);
 	}
 
-	public boolean deleteOne(String userName) {
+	public int delete(String userName) {
 
-		try {
-			dao.deleteOne(userName);
-
-			return true;
-
-		} catch(EmptyResultDataAccessException e) {
-
-			return false;
-		}
+		return dao.delete(userName);
 	}
 
 	public int exist(String userName) {

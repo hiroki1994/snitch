@@ -6,10 +6,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.login.domain.model.User;
@@ -34,14 +36,14 @@ public class UserServiceTestIT {
 		user.setMailAddress("mail@gmail.com");
 		user.setPassword("7777");
 
-		boolean expected = true;
-		boolean actual = userService.create(user);
+		int expected = 1;
+		int actual = userService.create(user);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void signup_fail_UsernameUniqueError() throws Exception {
+	public void signup_fail_usernameUniqueError() throws Exception {
 
 		User user = new User();
 
@@ -49,21 +51,30 @@ public class UserServiceTestIT {
 		user.setMailAddress("mail@gmail.com");
 		user.setPassword("7777");
 
-		boolean expected = false;
-		boolean actual = userService.create(user);
-
-		assertEquals(expected, actual);
+		Assertions.assertThrows(DuplicateKeyException.class, () -> {
+			userService.create(user);
+		});
 	}
 
 	@Test
-	public void getUserInfo() throws Exception {
+	public void getUserInfo_success() throws Exception {
 
 		String userName = "userName3";
-		User user = userService.selectOne(userName);
+		User user = userService.select(userName);
 
 		assertThat(user, hasProperty("userName", equalTo("userName3")));
 		assertThat(user, hasProperty("mailAddress", equalTo("mailaddress3@gmail.co.jp")));
 		assertThat(user, hasProperty("password", equalTo("$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa")));
+	}
+
+	@Test
+	public void getUserInfo_fail_userNameDoesNotExist() throws Exception {
+
+		String userName = "userName5";
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			userService.select(userName);
+		});
 	}
 
 	@Test
@@ -77,15 +88,14 @@ public class UserServiceTestIT {
 		user.setMailAddress("mailaddress3@gmail.co.jp");
 		user.setPassword("password2");
 
-		boolean expected = true;
-
-		boolean actual = userService.updateOne(user, userName);
+		int expected = 1;
+		int actual = userService.update(user, userName);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void updateUserInfo_fail_UsernameUniqueError() throws Exception {
+	public void updateUserInfo_fail_usernameUniqueError() throws Exception {
 
 		String userName = "userName3";
 
@@ -95,11 +105,9 @@ public class UserServiceTestIT {
 		user.setMailAddress("mailaddress3@gmail.co.jp");
 		user.setPassword("password2");
 
-		boolean expected = false;
-
-		boolean actual = userService.updateOne(user, userName);
-
-		assertEquals(expected, actual);
+		Assertions.assertThrows(DuplicateKeyException.class, () -> {
+			userService.update(user, userName);
+		});
 	}
 
 	@Test
@@ -107,27 +115,24 @@ public class UserServiceTestIT {
 
 		String userName = "userName3";
 
-		boolean expected = true;
-		boolean actual = userService.deleteOne(userName);
+		int expected = 1;
+		int actual = userService.delete(userName);
 
 		assertEquals(expected, actual);
-
 	}
 
 	@Test
-	public void deleteUser_fail_UserDoNotExist() throws Exception {
+	public void deleteUser_fail_userNameDoesNotExist() throws Exception {
 
 		String userName = "userName5";
 
-		boolean expected = false;
-		boolean actual = userService.deleteOne(userName);
-
-		assertEquals(expected, actual);
-
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			userService.delete(userName);
+		});
 	}
 
 	@Test
-	public void searchEqualUserName_found() throws Exception {
+	public void searchEqualUserName_success_found() throws Exception {
 
 		String userName = "userName3";
 		int expected = 1;
@@ -138,7 +143,7 @@ public class UserServiceTestIT {
 	}
 
 	@Test
-	public void searchEqualUserName_notFound() throws Exception {
+	public void searchEqualUserName_success_notFound() throws Exception {
 
 		String userName = "uniqueUserName";
 

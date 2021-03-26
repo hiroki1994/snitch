@@ -1,27 +1,22 @@
 package com.example.demo.unittest;
 
-
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-import java.sql.SQLException;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.login.domain.model.User;
 import com.example.demo.login.domain.repository.UserDao;
 import com.example.demo.login.domain.service.UserService;
-
-
-
 
 @SpringBootTest
 @Transactional
@@ -49,14 +44,15 @@ public class UserServiceTestUT {
 
 		when(userDao.create(user)).thenReturn(1);
 
-		boolean expected = true;
-		boolean actual = userService.create(user);
+		int expected = 1;
+
+		int actual = userService.create(user);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void signup_fail_UsernameUniqueError() throws Exception {
+	public void signup_fail_usernameUniqueError() throws Exception {
 
 		User user = new User();
 
@@ -64,12 +60,11 @@ public class UserServiceTestUT {
 		user.setMailAddress("mail@gmail.com");
 		user.setPassword("7777");
 
-		when(userDao.create(user)).thenThrow(SQLException.class);
+		when(userDao.create(user)).thenThrow(DuplicateKeyException.class);
 
-		boolean expected = false;
-		boolean actual = userService.create(user);
-
-		assertEquals(expected, actual);
+		Assertions.assertThrows(DuplicateKeyException.class, () -> {
+			userService.create(user);
+		});
 	}
 
 	@Test
@@ -83,16 +78,17 @@ public class UserServiceTestUT {
 		user.setMailAddress("mailaddress3@gmail.co.jp");
 		user.setPassword("password2");
 
-		when(userDao.updateOne(user, userName)).thenReturn(1);
+		when(userDao.update(user, userName)).thenReturn(1);
 
-		boolean expected = true;
-		boolean actual = userService.updateOne(user, userName);
+		int expected = 1;
+
+		int actual = userService.update(user, userName);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void updateUserInfo_fail_UsernameUniqueError() throws Exception {
+	public void updateUserInfo_fail_usernameUniqueError() throws Exception {
 
 		String userName = "userName3";
 
@@ -102,12 +98,38 @@ public class UserServiceTestUT {
 		user.setMailAddress("mailaddress3@gmail.co.jp");
 		user.setPassword("password2");
 
-		when(userDao.updateOne(user, userName)).thenThrow(SQLException.class);
+		when(userDao.update(user, userName)).thenThrow(DuplicateKeyException.class);
 
-		boolean expected = false;
-		boolean actual = userService.updateOne(user, userName);
+		Assertions.assertThrows(DuplicateKeyException.class, () -> {
+			userService.update(user, userName);
+		});
+	}
+
+	@Test
+	public void getUserInfo_success() throws Exception {
+
+		String userName = "userName3";
+		User user = new User();
+
+		when(userDao.select(userName)).thenReturn(user);
+
+		User expected = user;
+
+		User actual = userService.select(userName);
 
 		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void getUserInfo_fail_userNameDoesNotExist() throws Exception {
+
+		String userName = "userName5";
+
+		when(userDao.select(userName)).thenThrow(EmptyResultDataAccessException.class);
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			userService.select(userName);
+		});
 	}
 
 	@Test
@@ -115,31 +137,28 @@ public class UserServiceTestUT {
 
 		String userName = "userName3";
 
-		when(userDao.deleteOne(userName)).thenReturn(1);
+		when(userDao.delete(userName)).thenReturn(1);
 
-		boolean expected = true;
-		boolean actual = userService.deleteOne(userName);
+		int expected = 1;
+		int actual = userService.delete(userName);
 
 		assertEquals(expected, actual);
-
 	}
 
 	@Test
-	public void deleteUser_fail_UserDoNotExist() throws Exception {
+	public void deleteUser_fail_userNameDoesNotExist() throws Exception {
 
 		String userName = "userName5";
 
-		when(userDao.deleteOne(userName)).thenThrow(EmptyResultDataAccessException.class);
+		when(userDao.delete(userName)).thenThrow(EmptyResultDataAccessException.class);
 
-		boolean expected = false;
-		boolean actual = userService.deleteOne(userName);
-
-		assertEquals(expected, actual);
-
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			userService.delete(userName);
+		});
 	}
 
 	@Test
-	public void searchEqualUserName_found() throws Exception {
+	public void searchEqualUserName_success_found() throws Exception {
 
 		String userName = "userName3";
 
@@ -153,13 +172,14 @@ public class UserServiceTestUT {
 	}
 
 	@Test
-	public void searchEqualUserName_notFound() throws Exception {
+	public void searchEqualUserName_success_notFound() throws Exception {
 
 		String userName = "uniqueUserName";
 
 		when(userDao.exist(userName)).thenReturn(0);
 
 		int expected = 0;
+
 		int actual = userService.exist(userName);
 
 		assertEquals(expected, actual);

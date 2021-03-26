@@ -1,6 +1,5 @@
 package com.example.demo.integrationtest;
 
-
 import static org.hamcrest.CoreMatchers.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -16,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.login.domain.model.UserForm;
 
-
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
@@ -26,26 +24,68 @@ public class MyPageControllerTest {
 	private MockMvc mockMvc;
 
 	@Test
-	@WithMockUser(username="userName3")
+	@WithMockUser(username = "userName3")
+	public void showMypage() throws Exception {
+
+		mockMvc.perform(get("/mypage")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString("userName3")));
+	}
+
+	@Test
+	@WithMockUser(username = "userName3")
+	public void showDeletePage() throws Exception {
+
+		mockMvc.perform(post("/mypage/deleteUser")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString("本当に退会してもよろしいでしょうか?")));
+	}
+
+	@Test
+	@WithMockUser(username = "userName3")
 	public void deleteUser() throws Exception {
 
-		mockMvc.perform(post("/deleteUser").with(csrf()))
-			.andExpect(status().isFound())
-			.andExpect(redirectedUrl("/login"));
+		mockMvc.perform(post("/deleteUser")
+				.with(csrf()))
+				.andExpect(status().isFound())
+				.andExpect(redirectedUrl("/login"));
 	}
 
 	@Test
-	@WithMockUser(username="userName3")
+	@WithMockUser(username = "userName5")
+	public void deleteUser_fail_userNameDoesNotExist() throws Exception {
+
+		mockMvc.perform(post("/deleteUser")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error"));
+	}
+
+	@Test
+	@WithMockUser(username = "userName3")
 	public void showUserInfo() throws Exception {
 
-		mockMvc.perform(post("/mypage/updateUser").with(csrf()))
-			.andExpect(status().isOk())
-			.andExpect(content().string(containsString("userName3")))
-			.andExpect(content().string(containsString("mailaddress3@gmail.co.jp")));
+		mockMvc.perform(post("/mypage/updateUser")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString("userName3")))
+				.andExpect(content().string(containsString("mailaddress3@gmail.co.jp")));
 	}
 
 	@Test
-	@WithMockUser(username="userName3")
+	@WithMockUser(username = "userName5")
+	public void showUserInfo_fail_userNameDoesNotExist() throws Exception {
+
+		mockMvc.perform(post("/mypage/updateUser")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error"));
+	}
+
+	@Test
+	@WithMockUser(username = "userName3")
 	public void updateUserInfo_success() throws Exception {
 
 		UserForm form = new UserForm();
@@ -55,12 +95,12 @@ public class MyPageControllerTest {
 		form.setPassword("7777");
 
 		mockMvc.perform(post("/updateUserInfo").flashAttr("userForm", form).with(csrf()))
-			.andExpect(status().isFound())
-			.andExpect(redirectedUrl("/mypage"));
+				.andExpect(status().isFound())
+				.andExpect(redirectedUrl("/mypage"));
 	}
 
 	@Test
-	@WithMockUser(username="userName3")
+	@WithMockUser(username = "userName3")
 	public void updateUserInfo_success_usernameIsEqualToAuthentivatedUserName() throws Exception {
 
 		UserForm form = new UserForm();
@@ -69,13 +109,14 @@ public class MyPageControllerTest {
 		form.setMailAddress("mail@gmail.com");
 		form.setPassword("7777");
 
-		mockMvc.perform(post("/updateUserInfo").flashAttr("userForm", form).with(csrf()))
-			.andExpect(status().isFound())
-			.andExpect(redirectedUrl("/mypage"));
+		mockMvc.perform(post("/updateUserInfo").flashAttr("userForm", form)
+				.with(csrf()))
+				.andExpect(status().isFound())
+				.andExpect(redirectedUrl("/mypage"));
 	}
 
 	@Test
-	@WithMockUser(username="userName3")
+	@WithMockUser(username = "userName3")
 	public void updateUserInfo_fail_usernameUniqueError() throws Exception {
 
 		UserForm form = new UserForm();
@@ -84,13 +125,14 @@ public class MyPageControllerTest {
 		form.setMailAddress("mail@gmail.com");
 		form.setPassword("7777");
 
-		mockMvc.perform(post("/updateUserInfo").flashAttr("userForm", form).with(csrf()))
-			.andExpect(status().isOk())
-			.andExpect(content().string(containsString("入力されたユーザーネームは既に使用されています")));
+		mockMvc.perform(post("/updateUserInfo").flashAttr("userForm", form)
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString("入力されたユーザーネームは既に使用されています")));
 	}
 
 	@Test
-	@WithMockUser(username="userName3")
+	@WithMockUser(username = "userName3")
 	public void updateUserInfo_fail_validationError() throws Exception {
 
 		UserForm form = new UserForm();
@@ -99,49 +141,50 @@ public class MyPageControllerTest {
 		form.setMailAddress("mail");
 		form.setPassword("いい");
 
-		mockMvc.perform(post("/updateUserInfo").flashAttr("userForm", form).with(csrf()))
-			.andExpect(status().isOk())
-			.andExpect(view().name("mypage/updateUser/updateUser"))
-			.andExpect(content().string(containsString("ユーザーネームは3字以上20字以下で入力してください")))
-			.andExpect(content().string(containsString("ユーザーネームは半角英数字で入力してください")))
-			.andExpect(content().string(containsString("ユーザーネームは3字以上20字以下で入力してください")))
-			.andExpect(content().string(containsString("メールアドレス形式で入力してください")))
-			.andExpect(content().string(containsString("パスワードは3字以上20字以下で入力してください")))
-			.andExpect(content().string(containsString("パスワードは半角英数字で入力してください")));
+		mockMvc.perform(post("/updateUserInfo").flashAttr("userForm", form)
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("mypage/updateUser/updateUser"))
+				.andExpect(content().string(containsString("ユーザーネームは3字以上20字以下で入力してください")))
+				.andExpect(content().string(containsString("ユーザーネームは半角英数字で入力してください")))
+				.andExpect(content().string(containsString("ユーザーネームは3字以上20字以下で入力してください")))
+				.andExpect(content().string(containsString("メールアドレス形式で入力してください")))
+				.andExpect(content().string(containsString("パスワードは3字以上20字以下で入力してください")))
+				.andExpect(content().string(containsString("パスワードは半角英数字で入力してください")));
 	}
 
 	@Test
-	@WithMockUser(username="userName3")
+	@WithMockUser(username = "userName3")
 	public void showFavoriteList_success() throws Exception {
 
 		mockMvc.perform(post("/mypage/favorite")
-			.with(csrf()))
-			.andExpect(status().isOk())
-			.andExpect(view().name("mypage/favorite/favorite"))
-			.andExpect(content().string(containsString("お気に入り")))
-			.andExpect(content().string(containsString("2件")))
-			.andExpect(content().string(containsString("マカロン")));
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("mypage/favorite/favorite"))
+				.andExpect(content().string(containsString("お気に入り")))
+				.andExpect(content().string(containsString("2件")))
+				.andExpect(content().string(containsString("マカロン")));
 	}
 
 	@Test
-	@WithMockUser(username="userName4")
+	@WithMockUser(username = "userName4")
 	public void showFavoriteList_success_noFavGift() throws Exception {
 
 		mockMvc.perform(post("/mypage/favorite")
-			.with(csrf()))
-			.andExpect(status().isOk())
-			.andExpect(view().name("mypage/favorite/favorite"))
-			.andExpect(content().string(containsString("お気に入り")))
-			.andExpect(content().string(containsString("0件")));
-  }
-                    
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("mypage/favorite/favorite"))
+				.andExpect(content().string(containsString("お気に入り")))
+				.andExpect(content().string(containsString("0件")));
+	}
+
 	@Test
-	@WithMockUser(username="userName5")
+	@WithMockUser(username = "userName5")
 	public void showFavoriteList_fail_userNameDoesNotExist() throws Exception {
 
 		mockMvc.perform(post("/mypage/favorite")
-			.with(csrf()))
-			.andExpect(status().isOk())
-			.andExpect(view().name("error"));
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error"));
 	}
 }

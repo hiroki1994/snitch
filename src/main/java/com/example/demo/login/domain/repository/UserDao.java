@@ -1,21 +1,20 @@
 package com.example.demo.login.domain.repository;
 
-import java.sql.SQLException;
-
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import com.example.demo.login.domain.model.User;
 
 public interface UserDao {
 
-	public int create(User user) throws DataAccessException, SQLException;
+	public int create(User user) throws DuplicateKeyException;
 
-	public int updateOne(User user, String userName_LoggedIn) throws DataAccessException, SQLException;
+	public int update(User user, String userName_LoggedIn) throws DuplicateKeyException;
 
-	public User selectOne(String userName) throws DataAccessException;
+	public User select(String userName) throws EmptyResultDataAccessException;
 
-	public int deleteOne(String userName) throws EmptyResultDataAccessException;
+	public int delete(String userName) throws EmptyResultDataAccessException;
 
 	public int exist(String userName) throws DataAccessException;
 }

@@ -23,7 +23,6 @@ import com.example.demo.login.domain.model.UserForm;
 import com.example.demo.login.domain.service.FavGiftService;
 import com.example.demo.login.domain.service.UserService;
 
-
 @Controller
 public class MyPageController {
 
@@ -34,39 +33,33 @@ public class MyPageController {
 	FavGiftService favGiftService;
 
 	@GetMapping("/mypage")
-	public String getMypage() {
+	public String showMypage() {
 		return "mypage/mypage";
 	}
 
 	@PostMapping("/mypage/deleteUser")
-	public String getDelete() {
+	public String showDeletePage() {
 		return "mypage/deleteUser/deleteUser";
 	}
 
 	@PostMapping("/deleteUser")
-	public void postDeleteUser( HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		String userName = request.getRemoteUser();
 
 		favGiftService.deleteMany(userName);
 
-		boolean resultDeleteUser = userService.deleteOne(userName);
-
-		if(resultDeleteUser) {
-			System.out.println("ユーザー削除成功");
-		} else {
-			System.out.println("ユーザー削除失敗");
-		}
+		userService.delete(userName);
 
 		SecurityConfig.autoLogout(request, response);
 	}
 
 	@PostMapping("/mypage/updateUser")
-	public String postUserUpdatePage(@ModelAttribute UserForm form, Model model, HttpServletRequest request) {
+	public String showUpdatePage(@ModelAttribute UserForm form, Model model, HttpServletRequest request) {
 
 		String userName = request.getRemoteUser();
 
-		User user = userService.selectOne(userName);
+		User user = userService.select(userName);
 
 		form.setUserName(user.getUserName());
 		form.setMailAddress(user.getMailAddress());
@@ -77,11 +70,12 @@ public class MyPageController {
 	}
 
 	@PostMapping("/updateUserInfo")
-	public String postUserUpdate(@ModelAttribute @Validated(GroupOrder.class)UserForm form, BindingResult bindingResult, Model model, HttpServletRequest request,
+	public String update(@ModelAttribute @Validated(GroupOrder.class) UserForm form, BindingResult bindingResult,
+			Model model, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 
 		if (bindingResult.hasErrors()) {
-			return postUserUpdatePage(form, model, request);
+			return showUpdatePage(form, model, request);
 		}
 
 		String userName = request.getRemoteUser();
@@ -92,13 +86,7 @@ public class MyPageController {
 		user.setMailAddress(form.getMailAddress());
 		user.setPassword(form.getPassword());
 
-		boolean result = userService.updateOne(user, userName);
-
-		if(result) {
-			System.out.println("更新成功");
-		} else {
-			System.out.println("更新失敗");
-		}
+		userService.update(user, userName);
 
 		String newUsername = String.valueOf(form.getUserName());
 		String newPassword = String.valueOf(form.getPassword());
@@ -109,7 +97,7 @@ public class MyPageController {
 	}
 
 	@PostMapping("/mypage/favorite")
-	public String getFavorite(Model model, HttpServletRequest httpServletRequest) {
+	public String showFavoritePage(Model model, HttpServletRequest httpServletRequest) {
 
 		String userName = httpServletRequest.getRemoteUser();
 
@@ -117,7 +105,7 @@ public class MyPageController {
 
 		model.addAttribute("favIds", favIds);
 
-		if(favIds == 0) {
+		if (favIds == 0) {
 
 			return "mypage/favorite/favorite";
 		}

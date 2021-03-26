@@ -1,10 +1,10 @@
 package com.example.demo.login.domain.repository.jdbc;
 
-import java.sql.SQLException;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,7 +23,7 @@ public class UserDaoJdbcImpl implements UserDao {
 	PasswordEncoder passwordEncoder;
 
 	@Override
-	public int create(User user) throws DataAccessException, SQLException {
+	public int create(User user) throws DuplicateKeyException {
 
 		String password = passwordEncoder.encode(user.getPassword());
 
@@ -44,7 +44,7 @@ public class UserDaoJdbcImpl implements UserDao {
 	}
 
 	@Override
-	public int updateOne(User user, String userName_LoggedIn) throws DataAccessException, SQLException {
+	public int update(User user, String userName_LoggedIn) throws DuplicateKeyException {
 
 		String password = passwordEncoder.encode(user.getPassword());
 
@@ -65,7 +65,7 @@ public class UserDaoJdbcImpl implements UserDao {
 	}
 
 	@Override
-	public User selectOne(String userName) throws DataAccessException {
+	public User select(String userName) throws EmptyResultDataAccessException {
 
 		Map<String, Object> singleUser = jdbc.queryForMap("SELECT * FROM userData WHERE userName = ?", userName);
 
@@ -79,7 +79,7 @@ public class UserDaoJdbcImpl implements UserDao {
 	}
 
 	@Override
-	public int deleteOne(String userName) throws EmptyResultDataAccessException {
+	public int delete(String userName) throws EmptyResultDataAccessException {
 
 		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
 

@@ -26,17 +26,17 @@ public class SignupController {
 	private UserService userService;
 
 	@PostMapping("/signup")
-	public String postSignUp(@ModelAttribute UserForm form, Model model) {
+	public String showSignUpPage(@ModelAttribute UserForm form, Model model) {
 
 		return "signup/signup";
 	}
 
 	@PostMapping("/signupUser")
-	public String postSignUp(@ModelAttribute @Validated(GroupOrder.class) UserForm form, BindingResult bindingResult, Model model, HttpServletRequest request,
+	public String create(@ModelAttribute @Validated(GroupOrder.class) UserForm form, BindingResult bindingResult, Model model, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 
 		if (bindingResult.hasErrors()) {
-			return postSignUp(form, model);
+			return showSignUpPage(form, model);
 		}
 
 		System.out.println(form);
@@ -47,13 +47,7 @@ public class SignupController {
 		user.setMailAddress(form.getMailAddress());
 		user.setPassword(form.getPassword());
 
-		boolean result = userService.create(user);
-
-		if (result) {
-			System.out.println("insert成功");
-		} else {
-			System.out.println("insert失敗");
-		}
+		userService.create(user);
 
 		String username = String.valueOf(form.getUserName());
 		String password = String.valueOf(form.getPassword());

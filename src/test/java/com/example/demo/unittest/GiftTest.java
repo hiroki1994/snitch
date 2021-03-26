@@ -4,7 +4,6 @@ package com.example.demo.unittest;
 import static org.junit.Assert.*;
 
 import org.junit.jupiter.api.Test;
-
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.demo.login.domain.model.Gift;
@@ -55,7 +54,7 @@ public class GiftTest {
 	}
 
 	@Test
-	public void Gift_empty() throws Exception {
+	public void gift_empty() throws Exception {
 
 		Gift gift = new Gift();
 
