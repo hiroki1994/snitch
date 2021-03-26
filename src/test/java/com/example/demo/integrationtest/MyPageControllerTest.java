@@ -133,8 +133,8 @@ public class MyPageControllerTest {
 			.andExpect(view().name("mypage/favorite/favorite"))
 			.andExpect(content().string(containsString("お気に入り")))
 			.andExpect(content().string(containsString("0件")));
-	}
-
+  }
+                    
 	@Test
 	@WithMockUser(username="userName5")
 	public void showFavoriteList_fail_userNameDoesNotExist() throws Exception {
