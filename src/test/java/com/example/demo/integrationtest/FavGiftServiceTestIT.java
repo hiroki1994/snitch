@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.login.domain.model.FavGift;
@@ -22,7 +21,6 @@ import com.example.demo.login.domain.service.FavGiftService;
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-@Sql({"/test_schema.sql", "/test_data.sql"})
 public class FavGiftServiceTestIT {
 
 	@Autowired

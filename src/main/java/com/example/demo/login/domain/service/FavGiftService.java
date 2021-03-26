@@ -74,4 +74,19 @@ public class FavGiftService {
 			return false;
 		}
 	}
+
+	public boolean deleteMany(String userName) {
+
+		int suceededRowNumber = dao.deleteMany(userName);
+
+		System.out.println(suceededRowNumber);
+
+		if(suceededRowNumber > 0) {
+
+			return true;
+		}
+
+		return false;
+	}
+
 }

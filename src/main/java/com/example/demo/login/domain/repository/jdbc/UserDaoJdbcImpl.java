@@ -1,9 +1,11 @@
 package com.example.demo.login.domain.repository.jdbc;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
@@ -21,7 +23,7 @@ public class UserDaoJdbcImpl implements UserDao {
 	PasswordEncoder passwordEncoder;
 
 	@Override
-	public int insertOne(User user) throws DataAccessException {
+	public int create(User user) throws DataAccessException, SQLException {
 
 		String password = passwordEncoder.encode(user.getPassword());
 
@@ -42,7 +44,7 @@ public class UserDaoJdbcImpl implements UserDao {
 	}
 
 	@Override
-	public int updateOne(User user, String userName_LoggedIn) throws DataAccessException {
+	public int updateOne(User user, String userName_LoggedIn) throws DataAccessException, SQLException {
 
 		String password = passwordEncoder.encode(user.getPassword());
 
@@ -77,32 +79,22 @@ public class UserDaoJdbcImpl implements UserDao {
 	}
 
 	@Override
-	public int deleteOne(String userName) throws DataAccessException {
+	public int deleteOne(String userName) throws EmptyResultDataAccessException {
 
 		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
 
 		int rowNumber = jdbc.update("UPDATE userData SET unavailableFlag = '1' WHERE userId = ? AND unavailableFlag IS NULL", userId);
 
-		int rowNumber2 = jdbc.update("UPDATE favGift SET unavailableFlag = '1' WHERE userId = ? AND unavailableFlag IS NULL", userId);
-
-		if(rowNumber2 > 0) {
-			System.out.println("お気に入り削除完了");
-		} else {
-			System.out.println("お気に入り削除失敗");
-		}
-
 		return rowNumber;
 	}
 
 	@Override
-	public int exist(String userName) throws DataAccessException{
+	public int exist(String userName) throws DataAccessException {
 
-			int userNameExist = jdbc.queryForObject("SELECT COUNT(userName) FROM userData WHERE userName = ?", Integer.class, userName);
-
-			return userNameExist;
+		return jdbc.queryForObject("SELECT COUNT(userName) FROM userData WHERE userName = ?", Integer.class, userName);
 	}
 
-	public User findUser(String userName) throws DataAccessException{
+	public User findUser(String userName) throws DataAccessException {
 
 		Map<String, Object> map = jdbc.queryForMap("SELECT * FROM userData WHERE userName = ?", userName);
 

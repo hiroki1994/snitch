@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.unittest;
 
 
 import static org.junit.Assert.*;
@@ -14,7 +14,7 @@ import com.example.demo.login.domain.model.FavGift;
 public class FavGiftTest {
 
 	@Test
-	public void お気に入り情報投入取得() throws Exception {
+	public void setGetFavGift() throws Exception {
 
 		FavGift favGift = new FavGift();
 
@@ -59,7 +59,7 @@ public class FavGiftTest {
 	}
 
 	@Test
-	public void お気に入り情報投入取得_空() throws Exception {
+	public void favGift_empty() throws Exception {
 
 		FavGift favGift = new FavGift();
 

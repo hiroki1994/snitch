@@ -20,14 +20,14 @@ import com.example.demo.login.domain.model.UserForm;
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
-public class MyPageControllerTestIT {
+public class MyPageControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void ユーザー登録情報削除() throws Exception {
+	public void deleteUser() throws Exception {
 
 		mockMvc.perform(post("/deleteUser").with(csrf()))
 			.andExpect(status().isFound())
@@ -36,7 +36,7 @@ public class MyPageControllerTestIT {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void 登録情報取得() throws Exception {
+	public void showUserInfo() throws Exception {
 
 		mockMvc.perform(post("/mypage/updateUser").with(csrf()))
 			.andExpect(status().isOk())
@@ -46,7 +46,7 @@ public class MyPageControllerTestIT {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void 登録情報更新成功() throws Exception {
+	public void updateUserInfo_success() throws Exception {
 
 		UserForm form = new UserForm();
 
@@ -61,7 +61,7 @@ public class MyPageControllerTestIT {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void 登録情報更新成功_認証済みユーザーネームと同名() throws Exception {
+	public void updateUserInfo_success_UsernameIsEqualToAuthentivatedUserName() throws Exception {
 
 		UserForm form = new UserForm();
 
@@ -76,7 +76,7 @@ public class MyPageControllerTestIT {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void 登録情報更新失敗_ユーザーネームユニークエラー() throws Exception {
+	public void updateUserInfo_fail_UsernameUniqueError() throws Exception {
 
 		UserForm form = new UserForm();
 
@@ -91,14 +91,13 @@ public class MyPageControllerTestIT {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void 登録情報更新失敗_バリデーションエラー() throws Exception {
+	public void updateUserInfo_fail_ValidationError() throws Exception {
 
 		UserForm form = new UserForm();
 
-		form.setUserName("くに");
+		form.setUserName("ああ");
 		form.setMailAddress("mail");
-		form.setPassword("くに");
-
+		form.setPassword("いい");
 
 		mockMvc.perform(post("/updateUserInfo").flashAttr("userForm", form).with(csrf()))
 			.andExpect(status().isOk())
@@ -113,7 +112,7 @@ public class MyPageControllerTestIT {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void listFavGift() throws Exception {
+	public void showFavoriteList() throws Exception {
 
 		String userName = "userName3";
 
@@ -128,7 +127,7 @@ public class MyPageControllerTestIT {
 
 	@Test
 	@WithMockUser(username="userName4")
-	public void listFavGift_NoFavGift() throws Exception {
+	public void showFavoriteList_NoFavGift() throws Exception {
 
 		String userName = "userName4";
 

@@ -8,25 +8,25 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
+
+import com.example.demo.login.domain.model.SearchForm;
 
 
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class HomeControllerTestIT {
+public class CustomHandlerInterceptorTest {
 
 	@Autowired
 	private MockMvc mockMvc;
 
-
 	@Test
-	@Sql({"/test_schema.sql", "/test_data.sql"})
-	public void showHome() throws Exception {
+	public void addSearchFormObject() throws Exception {
+
+		SearchForm searchForm = new SearchForm();
 
 		mockMvc.perform(get("/home"))
-			.andExpect(status().isOk())
-			.andExpect(view().name("home/home"));
+			.andExpect(model().attribute("searchForm", searchForm));
 	}
 }

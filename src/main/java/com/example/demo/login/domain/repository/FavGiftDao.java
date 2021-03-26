@@ -2,6 +2,7 @@ package com.example.demo.login.domain.repository;
 
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 
@@ -18,5 +19,7 @@ public interface FavGiftDao  {
 
 	public int existFavId(String userName, int giftId) throws EmptyResultDataAccessException;
 
-	public int delete(String userName, int giftId) throws EmptyResultDataAccessException;
+	public int delete(String userName, int giftId) throws DataAccessException;
+
+	public int deleteMany(String userName) throws DataAccessException;
 }

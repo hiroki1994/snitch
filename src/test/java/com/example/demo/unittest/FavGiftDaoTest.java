@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.login.domain.model.FavGift;
@@ -23,7 +22,6 @@ import com.example.demo.login.domain.repository.FavGiftDao;
 @SpringBootTest
 @Transactional
 @ActiveProfiles("test")
-@Sql({"/test_schema.sql", "/test_data.sql"})
 public class FavGiftDaoTest {
 
 	@Autowired

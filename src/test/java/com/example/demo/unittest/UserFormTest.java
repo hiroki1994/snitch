@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.unittest;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -16,7 +16,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.jdbc.Sql;
 
 import com.example.demo.login.domain.model.UserForm;
 import com.example.demo.login.domain.model.ValidGroup1;
@@ -35,8 +34,7 @@ public class UserFormTest {
 	}
 
 	@Test
-	@Sql({"/test_schema.sql", "/test_data.sql"})
-	public void 登録情報投入取得_バリデーションエラーなし() throws Exception {
+	public void setGetUserForm() throws Exception {
 
 		UserForm UserForm = new UserForm();
 
@@ -55,6 +53,16 @@ public class UserFormTest {
 		assertEquals("testUser10", actualUserName);
 		assertEquals("test@gmail.com", actualMailAddress);
 		assertEquals("testpassword10", actualPassword);
+	}
+
+	@Test
+	public void setUserForm_validatedSuccessfully() throws Exception {
+
+		UserForm UserForm = new UserForm();
+
+		UserForm.setUserName("testUser10");
+		UserForm.setMailAddress("test@gmail.com");
+		UserForm.setPassword("testpassword10");
 
 		Set<ConstraintViolation<UserForm>> constraintValidation = validator.validate(UserForm, ValidGroup1.class, ValidGroup2.class);
 
@@ -62,7 +70,7 @@ public class UserFormTest {
 	}
 
 	@Test
-	public void 登録情報投入_バリデーションエラー_空白() throws Exception {
+	public void setUserForm_error_blank() throws Exception {
 
 		UserForm UserForm = new UserForm();
 
@@ -89,7 +97,7 @@ public class UserFormTest {
 	}
 
 	@Test
-	public void 登録情報投入_バリデーションエラー_文字数() throws Exception {
+	public void setUserForm_error_length() throws Exception {
 
 		UserForm UserForm = new UserForm();
 
@@ -114,7 +122,7 @@ public class UserFormTest {
 	}
 
 	@Test
-	public void 登録情報投入_バリデーションエラー_パターン() throws Exception {
+	public void setUserForm_error_pattern() throws Exception {
 
 		UserForm UserForm = new UserForm();
 
@@ -139,7 +147,7 @@ public class UserFormTest {
 	}
 
 	@Test
-	public void 登録情報投入_バリデーションエラー_メールアドレス() throws Exception {
+	public void setUserForm_error_email() throws Exception {
 
 		UserForm userForm = new UserForm();
 

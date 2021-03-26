@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.unittest;
 
 
 import static org.junit.Assert.*;
@@ -14,7 +14,7 @@ import com.example.demo.login.domain.model.Gift;
 public class GiftTest {
 
 	@Test
-	public void お土産情報投入取得() throws Exception {
+	public void setGetGift() throws Exception {
 
 		Gift gift = new Gift();
 
@@ -56,7 +56,7 @@ public class GiftTest {
 	}
 
 	@Test
-	public void お土産情報投入取得_空() throws Exception {
+	public void Gift_empty() throws Exception {
 
 		Gift gift = new Gift();
 

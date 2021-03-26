@@ -48,12 +48,20 @@ public class MyPageController {
 
 		String userName = request.getRemoteUser();
 
-		boolean result = userService.deleteOne(userName);
+		boolean resultDeleteFav = favGiftService.deleteMany(userName);
 
-		if(result == true) {
-			System.out.println("削除成功");
+		if(resultDeleteFav) {
+			System.out.println("お気に入り全件削除成功");
 		} else {
-			System.out.println("削除失敗");
+			System.out.println("お気に入り全件削除失敗");
+		}
+
+		boolean resultDeleteUser = userService.deleteOne(userName);
+
+		if(resultDeleteUser) {
+			System.out.println("ユーザー削除成功");
+		} else {
+			System.out.println("ユーザー削除失敗");
 		}
 
 		try {
@@ -96,7 +104,7 @@ public class MyPageController {
 
 		boolean result = userService.updateOne(user, userName);
 
-		if(result == true) {
+		if(result) {
 			System.out.println("更新成功");
 		} else {
 			System.out.println("更新失敗");
