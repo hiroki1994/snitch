@@ -25,13 +25,7 @@ public class FavGiftController {
 
 		String userName = httpServletRequest.getRemoteUser();
 
-		boolean result = favGiftService.create(userName, giftId);
-
-		if(result) {
-			System.out.println("お気に入り登録成功");
-		} else {
-			System.out.println("お気に入り登録失敗");
-		}
+		favGiftService.create(userName, giftId);
 
 		String url = "/giftDetail/" + giftId;
 
@@ -43,17 +37,10 @@ public class FavGiftController {
 
 		String userName = request.getRemoteUser();
 
-		boolean result = favGiftService.delete(userName, giftId);
-
-		if(result) {
-			System.out.println("お気に入り登録解除完了");
-		} else {
-			System.out.println("お気に入り登録解除失敗");
-		}
+		favGiftService.delete(userName, giftId);
 
 		String url = "/giftDetail/" + giftId;
 
 		response.sendRedirect(url);
 	}
 }
-

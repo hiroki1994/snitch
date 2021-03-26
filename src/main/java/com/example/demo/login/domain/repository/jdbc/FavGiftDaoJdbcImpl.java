@@ -73,12 +73,9 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	@Override
 	public int create(String userName, int giftId) throws DataIntegrityViolationException, EmptyResultDataAccessException {
 
-
 		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
 
 		int suceededRowNumber = jdbc.update("INSERT INTO favGift(userId, giftId) VALUES(?, ?)", userId, giftId);
-
-		System.out.println(suceededRowNumber);
 
 		return suceededRowNumber;
 	}

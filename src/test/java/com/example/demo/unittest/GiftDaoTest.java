@@ -10,7 +10,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.demo.login.domain.model.Gift;
@@ -19,7 +18,6 @@ import com.example.demo.login.domain.repository.GiftDao;
 
 
 @SpringBootTest
-@AutoConfigureMockMvc
 public class GiftDaoTest {
 
 	@Autowired

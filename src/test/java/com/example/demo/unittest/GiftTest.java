@@ -4,13 +4,12 @@ package com.example.demo.unittest;
 import static org.junit.Assert.*;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.demo.login.domain.model.Gift;
 
 @SpringBootTest
-@AutoConfigureMockMvc
 public class GiftTest {
 
 	@Test

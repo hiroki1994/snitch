@@ -14,7 +14,7 @@ import javax.validation.ValidatorFactory;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.demo.login.domain.model.UserForm;
@@ -22,7 +22,6 @@ import com.example.demo.login.domain.model.ValidGroup1;
 import com.example.demo.login.domain.model.ValidGroup2;
 
 @SpringBootTest
-@AutoConfigureMockMvc
 public class UserFormTest {
 
 	private Validator validator;

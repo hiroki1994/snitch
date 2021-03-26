@@ -26,64 +26,97 @@ public class FavGiftControllerTest {
 	@WithMockUser(username="userName3")
 	public void createFavGift_success() throws Exception {
 
-		String userName = "userName3";
-
-		int giftId = 1002;
-
 		mockMvc.perform(post("/favGift")
-			.param("userName", userName)
 			.param("giftId", "1002")
 			.with(csrf()))
 			.andExpect(status().isFound())
-			.andExpect(redirectedUrl("/giftDetail/" + giftId));
+			.andExpect(redirectedUrl("/giftDetail/" + 1002));
 	}
 
 	@Test
 	@WithMockUser(username="userName3")
 	public void createFavGift_fail_giftIdDoesNotExist() throws Exception {
 
-		String userName = "userName3";
-
-		int giftId = 9999;
-
 		mockMvc.perform(post("/favGift")
-			.param("userName", userName)
 			.param("giftId", "9999")
 			.with(csrf()))
-			.andExpect(status().isFound())
-			.andExpect(redirectedUrl("/giftDetail/" + giftId));
+			.andExpect(status().isOk())
+			.andExpect(view().name("error"));
+	}
+
+	@Test
+	@WithMockUser(username="userName5")
+	public void createFavGift_fail_userNameDoesNotExist() throws Exception {
+
+		mockMvc.perform(post("/favGift")
+			.param("giftId", "1000")
+			.with(csrf()))
+			.andExpect(status().isOk())
+			.andExpect(view().name("error"));
+	}
+
+	@Test
+	@WithMockUser(username="userName5")
+	public void createFavGift_fail_userNameAndUserIdDoesNotExist() throws Exception {
+
+		mockMvc.perform(post("/favGift")
+				.param("giftId", "1000")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error"));
 	}
 
 	@Test
 	@WithMockUser(username="userName3")
 	public void deleteFavGift_success() throws Exception {
 
-
-		String userName = "userName3";
-
-		int giftId = 1001;
-
 		mockMvc.perform(post("/notFavGift")
-			.param("userName", userName)
 			.param("giftId", "1001")
 			.with(csrf()))
 			.andExpect(status().isFound())
-			.andExpect(redirectedUrl("/giftDetail/" + giftId));
+			.andExpect(redirectedUrl("/giftDetail/" + 1001));
 	}
 
 	@Test
 	@WithMockUser(username="userName3")
 	public void deleteFavGift_fail_giftIdDoesNotExist() throws Exception {
 
-		String userName = "userName3";
-
-		int giftId = 9999;
-
 		mockMvc.perform(post("/notFavGift")
-			.param("userName", userName)
 			.param("giftId", "9999")
 			.with(csrf()))
 			.andExpect(status().isFound())
-			.andExpect(redirectedUrl("/giftDetail/" + giftId));
+			.andExpect(redirectedUrl("/giftDetail/" + 9999));
+	}
+
+	@Test
+	@WithMockUser(username="userName3")
+	public void deleteFavGift_fail_giftIsNotAddedToFavGift() throws Exception {
+
+		mockMvc.perform(post("/notFavGift")
+				.param("giftId", "1002")
+				.with(csrf()))
+				.andExpect(status().isFound())
+				.andExpect(redirectedUrl("/giftDetail/" + 1002));
+	}
+
+	@Test
+	@WithMockUser(username="userName5")
+	public void deleteFavGift_fail_userNameDoesNotExist() throws Exception {
+
+		mockMvc.perform(post("/favGift")
+				.param("giftId", "1000")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error"));
+	}
+
+	@Test
+	public void deleteFavGift_fail_userNameAndUserIdDoesNotExist() throws Exception {
+
+		mockMvc.perform(post("/favGift")
+				.param("giftId", "9999")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error"));
 	}
 }
