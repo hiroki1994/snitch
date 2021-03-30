@@ -16,18 +16,38 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
-public class MyPageControllerTest {
+public class WithdrawControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
 
 	@Test
 	@WithMockUser(username = "userName3")
-	public void showMypage() throws Exception {
+	public void showDeletePage() throws Exception {
 
-		mockMvc.perform(get("/mypage")
+		mockMvc.perform(post("/mypage/deleteUser")
 				.with(csrf()))
 				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("userName3")));
+				.andExpect(content().string(containsString("本当に退会してもよろしいでしょうか?")));
+	}
+
+	@Test
+	@WithMockUser(username = "userName3")
+	public void deleteUser_success() throws Exception {
+
+		mockMvc.perform(post("/deleteUser")
+				.with(csrf()))
+				.andExpect(status().isFound())
+				.andExpect(redirectedUrl("/login"));
+	}
+
+	@Test
+	@WithMockUser(username = "userName5")
+	public void deleteUser_fail_userNameDoesNotExist() throws Exception {
+
+		mockMvc.perform(post("/deleteUser")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error"));
 	}
 }

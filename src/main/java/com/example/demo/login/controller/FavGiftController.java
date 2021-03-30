@@ -1,6 +1,7 @@
 package com.example.demo.login.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.login.domain.model.FavGift;
 import com.example.demo.login.domain.service.FavGiftService;
 
 
@@ -42,5 +44,26 @@ public class FavGiftController {
 		String url = "/giftDetail/" + giftId;
 
 		response.sendRedirect(url);
+	}
+
+	@PostMapping("/mypage/favorite")
+	public String show(Model model, HttpServletRequest httpServletRequest) {
+
+		String userName = httpServletRequest.getRemoteUser();
+
+		int favIds = favGiftService.count(userName);
+
+		model.addAttribute("favIds", favIds);
+
+		if (favIds == 0) {
+
+			return "mypage/favorite/favorite";
+		}
+
+		List<FavGift> allFavGifts = favGiftService.selectAll(userName);
+
+		model.addAttribute("allFavGifts", allFavGifts);
+
+		return "mypage/favorite/favorite";
 	}
 }

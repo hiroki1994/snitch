@@ -1,6 +1,7 @@
 package com.example.demo.integrationtest;
 
 
+import static org.hamcrest.CoreMatchers.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -115,6 +116,41 @@ public class FavGiftControllerTest {
 
 		mockMvc.perform(post("/favGift")
 				.param("giftId", "9999")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error"));
+	}
+
+	@Test
+	@WithMockUser(username = "userName3")
+	public void showFavoriteList_success() throws Exception {
+
+		mockMvc.perform(post("/mypage/favorite")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("mypage/favorite/favorite"))
+				.andExpect(content().string(containsString("お気に入り")))
+				.andExpect(content().string(containsString("2件")))
+				.andExpect(content().string(containsString("マカロン")));
+	}
+
+	@Test
+	@WithMockUser(username = "userName4")
+	public void showFavoriteList_success_noFavGift() throws Exception {
+
+		mockMvc.perform(post("/mypage/favorite")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("mypage/favorite/favorite"))
+				.andExpect(content().string(containsString("お気に入り")))
+				.andExpect(content().string(containsString("0件")));
+	}
+
+	@Test
+	@WithMockUser(username = "userName5")
+	public void showFavoriteList_fail_userNameDoesNotExist() throws Exception {
+
+		mockMvc.perform(post("/mypage/favorite")
 				.with(csrf()))
 				.andExpect(status().isOk())
 				.andExpect(view().name("error"));

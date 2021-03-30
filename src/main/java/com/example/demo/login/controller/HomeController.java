@@ -21,7 +21,7 @@ public class HomeController {
 	GiftService giftService;
 
 	@GetMapping("/home")
-	public String showHomePage(Model model) {
+	public String show(Model model) {
 
 		List<Gift> selectedGifts = giftService.selectMany();
 
