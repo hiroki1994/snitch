@@ -10,8 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.example.demo.SecurityConfig;
 import com.example.demo.login.domain.model.GroupOrder;
@@ -29,7 +30,7 @@ public class UpdateUserInfoController {
 	@Autowired
 	FavGiftService favGiftService;
 
-	@PostMapping("/mypage/updateUser")
+	@GetMapping("/mypage/updateUser")
 	public String show(@ModelAttribute UserForm form, Model model, HttpServletRequest request) {
 
 		String userName = request.getRemoteUser();
@@ -44,7 +45,7 @@ public class UpdateUserInfoController {
 		return "mypage/updateUser/updateUser";
 	}
 
-	@PostMapping("/updateUserInfo")
+	@PutMapping("/updateUserInfo")
 	public String update(@ModelAttribute @Validated(GroupOrder.class) UserForm form, BindingResult bindingResult,
 			Model model, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {

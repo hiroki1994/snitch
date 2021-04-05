@@ -54,7 +54,7 @@ public class UpdateUserInfoControllerTest {
 		form.setMailAddress("mail@gmail.com");
 		form.setPassword("7777");
 
-		mockMvc.perform(post("/updateUserInfo").flashAttr("userForm", form).with(csrf()))
+		mockMvc.perform(put("/updateUserInfo").flashAttr("userForm", form).with(csrf()))
 				.andExpect(status().isFound())
 				.andExpect(redirectedUrl("/mypage"));
 	}
@@ -69,7 +69,7 @@ public class UpdateUserInfoControllerTest {
 		form.setMailAddress("mail@gmail.com");
 		form.setPassword("7777");
 
-		mockMvc.perform(post("/updateUserInfo").flashAttr("userForm", form)
+		mockMvc.perform(put("/updateUserInfo").flashAttr("userForm", form)
 				.with(csrf()))
 				.andExpect(status().isFound())
 				.andExpect(redirectedUrl("/mypage"));
@@ -85,7 +85,7 @@ public class UpdateUserInfoControllerTest {
 		form.setMailAddress("mail@gmail.com");
 		form.setPassword("7777");
 
-		mockMvc.perform(post("/updateUserInfo").flashAttr("userForm", form)
+		mockMvc.perform(put("/updateUserInfo").flashAttr("userForm", form)
 				.with(csrf()))
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("入力されたユーザーネームは既に使用されています")));
@@ -101,7 +101,7 @@ public class UpdateUserInfoControllerTest {
 		form.setMailAddress("mail");
 		form.setPassword("いい");
 
-		mockMvc.perform(post("/updateUserInfo").flashAttr("userForm", form)
+		mockMvc.perform(put("/updateUserInfo").flashAttr("userForm", form)
 				.with(csrf()))
 				.andExpect(status().isOk())
 				.andExpect(view().name("mypage/updateUser/updateUser"))

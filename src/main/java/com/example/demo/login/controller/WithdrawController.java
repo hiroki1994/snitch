@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.demo.SecurityConfig;
 import com.example.demo.login.domain.service.FavGiftService;
@@ -22,12 +23,12 @@ public class WithdrawController {
 	@Autowired
 	FavGiftService favGiftService;
 
-	@PostMapping("/mypage/deleteUser")
+	@GetMapping("/mypage/deleteUser")
 	public String show() {
 		return "mypage/deleteUser/deleteUser";
 	}
 
-	@PostMapping("/deleteUser")
+	@DeleteMapping("/users")
 	public void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		String userName = request.getRemoteUser();

@@ -71,7 +71,7 @@ public class FavGiftControllerTest {
 	@WithMockUser(username="userName3")
 	public void deleteFavGift_success() throws Exception {
 
-		mockMvc.perform(post("/notFavGift")
+		mockMvc.perform(delete("/notFavGift")
 			.param("giftId", "1001")
 			.with(csrf()))
 			.andExpect(status().isFound())
@@ -82,7 +82,7 @@ public class FavGiftControllerTest {
 	@WithMockUser(username="userName3")
 	public void deleteFavGift_fail_giftIdDoesNotExist() throws Exception {
 
-		mockMvc.perform(post("/notFavGift")
+		mockMvc.perform(delete("/notFavGift")
 			.param("giftId", "9999")
 			.with(csrf()))
 			.andExpect(status().isFound())
@@ -93,7 +93,7 @@ public class FavGiftControllerTest {
 	@WithMockUser(username="userName3")
 	public void deleteFavGift_fail_giftIsNotAddedToFavGift() throws Exception {
 
-		mockMvc.perform(post("/notFavGift")
+		mockMvc.perform(delete("/notFavGift")
 				.param("giftId", "1002")
 				.with(csrf()))
 				.andExpect(status().isFound())
@@ -104,7 +104,7 @@ public class FavGiftControllerTest {
 	@WithMockUser(username="userName5")
 	public void deleteFavGift_fail_userNameDoesNotExist() throws Exception {
 
-		mockMvc.perform(post("/favGift")
+		mockMvc.perform(delete("/favGift")
 				.param("giftId", "1000")
 				.with(csrf()))
 				.andExpect(status().isOk())
@@ -114,7 +114,7 @@ public class FavGiftControllerTest {
 	@Test
 	public void deleteFavGift_fail_userNameAndUserIdDoesNotExist() throws Exception {
 
-		mockMvc.perform(post("/favGift")
+		mockMvc.perform(delete("/favGift")
 				.param("giftId", "9999")
 				.with(csrf()))
 				.andExpect(status().isOk())
@@ -125,7 +125,7 @@ public class FavGiftControllerTest {
 	@WithMockUser(username = "userName3")
 	public void showFavoriteList_success() throws Exception {
 
-		mockMvc.perform(post("/mypage/favorite")
+		mockMvc.perform(get("/mypage/favorite")
 				.with(csrf()))
 				.andExpect(status().isOk())
 				.andExpect(view().name("mypage/favorite/favorite"))
@@ -138,7 +138,7 @@ public class FavGiftControllerTest {
 	@WithMockUser(username = "userName4")
 	public void showFavoriteList_success_noFavGift() throws Exception {
 
-		mockMvc.perform(post("/mypage/favorite")
+		mockMvc.perform(get("/mypage/favorite")
 				.with(csrf()))
 				.andExpect(status().isOk())
 				.andExpect(view().name("mypage/favorite/favorite"))
@@ -150,7 +150,7 @@ public class FavGiftControllerTest {
 	@WithMockUser(username = "userName5")
 	public void showFavoriteList_fail_userNameDoesNotExist() throws Exception {
 
-		mockMvc.perform(post("/mypage/favorite")
+		mockMvc.perform(get("/mypage/favorite")
 				.with(csrf()))
 				.andExpect(status().isOk())
 				.andExpect(view().name("error"));

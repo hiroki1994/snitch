@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -34,7 +36,7 @@ public class FavGiftController {
 		response.sendRedirect(url);
 	}
 
-	@PostMapping("/notFavGift")
+	@DeleteMapping("/notFavGift")
 	public void delete(Model model, @RequestParam("giftId") int giftId, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		String userName = request.getRemoteUser();
@@ -46,7 +48,7 @@ public class FavGiftController {
 		response.sendRedirect(url);
 	}
 
-	@PostMapping("/mypage/favorite")
+	@GetMapping("/mypage/favorite")
 	public String show(Model model, HttpServletRequest httpServletRequest) {
 
 		String userName = httpServletRequest.getRemoteUser();

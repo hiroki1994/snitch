@@ -20,11 +20,11 @@
 		<div class="gift-left col-sm-5 ">
 			<img  class="gift-image" th:src="@{'/image/'+${giftDetail.image}}" alt="gift-image">
 			<div   sec:authorize="isAuthenticated()">
-				<form id="favGift" th:action="@{/favGift}" method="post">
+				<form id="favGift" th:action="@{/favGift}" th:method="post">
 					<input th:value="${giftDetail.giftId}" name="giftId" type="hidden" />
 					<button th:if="${#bools.isFalse(result)}" class="update-btn btn-warning text-nowrap" style="color:white" type="submit" ><i class="fas fa-heart" style="color:white"></i> お気に入り</button>
             	</form>
-            	<form id="notFavGift" th:action="@{/notFavGift}" method="post">
+            	<form id="notFavGift" th:action="@{/notFavGift}" th:method="delete">
 					<input th:value="${giftDetail.giftId}" name="giftId" type="hidden" />
 					<button th:if="${#bools.isTrue(result)}" class="update-btn btn-danger text-nowrap" style="color:white" type="submit" ><i class="fas fa-ban" style="color:white"></i> お気に入り解除</button>
             	</form>

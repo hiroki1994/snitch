@@ -25,7 +25,7 @@ public class SignupControllerTest {
 	@Test
 	public void showSignupPage() throws Exception {
 
-		mockMvc.perform(post("/signup")
+		mockMvc.perform(get("/signup")
 				.with(csrf()))
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("ユーザー登録画面")));

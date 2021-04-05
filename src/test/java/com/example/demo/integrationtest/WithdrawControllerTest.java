@@ -35,7 +35,7 @@ public class WithdrawControllerTest {
 	@WithMockUser(username = "userName3")
 	public void deleteUser_success() throws Exception {
 
-		mockMvc.perform(post("/deleteUser")
+		mockMvc.perform(delete("/users")
 				.with(csrf()))
 				.andExpect(status().isFound())
 				.andExpect(redirectedUrl("/login"));
@@ -45,7 +45,7 @@ public class WithdrawControllerTest {
 	@WithMockUser(username = "userName5")
 	public void deleteUser_fail_userNameDoesNotExist() throws Exception {
 
-		mockMvc.perform(post("/deleteUser")
+		mockMvc.perform(delete("/users")
 				.with(csrf()))
 				.andExpect(status().isOk())
 				.andExpect(view().name("error"));
