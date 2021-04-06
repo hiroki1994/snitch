@@ -27,18 +27,18 @@ public class FavGiftControllerTest {
 	@WithMockUser(username="userName3")
 	public void createFavGift_success() throws Exception {
 
-		mockMvc.perform(post("/favGift")
+		mockMvc.perform(post("/favGifts")
 			.param("giftId", "1002")
 			.with(csrf()))
 			.andExpect(status().isFound())
-			.andExpect(redirectedUrl("/giftDetail/" + 1002));
+			.andExpect(redirectedUrl("/gifts/" + 1002));
 	}
 
 	@Test
 	@WithMockUser(username="userName3")
 	public void createFavGift_fail_giftIdDoesNotExist() throws Exception {
 
-		mockMvc.perform(post("/favGift")
+		mockMvc.perform(post("/favGifts")
 			.param("giftId", "9999")
 			.with(csrf()))
 			.andExpect(status().isOk())
@@ -49,7 +49,7 @@ public class FavGiftControllerTest {
 	@WithMockUser(username="userName5")
 	public void createFavGift_fail_userNameDoesNotExist() throws Exception {
 
-		mockMvc.perform(post("/favGift")
+		mockMvc.perform(post("/favGifts")
 			.param("giftId", "1000")
 			.with(csrf()))
 			.andExpect(status().isOk())
@@ -60,7 +60,7 @@ public class FavGiftControllerTest {
 	@WithMockUser(username="userName5")
 	public void createFavGift_fail_userNameAndUserIdDoesNotExist() throws Exception {
 
-		mockMvc.perform(post("/favGift")
+		mockMvc.perform(post("/favGifts")
 				.param("giftId", "1000")
 				.with(csrf()))
 				.andExpect(status().isOk())
@@ -71,40 +71,40 @@ public class FavGiftControllerTest {
 	@WithMockUser(username="userName3")
 	public void deleteFavGift_success() throws Exception {
 
-		mockMvc.perform(delete("/notFavGift")
+		mockMvc.perform(delete("/favGifts")
 			.param("giftId", "1001")
 			.with(csrf()))
 			.andExpect(status().isFound())
-			.andExpect(redirectedUrl("/giftDetail/" + 1001));
+			.andExpect(redirectedUrl("/gifts/" + 1001));
 	}
 
 	@Test
 	@WithMockUser(username="userName3")
 	public void deleteFavGift_fail_giftIdDoesNotExist() throws Exception {
 
-		mockMvc.perform(delete("/notFavGift")
+		mockMvc.perform(delete("/favGifts")
 			.param("giftId", "9999")
 			.with(csrf()))
 			.andExpect(status().isFound())
-			.andExpect(redirectedUrl("/giftDetail/" + 9999));
+			.andExpect(redirectedUrl("/gifts/" + 9999));
 	}
 
 	@Test
 	@WithMockUser(username="userName3")
 	public void deleteFavGift_fail_giftIsNotAddedToFavGift() throws Exception {
 
-		mockMvc.perform(delete("/notFavGift")
+		mockMvc.perform(delete("/favGifts")
 				.param("giftId", "1002")
 				.with(csrf()))
 				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/giftDetail/" + 1002));
+				.andExpect(redirectedUrl("/gifts/" + 1002));
 	}
 
 	@Test
 	@WithMockUser(username="userName5")
 	public void deleteFavGift_fail_userNameDoesNotExist() throws Exception {
 
-		mockMvc.perform(delete("/favGift")
+		mockMvc.perform(delete("/favGifts")
 				.param("giftId", "1000")
 				.with(csrf()))
 				.andExpect(status().isOk())
@@ -114,7 +114,7 @@ public class FavGiftControllerTest {
 	@Test
 	public void deleteFavGift_fail_userNameAndUserIdDoesNotExist() throws Exception {
 
-		mockMvc.perform(delete("/favGift")
+		mockMvc.perform(delete("/favGifts")
 				.param("giftId", "9999")
 				.with(csrf()))
 				.andExpect(status().isOk())
@@ -125,7 +125,7 @@ public class FavGiftControllerTest {
 	@WithMockUser(username = "userName3")
 	public void showFavoriteList_success() throws Exception {
 
-		mockMvc.perform(get("/mypage/favorite")
+		mockMvc.perform(get("/mypage/favGifts")
 				.with(csrf()))
 				.andExpect(status().isOk())
 				.andExpect(view().name("mypage/favorite/favorite"))
@@ -138,7 +138,7 @@ public class FavGiftControllerTest {
 	@WithMockUser(username = "userName4")
 	public void showFavoriteList_success_noFavGift() throws Exception {
 
-		mockMvc.perform(get("/mypage/favorite")
+		mockMvc.perform(get("/mypage/favGifts")
 				.with(csrf()))
 				.andExpect(status().isOk())
 				.andExpect(view().name("mypage/favorite/favorite"))
@@ -150,7 +150,7 @@ public class FavGiftControllerTest {
 	@WithMockUser(username = "userName5")
 	public void showFavoriteList_fail_userNameDoesNotExist() throws Exception {
 
-		mockMvc.perform(get("/mypage/favorite")
+		mockMvc.perform(get("/mypage/favGifts")
 				.with(csrf()))
 				.andExpect(status().isOk())
 				.andExpect(view().name("error"));

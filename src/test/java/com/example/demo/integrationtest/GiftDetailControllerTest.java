@@ -19,11 +19,11 @@ public class GiftDetailControllerTest {
 	private MockMvc mockMvc;
 
 	@Test
-	public void showGiftDetail_success() throws Exception {
+	public void showgifts_success() throws Exception {
 
 		int giftId = 1000;
 
-		mockMvc.perform(get("/giftDetail/" + giftId)
+		mockMvc.perform(get("/gifts/" + giftId)
 			.param("giftId", "1000"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("giftDetail/giftDetail"));
@@ -31,11 +31,11 @@ public class GiftDetailControllerTest {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void showGiftDetail_addFavButton() throws Exception {
+	public void showgifts_addFavButton() throws Exception {
 
 		int giftId = 1004;
 
-		mockMvc.perform(get("/giftDetail/" + giftId)
+		mockMvc.perform(get("/gifts/" + giftId)
 			.param("giftId", "1000"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("giftDetail/giftDetail"))
@@ -44,11 +44,11 @@ public class GiftDetailControllerTest {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void showGiftDetail_removeFavButton() throws Exception {
+	public void showgifts_removeFavButton() throws Exception {
 
 		int giftId = 1000;
 
-		mockMvc.perform(get("/giftDetail/" + giftId)
+		mockMvc.perform(get("/gifts/" + giftId)
 			.param("giftId", "1000"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("giftDetail/giftDetail"))

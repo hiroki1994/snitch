@@ -20,9 +20,9 @@ public class AboutSnitchControllerTest {
 	@Test
 	public void showAboutPage() throws Exception {
 
-		mockMvc.perform(get("/aboutsnitch"))
+		mockMvc.perform(get("/about-snitch-page"))
 				.andExpect(status().isOk())
-				.andExpect(view().name("about/aboutSnitch"))
+				.andExpect(view().name("about/about_snitch"))
 				.andExpect(content().string(containsString("Snitchとは?")));
 	}
 }

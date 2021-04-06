@@ -20,14 +20,14 @@ public class SearchController {
 	@Autowired
 	GiftService giftService;
 
-	@GetMapping("/search")
+	@GetMapping("/gifts")
 	public String search(@Validated SearchForm form,  BindingResult bindingResult, Model model, @RequestParam("keyword") String keyword) {
 
 		if(bindingResult.hasErrors()) {
 
 			model.addAttribute("searchForm", form);
 
-			return "searchResult/searchResult";
+			return "search_result/search_result";
 		}
 
 		int giftCount = giftService.count(keyword);
@@ -36,14 +36,14 @@ public class SearchController {
 
 		if(giftCount == 0) {
 
-			return "searchResult/searchResult";
+			return "search_result/search_result";
 		}
 
 		List<Gift> selectedGifts = giftService.search(keyword);
 
 		model.addAttribute("selectedGifts", selectedGifts);
 
-		return "searchResult/searchResult";
+		return "search_result/search_result";
 	}
 }
 

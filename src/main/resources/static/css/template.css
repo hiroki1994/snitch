@@ -83,7 +83,7 @@ body {
 	font-size: 25px;
 }
 
-#SearchBox{
+#searchBox{
 	z-index: 100;
 	margin: 0 auto;
     position: relative;

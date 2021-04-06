@@ -25,7 +25,7 @@ public class SignupControllerTest {
 	@Test
 	public void showSignupPage() throws Exception {
 
-		mockMvc.perform(get("/signup")
+		mockMvc.perform(get("/registration-page")
 				.with(csrf()))
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("ユーザー登録画面")));
@@ -41,7 +41,7 @@ public class SignupControllerTest {
 		form.setMailAddress("mail@gmail.com");
 		form.setPassword("7777");
 
-		mockMvc.perform(post("/signupUser").flashAttr("userForm", form).with(csrf()))
+		mockMvc.perform(post("/users").flashAttr("userForm", form).with(csrf()))
 				.andExpect(status().isFound())
 				.andExpect(redirectedUrl("/mypage"));
 	}
@@ -55,7 +55,7 @@ public class SignupControllerTest {
 		form.setMailAddress("mail@gmail.com");
 		form.setPassword("7777");
 
-		mockMvc.perform(post("/signupUser").flashAttr("userForm", form).with(csrf()))
+		mockMvc.perform(post("/users").flashAttr("userForm", form).with(csrf()))
 				.andExpect(status().isOk())
 				.andExpect(view().name("signup/signup"))
 				.andExpect(content().string(containsString("入力されたユーザーネームは既に使用されています")));
@@ -70,7 +70,7 @@ public class SignupControllerTest {
 		form.setMailAddress("mail");
 		form.setPassword("いい");
 
-		mockMvc.perform(post("/signupUser").flashAttr("userForm", form).with(csrf()))
+		mockMvc.perform(post("/users").flashAttr("userForm", form).with(csrf()))
 				.andExpect(status().isOk())
 				.andExpect(view().name("signup/signup"))
 				.andExpect(content().string(containsString("ユーザーネームは3字以上20字以下で入力してください")))

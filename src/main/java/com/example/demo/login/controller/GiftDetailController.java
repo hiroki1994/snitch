@@ -23,7 +23,7 @@ public class GiftDetailController {
 	@Autowired
 	FavGiftService favGiftService;
 
-	@GetMapping("/giftDetail/{id}")
+	@GetMapping("/gifts/{id}")
 	public String show(@ModelAttribute GiftDetail detail, Model model, @PathVariable("id") int giftId, HttpServletRequest httpServletRequest) {
 
 		Gift gift = giftService.selectOne(giftId);
@@ -46,6 +46,6 @@ public class GiftDetailController {
 
 		model.addAttribute("result", result);
 
-		return "giftDetail/giftDetail";
+		return "gift_detail/gift_detail";
 	}
 }

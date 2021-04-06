@@ -26,13 +26,13 @@ public class SignupController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("/signup")
+	@GetMapping("/registration-page")
 	public String show(@ModelAttribute UserForm form, Model model) {
 
-		return "signup/signup";
+		return "registration/registration";
 	}
 
-	@PostMapping("/signupUser")
+	@PostMapping("/users")
 	public String create(@ModelAttribute @Validated(GroupOrder.class) UserForm form, BindingResult bindingResult, Model model, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 

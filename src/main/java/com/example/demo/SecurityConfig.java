@@ -62,15 +62,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http
 		    .authorizeRequests()
-		    	.antMatchers("/login").anonymous()
-		    	.antMatchers("/mypage").authenticated()
+		    	.antMatchers("/login-page").anonymous()
+		    	.antMatchers("/mypage/**").authenticated()
+		    	.antMatchers("/favgifts").authenticated()
 		        .anyRequest().permitAll();
 
 		http
 			.formLogin()
 				.loginProcessingUrl("/login")
-				.loginPage("/login")
-				.failureUrl("/login")
+				.loginPage("/login-page")
+				.failureUrl("/login-page")
 				.usernameParameter("userName")
 				.passwordParameter("password")
 				.defaultSuccessUrl("/mypage",true);
@@ -79,7 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.logout()
 				.logoutUrl("/logout")
 				.invalidateHttpSession(true)
-				.logoutSuccessUrl("/login");
+				.logoutSuccessUrl("/login-page");
 	}
 
     @Override
@@ -106,7 +107,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     		response.sendRedirect(urlMyPage);
         } catch (ServletException e) {
-        	String urlLogin = "/login";
+        	String urlLogin = "/login-page";
 
     		response.sendRedirect(urlLogin);
         }
@@ -117,11 +118,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         try {
             request.logout();
 
-            String urlLogin = "/login";
+            String urlLogin = "/login-page";
 
     		response.sendRedirect(urlLogin);
         } catch (ServletException e) {
-        	String urlLogin = "/login";
+        	String urlLogin = "/login-page";
 
     		response.sendRedirect(urlLogin);
         }

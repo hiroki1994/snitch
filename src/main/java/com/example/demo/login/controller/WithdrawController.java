@@ -23,12 +23,12 @@ public class WithdrawController {
 	@Autowired
 	FavGiftService favGiftService;
 
-	@GetMapping("/mypage/deleteUser")
+	@GetMapping("/mypage/withdrawal")
 	public String show() {
-		return "mypage/deleteUser/deleteUser";
+		return "mypage/withdrawal/withdrawal";
 	}
 
-	@DeleteMapping("/users")
+	@DeleteMapping("/mypage/users")
 	public void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		String userName = request.getRemoteUser();

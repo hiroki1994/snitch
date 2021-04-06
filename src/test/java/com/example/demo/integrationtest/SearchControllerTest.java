@@ -25,10 +25,10 @@ public class SearchControllerTest {
 
 		String keyword = "マカロン";
 
-		mockMvc.perform(get("/search")
+		mockMvc.perform(get("/gifts")
 			.param("keyword", keyword))
 			.andExpect(status().isOk())
-			.andExpect(view().name("searchResult/searchResult"))
+			.andExpect(view().name("search_result/search_result"))
 			.andExpect(content().string(containsString("2件見つかりました。")))
 			.andExpect(content().string(containsString("水川あさみ")));
 	}
@@ -38,10 +38,10 @@ public class SearchControllerTest {
 
 		String keyword = "H#4kこ";
 
-		mockMvc.perform(get("/search")
+		mockMvc.perform(get("/gifts")
 			.param("keyword", keyword))
 			.andExpect(status().isOk())
-			.andExpect(view().name("searchResult/searchResult"))
+			.andExpect(view().name("search_result/search_result"))
 			.andExpect(content().string(containsString("キーワードに該当するお土産はありませんでした。")));
 	}
 
@@ -50,10 +50,10 @@ public class SearchControllerTest {
 
 		String keyword = " ";
 
-		mockMvc.perform(get("/search")
+		mockMvc.perform(get("/gifts")
 			.param("keyword", keyword))
 			.andExpect(status().isOk())
-			.andExpect(view().name("searchResult/searchResult"))
+			.andExpect(view().name("search_result/search_result"))
 			.andExpect(content().string(containsString("キーワードを入力してください")));
 	}
 }

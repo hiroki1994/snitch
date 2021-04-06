@@ -30,7 +30,7 @@ public class UpdateUserInfoController {
 	@Autowired
 	FavGiftService favGiftService;
 
-	@GetMapping("/mypage/updateUser")
+	@GetMapping("/mypage/users")
 	public String show(@ModelAttribute UserForm form, Model model, HttpServletRequest request) {
 
 		String userName = request.getRemoteUser();
@@ -45,7 +45,7 @@ public class UpdateUserInfoController {
 		return "mypage/updateUser/updateUser";
 	}
 
-	@PutMapping("/updateUserInfo")
+	@PutMapping("/mypage/users")
 	public String update(@ModelAttribute @Validated(GroupOrder.class) UserForm form, BindingResult bindingResult,
 			Model model, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {

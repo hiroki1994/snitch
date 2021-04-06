@@ -20,7 +20,7 @@ public class LoginControllerTest {
 	@Test
 	public void showLoginPage() throws Exception {
 
-		mockMvc.perform(get("/login"))
+		mockMvc.perform(get("/login-page"))
 				.andExpect(status().isOk())
 				.andExpect(view().name("login/login"))
 				.andExpect(content().string(containsString("Login")));

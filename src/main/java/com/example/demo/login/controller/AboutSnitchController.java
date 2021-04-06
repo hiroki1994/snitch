@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class AboutSnitchController {
 
-	@GetMapping("/aboutsnitch")
+	@GetMapping("/about-snitch-page")
 	public String show() {
 
-		return "about/aboutSnitch";
+		return "about/about_snitch";
 	}
 }

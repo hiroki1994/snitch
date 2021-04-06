@@ -20,7 +20,7 @@ public class HomeController {
 	@Autowired
 	GiftService giftService;
 
-	@GetMapping("/home")
+	@GetMapping("/home-page")
 	public String show(Model model) {
 
 		List<Gift> selectedGifts = giftService.selectMany();

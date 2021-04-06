@@ -62,7 +62,7 @@ public class SecurityConfigTest {
 			.param("userName", userName)
 			.param("password", password))
 			.andExpect(status().isFound())
-			.andExpect(redirectedUrl("/login"));
+			.andExpect(redirectedUrl("/login-page"));
 	}
 
 	@Test
@@ -72,6 +72,6 @@ public class SecurityConfigTest {
 		mockMvc.perform(post("/logout")
 			.with(csrf()))
 			.andExpect(status().isFound())
-			.andExpect(redirectedUrl("/login"));
+			.andExpect(redirectedUrl("/login-page"));
 	}
 }

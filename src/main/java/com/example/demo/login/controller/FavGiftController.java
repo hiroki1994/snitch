@@ -24,31 +24,31 @@ public class FavGiftController {
 	@Autowired
 	FavGiftService favGiftService;
 
-	@PostMapping("/favGift")
+	@PostMapping("/favGifts")
 	public void create(Model model, @RequestParam("giftId") int giftId, HttpServletRequest httpServletRequest, HttpServletResponse response) throws IOException {
 
 		String userName = httpServletRequest.getRemoteUser();
 
 		favGiftService.create(userName, giftId);
 
-		String url = "/giftDetail/" + giftId;
+		String url = "/gifts/" + giftId;
 
 		response.sendRedirect(url);
 	}
 
-	@DeleteMapping("/notFavGift")
+	@DeleteMapping("/favGifts")
 	public void delete(Model model, @RequestParam("giftId") int giftId, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		String userName = request.getRemoteUser();
 
 		favGiftService.delete(userName, giftId);
 
-		String url = "/giftDetail/" + giftId;
+		String url = "/gifts/" + giftId;
 
 		response.sendRedirect(url);
 	}
 
-	@GetMapping("/mypage/favorite")
+	@GetMapping("/mypage/favGifts")
 	public String show(Model model, HttpServletRequest httpServletRequest) {
 
 		String userName = httpServletRequest.getRemoteUser();

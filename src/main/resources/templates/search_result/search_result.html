@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>searchResult</title>
-<link th:href="@{css/searchResult.css}" rel="stylesheet"></link>
+<link th:href="@{css/search_result.css}" rel="stylesheet"></link>
 
 
 </head>
@@ -21,7 +21,7 @@
 			<div class="giftList">
 			<div class="gift" th:each="gift : ${selectedGifts}">
 				<div class="gift2">
-		    		<a th:href="@{'/giftDetail/'+${gift.giftId}}"><img class="gift-picture" th:src="@{'/image/'+${gift.image}}" alt="gift-image"></a>
+		    		<a th:href="@{'/gifts/'+${gift.giftId}}"><img class="gift-picture" th:src="@{'/image/'+${gift.image}}" alt="gift-image"></a>
 					<p class="gift-name" th:text="${gift.giftName}"></p>
 					<p class="gift-guest" th:text="${gift.guestName}"></p>
 				</div>

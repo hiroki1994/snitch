@@ -25,16 +25,16 @@
 	<nav class="navbar">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="logo" href="/home"><img alt="siteLogo" src="../../css/logo.png" /></a>
+				<a class="logo" href="/home-page"><img alt="siteLogo" src="../../css/logo.png" /></a>
 				<ul class="navbar-list" >
 				    <li class="nav-item">
-						<a class="nav-link" href="/home">Home</a>
+						<a class="nav-link" href="/home-page">Home</a>
 					</li>
 					<li class="nav-item" sec:authorize="isAnonymous()">
-						<a class="nav-link" href="/login">Login</a>
+						<a class="nav-link" href="/login-page">Login</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/aboutsnitch">About Snitch</a>
+						<a class="nav-link" href="/about-snitch-page">About Snitch</a>
 					</li>
 					<li class="nav-item" sec:authorize="isAuthenticated()">
 						<a class="nav-link" href="/mypage">MyPage</a>
@@ -49,7 +49,7 @@
 		</div>
 	</nav>
 	<div class="form">
-		<form id="SearchBox" th:action="@{/search}" th:object="${searchForm}" th:method="get">
+		<form id="searchBox" th:action="@{/gifts}" th:object="${searchForm}" th:method="get">
 			<input id="sbox1" type="text" name="keyword" placeholder="Search" th:field="*{keyword}"/>
 			<button type="submit" id="sbtn1"><i class="fas fa-search"></i></button>
 		</form>
