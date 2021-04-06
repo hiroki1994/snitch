@@ -40,7 +40,7 @@
 						<a class="nav-link" href="/mypage">MyPage</a>
 					</li>
 					<li class="nav-link" sec:authorize="isAuthenticated()">
-						<form class="form-signout" th:action="@{/logout}">
+						<form class="form-signout" th:action="@{/logout}" th:method="post">
 					   		<button class="logout-btn" type="submit">Logout</button>
 						</form>
 					</li>

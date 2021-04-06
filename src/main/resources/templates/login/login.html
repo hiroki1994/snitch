@@ -11,7 +11,7 @@
 	<div layout:fragment="content">
 		<div class="loginWrapper">
 			<p class="pageTitle">Login</p>
-			<form th:action="@{/login}" th:method="get">
+			<form th:action="@{/login}" th:method="post">
 			    <p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
 			    	th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
 			    	class="text-danger">
@@ -24,7 +24,7 @@
 				<button class="btn btn-primary col-sm-2" type="submit">ログイン</button>
 			</form>
 			<br />
-			<form class="updatePage" th:action="@{/signup}" method="post">
+			<form class="updatePage" th:action="@{/signup}" th:method="get">
 				<button class="btn btn-success col-sm-2" type="submit">新規登録</button>
 			</form>
 		</div>
