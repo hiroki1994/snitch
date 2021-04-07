@@ -11,8 +11,8 @@
 	<script th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"></script>
 	<script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
 
-    <link th:href="@{../css/template.css}" rel="stylesheet"></link>
-    <link th:href="@{../../css/template.css}" rel="stylesheet"></link>
+    <link th:href="@{../css/layout/template.css}" rel="stylesheet"></link>
+    <link th:href="@{../../css/layout/template.css}" rel="stylesheet"></link>
 
 
 	<script src="https://kit.fontawesome.com/665f18a48e.js" crossorigin="anonymous"></script>
@@ -25,22 +25,22 @@
 	<nav class="navbar">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="logo" href="/home-page"><img alt="siteLogo" src="../../css/logo.png" /></a>
+				<a class="logo" href="/"><img alt="siteLogo" src="../../css/logo/logo.png" /></a>
 				<ul class="navbar-list" >
 				    <li class="nav-item">
-						<a class="nav-link" href="/home-page">Home</a>
+						<a class="nav-link" href="/">Home</a>
 					</li>
 					<li class="nav-item" sec:authorize="isAnonymous()">
-						<a class="nav-link" href="/login-page">Login</a>
+						<a class="nav-link" href="/users/session/login">Login</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/about-snitch-page">About Snitch</a>
+						<a class="nav-link" href="/about">About Snitch</a>
 					</li>
 					<li class="nav-item" sec:authorize="isAuthenticated()">
-						<a class="nav-link" href="/mypage">MyPage</a>
+						<a class="nav-link" href="/users/mypage">MyPage</a>
 					</li>
 					<li class="nav-link" sec:authorize="isAuthenticated()">
-						<form class="form-signout" th:action="@{/logout}" th:method="post">
+						<form class="form-signout" th:action="@{/users/session/logout}" th:method="post">
 					   		<button class="logout-btn" type="submit">Logout</button>
 						</form>
 					</li>
@@ -49,7 +49,7 @@
 		</div>
 	</nav>
 	<div class="form">
-		<form id="searchBox" th:action="@{/gifts}" th:object="${searchForm}" th:method="get">
+		<form id="searchBox" th:action="@{/gifts/search}" th:object="${searchForm}" th:method="get">
 			<input id="sbox1" type="text" name="keyword" placeholder="Search" th:field="*{keyword}"/>
 			<button type="submit" id="sbtn1"><i class="fas fa-search"></i></button>
 		</form>
