@@ -29,5 +29,7 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+### issue Template ###
+.github/ISSUE_TEMPLATE/------------.md
 ### VS Code ###
 .vscode/
