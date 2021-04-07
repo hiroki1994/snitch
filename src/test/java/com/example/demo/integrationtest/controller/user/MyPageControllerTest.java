@@ -23,7 +23,7 @@ public class MyPageControllerTest {
 
 	@Test
 	@WithMockUser(username = "userName3")
-	public void showMypage() throws Exception {
+	public void displayMypage() throws Exception {
 
 		mockMvc.perform(get("/users/mypage")
 				.with(csrf()))

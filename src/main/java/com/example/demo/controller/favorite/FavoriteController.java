@@ -49,7 +49,7 @@ public class FavoriteController {
 	}
 
 	@GetMapping("/favorites")
-	public String show(Model model, HttpServletRequest httpServletRequest) {
+	public String display(Model model, HttpServletRequest httpServletRequest) {
 
 		String userName = httpServletRequest.getRemoteUser();
 

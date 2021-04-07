@@ -24,7 +24,7 @@ public class GiftController {
 	FavGiftService favGiftService;
 
 	@GetMapping("/gifts/{id}")
-	public String show(@ModelAttribute GiftDetail detail, Model model, @PathVariable("id") int giftId, HttpServletRequest httpServletRequest) {
+	public String display(@ModelAttribute GiftDetail detail, Model model, @PathVariable("id") int giftId, HttpServletRequest httpServletRequest) {
 
 		Gift gift = giftService.selectOne(giftId);
 

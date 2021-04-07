@@ -42,7 +42,7 @@ public class FavoriteControllerTest {
 			.param("giftId", "9999")
 			.with(csrf()))
 			.andExpect(status().isOk())
-			.andExpect(view().name("error"));
+			.andExpect(view().name("error/error"));
 	}
 
 	@Test
@@ -53,7 +53,7 @@ public class FavoriteControllerTest {
 			.param("giftId", "1000")
 			.with(csrf()))
 			.andExpect(status().isOk())
-			.andExpect(view().name("error"));
+			.andExpect(view().name("error/error"));
 	}
 
 	@Test
@@ -64,7 +64,7 @@ public class FavoriteControllerTest {
 				.param("giftId", "1000")
 				.with(csrf()))
 				.andExpect(status().isOk())
-				.andExpect(view().name("error"));
+				.andExpect(view().name("error/error"));
 	}
 
 	@Test
@@ -108,22 +108,23 @@ public class FavoriteControllerTest {
 				.param("giftId", "1000")
 				.with(csrf()))
 				.andExpect(status().isOk())
-				.andExpect(view().name("error"));
+				.andExpect(view().name("error/error"));
 	}
 
 	@Test
-	public void deleteFavGift_fail_userNameAndUserIdDoesNotExist() throws Exception {
+	@WithMockUser(username="userName5")
+	public void deleteFavGift_fail_userNameAndGiftIdDoesNotExist() throws Exception {
 
 		mockMvc.perform(delete("/favorites")
 				.param("giftId", "9999")
 				.with(csrf()))
 				.andExpect(status().isOk())
-				.andExpect(view().name("error"));
+				.andExpect(view().name("error/error"));
 	}
 
 	@Test
 	@WithMockUser(username = "userName3")
-	public void showFavoriteList_success() throws Exception {
+	public void displayFavoriteList_success() throws Exception {
 
 		mockMvc.perform(get("/favorites")
 				.with(csrf()))
@@ -136,7 +137,7 @@ public class FavoriteControllerTest {
 
 	@Test
 	@WithMockUser(username = "userName4")
-	public void showFavoriteList_success_noFavGift() throws Exception {
+	public void displayFavoriteList_success_noFavGift() throws Exception {
 
 		mockMvc.perform(get("/favorites")
 				.with(csrf()))
@@ -148,11 +149,11 @@ public class FavoriteControllerTest {
 
 	@Test
 	@WithMockUser(username = "userName5")
-	public void showFavoriteList_fail_userNameDoesNotExist() throws Exception {
+	public void displayFavoriteList_fail_userNameDoesNotExist() throws Exception {
 
 		mockMvc.perform(get("/favorites")
 				.with(csrf()))
 				.andExpect(status().isOk())
-				.andExpect(view().name("error"));
+				.andExpect(view().name("error/error"));
 	}
 }

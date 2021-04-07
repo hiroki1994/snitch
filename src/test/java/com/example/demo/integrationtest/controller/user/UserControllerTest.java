@@ -25,7 +25,7 @@ public class UserControllerTest {
 
 	@Test
 	@WithMockUser(username = "userName3")
-	public void showUserInfo() throws Exception {
+	public void displayUserInfo() throws Exception {
 
 		mockMvc.perform(get("/users/edit")
 				.with(csrf()))
@@ -36,12 +36,12 @@ public class UserControllerTest {
 
 	@Test
 	@WithMockUser(username = "userName5")
-	public void showUserInfo_fail_userNameDoesNotExist() throws Exception {
+	public void displayUserInfo_fail_userNameDoesNotExist() throws Exception {
 
 		mockMvc.perform(get("/users/edit")
 				.with(csrf()))
 				.andExpect(status().isOk())
-				.andExpect(view().name("error"));
+				.andExpect(view().name("error/error"));
 	}
 
 	@Test
@@ -114,7 +114,7 @@ public class UserControllerTest {
 	}
 
 	@Test
-	public void showregistrationPage() throws Exception {
+	public void displayregistrationPage() throws Exception {
 
 		mockMvc.perform(get("/users/new")
 				.with(csrf()))
@@ -184,7 +184,7 @@ public class UserControllerTest {
 
 	@Test
 	@WithMockUser(username = "userName3")
-	public void showWithdrawalPage() throws Exception {
+	public void displayWithdrawalPage() throws Exception {
 
 		mockMvc.perform(get("/users/withdrawal")
 				.with(csrf()))
@@ -199,6 +199,6 @@ public class UserControllerTest {
 		mockMvc.perform(delete("/users")
 				.with(csrf()))
 				.andExpect(status().isOk())
-				.andExpect(view().name("error"));
+				.andExpect(view().name("error/error"));
 	}
 }

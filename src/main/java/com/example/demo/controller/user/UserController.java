@@ -33,7 +33,7 @@ public class UserController {
 	FavGiftService favGiftService;
 
 	@GetMapping("/users/new")
-	public String show(@ModelAttribute UserForm form, Model model) {
+	public String display(@ModelAttribute UserForm form, Model model) {
 
 		return "registration/registration";
 	}
@@ -43,7 +43,7 @@ public class UserController {
 			HttpServletResponse response) throws IOException {
 
 		if (bindingResult.hasErrors()) {
-			return show(form, model);
+			return display(form, model);
 		}
 
 		System.out.println(form);
@@ -65,7 +65,7 @@ public class UserController {
 	}
 
 	@GetMapping("/users/edit")
-	public String show(@ModelAttribute UserForm form, Model model, HttpServletRequest request) {
+	public String display(@ModelAttribute UserForm form, Model model, HttpServletRequest request) {
 
 		String userName = request.getRemoteUser();
 
@@ -85,7 +85,7 @@ public class UserController {
 			HttpServletResponse response) throws IOException {
 
 		if (bindingResult.hasErrors()) {
-			return show(form, model, request);
+			return display(form, model, request);
 		}
 
 		String userName = request.getRemoteUser();
@@ -107,7 +107,7 @@ public class UserController {
 	}
 
 	@GetMapping("/users/withdrawal")
-	public String show() {
+	public String display() {
 		return "mypage/withdrawal/withdrawal";
 	}
 

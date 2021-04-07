@@ -18,7 +18,7 @@ public class AboutControllerTest {
 	private MockMvc mockMvc;
 
 	@Test
-	public void showAboutPage() throws Exception {
+	public void displayAboutPage() throws Exception {
 
 		mockMvc.perform(get("/about"))
 				.andExpect(status().isOk())

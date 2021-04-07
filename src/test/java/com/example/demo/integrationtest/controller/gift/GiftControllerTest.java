@@ -19,7 +19,7 @@ public class GiftControllerTest {
 	private MockMvc mockMvc;
 
 	@Test
-	public void showgifts_success() throws Exception {
+	public void displayGifts_success() throws Exception {
 
 		int giftId = 1000;
 
@@ -31,7 +31,7 @@ public class GiftControllerTest {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void showgifts_addFavButton() throws Exception {
+	public void displayGifts_addFavButton() throws Exception {
 
 		int giftId = 1004;
 
@@ -44,7 +44,7 @@ public class GiftControllerTest {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void showgifts_removeFavButton() throws Exception {
+	public void displayGifts_removeFavButton() throws Exception {
 
 		int giftId = 1000;
 

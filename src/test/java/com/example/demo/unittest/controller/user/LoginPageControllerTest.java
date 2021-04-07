@@ -18,7 +18,7 @@ public class LoginPageControllerTest {
 	private MockMvc mockMvc;
 
 	@Test
-	public void showLoginPage() throws Exception {
+	public void displayLoginPage() throws Exception {
 
 		mockMvc.perform(get("/users/session/login"))
 				.andExpect(status().isOk())
