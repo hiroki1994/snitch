@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -63,8 +64,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 		    .authorizeRequests()
 		    	.antMatchers("/users/session/login").anonymous()
-		    	.antMatchers("/mypage/**").authenticated()
-		    	.antMatchers("/favgifts").authenticated()
+		    	.antMatchers(HttpMethod.GET, "/users").authenticated()
+		    	.antMatchers(HttpMethod.PUT, "/users").authenticated()
+		    	.antMatchers(HttpMethod.DELETE, "/users").authenticated()
+		    	.antMatchers(HttpMethod.GET, "/favorites").authenticated()
+		    	.antMatchers(HttpMethod.POST, "/favorites").authenticated()
+		    	.antMatchers(HttpMethod.DELETE, "/favorites").authenticated()
 		        .anyRequest().permitAll();
 
 		http
