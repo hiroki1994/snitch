@@ -13,14 +13,14 @@ body {
 }
 
 p.title{
- 	font-color: white;
- 	font-size: 55px;
+ 	font-size: 10vh;
+ 	color: white;
 }
 
 p.outline{
-	font-size: 33px;
+	font-size: 7vh;
 }
 
 p.description{
-	font-size: 23px;
+	font-size: 4vh;
 }

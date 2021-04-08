@@ -8,12 +8,12 @@ body {
   height: 100%;
 }
 
-.signupWrapper {
+.registrationWrapper {
   height: 100vh;
 }
 
-.col-sm-4.offset-sm-4 {
-	min-width: 300px;
+.col-sm-6.offset-sm-3 {
+	min-width: 310px;
 }
 
 p.pageTitle {
