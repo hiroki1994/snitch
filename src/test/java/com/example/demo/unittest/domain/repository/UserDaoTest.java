@@ -30,7 +30,7 @@ public class UserDaoTest {
 	UserDao userDao;
 
 	@Test
-	public void signup_suceess() throws Exception {
+	public void regitration_suceess() throws Exception {
 
 		User user = new User();
 
@@ -46,7 +46,7 @@ public class UserDaoTest {
 	}
 
 	@Test
-	public void signup_fail_userNameUniqueError() throws Exception {
+	public void regitration_fail_userNameUniqueError() throws Exception {
 
 		User user = new User();
 
@@ -60,6 +60,27 @@ public class UserDaoTest {
 	}
 
 	@Test
+	public void getUserInfo_success() throws Exception {
+
+		String userName = "userName3";
+		User user = userDao.select(userName);
+
+		assertThat(user, hasProperty("userName", equalTo("userName3")));
+		assertThat(user, hasProperty("mailAddress", equalTo("mailaddress3@gmail.co.jp")));
+		assertThat(user, hasProperty("password", equalTo("$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa")));
+	}
+
+	@Test
+	public void getUserInfo_fail_userNameDoesNotExist() throws Exception {
+
+		String userName = "userName5";
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			userDao.select(userName);
+		});
+	}
+
+	@Test
 	public void updateUserInfo_success() throws Exception {
 
 		String userName = "userName3";
@@ -67,6 +88,24 @@ public class UserDaoTest {
 		User user = new User();
 
 		user.setUserName("userName5");
+		user.setMailAddress("mailaddress3@gmail.co.jp");
+		user.setPassword("password2");
+
+		int expected = 1;
+
+		int actual = userDao.update(user, userName);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void updateUserInfo_success_usernameIsUnchanged() throws Exception {
+
+		String userName = "userName3";
+
+		User user = new User();
+
+		user.setUserName("userName3");
 		user.setMailAddress("mailaddress3@gmail.co.jp");
 		user.setPassword("password2");
 
@@ -93,26 +132,7 @@ public class UserDaoTest {
 		});
 	}
 
-	@Test
-	public void getUserInfo_success() throws Exception {
 
-		String userName = "userName3";
-		User user = userDao.select(userName);
-
-		assertThat(user, hasProperty("userName", equalTo("userName3")));
-		assertThat(user, hasProperty("mailAddress", equalTo("mailaddress3@gmail.co.jp")));
-		assertThat(user, hasProperty("password", equalTo("$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa")));
-	}
-
-	@Test
-	public void getUserInfo_fail_userNameDoesNotExist() throws Exception {
-
-		String userName = "userName5";
-
-		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			userDao.select(userName);
-		});
-	}
 
 	@Test
 	public void deleteUser_success() throws Exception {

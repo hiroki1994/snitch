@@ -34,7 +34,7 @@ public class UserServiceTestUT {
 	}
 
 	@Test
-	public void signup_suceess() throws Exception {
+	public void registration_suceess() throws Exception {
 
 		User user = new User();
 
@@ -52,7 +52,7 @@ public class UserServiceTestUT {
 	}
 
 	@Test
-	public void signup_fail_usernameUniqueError() throws Exception {
+	public void registration_fail_usernameUniqueError() throws Exception {
 
 		User user = new User();
 
@@ -64,44 +64,6 @@ public class UserServiceTestUT {
 
 		Assertions.assertThrows(DuplicateKeyException.class, () -> {
 			userService.create(user);
-		});
-	}
-
-	@Test
-	public void updateUserInfo_success() throws Exception {
-
-		String userName = "userName3";
-
-		User user = new User();
-
-		user.setUserName("userName5");
-		user.setMailAddress("mailaddress3@gmail.co.jp");
-		user.setPassword("password2");
-
-		when(userDao.update(user, userName)).thenReturn(1);
-
-		int expected = 1;
-
-		int actual = userService.update(user, userName);
-
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	public void updateUserInfo_fail_usernameUniqueError() throws Exception {
-
-		String userName = "userName3";
-
-		User user = new User();
-
-		user.setUserName("userName4");
-		user.setMailAddress("mailaddress3@gmail.co.jp");
-		user.setPassword("password2");
-
-		when(userDao.update(user, userName)).thenThrow(DuplicateKeyException.class);
-
-		Assertions.assertThrows(DuplicateKeyException.class, () -> {
-			userService.update(user, userName);
 		});
 	}
 
@@ -131,6 +93,65 @@ public class UserServiceTestUT {
 			userService.select(userName);
 		});
 	}
+
+	@Test
+	public void updateUserInfo_success() throws Exception {
+
+		String userName = "userName3";
+
+		User user = new User();
+
+		user.setUserName("userName5");
+		user.setMailAddress("mailaddress3@gmail.co.jp");
+		user.setPassword("password2");
+
+		when(userDao.update(user, userName)).thenReturn(1);
+
+		int expected = 1;
+
+		int actual = userService.update(user, userName);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void updateUserInfo_success_usernameIsUnchanged() throws Exception {
+
+		String userName = "userName3";
+
+		User user = new User();
+
+		user.setUserName("userName3");
+		user.setMailAddress("mailaddress3@gmail.co.jp");
+		user.setPassword("password2");
+
+		when(userDao.update(user, userName)).thenReturn(1);
+
+		int expected = 1;
+		int actual = userService.update(user, userName);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void updateUserInfo_fail_usernameUniqueError() throws Exception {
+
+		String userName = "userName3";
+
+		User user = new User();
+
+		user.setUserName("userName4");
+		user.setMailAddress("mailaddress3@gmail.co.jp");
+		user.setPassword("password2");
+
+		when(userDao.update(user, userName)).thenThrow(DuplicateKeyException.class);
+
+		Assertions.assertThrows(DuplicateKeyException.class, () -> {
+			userService.update(user, userName);
+		});
+	}
+
+
 
 	@Test
 	public void deleteUser_success() throws Exception {

@@ -114,7 +114,7 @@ public class UserControllerTest {
 	}
 
 	@Test
-	public void displayregistrationPage() throws Exception {
+	public void displayRegistrationPage() throws Exception {
 
 		mockMvc.perform(get("/users/new")
 				.with(csrf()))
@@ -174,22 +174,22 @@ public class UserControllerTest {
 
 	@Test
 	@WithMockUser(username = "userName3")
-	public void deleteUser_success() throws Exception {
-
-		mockMvc.perform(delete("/users")
-				.with(csrf()))
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/users/session/login"));
-	}
-
-	@Test
-	@WithMockUser(username = "userName3")
 	public void displayWithdrawalPage() throws Exception {
 
 		mockMvc.perform(get("/users/withdrawal")
 				.with(csrf()))
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("本当に退会してもよろしいでしょうか?")));
+	}
+
+	@Test
+	@WithMockUser(username = "userName3")
+	public void deleteUser_success() throws Exception {
+
+		mockMvc.perform(delete("/users")
+				.with(csrf()))
+				.andExpect(status().isFound())
+				.andExpect(redirectedUrl("/users/session/login"));
 	}
 
 	@Test

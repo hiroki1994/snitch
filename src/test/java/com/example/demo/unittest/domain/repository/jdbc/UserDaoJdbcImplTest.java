@@ -24,7 +24,7 @@ public class UserDaoJdbcImplTest {
 	UserDaoJdbcImpl userDaoJdbcImpl;
 
 	@Test
-	public void signup_suceess() throws Exception {
+	public void registration_suceess() throws Exception {
 
 		User user = new User();
 
@@ -40,7 +40,7 @@ public class UserDaoJdbcImplTest {
 	}
 
 	@Test
-	public void signup_fail_userNameUniqueError() throws Exception {
+	public void registration_fail_userNameUniqueError() throws Exception {
 
 		User user = new User();
 
@@ -50,40 +50,6 @@ public class UserDaoJdbcImplTest {
 
 		Assertions.assertThrows(DuplicateKeyException.class, () -> {
 			userDaoJdbcImpl.create(user);
-		});
-	}
-
-	@Test
-	public void updateUserInfo_success() throws Exception {
-
-		String userName = "userName3";
-
-		User user = new User();
-
-		user.setUserName("userName5");
-		user.setMailAddress("mailaddress3@gmail.co.jp");
-		user.setPassword("password2");
-
-		int expected = 1;
-
-		int actual = userDaoJdbcImpl.update(user, userName);
-
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	public void updateUserInfo_fail_usernameUniqueError() throws Exception {
-
-		String userName = "userName3";
-
-		User user = new User();
-
-		user.setUserName("userName4");
-		user.setMailAddress("mailaddress3@gmail.co.jp");
-		user.setPassword("password2");
-
-		Assertions.assertThrows(DuplicateKeyException.class, () -> {
-			userDaoJdbcImpl.update(user, userName);
 		});
 	}
 
@@ -109,6 +75,57 @@ public class UserDaoJdbcImplTest {
 		});
 	}
 
+	@Test
+	public void updateUserInfo_success() throws Exception {
+
+		String userName = "userName3";
+
+		User user = new User();
+
+		user.setUserName("userName5");
+		user.setMailAddress("mailaddress3@gmail.co.jp");
+		user.setPassword("password2");
+
+		int expected = 1;
+
+		int actual = userDaoJdbcImpl.update(user, userName);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void updateUserInfo_success_usernameIsUnchanged() throws Exception {
+
+		String userName = "userName3";
+
+		User user = new User();
+
+		user.setUserName("userName3");
+		user.setMailAddress("mailaddress3@gmail.co.jp");
+		user.setPassword("password2");
+
+		int expected = 1;
+
+		int actual = userDaoJdbcImpl.update(user, userName);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void updateUserInfo_fail_usernameUniqueError() throws Exception {
+
+		String userName = "userName3";
+
+		User user = new User();
+
+		user.setUserName("userName4");
+		user.setMailAddress("mailaddress3@gmail.co.jp");
+		user.setPassword("password2");
+
+		Assertions.assertThrows(DuplicateKeyException.class, () -> {
+			userDaoJdbcImpl.update(user, userName);
+		});
+	}
 
 	@Test
 	public void deleteUser_success() throws Exception {

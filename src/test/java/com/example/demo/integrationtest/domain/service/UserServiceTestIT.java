@@ -28,7 +28,7 @@ public class UserServiceTestIT {
 	UserService userService;
 
 	@Test
-	public void signup_suceess() throws Exception {
+	public void registration_suceess() throws Exception {
 
 		User user = new User();
 
@@ -43,7 +43,7 @@ public class UserServiceTestIT {
 	}
 
 	@Test
-	public void signup_fail_usernameUniqueError() throws Exception {
+	public void registration_fail_usernameUniqueError() throws Exception {
 
 		User user = new User();
 
@@ -85,6 +85,23 @@ public class UserServiceTestIT {
 		User user = new User();
 
 		user.setUserName("userName5");
+		user.setMailAddress("mailaddress3@gmail.co.jp");
+		user.setPassword("password2");
+
+		int expected = 1;
+		int actual = userService.update(user, userName);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void updateUserInfo_success_usernameIsUnchanged() throws Exception {
+
+		String userName = "userName3";
+
+		User user = new User();
+
+		user.setUserName("userName3");
 		user.setMailAddress("mailaddress3@gmail.co.jp");
 		user.setPassword("password2");
 
