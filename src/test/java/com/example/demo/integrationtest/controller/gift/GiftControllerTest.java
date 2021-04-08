@@ -30,6 +30,18 @@ public class GiftControllerTest {
 	}
 
 	@Test
+	public void displayGifts_fail_giftIdDoesNotExist() throws Exception {
+
+		int giftId = 9999;
+
+		mockMvc.perform(get("/gifts/" + giftId)
+			   .param("giftId", "9999"))
+			   .andExpect(status().isOk())
+			   .andExpect(view().name("error/error"))
+			   .andExpect(content().string(containsString("指定されたページは存在しません")));
+	}
+
+	@Test
 	@WithMockUser(username="userName3")
 	public void displayGifts_addFavButton() throws Exception {
 

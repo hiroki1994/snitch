@@ -7,9 +7,11 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.domain.model.gift.Gift;
@@ -80,7 +82,7 @@ public class GiftServiceTestIT {
 	}
 
 	@Test
-	public void selectOneGift() {
+	public void selectOneGift_success() {
 
 		int giftId = 1000;
 
@@ -94,5 +96,15 @@ public class GiftServiceTestIT {
 		assertThat(gift, hasProperty("shop", equalTo("ジャン＝ポール･エヴァン伊勢丹新宿店")));
 		assertThat(gift, hasProperty("address", equalTo("東京都新宿区新宿3-14-1伊勢丹新宿店本館B1階")));
 		assertThat(gift, hasProperty("phone", equalTo("03-3352-1111")));
+	}
+
+	@Test
+	public void selectOneGift_fail_giftIdDoesNotExist() {
+
+		int giftId = 9999;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			giftService.selectOne(giftId);
+		});
 	}
 }

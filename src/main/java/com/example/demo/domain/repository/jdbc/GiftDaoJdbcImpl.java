@@ -52,7 +52,6 @@ public class GiftDaoJdbcImpl implements GiftDao {
 		}
 
 		return selectedGifts;
-
 	}
 
 	@Override
@@ -78,6 +77,7 @@ public class GiftDaoJdbcImpl implements GiftDao {
 
 			selectedGifts.add(gift);
 		}
+
 		return selectedGifts;
 	}
 

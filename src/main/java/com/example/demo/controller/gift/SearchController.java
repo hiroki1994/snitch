@@ -46,4 +46,3 @@ public class SearchController {
 		return "search_result/search_result";
 	}
 }
-

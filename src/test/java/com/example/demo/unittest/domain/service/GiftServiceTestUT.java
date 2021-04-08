@@ -7,12 +7,14 @@ import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import com.example.demo.domain.model.gift.Gift;
 import com.example.demo.domain.repository.GiftDao;
@@ -90,7 +92,7 @@ public class GiftServiceTestUT {
 	}
 
 	@Test
-	public void selectOneGift() {
+	public void selectOneGift_success() {
 
 		int giftId = 1000;
 
@@ -102,5 +104,17 @@ public class GiftServiceTestUT {
 		Gift actual = giftService.selectOne(giftId);
 
 		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void selectOneGift_fail_giftIdDoesNotExist() {
+
+		int giftId = 9999;
+
+		when(giftDao.selectOne(giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			giftService.selectOne(giftId);
+		});
 	}
 }
