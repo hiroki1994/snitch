@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/template}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+
+	<title>updateUser</title>
+	<script src="https://kit.fontawesome.com/665f18a48e.js" crossorigin="anonymous"></script>
+	<link th:href="@{../../css/gift_detail/gift_detail.css}" rel="stylesheet"></link>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+<title>giftDetail</title>
+</head>
+<body layout:fragment="content">
+
+<div class="giftDetailWrapper">
+	<div class="gift col-sm-10 offset-sm-1">
+		<div class="gift-left col-sm-5 ">
+			<img  class="gift-image" th:src="@{'/image/'+${giftDetail.image}}" alt="gift-image">
+			<div   sec:authorize="isAuthenticated()">
+				<form id="favGift" th:action="@{/favGifts}" th:method="post">
+					<input th:value="${giftDetail.giftId}" name="giftId" type="hidden" />
+					<button th:if="${#bools.isFalse(result)}" class="update-btn btn-warning text-nowrap" style="color:white" type="submit" ><i class="fas fa-heart" style="color:white"></i> お気に入り</button>
+            	</form>
+            	<form id="notFavGift" th:action="@{/favGifts}" th:method="delete">
+					<input th:value="${giftDetail.giftId}" name="giftId" type="hidden" />
+					<button th:if="${#bools.isTrue(result)}" class="update-btn btn-danger text-nowrap" style="color:white" type="submit" ><i class="fas fa-ban" style="color:white"></i> お気に入り解除</button>
+            	</form>
+			</div>
+			<div class="gift-text">
+				<p class="gift-guest" th:text="'紹介ゲスト: ' + ${giftDetail.guestName}"></p>
+				<p class="gift-price" th:text="${giftDetail.price}"></p>
+				<p class="gift-shop" th:text="${giftDetail.shop}"></p>
+				<p id="gift-address" th:text="${giftDetail.address}"></p>
+				<p class="gift-phone" th:text="${giftDetail.phone}"></p>
+			</div>
+			<!-- Google Maps APIの読み込み-->
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC65XTOXxOp_icTYWlhiPyIQCBoWvmvj6k&callback=initMapWithAddress" defer></script>
+		</div>
+		<div class="gift-right offset-sm-6">
+			<p class="gift-name" th:text="${giftDetail.giftName}"></p>
+			<p class="gift-description"th:text="${giftDetail.description}"></p>
+			<!-- Google Mapの表示 -->
+			<div id="map"></div>
+
+			<script>console.log(document.getElementById("gift-address").textContent);
+			var gift_address = document.getElementById("gift-address").textContent;
+			function initMapWithAddress() {
+			    var options = {
+			        zoom: 15,
+			        mapTypeId: google.maps.MapTypeId.ROADMAP
+			    };
+			    var gift_google_map = new google.maps.Map(document.getElementById('map'), options);
+
+			    var geocoder = new google.maps.Geocoder();
+			    geocoder.geocode(
+			      {
+			        'address': gift_address,
+			        'region': 'jp'
+			      },
+			      function(result, status){
+			          if(status==google.maps.GeocoderStatus.OK){
+
+			              var latlng = result[0].geometry.location;
+
+			              gift_google_map.setCenter(latlng);
+
+			              var marker = new google.maps.Marker({position:latlng, map:gift_google_map, title:latlng.toString(), draggable:true});
+
+			              google.maps.event.addListener(marker, 'dragend', function(event){
+
+			                  marker.setTitle(event.latLng.toString());
+			              });
+			          }
+			        }
+			      );
+			    }
+			  </script>
+		</div>
+	</div>
+</div>
+</body>
+</html>

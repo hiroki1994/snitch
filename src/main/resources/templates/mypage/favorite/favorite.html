@@ -8,7 +8,7 @@
 	<meta charset="UTF-8">
 	<title>favorite</title>
 	<script src="https://kit.fontawesome.com/665f18a48e.js" crossorigin="anonymous"></script>
-	<link th:href="@{../css/favorite.css}" rel="stylesheet"></link>
+	<link th:href="@{../css/mypage/favorite/favorite.css}" rel="stylesheet"></link>
 
 </head>
 <body layout:fragment="content">
@@ -20,7 +20,7 @@
 		<div class="giftList">
 			<div class="gift" th:each="gift : ${allFavGifts}">
 				<div class="gift2">
-		    		<a th:href="@{'/giftDetail/'+${gift.giftId}}"><img class="gift-picture" th:src="@{'/image/'+${gift.image}}" alt="gift-image"></a>
+		    		<a th:href="@{'/gifts/'+${gift.giftId}}"><img class="gift-picture" th:src="@{'/image/'+${gift.image}}" alt="gift-image"></a>
 					<p class="gift-name" th:text="${gift.giftName}"></p>
 					<p class="gift-guest"th:text="${gift.guestName}"></p>
 				</div>
