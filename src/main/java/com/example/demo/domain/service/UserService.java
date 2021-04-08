@@ -11,31 +11,26 @@ import com.example.demo.domain.repository.UserDao;
 @Service
 public class UserService {
 
-	@Autowired
-	UserDao dao;
+    @Autowired
+    UserDao dao;
 
-	public int create(User user) {
+    public int create(User user) {
+	return dao.create(user);
+    }
 
-		return dao.create(user);
-	}
+    public User select(String userName) {
+	return dao.select(userName);
+    }
 
-	public User select(String userName) {
+    public int update(User user, String userName_LoggedIn) {
+	return dao.update(user, userName_LoggedIn);
+    }
 
-		return dao.select(userName);
-	}
+    public int delete(String userName) {
+	return dao.delete(userName);
+    }
 
-	public int update(User user, String userName_LoggedIn) {
-
-		return dao.update(user, userName_LoggedIn);
-	}
-
-	public int delete(String userName) {
-
-		return dao.delete(userName);
-	}
-
-	public int exist(String userName) {
-
-		return dao.exist(userName);
-	}
+    public int exist(String userName) {
+	return dao.exist(userName);
+    }
 }

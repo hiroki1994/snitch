@@ -4,7 +4,6 @@ package com.example.demo.unittest.domain.model.favorite;
 import static org.junit.Assert.*;
 
 import org.junit.jupiter.api.Test;
-
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.demo.domain.model.favorite.FavGift;

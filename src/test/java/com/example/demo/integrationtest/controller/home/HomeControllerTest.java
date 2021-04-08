@@ -19,7 +19,6 @@ public class HomeControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 
-
 	@Test
 	public void displayHomePage() throws Exception {
 

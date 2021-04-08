@@ -14,19 +14,18 @@ import com.example.demo.domain.service.UserService;
 @Controller
 public class HomeController {
 
-	@Autowired
-	UserService userService;
+    @Autowired
+    UserService userService;
 
-	@Autowired
-	GiftService giftService;
+    @Autowired
+    GiftService giftService;
 
-	@GetMapping("/")
-	public String display(Model model) {
+    @GetMapping("/")
+    public String display(Model model) {
 
-		List<Gift> selectedGifts = giftService.selectMany();
+	List<Gift> selectedGifts = giftService.selectMany();
+	model.addAttribute("giftList", selectedGifts);
 
-		model.addAttribute("giftList", selectedGifts);
-
-		return "home/home";
-	}
+	return "home/home";
+    }
 }

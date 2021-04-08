@@ -17,60 +17,61 @@ import com.example.demo.domain.model.searchform.SearchForm;
 @Component
 public class GlobalControllAdvice {
 
+    @ExceptionHandler(EmptyResultDataAccessException.class)
+    public String emptyResultDataAccessExceptionHandler(EmptyResultDataAccessException e, Model model,
+	    HttpServletRequest request) {
 
-	@ExceptionHandler(EmptyResultDataAccessException.class)
-	public String emptyResultDataAccessExceptionHandler(EmptyResultDataAccessException e, Model model, HttpServletRequest request) {
-
-		if(request.getAttribute("searchForm")!=null) {
-			model.addAttribute((SearchForm)request.getAttribute("searchForm"));
-		}else{
-			model.addAttribute("searchForm", new SearchForm());
-		}
-
-		model.addAttribute("message", "指定されたページは存在しません");
-
-		return "error/error";
+	if (request.getAttribute("searchForm") != null) {
+	    model.addAttribute((SearchForm) request.getAttribute("searchForm"));
+	} else {
+	    model.addAttribute("searchForm", new SearchForm());
 	}
 
-	@ExceptionHandler(DataIntegrityViolationException.class)
-	public String dataIntegrityViolationExceptionHandler(DataIntegrityViolationException e, Model model, HttpServletRequest request) {
+	model.addAttribute("message", "指定されたページは存在しません");
 
-		if(request.getAttribute("searchForm")!=null) {
-			model.addAttribute((SearchForm)request.getAttribute("searchForm"));
-		}else{
-			model.addAttribute("searchForm", new SearchForm());
-		}
+	return "error/error";
+    }
 
-		model.addAttribute("message", "指定されたページは存在しません");
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public String dataIntegrityViolationExceptionHandler(DataIntegrityViolationException e, Model model,
+	    HttpServletRequest request) {
 
-		return "error/error";
+	if (request.getAttribute("searchForm") != null) {
+	    model.addAttribute((SearchForm) request.getAttribute("searchForm"));
+	} else {
+	    model.addAttribute("searchForm", new SearchForm());
 	}
 
-	@ExceptionHandler(IOException.class)
-	public String iOExceptionExceptionHandler(IOException e, Model model, HttpServletRequest request) {
+	model.addAttribute("message", "指定されたページは存在しません");
 
-		if(request.getAttribute("searchForm")!=null) {
-			model.addAttribute((SearchForm)request.getAttribute("searchForm"));
-		}else{
-			model.addAttribute("searchForm", new SearchForm());
-		}
+	return "error/error";
+    }
 
-		model.addAttribute("message", "指定されたページは存在しません");
+    @ExceptionHandler(IOException.class)
+    public String iOExceptionExceptionHandler(IOException e, Model model, HttpServletRequest request) {
 
-		return "error/error";
+	if (request.getAttribute("searchForm") != null) {
+	    model.addAttribute((SearchForm) request.getAttribute("searchForm"));
+	} else {
+	    model.addAttribute("searchForm", new SearchForm());
 	}
 
-	@ExceptionHandler(Exception.class)
-	public String exceptionHandler(Exception e, Model model, HttpServletRequest request) {
+	model.addAttribute("message", "指定されたページは存在しません");
 
-		if(request.getAttribute("searchForm")!=null) {
-			model.addAttribute((SearchForm)request.getAttribute("searchForm"));
-		}else{
-			model.addAttribute("searchForm", new SearchForm());
-		}
+	return "error/error";
+    }
 
-		model.addAttribute("message", "指定されたページは存在しません");
+    @ExceptionHandler(Exception.class)
+    public String exceptionHandler(Exception e, Model model, HttpServletRequest request) {
 
-		return "error/error";
+	if (request.getAttribute("searchForm") != null) {
+	    model.addAttribute((SearchForm) request.getAttribute("searchForm"));
+	} else {
+	    model.addAttribute("searchForm", new SearchForm());
 	}
+
+	model.addAttribute("message", "指定されたページは存在しません");
+
+	return "error/error";
+    }
 }

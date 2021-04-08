@@ -17,32 +17,28 @@ import com.example.demo.domain.service.GiftService;
 @Controller
 public class SearchController {
 
-	@Autowired
-	GiftService giftService;
+    @Autowired
+    GiftService giftService;
 
-	@GetMapping("/gifts/search")
-	public String search(@Validated SearchForm form,  BindingResult bindingResult, Model model, @RequestParam("keyword") String keyword) {
+    @GetMapping("/gifts/search")
+    public String search(@Validated SearchForm form, BindingResult bindingResult, Model model,
+	    @RequestParam("keyword") String keyword) {
 
-		if(bindingResult.hasErrors()) {
-
-			model.addAttribute("searchForm", form);
-
-			return "search_result/search_result";
-		}
-
-		int giftCount = giftService.count(keyword);
-
-		model.addAttribute("giftCount", giftCount);
-
-		if(giftCount == 0) {
-
-			return "search_result/search_result";
-		}
-
-		List<Gift> selectedGifts = giftService.search(keyword);
-
-		model.addAttribute("selectedGifts", selectedGifts);
-
-		return "search_result/search_result";
+	if (bindingResult.hasErrors()) {
+	    model.addAttribute("searchForm", form);
+	    return "search_result/search_result";
 	}
+
+	int giftCount = giftService.count(keyword);
+	model.addAttribute("giftCount", giftCount);
+
+	if (giftCount == 0) {
+	    return "search_result/search_result";
+	}
+
+	List<Gift> selectedGifts = giftService.search(keyword);
+	model.addAttribute("selectedGifts", selectedGifts);
+
+	return "search_result/search_result";
+    }
 }

@@ -1,26 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/template}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/template}">
 <head>
-	<meta charset="UTF-8">
-	<title>Login</title>
-	<link th:href="@{/css/login/login.css}" rel="stylesheet"></link>
+<meta charset="UTF-8">
+<title>Login</title>
+<link th:href="@{/css/login/login.css}" rel="stylesheet"></link>
 </head>
 <body>
 	<div layout:fragment="content">
 		<div class="loginWrapper">
 			<p class="pageTitle">Login</p>
 			<form th:action="@{/users/session/login}" th:method="post">
-			    <p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
-			    	th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
-			    	class="text-danger">
-			    	ログインエラーメッセージ
-			    </p>
-				<input class="col-sm-4" type="text" name="userName" placeholder="ユーザーネーム"/><br/>
-				<br />
-				<input class="col-sm-4" type="password" name="password" placeholder="パスワード"/><br/>
-				<br />
+				<p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" class="text-danger">ログインエラーメッセージ</p>
+				<input class="col-sm-4" type="text" name="userName" placeholder="ユーザーネーム" /><br /> <br />
+				<input class="col-sm-4" type="password" name="password" placeholder="パスワード" /><br /> <br />
 				<button class="btn btn-primary col-sm-2" type="submit">ログイン</button>
 			</form>
 			<br />

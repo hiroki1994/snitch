@@ -9,14 +9,14 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-
-@Constraint(validatedBy = {UniqueUserNameValid.class})
-@Target({FIELD})
+@Constraint(validatedBy = { UniqueUserNameValid.class })
+@Target({ FIELD })
 @Retention(RUNTIME)
 public @interface UniqueUserName {
 
-	String message() default "{validation.UniqueUserName.message}";
-	Class<?>[] groups() default {};
-	Class<? extends Payload>[] payload() default {};
+    String message() default "{validation.UniqueUserName.message}";
 
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
 }

@@ -1,13 +1,12 @@
 @charset "UTF-8";
 
 html {
-   height:100%;
+	height: 100%;
 }
 
 body {
 	height: 100%;
 }
-
 
 .updateUserWrapper {
 	height: 100vh;

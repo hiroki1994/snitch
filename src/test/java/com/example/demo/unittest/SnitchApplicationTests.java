@@ -9,5 +9,6 @@ class SnitchApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 }

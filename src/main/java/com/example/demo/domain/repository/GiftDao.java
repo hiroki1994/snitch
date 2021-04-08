@@ -7,14 +7,13 @@ import org.springframework.dao.EmptyResultDataAccessException;
 
 import com.example.demo.domain.model.gift.Gift;
 
+public interface GiftDao {
 
-public interface GiftDao  {
+    public List<Gift> selectMany() throws DataAccessException;
 
-	public List<Gift> selectMany() throws DataAccessException;
+    public Gift selectOne(int giftId) throws EmptyResultDataAccessException;
 
-	public Gift selectOne(int giftId) throws EmptyResultDataAccessException;
+    public List<Gift> search(String keyword) throws DataAccessException;
 
-	public List<Gift> search(String keyword) throws DataAccessException;
-
-	public int count(String keyword) throws DataAccessException;
+    public int count(String keyword) throws DataAccessException;
 }

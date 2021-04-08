@@ -10,33 +10,32 @@ import com.example.demo.domain.service.UserService;
 
 public class UniqueUserNameValid implements ConstraintValidator<UniqueUserName, String> {
 
-	@Autowired
-	UserService userService;
+    @Autowired
+    UserService userService;
 
-	@Autowired
-	HttpServletRequest request;
+    @Autowired
+    HttpServletRequest request;
 
-	public void initialize(UniqueUserName constraintAnnotation) {
+    public void initialize(UniqueUserName constraintAnnotation) {
 
+    }
+
+    public boolean isValid(String userName, ConstraintValidatorContext context) {
+
+	if (userService == null) {
+	    return true;
 	}
 
-	public boolean isValid(String userName, ConstraintValidatorContext context) {
-
-		if(userService == null){
-			return true;
-		}
-
-		if(userName.equals(request.getRemoteUser())) {
-			return true;
-		}
-
-
-		int userNameExist = userService.exist(userName);
-
-		if(userNameExist == 0) {
-			return true;
-		}
-
-		return false;
+	if (userName.equals(request.getRemoteUser())) {
+	    return true;
 	}
+
+	int userNameExist = userService.exist(userName);
+
+	if (userNameExist == 0) {
+	    return true;
+	}
+
+	return false;
+    }
 }

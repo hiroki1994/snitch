@@ -10,54 +10,40 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.domain.model.favorite.FavGift;
 import com.example.demo.domain.repository.FavGiftDao;
 
-
 @Transactional
 @Service
 public class FavGiftService {
 
-	@Autowired
-	FavGiftDao dao;
+    @Autowired
+    FavGiftDao dao;
 
-	public List<FavGift> selectAll(String userName) {
+    public List<FavGift> selectAll(String userName) {
+	return dao.selectAll(userName);
+    }
 
-		return dao.selectAll(userName);
+    public int count(String userName) {
+	return dao.count(userName);
+    }
 
+    public boolean existFavId(String userName, int giftId) {
+
+	try {
+	    dao.existFavId(userName, giftId);
+	    return true;
+	} catch (EmptyResultDataAccessException e) {
+	    return false;
 	}
+    }
 
-	public int count(String userName) {
+    public int create(String userName, int giftId) {
+	return dao.create(userName, giftId);
+    }
 
-		return dao.count(userName);
+    public int delete(String userName, int giftId) {
+	return dao.delete(userName, giftId);
+    }
 
-	}
-
-	public boolean existFavId(String userName, int giftId) {
-
-		try {
-			dao.existFavId(userName, giftId);
-
-			return true;
-
-		} catch(EmptyResultDataAccessException e) {
-
-			return false;
-
-		}
-	}
-
-	public int create(String userName, int giftId) {
-
-		return dao.create(userName, giftId);
-
-	}
-
-	public int delete(String userName, int giftId) {
-
-		return dao.delete(userName, giftId);
-
-	}
-
-	public int deleteMany(String userName) {
-
-		return dao.deleteMany(userName);
-	}
+    public int deleteMany(String userName) {
+	return dao.deleteMany(userName);
+    }
 }

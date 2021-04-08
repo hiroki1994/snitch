@@ -1,62 +1,49 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/template}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/template}">
 <head>
-	<meta charset="UTF-8"></meta>
-    <title>registration</title>
-    <link th:href="@{../css/registration/registration.css}" rel="stylesheet"></link>
+<meta charset="UTF-8"></meta>
+<title>registration</title>
+<link th:href="@{../css/registration/registration.css}" rel="stylesheet"></link>
 
 </head>
 <body>
-    <div layout:fragment="content">
-    	<div class="registrationWrapper">
-		<div class="col-sm-6 offset-sm-3">
-			<div class="page-header">
-				<p class="pageTitle">ユーザー登録画面</p>
-			</div>
-			<form th:action="@{/users}" th:object="${userForm}" th:method="post">
+	<div layout:fragment="content">
+		<div class="registrationWrapper">
+			<div class="col-sm-6 offset-sm-3">
+				<div class="page-header">
+					<p class="pageTitle">ユーザー登録画面</p>
+				</div>
+				<form th:action="@{/users}" th:object="${userForm}" th:method="post">
 
-				<table class="table table-bordered table-hover">
-				<tr>
-					<td>
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="ユーザーネーム" th:field="*{userName}"
-							th:classappend="${#fields.hasErrors('userName')}?'is-invalid'"/>
-							<span class="text-danger"
-								th:if="${#fields.hasErrors('userName')}"
-								th:errors="*{userName}"></span>
-						</div>
-					</td>
-				<tr>
-				<tr>
-					<td>
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="メールアドレス" th:field="*{mailAddress}"
-							th:classappend="${#fields.hasErrors('mailAddress')}?'is-invalid'"/>
-							<span class="text-danger"
-								th:if="${#fields.hasErrors('mailAddress')}"
-								th:errors="*{mailAddress}">
-							</span>
-						</div>
-					</td>
-				<tr>
-				<tr>
-					<td>
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="パスワード" th:field="*{password}"
-							th:classappend="${#fields.hasErrors('password')}?'is-invalid'"/>
-							<span class="text-danger"
-								th:if="${#fields.hasErrors('password')}"
-								th:errors="*{password}">
-							</span>
-						</div>
-					</td>
-				<tr>
-				</table>
-				<button class="btn btn-primary" type="submit">新規登録</button>
-			</form>
-		</div>
+					<table class="table table-bordered table-hover">
+						<tr>
+							<td>
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="ユーザーネーム" th:field="*{userName}" th:classappend="${#fields.hasErrors('userName')}?'is-invalid'" />
+									<span class="text-danger" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></span>
+								</div>
+							</td>
+						<tr>
+						<tr>
+							<td>
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="メールアドレス" th:field="*{mailAddress}" th:classappend="${#fields.hasErrors('mailAddress')}?'is-invalid'" />
+									<span class="text-danger" th:if="${#fields.hasErrors('mailAddress')}" th:errors="*{mailAddress}"></span>
+								</div>
+							</td>
+						<tr>
+						<tr>
+							<td>
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="パスワード" th:field="*{password}" th:classappend="${#fields.hasErrors('password')}?'is-invalid'" />
+									<span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+								</div>
+							</td>
+						<tr>
+					</table>
+					<button class="btn btn-primary" type="submit">新規登録</button>
+				</form>
+			</div>
 		</div>
 	</div>
 </body>

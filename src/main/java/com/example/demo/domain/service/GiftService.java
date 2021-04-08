@@ -9,32 +9,26 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.domain.model.gift.Gift;
 import com.example.demo.domain.repository.GiftDao;
 
-
-
 @Transactional
 @Service
 public class GiftService {
 
-	@Autowired
-	GiftDao dao;
+    @Autowired
+    GiftDao dao;
 
-	public List<Gift> selectMany() {
+    public List<Gift> selectMany() {
+	return dao.selectMany();
+    }
 
-		return dao.selectMany();
-	}
+    public Gift selectOne(int giftId) {
+	return dao.selectOne(giftId);
+    }
 
-	public Gift selectOne(int giftId) {
+    public List<Gift> search(String keyword) {
+	return dao.search(keyword);
+    }
 
-		return dao.selectOne(giftId);
-	}
-
-	public List<Gift> search(String keyword) {
-
-		return dao.search(keyword);
-	}
-
-	public int count(String keyword) {
-
-		return dao.count(keyword);
-	}
+    public int count(String keyword) {
+	return dao.count(keyword);
+    }
 }

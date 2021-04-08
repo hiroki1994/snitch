@@ -26,101 +26,89 @@ import com.example.demo.domain.validation.GroupOrder;
 @Controller
 public class UserController {
 
-	@Autowired
-	UserService userService;
+    @Autowired
+    UserService userService;
 
-	@Autowired
-	FavGiftService favGiftService;
+    @Autowired
+    FavGiftService favGiftService;
 
-	@GetMapping("/users/new")
-	public String display(@ModelAttribute UserForm form, Model model) {
+    @GetMapping("/users/new")
+    public String display(@ModelAttribute UserForm form, Model model) {
 
-		return "registration/registration";
+	return "registration/registration";
+    }
+
+    @PostMapping("/users")
+    public String create(@ModelAttribute @Validated(GroupOrder.class) UserForm form, BindingResult bindingResult,
+	    Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+	if (bindingResult.hasErrors()) {
+	    return display(form, model);
 	}
 
-	@PostMapping("/users")
-	public String create(@ModelAttribute @Validated(GroupOrder.class) UserForm form, BindingResult bindingResult, Model model, HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+	System.out.println(form);
 
-		if (bindingResult.hasErrors()) {
-			return display(form, model);
-		}
+	User user = new User();
+	user.setUserName(form.getUserName());
+	user.setMailAddress(form.getMailAddress());
+	user.setPassword(form.getPassword());
 
-		System.out.println(form);
+	userService.create(user);
 
-		User user = new User();
+	String username = String.valueOf(form.getUserName());
+	String password = String.valueOf(form.getPassword());
+	SecurityConfig.autoLogin(request, username, password, response);
 
-		user.setUserName(form.getUserName());
-		user.setMailAddress(form.getMailAddress());
-		user.setPassword(form.getPassword());
+	return null;
+    }
 
-		userService.create(user);
+    @GetMapping("/users/edit")
+    public String display(@ModelAttribute UserForm form, Model model, HttpServletRequest request) {
 
-		String username = String.valueOf(form.getUserName());
-		String password = String.valueOf(form.getPassword());
+	String userName = request.getRemoteUser();
+	User user = userService.select(userName);
 
-		SecurityConfig.autoLogin(request, username, password, response);
+	form.setUserName(user.getUserName());
+	form.setMailAddress(user.getMailAddress());
+	model.addAttribute("userForm", form);
 
-		return null;
+	return "mypage/edit_user/edit_user";
+    }
+
+    @PutMapping("/users")
+    public String update(@ModelAttribute @Validated(GroupOrder.class) UserForm form, BindingResult bindingResult,
+	    Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+	if (bindingResult.hasErrors()) {
+	    return display(form, model, request);
 	}
 
-	@GetMapping("/users/edit")
-	public String display(@ModelAttribute UserForm form, Model model, HttpServletRequest request) {
+	User user = new User();
+	user.setUserName(form.getUserName());
+	user.setMailAddress(form.getMailAddress());
+	user.setPassword(form.getPassword());
 
-		String userName = request.getRemoteUser();
+	String userName = request.getRemoteUser();
+	userService.update(user, userName);
 
-		User user = userService.select(userName);
+	String newUsername = String.valueOf(form.getUserName());
+	String newPassword = String.valueOf(form.getPassword());
+	SecurityConfig.autoLogin(request, newUsername, newPassword, response);
 
-		form.setUserName(user.getUserName());
-		form.setMailAddress(user.getMailAddress());
+	return null;
+    }
 
-		model.addAttribute("userForm", form);
+    @GetMapping("/users/withdrawal")
+    public String display() {
+	return "mypage/withdrawal/withdrawal";
+    }
 
-		return "mypage/edit_user/edit_user";
-	}
+    @DeleteMapping("/users")
+    public void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-	@PutMapping("/users")
-	public String update(@ModelAttribute @Validated(GroupOrder.class) UserForm form, BindingResult bindingResult,
-			Model model, HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
-
-		if (bindingResult.hasErrors()) {
-			return display(form, model, request);
-		}
-
-		String userName = request.getRemoteUser();
-
-		User user = new User();
-
-		user.setUserName(form.getUserName());
-		user.setMailAddress(form.getMailAddress());
-		user.setPassword(form.getPassword());
-
-		userService.update(user, userName);
-
-		String newUsername = String.valueOf(form.getUserName());
-		String newPassword = String.valueOf(form.getPassword());
-
-		SecurityConfig.autoLogin(request, newUsername, newPassword, response);
-
-		return null;
-	}
-
-	@GetMapping("/users/withdrawal")
-	public String display() {
-		return "mypage/withdrawal/withdrawal";
-	}
-
-
-	@DeleteMapping("/users")
-	public void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-		String userName = request.getRemoteUser();
-
-		favGiftService.deleteMany(userName);
-
-		userService.delete(userName);
-
-		SecurityConfig.autoLogout(request, response);
-	}
+	String userName = request.getRemoteUser();
+	favGiftService.deleteMany(userName);
+	userService.delete(userName);
+	SecurityConfig.autoLogout(request, response);
+    }
 }
