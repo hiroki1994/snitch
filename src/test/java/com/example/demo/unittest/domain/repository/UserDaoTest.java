@@ -30,7 +30,7 @@ public class UserDaoTest {
 	UserDao userDao;
 
 	@Test
-	public void regitration_suceess() throws Exception {
+	public void createOneUser_suceess() throws Exception {
 
 		User user = new User();
 
@@ -40,13 +40,13 @@ public class UserDaoTest {
 
 		int expected = 1;
 
-		int actual = userDao.create(user);
+		int actual = userDao.createOne(user);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void regitration_fail_userNameUniqueError() throws Exception {
+	public void createOneUser_fail_userNameUniqueError() throws Exception {
 
 		User user = new User();
 
@@ -55,15 +55,15 @@ public class UserDaoTest {
 		user.setPassword("7777");
 
 		Assertions.assertThrows(DuplicateKeyException.class, () -> {
-			userDao.create(user);
+			userDao.createOne(user);
 		});
 	}
 
 	@Test
-	public void getUserInfo_success() throws Exception {
+	public void selectOneUserInfo_success() throws Exception {
 
 		String userName = "userName3";
-		User user = userDao.select(userName);
+		User user = userDao.selectOne(userName);
 
 		assertThat(user, hasProperty("userName", equalTo("userName3")));
 		assertThat(user, hasProperty("mailAddress", equalTo("mailaddress3@gmail.co.jp")));
@@ -71,17 +71,17 @@ public class UserDaoTest {
 	}
 
 	@Test
-	public void getUserInfo_fail_userNameDoesNotExist() throws Exception {
+	public void selectOneUserInfo_fail_userNameDoesNotExist() throws Exception {
 
 		String userName = "userName5";
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			userDao.select(userName);
+			userDao.selectOne(userName);
 		});
 	}
 
 	@Test
-	public void updateUserInfo_success() throws Exception {
+	public void updateOneUserInfo_success() throws Exception {
 
 		String userName = "userName3";
 
@@ -93,13 +93,13 @@ public class UserDaoTest {
 
 		int expected = 1;
 
-		int actual = userDao.update(user, userName);
+		int actual = userDao.updateOne(user, userName);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void updateUserInfo_success_usernameIsUnchanged() throws Exception {
+	public void updateOneUserInfo_success_usernameIsUnchanged() throws Exception {
 
 		String userName = "userName3";
 
@@ -111,13 +111,13 @@ public class UserDaoTest {
 
 		int expected = 1;
 
-		int actual = userDao.update(user, userName);
+		int actual = userDao.updateOne(user, userName);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void updateUserInfo_fail_usernameUniqueError() throws Exception {
+	public void updateOneUserInfo_fail_usernameUniqueError() throws Exception {
 
 		String userName = "userName3";
 
@@ -128,31 +128,29 @@ public class UserDaoTest {
 		user.setPassword("password2");
 
 		Assertions.assertThrows(DuplicateKeyException.class, () -> {
-			userDao.update(user, userName);
+			userDao.updateOne(user, userName);
 		});
 	}
 
-
-
 	@Test
-	public void deleteUser_success() throws Exception {
+	public void deleteOneUser_success() throws Exception {
 
 		String userName = "userName3";
 
 		int expected = 1;
 
-		int actual = userDao.delete(userName);
+		int actual = userDao.deleteOne(userName);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void deleteUser_fail_userNameDoesNotExist() throws Exception {
+	public void deleteOneUser_fail_userNameDoesNotExist() throws Exception {
 
 		String userName = "userName5";
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			userDao.delete(userName);
+			userDao.deleteOne(userName);
 		});
 	}
 

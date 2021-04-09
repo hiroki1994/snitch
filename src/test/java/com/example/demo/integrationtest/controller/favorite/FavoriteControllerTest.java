@@ -25,7 +25,7 @@ public class FavoriteControllerTest {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void createFavGift_success() throws Exception {
+	public void createOneFavGift_success() throws Exception {
 
 		mockMvc.perform(post("/favorites")
 			.param("giftId", "1002")
@@ -36,7 +36,7 @@ public class FavoriteControllerTest {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void createFavGift_fail_giftIdDoesNotExist() throws Exception {
+	public void createOneFavGift_fail_giftIdDoesNotExist() throws Exception {
 
 		mockMvc.perform(post("/favorites")
 			.param("giftId", "9999")
@@ -47,7 +47,7 @@ public class FavoriteControllerTest {
 
 	@Test
 	@WithMockUser(username="userName5")
-	public void createFavGift_fail_userNameDoesNotExist() throws Exception {
+	public void createOneFavGift_fail_userNameDoesNotExist() throws Exception {
 
 		mockMvc.perform(post("/favorites")
 			.param("giftId", "1000")
@@ -58,7 +58,7 @@ public class FavoriteControllerTest {
 
 	@Test
 	@WithMockUser(username="userName5")
-	public void createFavGift_fail_userNameAndUserIdDoesNotExist() throws Exception {
+	public void createOneFavGift_fail_userNameAndUserIdDoesNotExist() throws Exception {
 
 		mockMvc.perform(post("/favorites")
 				.param("giftId", "1000")
@@ -69,7 +69,7 @@ public class FavoriteControllerTest {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void deleteFavGift_success() throws Exception {
+	public void deleteOneFavGift_success() throws Exception {
 
 		mockMvc.perform(delete("/favorites")
 			.param("giftId", "1001")
@@ -80,7 +80,7 @@ public class FavoriteControllerTest {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void deleteFavGift_fail_giftIdDoesNotExist() throws Exception {
+	public void deleteOneFavGift_fail_giftIdDoesNotExist() throws Exception {
 
 		mockMvc.perform(delete("/favorites")
 			.param("giftId", "9999")
@@ -91,7 +91,7 @@ public class FavoriteControllerTest {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void deleteFavGift_fail_giftIsNotAddedToFavGift() throws Exception {
+	public void deleteOneFavGift_fail_giftIsNotAddedToFavGift() throws Exception {
 
 		mockMvc.perform(delete("/favorites")
 				.param("giftId", "1002")
@@ -102,7 +102,7 @@ public class FavoriteControllerTest {
 
 	@Test
 	@WithMockUser(username="userName5")
-	public void deleteFavGift_fail_userNameDoesNotExist() throws Exception {
+	public void deleteOneFavGift_fail_userNameDoesNotExist() throws Exception {
 
 		mockMvc.perform(delete("/favorites")
 				.param("giftId", "1000")
@@ -113,7 +113,7 @@ public class FavoriteControllerTest {
 
 	@Test
 	@WithMockUser(username="userName5")
-	public void deleteFavGift_fail_userNameAndGiftIdDoesNotExist() throws Exception {
+	public void deleteOneFavGift_fail_userNameAndGiftIdDoesNotExist() throws Exception {
 
 		mockMvc.perform(delete("/favorites")
 				.param("giftId", "9999")
@@ -124,7 +124,7 @@ public class FavoriteControllerTest {
 
 	@Test
 	@WithMockUser(username = "userName3")
-	public void displayFavoriteList_success() throws Exception {
+	public void displayAllFavorites_success() throws Exception {
 
 		mockMvc.perform(get("/favorites")
 				.with(csrf()))
@@ -137,7 +137,7 @@ public class FavoriteControllerTest {
 
 	@Test
 	@WithMockUser(username = "userName4")
-	public void displayFavoriteList_success_noFavGift() throws Exception {
+	public void displayAllFavorites_success_noFavGift() throws Exception {
 
 		mockMvc.perform(get("/favorites")
 				.with(csrf()))
@@ -149,7 +149,7 @@ public class FavoriteControllerTest {
 
 	@Test
 	@WithMockUser(username = "userName5")
-	public void displayFavoriteList_fail_userNameDoesNotExist() throws Exception {
+	public void displayAllFavorites_fail_userNameDoesNotExist() throws Exception {
 
 		mockMvc.perform(get("/favorites")
 				.with(csrf()))

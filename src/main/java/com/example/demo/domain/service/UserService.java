@@ -14,20 +14,20 @@ public class UserService {
     @Autowired
     UserDao dao;
 
-    public int create(User user) {
-	return dao.create(user);
+    public int createOne(User user) {
+	return dao.createOne(user);
     }
 
-    public User select(String userName) {
-	return dao.select(userName);
+    public User selectOne(String userName) {
+	return dao.selectOne(userName);
     }
 
-    public int update(User user, String userName_LoggedIn) {
-	return dao.update(user, userName_LoggedIn);
+    public int updateOne(User user, String userName_LoggedIn) {
+	return dao.updateOne(user, userName_LoggedIn);
     }
 
-    public int delete(String userName) {
-	return dao.delete(userName);
+    public int deleteOne(String userName) {
+	return dao.deleteOne(userName);
     }
 
     public int exist(String userName) {

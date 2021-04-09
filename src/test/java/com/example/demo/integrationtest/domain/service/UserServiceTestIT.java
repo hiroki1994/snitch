@@ -28,7 +28,7 @@ public class UserServiceTestIT {
 	UserService userService;
 
 	@Test
-	public void registration_suceess() throws Exception {
+	public void createOneUser_suceess() throws Exception {
 
 		User user = new User();
 
@@ -37,13 +37,13 @@ public class UserServiceTestIT {
 		user.setPassword("7777");
 
 		int expected = 1;
-		int actual = userService.create(user);
+		int actual = userService.createOne(user);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void registration_fail_usernameUniqueError() throws Exception {
+	public void createOneUser_fail_usernameUniqueError() throws Exception {
 
 		User user = new User();
 
@@ -52,15 +52,15 @@ public class UserServiceTestIT {
 		user.setPassword("7777");
 
 		Assertions.assertThrows(DuplicateKeyException.class, () -> {
-			userService.create(user);
+			userService.createOne(user);
 		});
 	}
 
 	@Test
-	public void getUserInfo_success() throws Exception {
+	public void selectOneUserInfo_success() throws Exception {
 
 		String userName = "userName3";
-		User user = userService.select(userName);
+		User user = userService.selectOne(userName);
 
 		assertThat(user, hasProperty("userName", equalTo("userName3")));
 		assertThat(user, hasProperty("mailAddress", equalTo("mailaddress3@gmail.co.jp")));
@@ -68,17 +68,17 @@ public class UserServiceTestIT {
 	}
 
 	@Test
-	public void getUserInfo_fail_userNameDoesNotExist() throws Exception {
+	public void selectOneUserInfo_fail_userNameDoesNotExist() throws Exception {
 
 		String userName = "userName5";
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			userService.select(userName);
+			userService.selectOne(userName);
 		});
 	}
 
 	@Test
-	public void updateUserInfo_success() throws Exception {
+	public void updateOneUserInfo_success() throws Exception {
 
 		String userName = "userName3";
 
@@ -89,15 +89,15 @@ public class UserServiceTestIT {
 		user.setPassword("password2");
 
 		int expected = 1;
-		int actual = userService.update(user, userName);
+		int actual = userService.updateOne(user, userName);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void updateUserInfo_success_usernameIsUnchanged() throws Exception {
+	public void updateOneUserInfo_success_usernameIsUnchanged() throws Exception {
 
-		String userName = "userName3";
+	    	String userName = "userName3";
 
 		User user = new User();
 
@@ -106,13 +106,13 @@ public class UserServiceTestIT {
 		user.setPassword("password2");
 
 		int expected = 1;
-		int actual = userService.update(user, userName);
+		int actual = userService.updateOne(user, userName);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void updateUserInfo_fail_usernameUniqueError() throws Exception {
+	public void updateOneUserInfo_fail_usernameUniqueError() throws Exception {
 
 		String userName = "userName3";
 
@@ -123,28 +123,28 @@ public class UserServiceTestIT {
 		user.setPassword("password2");
 
 		Assertions.assertThrows(DuplicateKeyException.class, () -> {
-			userService.update(user, userName);
+			userService.updateOne(user, userName);
 		});
 	}
 
 	@Test
-	public void deleteUser_success() throws Exception {
+	public void deleteOneUser_success() throws Exception {
 
 		String userName = "userName3";
 
 		int expected = 1;
-		int actual = userService.delete(userName);
+		int actual = userService.deleteOne(userName);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void deleteUser_fail_userNameDoesNotExist() throws Exception {
+	public void deleteOneUser_fail_userNameDoesNotExist() throws Exception {
 
 		String userName = "userName5";
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			userService.delete(userName);
+			userService.deleteOne(userName);
 		});
 	}
 

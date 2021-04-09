@@ -40,7 +40,7 @@ public class UserTest {
 	}
 
 	@Test
-	public void user_empty() throws Exception {
+	public void getUser_empty() throws Exception {
 
 		User user = new User();
 

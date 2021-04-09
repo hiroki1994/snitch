@@ -72,7 +72,7 @@ public class GiftDaoJdbcImplTest {
 	}
 
 	@Test
-	public void listGifts() {
+	public void selectManyGifts() {
 
 		List<Gift> giftList = giftDaoJdbcImpl.selectMany();
 

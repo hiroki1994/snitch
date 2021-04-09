@@ -8,13 +8,13 @@ import com.example.demo.domain.model.user.User;
 
 public interface UserDao {
 
-    public int create(User user) throws DuplicateKeyException;
+    public int createOne(User user) throws DuplicateKeyException;
 
-    public int update(User user, String userName_LoggedIn) throws DuplicateKeyException;
+    public int updateOne(User user, String userName_LoggedIn) throws DuplicateKeyException;
 
-    public User select(String userName) throws EmptyResultDataAccessException;
+    public User selectOne(String userName) throws EmptyResultDataAccessException;
 
-    public int delete(String userName) throws EmptyResultDataAccessException;
+    public int deleteOne(String userName) throws EmptyResultDataAccessException;
 
     public int exist(String userName) throws DataAccessException;
 }

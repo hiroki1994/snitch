@@ -18,7 +18,7 @@ import com.example.demo.domain.model.searchform.SearchForm;
 public class GlobalControllAdvice {
 
     @ExceptionHandler(EmptyResultDataAccessException.class)
-    public String emptyResultDataAccessExceptionHandler(EmptyResultDataAccessException e, Model model,
+    public String catchEmptyResultDataAccessExceptionHandler(EmptyResultDataAccessException e, Model model,
 	    HttpServletRequest request) {
 
 	if (request.getAttribute("searchForm") != null) {
@@ -33,7 +33,7 @@ public class GlobalControllAdvice {
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public String dataIntegrityViolationExceptionHandler(DataIntegrityViolationException e, Model model,
+    public String catchDataIntegrityViolationExceptionHandler(DataIntegrityViolationException e, Model model,
 	    HttpServletRequest request) {
 
 	if (request.getAttribute("searchForm") != null) {
@@ -48,7 +48,7 @@ public class GlobalControllAdvice {
     }
 
     @ExceptionHandler(IOException.class)
-    public String iOExceptionExceptionHandler(IOException e, Model model, HttpServletRequest request) {
+    public String catchIOExceptionExceptionHandler(IOException e, Model model, HttpServletRequest request) {
 
 	if (request.getAttribute("searchForm") != null) {
 	    model.addAttribute((SearchForm) request.getAttribute("searchForm"));
@@ -62,7 +62,7 @@ public class GlobalControllAdvice {
     }
 
     @ExceptionHandler(Exception.class)
-    public String exceptionHandler(Exception e, Model model, HttpServletRequest request) {
+    public String catchExceptionHandler(Exception e, Model model, HttpServletRequest request) {
 
 	if (request.getAttribute("searchForm") != null) {
 	    model.addAttribute((SearchForm) request.getAttribute("searchForm"));

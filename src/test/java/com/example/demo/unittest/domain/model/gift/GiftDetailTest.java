@@ -48,7 +48,7 @@ public class GiftDetailTest {
 	}
 
 	@Test
-	public void GiftDetail_empty() throws Exception {
+	public void getGiftDetail_empty() throws Exception {
 
 		GiftDetail giftDetail = new GiftDetail();
 

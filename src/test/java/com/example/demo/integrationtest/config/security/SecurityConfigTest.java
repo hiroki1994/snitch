@@ -67,7 +67,7 @@ public class SecurityConfigTest {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void logout() throws Exception{
+	public void logout_success() throws Exception{
 
 		mockMvc.perform(post("/users/session/logout")
 			.with(csrf()))

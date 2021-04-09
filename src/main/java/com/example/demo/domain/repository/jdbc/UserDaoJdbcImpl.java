@@ -23,7 +23,7 @@ public class UserDaoJdbcImpl implements UserDao {
     PasswordEncoder passwordEncoder;
 
     @Override
-    public int create(User user) throws DuplicateKeyException {
+    public int createOne(User user) throws DuplicateKeyException {
 
 	String password = passwordEncoder.encode(user.getPassword());
 	String sql = "INSERT INTO userData(userName, mailAddress, password, role) "
@@ -34,7 +34,7 @@ public class UserDaoJdbcImpl implements UserDao {
     }
 
     @Override
-    public int update(User user, String userName_LoggedIn) throws DuplicateKeyException {
+    public int updateOne(User user, String userName_LoggedIn) throws DuplicateKeyException {
 
 	String password = passwordEncoder.encode(user.getPassword());
 	String sql = "UPDATE userData "
@@ -46,7 +46,7 @@ public class UserDaoJdbcImpl implements UserDao {
     }
 
     @Override
-    public User select(String userName) throws EmptyResultDataAccessException {
+    public User selectOne(String userName) throws EmptyResultDataAccessException {
 
 	Map<String, Object> singleUser = jdbc.queryForMap("SELECT * "
 								+ "FROM userData "
@@ -61,7 +61,7 @@ public class UserDaoJdbcImpl implements UserDao {
     }
 
     @Override
-    public int delete(String userName) throws EmptyResultDataAccessException {
+    public int deleteOne(String userName) throws EmptyResultDataAccessException {
 
 	int userId = jdbc.queryForObject("SELECT userId "
 						+ "FROM userData "
@@ -87,7 +87,7 @@ public class UserDaoJdbcImpl implements UserDao {
 					, Integer.class, userName);
     }
 
-    public User findUser(String userName) throws DataAccessException {
+    public User search(String userName) throws DataAccessException {
 
 	Map<String, Object> map = jdbc.queryForMap("SELECT * "
 							+ "FROM userData"

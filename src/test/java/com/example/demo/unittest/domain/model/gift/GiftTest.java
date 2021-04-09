@@ -54,7 +54,7 @@ public class GiftTest {
 	}
 
 	@Test
-	public void gift_empty() throws Exception {
+	public void getGift_empty() throws Exception {
 
 		Gift gift = new Gift();
 

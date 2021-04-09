@@ -26,7 +26,7 @@ public class UserFormTest {
 	private Validator validator;
 
 	@BeforeEach
-	public void init() {
+	public void setup() {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 	}

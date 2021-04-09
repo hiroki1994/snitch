@@ -24,22 +24,22 @@ public class FavoriteController {
     FavGiftService favGiftService;
 
     @PostMapping("/favorites")
-    public void create(Model model, @RequestParam("giftId") int giftId, HttpServletRequest httpServletRequest,
+    public void createOne(Model model, @RequestParam("giftId") int giftId, HttpServletRequest httpServletRequest,
 	    HttpServletResponse response) throws IOException {
 
 	String userName = httpServletRequest.getRemoteUser();
-	favGiftService.create(userName, giftId);
+	favGiftService.createOne(userName, giftId);
 
 	String url = "/gifts/" + giftId;
 	response.sendRedirect(url);
     }
 
     @DeleteMapping("/favorites")
-    public void delete(Model model, @RequestParam("giftId") int giftId, HttpServletRequest request,
+    public void deleteOne(Model model, @RequestParam("giftId") int giftId, HttpServletRequest request,
 	    HttpServletResponse response) throws IOException {
 
 	String userName = request.getRemoteUser();
-	favGiftService.delete(userName, giftId);
+	favGiftService.deleteOne(userName, giftId);
 
 	String url = "/gifts/" + giftId;
 	response.sendRedirect(url);

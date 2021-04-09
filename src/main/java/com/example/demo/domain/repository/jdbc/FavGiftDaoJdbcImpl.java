@@ -60,7 +60,7 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
     }
 
     @Override
-    public int existFavId(String userName, int giftId) throws EmptyResultDataAccessException {
+    public int exist(String userName, int giftId) throws EmptyResultDataAccessException {
 
 	int userId = jdbc.queryForObject("SELECT userId "
 					+ "FROM userData "
@@ -95,8 +95,7 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
     }
 
     @Override
-    public int create(String userName, int giftId)
-	    throws DataIntegrityViolationException, EmptyResultDataAccessException {
+    public int createOne(String userName, int giftId) throws DataIntegrityViolationException, EmptyResultDataAccessException {
 
 	int userId = jdbc.queryForObject("SELECT userId "
 					+ "FROM userData "
@@ -111,7 +110,7 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
     }
 
     @Override
-    public int delete(String userName, int giftId) throws EmptyResultDataAccessException {
+    public int deleteOne(String userName, int giftId) throws EmptyResultDataAccessException {
 
 	int userId = jdbc.queryForObject("SELECT userId "
 					+ "FROM userData "

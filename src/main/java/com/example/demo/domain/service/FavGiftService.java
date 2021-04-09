@@ -25,22 +25,22 @@ public class FavGiftService {
 	return dao.count(userName);
     }
 
-    public boolean existFavId(String userName, int giftId) {
+    public boolean exist(String userName, int giftId) {
 
 	try {
-	    dao.existFavId(userName, giftId);
+	    dao.exist(userName, giftId);
 	    return true;
 	} catch (EmptyResultDataAccessException e) {
 	    return false;
 	}
     }
 
-    public int create(String userName, int giftId) {
-	return dao.create(userName, giftId);
+    public int createOne(String userName, int giftId) {
+	return dao.createOne(userName, giftId);
     }
 
-    public int delete(String userName, int giftId) {
-	return dao.delete(userName, giftId);
+    public int deleteOne(String userName, int giftId) {
+	return dao.deleteOne(userName, giftId);
     }
 
     public int deleteMany(String userName) {

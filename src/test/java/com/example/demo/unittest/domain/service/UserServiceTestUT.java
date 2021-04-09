@@ -29,12 +29,12 @@ public class UserServiceTestUT {
 	UserService userService;
 
 	@BeforeEach
-	public void initMock() {
+	public void init() {
 		MockitoAnnotations.initMocks(this);
 	}
 
 	@Test
-	public void registration_suceess() throws Exception {
+	public void createOneUser_suceess() throws Exception {
 
 		User user = new User();
 
@@ -42,17 +42,17 @@ public class UserServiceTestUT {
 		user.setMailAddress("mail@gmail.com");
 		user.setPassword("7777");
 
-		when(userDao.create(user)).thenReturn(1);
+		when(userDao.createOne(user)).thenReturn(1);
 
 		int expected = 1;
 
-		int actual = userService.create(user);
+		int actual = userService.createOne(user);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void registration_fail_usernameUniqueError() throws Exception {
+	public void createOneUser_fail_usernameUniqueError() throws Exception {
 
 		User user = new User();
 
@@ -60,42 +60,42 @@ public class UserServiceTestUT {
 		user.setMailAddress("mail@gmail.com");
 		user.setPassword("7777");
 
-		when(userDao.create(user)).thenThrow(DuplicateKeyException.class);
+		when(userDao.createOne(user)).thenThrow(DuplicateKeyException.class);
 
 		Assertions.assertThrows(DuplicateKeyException.class, () -> {
-			userService.create(user);
+			userService.createOne(user);
 		});
 	}
 
 	@Test
-	public void getUserInfo_success() throws Exception {
+	public void selectOneUserInfo_success() throws Exception {
 
 		String userName = "userName3";
 		User user = new User();
 
-		when(userDao.select(userName)).thenReturn(user);
+		when(userDao.selectOne(userName)).thenReturn(user);
 
 		User expected = user;
 
-		User actual = userService.select(userName);
+		User actual = userService.selectOne(userName);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void getUserInfo_fail_userNameDoesNotExist() throws Exception {
+	public void selectOneUserInfo_fail_userNameDoesNotExist() throws Exception {
 
 		String userName = "userName5";
 
-		when(userDao.select(userName)).thenThrow(EmptyResultDataAccessException.class);
+		when(userDao.selectOne(userName)).thenThrow(EmptyResultDataAccessException.class);
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			userService.select(userName);
+			userService.selectOne(userName);
 		});
 	}
 
 	@Test
-	public void updateUserInfo_success() throws Exception {
+	public void updateOneUserInfo_success() throws Exception {
 
 		String userName = "userName3";
 
@@ -105,17 +105,17 @@ public class UserServiceTestUT {
 		user.setMailAddress("mailaddress3@gmail.co.jp");
 		user.setPassword("password2");
 
-		when(userDao.update(user, userName)).thenReturn(1);
+		when(userDao.updateOne(user, userName)).thenReturn(1);
 
 		int expected = 1;
 
-		int actual = userService.update(user, userName);
+		int actual = userService.updateOne(user, userName);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void updateUserInfo_success_usernameIsUnchanged() throws Exception {
+	public void updateOneUserInfo_success_usernameIsUnchanged() throws Exception {
 
 		String userName = "userName3";
 
@@ -125,16 +125,16 @@ public class UserServiceTestUT {
 		user.setMailAddress("mailaddress3@gmail.co.jp");
 		user.setPassword("password2");
 
-		when(userDao.update(user, userName)).thenReturn(1);
+		when(userDao.updateOne(user, userName)).thenReturn(1);
 
 		int expected = 1;
-		int actual = userService.update(user, userName);
+		int actual = userService.updateOne(user, userName);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void updateUserInfo_fail_usernameUniqueError() throws Exception {
+	public void updateOneUserInfo_fail_usernameUniqueError() throws Exception {
 
 		String userName = "userName3";
 
@@ -144,37 +144,37 @@ public class UserServiceTestUT {
 		user.setMailAddress("mailaddress3@gmail.co.jp");
 		user.setPassword("password2");
 
-		when(userDao.update(user, userName)).thenThrow(DuplicateKeyException.class);
+		when(userDao.updateOne(user, userName)).thenThrow(DuplicateKeyException.class);
 
 		Assertions.assertThrows(DuplicateKeyException.class, () -> {
-			userService.update(user, userName);
+			userService.updateOne(user, userName);
 		});
 	}
 
 
 
 	@Test
-	public void deleteUser_success() throws Exception {
+	public void deleteOneUser_success() throws Exception {
 
 		String userName = "userName3";
 
-		when(userDao.delete(userName)).thenReturn(1);
+		when(userDao.deleteOne(userName)).thenReturn(1);
 
 		int expected = 1;
-		int actual = userService.delete(userName);
+		int actual = userService.deleteOne(userName);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void deleteUser_fail_userNameDoesNotExist() throws Exception {
+	public void deleteOneUser_fail_userNameDoesNotExist() throws Exception {
 
 		String userName = "userName5";
 
-		when(userDao.delete(userName)).thenThrow(EmptyResultDataAccessException.class);
+		when(userDao.deleteOne(userName)).thenThrow(EmptyResultDataAccessException.class);
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			userService.delete(userName);
+			userService.deleteOne(userName);
 		});
 	}
 

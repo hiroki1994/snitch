@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public String create(@ModelAttribute @Validated(GroupOrder.class) UserForm form, BindingResult bindingResult,
+    public String createOne(@ModelAttribute @Validated(GroupOrder.class) UserForm form, BindingResult bindingResult,
 	    Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 	if (bindingResult.hasErrors()) {
@@ -53,7 +53,7 @@ public class UserController {
 	user.setMailAddress(form.getMailAddress());
 	user.setPassword(form.getPassword());
 
-	userService.create(user);
+	userService.createOne(user);
 
 	String username = String.valueOf(form.getUserName());
 	String password = String.valueOf(form.getPassword());
@@ -66,7 +66,7 @@ public class UserController {
     public String display(@ModelAttribute UserForm form, Model model, HttpServletRequest request) {
 
 	String userName = request.getRemoteUser();
-	User user = userService.select(userName);
+	User user = userService.selectOne(userName);
 
 	form.setUserName(user.getUserName());
 	form.setMailAddress(user.getMailAddress());
@@ -76,7 +76,7 @@ public class UserController {
     }
 
     @PutMapping("/users")
-    public String update(@ModelAttribute @Validated(GroupOrder.class) UserForm form, BindingResult bindingResult,
+    public String updateOne(@ModelAttribute @Validated(GroupOrder.class) UserForm form, BindingResult bindingResult,
 	    Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 	if (bindingResult.hasErrors()) {
@@ -89,7 +89,7 @@ public class UserController {
 	user.setPassword(form.getPassword());
 
 	String userName = request.getRemoteUser();
-	userService.update(user, userName);
+	userService.updateOne(user, userName);
 
 	String newUsername = String.valueOf(form.getUserName());
 	String newPassword = String.valueOf(form.getPassword());
@@ -104,11 +104,11 @@ public class UserController {
     }
 
     @DeleteMapping("/users")
-    public void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void deleteOne(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 	String userName = request.getRemoteUser();
 	favGiftService.deleteMany(userName);
-	userService.delete(userName);
+	userService.deleteOne(userName);
 	SecurityConfig.autoLogout(request, response);
     }
 }

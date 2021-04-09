@@ -74,7 +74,7 @@ public class GiftDaoTest {
 	}
 
 	@Test
-	public void listGifts() {
+	public void selectManyGifts() {
 
 		List<Gift> giftList = giftDao.selectMany();
 

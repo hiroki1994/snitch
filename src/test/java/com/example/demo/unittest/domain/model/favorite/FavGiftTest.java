@@ -57,7 +57,7 @@ public class FavGiftTest {
 	}
 
 	@Test
-	public void favGift_empty() throws Exception {
+	public void getfavGift_empty() throws Exception {
 
 		FavGift favGift = new FavGift();
 

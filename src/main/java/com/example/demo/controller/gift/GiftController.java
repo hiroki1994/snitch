@@ -40,7 +40,7 @@ public class GiftController {
 	model.addAttribute("giftDetail", detail);
 
 	String userName = httpServletRequest.getRemoteUser();
-	boolean result = favGiftService.existFavId(userName, giftId);
+	boolean result = favGiftService.exist(userName, giftId);
 	model.addAttribute("result", result);
 
 	return "gift_detail/gift_detail";

@@ -46,7 +46,7 @@ public class UserControllerTest {
 
 	@Test
 	@WithMockUser(username = "userName3")
-	public void updateUserInfo_success() throws Exception {
+	public void updateOneUserInfo_success() throws Exception {
 
 		UserForm form = new UserForm();
 
@@ -61,7 +61,7 @@ public class UserControllerTest {
 
 	@Test
 	@WithMockUser(username = "userName3")
-	public void updateUserInfo_success_usernameIsEqualToAuthentivatedUserName() throws Exception {
+	public void updateOneUserInfo_success_usernameIsEqualToAuthentivatedUserName() throws Exception {
 
 		UserForm form = new UserForm();
 
@@ -77,7 +77,7 @@ public class UserControllerTest {
 
 	@Test
 	@WithMockUser(username = "userName3")
-	public void updateUserInfo_fail_usernameUniqueError() throws Exception {
+	public void updateOneUserInfo_fail_usernameUniqueError() throws Exception {
 
 		UserForm form = new UserForm();
 
@@ -93,7 +93,7 @@ public class UserControllerTest {
 
 	@Test
 	@WithMockUser(username = "userName3")
-	public void updateUserInfo_fail_validationError() throws Exception {
+	public void updateOneUserInfo_fail_validationError() throws Exception {
 
 		UserForm form = new UserForm();
 
@@ -124,7 +124,7 @@ public class UserControllerTest {
 
 
 	@Test
-	public void registration_suceess() throws Exception {
+	public void createOneUser_suceess() throws Exception {
 
 		UserForm form = new UserForm();
 
@@ -138,7 +138,7 @@ public class UserControllerTest {
 	}
 
 	@Test
-	public void registration_fail_usernameUniqueError() throws Exception {
+	public void createOneUser_fail_usernameUniqueError() throws Exception {
 
 		UserForm form = new UserForm();
 
@@ -153,7 +153,7 @@ public class UserControllerTest {
 	}
 
 	@Test
-	public void registration_fail_ValidationError() throws Exception {
+	public void createOneUser_fail_ValidationError() throws Exception {
 
 		UserForm form = new UserForm();
 
@@ -184,7 +184,7 @@ public class UserControllerTest {
 
 	@Test
 	@WithMockUser(username = "userName3")
-	public void deleteUser_success() throws Exception {
+	public void deleteOneUser_success() throws Exception {
 
 		mockMvc.perform(delete("/users")
 				.with(csrf()))
@@ -194,7 +194,7 @@ public class UserControllerTest {
 
 	@Test
 	@WithMockUser(username = "userName5")
-	public void deleteUser_fail_userNameDoesNotExist() throws Exception {
+	public void deleteOneUser_fail_userNameDoesNotExist() throws Exception {
 
 		mockMvc.perform(delete("/users")
 				.with(csrf()))

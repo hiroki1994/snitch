@@ -36,129 +36,129 @@ public class FavGiftServiceTestUT {
 	FavGiftService favGiftService;
 
 	@BeforeEach
-	public void initMock() {
+	public void init() {
 		MockitoAnnotations.initMocks(this);
 	}
 
 
 	@Test
-	public void createFavGift_success() throws Exception {
+	public void createOneFavGift_success() throws Exception {
 
 		String userName = "userName3";
 		int giftId = 1000;
 
-		when(favGiftDao.create(userName, giftId)).thenReturn(1);
+		when(favGiftDao.createOne(userName, giftId)).thenReturn(1);
 
 		int expected = 1;
-		int actual = favGiftService.create(userName, giftId);
+		int actual = favGiftService.createOne(userName, giftId);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void createFavGift_fail_giftIdDoesNotExist() throws Exception {
+	public void createOneFavGift_fail_giftIdDoesNotExist() throws Exception {
 
 		String userName = "userName3";
 		int giftId = 9999;
 
-		when(favGiftDao.create(userName, giftId)).thenThrow(DataIntegrityViolationException.class);
+		when(favGiftDao.createOne(userName, giftId)).thenThrow(DataIntegrityViolationException.class);
 
 		Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
-			favGiftService.create(userName, giftId);
+			favGiftService.createOne(userName, giftId);
 		});
 	}
 
 	@Test
-	public void createFavGift_fail_userNameDoesNotExist() throws Exception {
+	public void createOneFavGift_fail_userNameDoesNotExist() throws Exception {
 
 		String userName = "userName5";
 		int giftId = 1000;
 
-		when(favGiftDao.create(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+		when(favGiftDao.createOne(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			favGiftService.create(userName, giftId);
+			favGiftService.createOne(userName, giftId);
 		});
 	}
 
 	@Test
-	public void createFavGift_fail_userNameAndUserIdDoesNotExist() throws Exception {
+	public void createOneFavGift_fail_userNameAndUserIdDoesNotExist() throws Exception {
 
 		String userName = "userName5";
 		int giftId = 9999;
 
-		when(favGiftDao.create(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+		when(favGiftDao.createOne(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			favGiftService.create(userName, giftId);
+			favGiftService.createOne(userName, giftId);
 		});
 	}
 
 	@Test
-	public void deleteFavGift_success() throws Exception {
+	public void deleteOneFavGift_success() throws Exception {
 
 		String userName = "userName3";
 		int giftId = 1001;
 
-		when(favGiftDao.delete(userName, giftId)).thenReturn(1);
+		when(favGiftDao.deleteOne(userName, giftId)).thenReturn(1);
 
 		int expected = 1;
-		int actual = favGiftService.delete(userName, giftId);
+		int actual = favGiftService.deleteOne(userName, giftId);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void deleteFavGift_fail_giftIsNotAddedToFavGift() throws Exception {
+	public void deleteOneFavGift_fail_giftIsNotAddedToFavGift() throws Exception {
 
 		String userName = "userName3";
 		int giftId = 1002;
 
-		when(favGiftDao.delete(userName, giftId)).thenReturn(0);
+		when(favGiftDao.deleteOne(userName, giftId)).thenReturn(0);
 
 		int expected = 0;
-		int actual = favGiftService.delete(userName, giftId);
+		int actual = favGiftService.deleteOne(userName, giftId);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void deleteFavGift_fail_giftIdDoesNotExist() throws Exception {
+	public void deleteOneFavGift_fail_giftIdDoesNotExist() throws Exception {
 
 		String userName = "userName3";
 		int giftId = 9999;
 
-		when(favGiftDao.delete(userName, giftId)).thenReturn(0);
+		when(favGiftDao.deleteOne(userName, giftId)).thenReturn(0);
 
 		int expected = 0;
-		int actual = favGiftService.delete(userName, giftId);
+		int actual = favGiftService.deleteOne(userName, giftId);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void deleteFavGift_fail_userNameDoesNotExist() throws Exception {
+	public void deleteOneFavGift_fail_userNameDoesNotExist() throws Exception {
 
 		String userName = "userName5";
 		int giftId = 1000;
 
-		when(favGiftDao.delete(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+		when(favGiftDao.deleteOne(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			favGiftService.delete(userName, giftId);
+			favGiftService.deleteOne(userName, giftId);
 		});
 	}
 
 	@Test
-	public void deleteFavGift_fail_userNameAndUserIdDoesNotExist() throws Exception {
+	public void deleteOneFavGift_fail_userNameAndUserIdDoesNotExist() throws Exception {
 
 		String userName = "userName5";
 		int giftId = 9999;
 
-		when(favGiftDao.delete(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+		when(favGiftDao.deleteOne(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			favGiftService.delete(userName, giftId);
+			favGiftService.deleteOne(userName, giftId);
 		});
 	}
 
@@ -206,10 +206,10 @@ public class FavGiftServiceTestUT {
 		String userName = "userName3";
 		int giftId = 1000;
 
-		when(favGiftDao.existFavId(userName, giftId)).thenReturn(1);
+		when(favGiftDao.exist(userName, giftId)).thenReturn(1);
 
 		boolean expected = true;
-		boolean actual = favGiftService.existFavId(userName, giftId);
+		boolean actual = favGiftService.exist(userName, giftId);
 
 		assertEquals(expected, actual);
 	}
@@ -220,10 +220,10 @@ public class FavGiftServiceTestUT {
 		String userName = "userName3";
 		int giftId = 1002;
 
-		when(favGiftDao.existFavId(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+		when(favGiftDao.exist(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
 
 		boolean expected = false;
-		boolean actual = favGiftService.existFavId(userName, giftId);
+		boolean actual = favGiftService.exist(userName, giftId);
 
 		assertEquals(expected, actual);
 	}
@@ -234,10 +234,10 @@ public class FavGiftServiceTestUT {
 		String userName = "userName5";
 		int giftId = 1002;
 
-		when(favGiftDao.existFavId(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+		when(favGiftDao.exist(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
 
 		boolean expected = false;
-		boolean actual = favGiftService.existFavId(userName, giftId);
+		boolean actual = favGiftService.exist(userName, giftId);
 
 		assertEquals(expected, actual);
 	}
@@ -248,16 +248,16 @@ public class FavGiftServiceTestUT {
 		String userName = "userName5";
 		int giftId = 9999;
 
-		when(favGiftDao.existFavId(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+		when(favGiftDao.exist(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
 
 		boolean expected = false;
-		boolean actual = favGiftService.existFavId(userName, giftId);
+		boolean actual = favGiftService.exist(userName, giftId);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void listFavGift_success() throws Exception {
+	public void selectAllFavGift_success() throws Exception {
 
 		String userName = "userName3";
 		List<FavGift> allFavGifts = new ArrayList<>();
@@ -271,7 +271,7 @@ public class FavGiftServiceTestUT {
 	}
 
 	@Test
-	public void listFavGift_fail_userNameDoesNotExist() throws Exception {
+	public void selectAllFavGift_fail_userNameDoesNotExist() throws Exception {
 
 		String userName = "userName5";
 

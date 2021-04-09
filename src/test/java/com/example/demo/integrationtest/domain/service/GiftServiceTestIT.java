@@ -74,7 +74,7 @@ public class GiftServiceTestIT {
 	}
 
 	@Test
-	public void listGifts() {
+	public void getGiftList() {
 
 		List<Gift> selectedGifts = giftService.selectMany();
 

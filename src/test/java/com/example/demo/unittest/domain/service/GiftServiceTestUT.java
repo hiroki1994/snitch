@@ -32,7 +32,7 @@ public class GiftServiceTestUT {
 	GiftService giftService;
 
 	@BeforeEach
-	public void initMock() {
+	public void init() {
 		MockitoAnnotations.initMocks(this);
 	}
 
@@ -79,7 +79,7 @@ public class GiftServiceTestUT {
 	}
 
 	@Test
-	public void listGifts() {
+	public void selectManyGifts_success() {
 
 		List<Gift> selectedGifts = new ArrayList<>();
 

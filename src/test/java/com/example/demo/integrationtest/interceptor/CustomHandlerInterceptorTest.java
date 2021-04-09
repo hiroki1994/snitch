@@ -22,7 +22,7 @@ public class CustomHandlerInterceptorTest {
 	private MockMvc mockMvc;
 
 	@Test
-	public void addSearchFormObject() throws Exception {
+	public void addSearchForm() throws Exception {
 
 		SearchForm searchForm = new SearchForm();
 

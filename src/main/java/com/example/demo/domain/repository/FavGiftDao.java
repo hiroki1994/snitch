@@ -14,12 +14,11 @@ public interface FavGiftDao {
 
     public int count(String userName) throws EmptyResultDataAccessException;
 
-    public int create(String userName, int giftId)
-	    throws DataIntegrityViolationException, EmptyResultDataAccessException;
+    public int createOne(String userName, int giftId) throws DataIntegrityViolationException, EmptyResultDataAccessException;
 
-    public int existFavId(String userName, int giftId) throws EmptyResultDataAccessException;
+    public int exist(String userName, int giftId) throws EmptyResultDataAccessException;
 
-    public int delete(String userName, int giftId) throws EmptyResultDataAccessException;
+    public int deleteOne(String userName, int giftId) throws EmptyResultDataAccessException;
 
     public int deleteMany(String userName) throws DataAccessException;
 }
