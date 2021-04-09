@@ -214,7 +214,7 @@ public class FavoriteServiceTestIT {
 
 	List<Favorite> favorites = favoriteService.selectAll(userName);
 
-	assertThat(favorites, hasItems(hasProperty("favId", is(0))));
+	assertThat(favorites, hasItems(hasProperty("favoriteId", is(0))));
 	assertThat(favorites, hasItems(hasProperty("userId", is(1))));
 	assertThat(favorites, hasItems(hasProperty("giftId", is(1000))));
 	assertThat(favorites, hasItems(hasProperty("guestName", is("中越典子"))));
