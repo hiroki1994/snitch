@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.demo.domain.model.gift.Gift;
 import com.example.demo.domain.model.gift.GiftDetail;
-import com.example.demo.domain.service.FavGiftService;
+import com.example.demo.domain.service.FavoriteService;
 import com.example.demo.domain.service.GiftService;
 
 @Controller
@@ -21,7 +21,7 @@ public class GiftController {
     GiftService giftService;
 
     @Autowired
-    FavGiftService favGiftService;
+    FavoriteService favGiftService;
 
     @GetMapping("/gifts/{id}")
     public String display(@ModelAttribute GiftDetail detail, Model model, @PathVariable("id") int giftId,

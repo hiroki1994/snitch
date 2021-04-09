@@ -16,16 +16,16 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.domain.model.favorite.FavGift;
-import com.example.demo.domain.service.FavGiftService;
+import com.example.demo.domain.service.FavoriteService;
 
 
 
 @SpringBootTest
 @Transactional
-public class FavGiftServiceTestIT {
+public class FavoriteServiceTestIT {
 
 	@Autowired
-	FavGiftService favGiftService;
+	FavoriteService favGiftService;
 
 
 	@Test

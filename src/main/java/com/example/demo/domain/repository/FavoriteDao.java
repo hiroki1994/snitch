@@ -8,7 +8,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 
 import com.example.demo.domain.model.favorite.FavGift;
 
-public interface FavGiftDao {
+public interface FavoriteDao {
 
     public List<FavGift> selectAll(String userName) throws EmptyResultDataAccessException;
 

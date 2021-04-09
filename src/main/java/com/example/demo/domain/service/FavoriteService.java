@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.domain.model.favorite.FavGift;
-import com.example.demo.domain.repository.FavGiftDao;
+import com.example.demo.domain.repository.FavoriteDao;
 
 @Transactional
 @Service
-public class FavGiftService {
+public class FavoriteService {
 
     @Autowired
-    FavGiftDao dao;
+    FavoriteDao dao;
 
     public List<FavGift> selectAll(String userName) {
 	return dao.selectAll(userName);

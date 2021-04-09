@@ -1,4 +1,4 @@
-package com.example.demo.unittest.domain.repository.jdbc;
+package com.example.demo.unittest.domain.repository;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -10,40 +10,42 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.domain.model.favorite.FavGift;
-import com.example.demo.domain.repository.jdbc.FavGiftDaoJdbcImpl;
+import com.example.demo.domain.repository.FavoriteDao;
 
 
 
 @SpringBootTest
 @Transactional
-public class FavGiftDaoJdbcTest {
+public class FavoriteDaoTest {
 
 	@Autowired
-	FavGiftDaoJdbcImpl favGiftDaoJdbcImpl;
+	@Qualifier("favoriteDaoJdbcImpl")
+	FavoriteDao favoriteDao;
 
 	@Test
 	public void countFavGift_success() throws Exception {
 		String userName = "userName3";
 
 		int expected = 2;
-		int actual = favGiftDaoJdbcImpl.count(userName);
+		int actual = favoriteDao.count(userName);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void countFavGift_noFavGift() throws Exception {
+	public void countFavGift_success_noFavGift() throws Exception {
 
 		String userName = "userName4";
 
 		int expected = 0;
-		int actual = favGiftDaoJdbcImpl.count(userName);
+		int actual = favoriteDao.count(userName);
 
 		assertEquals(expected, actual);
 	}
@@ -54,7 +56,7 @@ public class FavGiftDaoJdbcTest {
 		String userName = "userName5";
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			favGiftDaoJdbcImpl.count(userName);
+		    favoriteDao.count(userName);
 		});
 	}
 
@@ -62,7 +64,7 @@ public class FavGiftDaoJdbcTest {
 	public void selectAllFavGift_success() throws Exception {
 		String userName = "userName3";
 
-		List<FavGift> allFavGifts = favGiftDaoJdbcImpl.selectAll(userName);
+		List<FavGift> allFavGifts = favoriteDao.selectAll(userName);
 
 		assertThat(allFavGifts, hasItems(hasProperty("favId", is(0))));
 		assertThat(allFavGifts, hasItems(hasProperty("userId", is(1))));
@@ -81,7 +83,7 @@ public class FavGiftDaoJdbcTest {
 
 		String userName = "userName4";
 
-		List<FavGift> allFavGifts = favGiftDaoJdbcImpl.selectAll(userName);
+		List<FavGift> allFavGifts = favoriteDao.selectAll(userName);
 
 		assertThat(allFavGifts, is(empty()));
 	}
@@ -92,7 +94,7 @@ public class FavGiftDaoJdbcTest {
 		String userName = "userName5";
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			favGiftDaoJdbcImpl.selectAll(userName);
+		    favoriteDao.selectAll(userName);
 		});
 	}
 
@@ -100,10 +102,11 @@ public class FavGiftDaoJdbcTest {
 	public void createOneFavGift_success()throws Exception {
 
 		String userName = "userName3";
+
 		int giftId = 1004;
 
 		int expected = 1;
-		int actual = favGiftDaoJdbcImpl.createOne(userName, giftId);
+		int actual = favoriteDao.createOne(userName, giftId);
 
 		assertEquals(expected, actual);
 	}
@@ -115,7 +118,7 @@ public class FavGiftDaoJdbcTest {
 		int giftId = 9999;
 
 		Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
-			favGiftDaoJdbcImpl.createOne(userName, giftId);
+		    favoriteDao.createOne(userName, giftId);
 		});
 	}
 
@@ -126,7 +129,7 @@ public class FavGiftDaoJdbcTest {
 		int giftId = 1000;
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			favGiftDaoJdbcImpl.createOne(userName, giftId);
+		    favoriteDao.createOne(userName, giftId);
 		});
 	}
 
@@ -137,7 +140,7 @@ public class FavGiftDaoJdbcTest {
 		int giftId = 9999;
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			favGiftDaoJdbcImpl.createOne(userName, giftId);
+		    favoriteDao.createOne(userName, giftId);
 		});
 	}
 
@@ -145,10 +148,11 @@ public class FavGiftDaoJdbcTest {
 	public void deleteOneFavGift_success()throws Exception {
 
 		String userName = "userName3";
+
 		int giftId = 1000;
 
 		int expected = 1;
-		int actual = favGiftDaoJdbcImpl.deleteOne(userName, giftId);
+		int actual = favoriteDao.deleteOne(userName, giftId);
 
 		assertEquals(expected, actual);
 	}
@@ -160,7 +164,7 @@ public class FavGiftDaoJdbcTest {
 		int giftId = 1002;
 
 		int expected = 0;
-		int actual = favGiftDaoJdbcImpl.deleteOne(userName, giftId);
+		int actual = favoriteDao.deleteOne(userName, giftId);
 
 		assertEquals(expected, actual);
 	}
@@ -172,7 +176,7 @@ public class FavGiftDaoJdbcTest {
 		int giftId = 9999;
 
 		int expected = 0;
-		int actual = favGiftDaoJdbcImpl.deleteOne(userName, giftId);
+		int actual = favoriteDao.deleteOne(userName, giftId);
 
 		assertEquals(expected, actual);
 	}
@@ -184,7 +188,7 @@ public class FavGiftDaoJdbcTest {
 		int giftId = 1000;
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			favGiftDaoJdbcImpl.deleteOne(userName, giftId);
+		    favoriteDao.deleteOne(userName, giftId);
 		});
 	}
 
@@ -195,7 +199,7 @@ public class FavGiftDaoJdbcTest {
 		int giftId = 9999;
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			favGiftDaoJdbcImpl.deleteOne(userName, giftId);
+		    favoriteDao.deleteOne(userName, giftId);
 		});
 	}
 
@@ -207,7 +211,7 @@ public class FavGiftDaoJdbcTest {
 		int giftId = 1001;
 
 		int expected = 2;
-		int actual = favGiftDaoJdbcImpl.exist(userName, giftId);
+		int actual = favoriteDao.exist(userName, giftId);
 
 		assertEquals(expected, actual);
 	}
@@ -219,7 +223,7 @@ public class FavGiftDaoJdbcTest {
 		int giftId = 1002;
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			favGiftDaoJdbcImpl.exist(userName, giftId);
+		    favoriteDao.exist(userName, giftId);
 		});
 	}
 
@@ -230,7 +234,7 @@ public class FavGiftDaoJdbcTest {
 		int giftId = 1002;
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			favGiftDaoJdbcImpl.exist(userName, giftId);
+		    favoriteDao.exist(userName, giftId);
 		});
 	}
 
@@ -241,7 +245,7 @@ public class FavGiftDaoJdbcTest {
 		int giftId = 9999;
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			favGiftDaoJdbcImpl.exist(userName, giftId);
+		    favoriteDao.exist(userName, giftId);
 		});
 	}
 
@@ -251,7 +255,7 @@ public class FavGiftDaoJdbcTest {
 		String userName = "userName3";
 
 		int expected = 2;
-		int actual = favGiftDaoJdbcImpl.deleteMany(userName);
+		int actual = favoriteDao.deleteMany(userName);
 
 		assertEquals(expected, actual);
 	}
@@ -262,7 +266,7 @@ public class FavGiftDaoJdbcTest {
 		String userName = "userName4";
 
 		int expected = 0;
-		int actual = favGiftDaoJdbcImpl.deleteMany(userName);
+		int actual = favoriteDao.deleteMany(userName);
 
 		assertEquals(expected, actual);
 	}
@@ -273,7 +277,7 @@ public class FavGiftDaoJdbcTest {
 		String userName = "userName5";
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			favGiftDaoJdbcImpl.deleteMany(userName);
+			favoriteDao.deleteMany(userName);
 		});
 	}
 }

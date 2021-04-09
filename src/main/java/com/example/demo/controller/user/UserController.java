@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import com.example.demo.config.security.SecurityConfig;
 import com.example.demo.domain.model.user.User;
 import com.example.demo.domain.model.user.UserForm;
-import com.example.demo.domain.service.FavGiftService;
+import com.example.demo.domain.service.FavoriteService;
 import com.example.demo.domain.service.UserService;
 import com.example.demo.domain.validation.GroupOrder;
 
@@ -30,7 +30,7 @@ public class UserController {
     UserService userService;
 
     @Autowired
-    FavGiftService favGiftService;
+    FavoriteService favGiftService;
 
     @GetMapping("/users/new")
     public String display(@ModelAttribute UserForm form, Model model) {

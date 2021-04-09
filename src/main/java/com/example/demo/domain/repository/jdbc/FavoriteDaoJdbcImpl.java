@@ -12,10 +12,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.domain.model.favorite.FavGift;
-import com.example.demo.domain.repository.FavGiftDao;
+import com.example.demo.domain.repository.FavoriteDao;
 
 @Repository
-public class FavGiftDaoJdbcImpl implements FavGiftDao {
+public class FavoriteDaoJdbcImpl implements FavoriteDao {
 
     @Autowired
     JdbcTemplate jdbc;

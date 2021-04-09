@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.example.demo.domain.model.favorite.FavGift;
 
 @SpringBootTest
-public class FavGiftTest {
+public class FavoriteTest {
 
 	@Test
 	public void setGetFavGift() throws Exception {

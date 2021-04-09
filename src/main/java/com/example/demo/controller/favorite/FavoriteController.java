@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.domain.model.favorite.FavGift;
-import com.example.demo.domain.service.FavGiftService;
+import com.example.demo.domain.service.FavoriteService;
 
 @Controller
 public class FavoriteController {
 
     @Autowired
-    FavGiftService favGiftService;
+    FavoriteService favGiftService;
 
     @PostMapping("/favorites")
     public void createOne(Model model, @RequestParam("giftId") int giftId, HttpServletRequest httpServletRequest,

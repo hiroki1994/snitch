@@ -19,21 +19,21 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.domain.model.favorite.FavGift;
-import com.example.demo.domain.repository.FavGiftDao;
-import com.example.demo.domain.service.FavGiftService;
+import com.example.demo.domain.repository.FavoriteDao;
+import com.example.demo.domain.service.FavoriteService;
 
 
 
 @SpringBootTest
 @Transactional
-public class FavGiftServiceTestUT {
+public class FavoriteServiceTestUT {
 
 
 	@Mock
-	FavGiftDao favGiftDao;
+	FavoriteDao favGiftDao;
 
 	@InjectMocks
-	FavGiftService favGiftService;
+	FavoriteService favoriteService;
 
 	@BeforeEach
 	public void init() {
@@ -50,7 +50,7 @@ public class FavGiftServiceTestUT {
 		when(favGiftDao.createOne(userName, giftId)).thenReturn(1);
 
 		int expected = 1;
-		int actual = favGiftService.createOne(userName, giftId);
+		int actual = favoriteService.createOne(userName, giftId);
 
 		assertEquals(expected, actual);
 	}
@@ -64,7 +64,7 @@ public class FavGiftServiceTestUT {
 		when(favGiftDao.createOne(userName, giftId)).thenThrow(DataIntegrityViolationException.class);
 
 		Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
-			favGiftService.createOne(userName, giftId);
+			favoriteService.createOne(userName, giftId);
 		});
 	}
 
@@ -77,7 +77,7 @@ public class FavGiftServiceTestUT {
 		when(favGiftDao.createOne(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			favGiftService.createOne(userName, giftId);
+			favoriteService.createOne(userName, giftId);
 		});
 	}
 
@@ -90,7 +90,7 @@ public class FavGiftServiceTestUT {
 		when(favGiftDao.createOne(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			favGiftService.createOne(userName, giftId);
+			favoriteService.createOne(userName, giftId);
 		});
 	}
 
@@ -103,7 +103,7 @@ public class FavGiftServiceTestUT {
 		when(favGiftDao.deleteOne(userName, giftId)).thenReturn(1);
 
 		int expected = 1;
-		int actual = favGiftService.deleteOne(userName, giftId);
+		int actual = favoriteService.deleteOne(userName, giftId);
 
 		assertEquals(expected, actual);
 	}
@@ -117,7 +117,7 @@ public class FavGiftServiceTestUT {
 		when(favGiftDao.deleteOne(userName, giftId)).thenReturn(0);
 
 		int expected = 0;
-		int actual = favGiftService.deleteOne(userName, giftId);
+		int actual = favoriteService.deleteOne(userName, giftId);
 
 		assertEquals(expected, actual);
 	}
@@ -131,7 +131,7 @@ public class FavGiftServiceTestUT {
 		when(favGiftDao.deleteOne(userName, giftId)).thenReturn(0);
 
 		int expected = 0;
-		int actual = favGiftService.deleteOne(userName, giftId);
+		int actual = favoriteService.deleteOne(userName, giftId);
 
 		assertEquals(expected, actual);
 	}
@@ -145,7 +145,7 @@ public class FavGiftServiceTestUT {
 		when(favGiftDao.deleteOne(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			favGiftService.deleteOne(userName, giftId);
+			favoriteService.deleteOne(userName, giftId);
 		});
 	}
 
@@ -158,7 +158,7 @@ public class FavGiftServiceTestUT {
 		when(favGiftDao.deleteOne(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			favGiftService.deleteOne(userName, giftId);
+			favoriteService.deleteOne(userName, giftId);
 		});
 	}
 
@@ -170,7 +170,7 @@ public class FavGiftServiceTestUT {
 		when(favGiftDao.count(userName)).thenReturn(2);
 
 		int expected = 2;
-		int actual = favGiftService.count(userName);
+		int actual = favoriteService.count(userName);
 
 		assertEquals(expected, actual);
 	}
@@ -183,7 +183,7 @@ public class FavGiftServiceTestUT {
 		when(favGiftDao.count(userName)).thenReturn(0);
 
 		int expected = 0;
-		int actual = favGiftService.count(userName);
+		int actual = favoriteService.count(userName);
 
 		assertEquals(expected, actual);
 	}
@@ -196,7 +196,7 @@ public class FavGiftServiceTestUT {
 		when(favGiftDao.count(userName)).thenThrow(EmptyResultDataAccessException.class);
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			favGiftService.count(userName);
+			favoriteService.count(userName);
 		});
 	}
 
@@ -209,7 +209,7 @@ public class FavGiftServiceTestUT {
 		when(favGiftDao.exist(userName, giftId)).thenReturn(1);
 
 		boolean expected = true;
-		boolean actual = favGiftService.exist(userName, giftId);
+		boolean actual = favoriteService.exist(userName, giftId);
 
 		assertEquals(expected, actual);
 	}
@@ -223,7 +223,7 @@ public class FavGiftServiceTestUT {
 		when(favGiftDao.exist(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
 
 		boolean expected = false;
-		boolean actual = favGiftService.exist(userName, giftId);
+		boolean actual = favoriteService.exist(userName, giftId);
 
 		assertEquals(expected, actual);
 	}
@@ -237,7 +237,7 @@ public class FavGiftServiceTestUT {
 		when(favGiftDao.exist(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
 
 		boolean expected = false;
-		boolean actual = favGiftService.exist(userName, giftId);
+		boolean actual = favoriteService.exist(userName, giftId);
 
 		assertEquals(expected, actual);
 	}
@@ -251,7 +251,7 @@ public class FavGiftServiceTestUT {
 		when(favGiftDao.exist(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
 
 		boolean expected = false;
-		boolean actual = favGiftService.exist(userName, giftId);
+		boolean actual = favoriteService.exist(userName, giftId);
 
 		assertEquals(expected, actual);
 	}
@@ -265,7 +265,7 @@ public class FavGiftServiceTestUT {
 		when(favGiftDao.selectAll(userName)).thenReturn(allFavGifts);
 
 		List<FavGift> expected = allFavGifts;
-		List<FavGift> actual = favGiftService.selectAll(userName);
+		List<FavGift> actual = favoriteService.selectAll(userName);
 
 		assertEquals(expected, actual);
 	}
@@ -278,7 +278,7 @@ public class FavGiftServiceTestUT {
 		when(favGiftDao.selectAll(userName)).thenThrow(EmptyResultDataAccessException.class);
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			favGiftService.selectAll(userName);
+			favoriteService.selectAll(userName);
 		});
 	}
 
@@ -290,7 +290,7 @@ public class FavGiftServiceTestUT {
 		when(favGiftDao.deleteMany(userName)).thenReturn(2);
 
 		int expected = 2;
-		int actual = favGiftService.deleteMany(userName);
+		int actual = favoriteService.deleteMany(userName);
 
 		assertEquals(expected, actual);
 	}
@@ -303,7 +303,7 @@ public class FavGiftServiceTestUT {
 		when(favGiftDao.deleteMany(userName)).thenReturn(0);
 
 		int expected = 0;
-		int actual = favGiftService.deleteMany(userName);
+		int actual = favoriteService.deleteMany(userName);
 
 		assertEquals(expected, actual);
 	}
@@ -316,7 +316,7 @@ public class FavGiftServiceTestUT {
 		when(favGiftDao.deleteMany(userName)).thenThrow(EmptyResultDataAccessException.class);
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			favGiftService.deleteMany(userName);
+			favoriteService.deleteMany(userName);
 		});
 	}
 }
