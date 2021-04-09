@@ -15,55 +15,55 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 public class GiftControllerTest {
 
-	@Autowired
-	private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-	@Test
-	public void displayGiftDetailPage_success() throws Exception {
+    @Test
+    public void displayGiftDetailPage_success() throws Exception {
 
-		int giftId = 1000;
+	int giftId = 1000;
 
-		mockMvc.perform(get("/gifts/" + giftId)
-			.param("giftId", "1000"))
-			.andExpect(status().isOk())
-			.andExpect(view().name("gift_detail/gift_detail"));
-	}
+	mockMvc.perform(get("/gifts/" + giftId)
+		.param("giftId", "1000"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("gift_detail/gift_detail"));
+    }
 
-	@Test
-	public void displayGiftDetailPage_fail_giftIdDoesNotExist() throws Exception {
+    @Test
+    public void displayGiftDetailPage_fail_giftIdDoesNotExist() throws Exception {
 
-		int giftId = 9999;
+	int giftId = 9999;
 
-		mockMvc.perform(get("/gifts/" + giftId)
-			   .param("giftId", "9999"))
-			   .andExpect(status().isOk())
-			   .andExpect(view().name("error/error"))
-			   .andExpect(content().string(containsString("指定されたページは存在しません")));
-	}
+	mockMvc.perform(get("/gifts/" + giftId)
+		.param("giftId", "9999"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("error/error"))
+		.andExpect(content().string(containsString("指定されたページは存在しません")));
+    }
 
-	@Test
-	@WithMockUser(username="userName3")
-	public void displayGiftDetailPage_addFavButton() throws Exception {
+    @Test
+    @WithMockUser(username = "userName3")
+    public void displayGiftDetailPage_addFavButton() throws Exception {
 
-		int giftId = 1004;
+	int giftId = 1004;
 
-		mockMvc.perform(get("/gifts/" + giftId)
-			.param("giftId", "1000"))
-			.andExpect(status().isOk())
-			.andExpect(view().name("gift_detail/gift_detail"))
-			.andExpect(content().string(containsString("お気に入り")));
-	}
+	mockMvc.perform(get("/gifts/" + giftId)
+		.param("giftId", "1000"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("gift_detail/gift_detail"))
+		.andExpect(content().string(containsString("お気に入り")));
+    }
 
-	@Test
-	@WithMockUser(username="userName3")
-	public void displayGiftDetailPage_removeFavButton() throws Exception {
+    @Test
+    @WithMockUser(username = "userName3")
+    public void displayGiftDetailPage_removeFavButton() throws Exception {
 
-		int giftId = 1000;
+	int giftId = 1000;
 
-		mockMvc.perform(get("/gifts/" + giftId)
-			.param("giftId", "1000"))
-			.andExpect(status().isOk())
-			.andExpect(view().name("gift_detail/gift_detail"))
-			.andExpect(content().string(containsString("お気に入り解除")));
-	}
+	mockMvc.perform(get("/gifts/" + giftId)
+		.param("giftId", "1000"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("gift_detail/gift_detail"))
+		.andExpect(content().string(containsString("お気に入り解除")));
+    }
 }

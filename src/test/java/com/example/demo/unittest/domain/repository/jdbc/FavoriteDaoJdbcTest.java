@@ -58,6 +58,7 @@ public class FavoriteDaoJdbcTest {
 
     @Test
     public void selectAllFavGift_success() throws Exception {
+
 	String userName = "userName3";
 
 	List<FavGift> allFavGifts = favoriteDaoJdbcImpl.selectAll(userName);

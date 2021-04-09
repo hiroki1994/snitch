@@ -45,6 +45,7 @@ public class GiftDaoJdbcImplTest {
 
     @Test
     public void searchGift_found() {
+
 	String keyword = "マカロン";
 
 	List<Gift> giftList = giftDaoJdbcImpl.search(keyword);
@@ -61,6 +62,7 @@ public class GiftDaoJdbcImplTest {
 
     @Test
     public void searchGift_notFound() {
+
 	String keyword = "H#4kこ";
 
 	List<Gift> giftList = giftDaoJdbcImpl.search(keyword);

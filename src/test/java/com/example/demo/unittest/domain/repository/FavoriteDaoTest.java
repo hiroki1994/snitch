@@ -60,6 +60,7 @@ public class FavoriteDaoTest {
 
     @Test
     public void selectAllFavGift_success() throws Exception {
+
 	String userName = "userName3";
 
 	List<FavGift> allFavGifts = favoriteDao.selectAll(userName);
