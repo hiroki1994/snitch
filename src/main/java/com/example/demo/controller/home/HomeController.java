@@ -23,8 +23,8 @@ public class HomeController {
     @GetMapping("/")
     public String display(Model model) {
 
-	List<Gift> selectedGifts = giftService.selectMany();
-	model.addAttribute("giftList", selectedGifts);
+	List<Gift> gifts = giftService.selectMany();
+	model.addAttribute("gifts", gifts);
 
 	return "home/home";
     }

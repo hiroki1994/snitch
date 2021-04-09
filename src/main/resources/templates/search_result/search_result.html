@@ -19,7 +19,7 @@
 			<br />
 			<div class="gift col-sm-12">
 				<div class="giftList">
-					<div class="gift" th:each="gift : ${selectedGifts}">
+					<div class="gift" th:each="gift : ${gifts}">
 						<div class="gift2">
 							<a th:href="@{'/gifts/'+${gift.giftId}}"><img class="gift-picture" th:src="@{'/image/'+${gift.image}}" alt="gift-image"></a>
 							<p class="gift-name" th:text="${gift.giftName}"></p>

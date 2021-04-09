@@ -14,7 +14,7 @@ public class FavoriteTest {
     public void setGetFavorite() throws Exception {
 
 	Favorite favorite = new Favorite();
-	favorite.setFavId((int) 2000);
+	favorite.setFavoriteId((int) 2000);
 	favorite.setUserId((int) 10);
 	favorite.setGiftId((int) 2000);
 	favorite.setGuestName("testGuest");
@@ -27,7 +27,7 @@ public class FavoriteTest {
 	favorite.setPhone("testPhone");
 	favorite.setUnavailableFlag(0);
 
-	int actualFavoriteId = favorite.getFavId();
+	int actualFavoriteId = favorite.getFavoriteId();
 	int actualUserId = favorite.getUserId();
 	int actualGiftId = favorite.getGiftId();
 	String actualGuestName = favorite.getGuestName();
@@ -58,7 +58,7 @@ public class FavoriteTest {
     public void getFavorite_empty() throws Exception {
 
 	Favorite favorite = new Favorite();
-	int actualFavoriteId = favorite.getFavId();
+	int actualFavoriteId = favorite.getFavoriteId();
 	int actualUserId = favorite.getUserId();
 	int actualGiftId = favorite.getGiftId();
 	String actualGuestName = favorite.getGuestName();

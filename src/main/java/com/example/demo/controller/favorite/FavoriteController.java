@@ -49,15 +49,15 @@ public class FavoriteController {
     public String display(Model model, HttpServletRequest httpServletRequest) {
 
 	String userName = httpServletRequest.getRemoteUser();
-	int favIds = favGiftService.count(userName);
-	model.addAttribute("favIds", favIds);
+	int favoriteIds = favGiftService.count(userName);
+	model.addAttribute("favIds", favoriteIds);
 
-	if (favIds == 0) {
+	if (favoriteIds == 0) {
 	    return "mypage/favorite/favorite";
 	}
 
-	List<Favorite> allFavGifts = favGiftService.selectAll(userName);
-	model.addAttribute("allFavGifts", allFavGifts);
+	List<Favorite> favorites = favGiftService.selectAll(userName);
+	model.addAttribute("favorites", favorites);
 
 	return "mypage/favorite/favorite";
     }

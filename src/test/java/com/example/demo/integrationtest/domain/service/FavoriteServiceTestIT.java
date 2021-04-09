@@ -212,18 +212,18 @@ public class FavoriteServiceTestIT {
 
 	String userName = "userName3";
 
-	List<Favorite> favorite = favoriteService.selectAll(userName);
+	List<Favorite> favorites = favoriteService.selectAll(userName);
 
-	assertThat(favorite, hasItems(hasProperty("favId", is(0))));
-	assertThat(favorite, hasItems(hasProperty("userId", is(1))));
-	assertThat(favorite, hasItems(hasProperty("giftId", is(1000))));
-	assertThat(favorite, hasItems(hasProperty("guestName", is("中越典子"))));
-	assertThat(favorite, hasItems(hasProperty("giftName", is("マカロン"))));
-	assertThat(favorite, hasItems(hasProperty("price", is("120個入　3938円"))));
-	assertThat(favorite, hasItems(hasProperty("image", is("1000.jpg"))));
-	assertThat(favorite, hasItems(hasProperty("shop", is("ジャン＝ポール･エヴァン伊勢丹新宿店"))));
-	assertThat(favorite, hasItems(hasProperty("address", is("東京都新宿区新宿3-14-1伊勢丹新宿店本館B1階"))));
-	assertThat(favorite, hasItems(hasProperty("phone", is("03-3352-1111"))));
+	assertThat(favorites, hasItems(hasProperty("favId", is(0))));
+	assertThat(favorites, hasItems(hasProperty("userId", is(1))));
+	assertThat(favorites, hasItems(hasProperty("giftId", is(1000))));
+	assertThat(favorites, hasItems(hasProperty("guestName", is("中越典子"))));
+	assertThat(favorites, hasItems(hasProperty("giftName", is("マカロン"))));
+	assertThat(favorites, hasItems(hasProperty("price", is("120個入　3938円"))));
+	assertThat(favorites, hasItems(hasProperty("image", is("1000.jpg"))));
+	assertThat(favorites, hasItems(hasProperty("shop", is("ジャン＝ポール･エヴァン伊勢丹新宿店"))));
+	assertThat(favorites, hasItems(hasProperty("address", is("東京都新宿区新宿3-14-1伊勢丹新宿店本館B1階"))));
+	assertThat(favorites, hasItems(hasProperty("phone", is("03-3352-1111"))));
     }
 
     @Test
@@ -231,9 +231,9 @@ public class FavoriteServiceTestIT {
 
 	String userName = "userName4";
 
-	List<Favorite> favorite = favoriteService.selectAll(userName);
+	List<Favorite> favorites = favoriteService.selectAll(userName);
 
-	assertThat(favorite, is(empty()));
+	assertThat(favorites, is(empty()));
     }
 
     @Test

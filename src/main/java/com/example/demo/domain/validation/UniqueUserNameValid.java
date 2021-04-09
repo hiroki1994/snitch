@@ -30,9 +30,9 @@ public class UniqueUserNameValid implements ConstraintValidator<UniqueUserName, 
 	    return true;
 	}
 
-	int userNameExist = userService.exist(userName);
+	int count = userService.exist(userName);
 
-	if (userNameExist == 0) {
+	if (count == 0) {
 	    return true;
 	}
 

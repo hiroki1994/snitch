@@ -28,7 +28,7 @@ public class FavoriteDaoJdbcImpl implements FavoriteDao {
 					+ "WHERE userName = ?"
 					, Integer.class, userName);
 
-	List<Map<String, Object>> favGifts = jdbc.queryForList("SELECT * "
+	List<Map<String, Object>> favorites = jdbc.queryForList("SELECT * "
 								+ "FROM favGift "
 								+ "INNER JOIN gift"
 								+ " ON favGift.giftId = gift.giftId "
@@ -38,25 +38,25 @@ public class FavoriteDaoJdbcImpl implements FavoriteDao {
 								+ " AND favGift.unavailableFlag IS NULL"
 								, userId);
 
-	List<Favorite> allFavGifts = new ArrayList<>();
+	List<Favorite> allFavorites = new ArrayList<>();
 
-	for (Map<String, Object> map : favGifts) {
+	for (Map<String, Object> map : favorites) {
 
-	    Favorite favGift = new Favorite();
-	    favGift.setUserId((int) map.get("favId"));
-	    favGift.setUserId((int) map.get("userId"));
-	    favGift.setGiftId((int) map.get("giftId"));
-	    favGift.setGuestName((String) map.get("guestName"));
-	    favGift.setGiftName((String) map.get("giftName"));
-	    favGift.setPrice((String) map.get("price"));
-	    favGift.setImage((String) map.get("image"));
-	    favGift.setDescription((String) map.get("description"));
-	    favGift.setShop((String) map.get("shop"));
-	    favGift.setAddress((String) map.get("address"));
-	    favGift.setPhone((String) map.get("phone"));
-	    allFavGifts.add(favGift);
+	    Favorite favorite = new Favorite();
+	    favorite.setUserId((int) map.get("favId"));
+	    favorite.setUserId((int) map.get("userId"));
+	    favorite.setGiftId((int) map.get("giftId"));
+	    favorite.setGuestName((String) map.get("guestName"));
+	    favorite.setGiftName((String) map.get("giftName"));
+	    favorite.setPrice((String) map.get("price"));
+	    favorite.setImage((String) map.get("image"));
+	    favorite.setDescription((String) map.get("description"));
+	    favorite.setShop((String) map.get("shop"));
+	    favorite.setAddress((String) map.get("address"));
+	    favorite.setPhone((String) map.get("phone"));
+	    allFavorites.add(favorite);
 	}
-	return allFavGifts;
+	return allFavorites;
     }
 
     @Override
@@ -67,14 +67,14 @@ public class FavoriteDaoJdbcImpl implements FavoriteDao {
 					+ "WHERE userName = ?"
 					, Integer.class, userName);
 
-	int favId = jdbc.queryForObject("SELECT favId "
+	int favoriteId = jdbc.queryForObject("SELECT favId "
 					+ "FROM favGift "
 					+ "WHERE userId = ?"
 					+ " AND giftId = ? "
 					+ " AND favGift.unavailableFlag IS NULL"
 					, Integer.class, userId, giftId);
 
-	return favId;
+	return favoriteId;
     }
 
     @Override
@@ -85,13 +85,13 @@ public class FavoriteDaoJdbcImpl implements FavoriteDao {
 					+ "WHERE userName = ?"
 					, Integer.class, userName);
 
-	int favIds = jdbc.queryForObject("SELECT COUNT(favId) "
+	int favoriteIds = jdbc.queryForObject("SELECT COUNT(favId) "
 					+ "FROM favGift "
 					+ "WHERE userId = ?"
 					+ " AND favGift.unavailableFlag IS NULL"
-					, Integer.class,userId);
+					, Integer.class, userId);
 
-	return favIds;
+	return favoriteIds;
     }
 
     @Override
@@ -102,11 +102,11 @@ public class FavoriteDaoJdbcImpl implements FavoriteDao {
 					+ "WHERE userName = ?"
 					, Integer.class, userName);
 
-	int suceededRowNumber = jdbc.update("INSERT INTO favGift(userId, giftId) "
+	int rowNumber = jdbc.update("INSERT INTO favGift(userId, giftId) "
 						+ "VALUES(?, ?)"
 						, userId, giftId);
 
-	return suceededRowNumber;
+	return rowNumber;
     }
 
     @Override
@@ -117,14 +117,14 @@ public class FavoriteDaoJdbcImpl implements FavoriteDao {
 					+ "WHERE userName = ?"
 					, Integer.class, userName);
 
-	int suceededRowNumber = jdbc.update("UPDATE favGift "
+	int rowNumber = jdbc.update("UPDATE favGift "
 						+ "SET unavailableFlag = '1' "
 						+ "WHERE userId = ?"
 						+ " AND giftId = ?"
 						+ " AND favGift.unavailableFlag IS NULL"
 						, userId, giftId);
 
-	return suceededRowNumber;
+	return rowNumber;
     }
 
     @Override
@@ -135,12 +135,12 @@ public class FavoriteDaoJdbcImpl implements FavoriteDao {
 					+ "WHERE userName = ?"
 					, Integer.class, userName);
 
-	int suceededRowNumber = jdbc.update("UPDATE favGift "
+	int rowNumber = jdbc.update("UPDATE favGift "
 						+ "SET unavailableFlag = '1' "
 						+ "WHERE userId = ?"
 						+ " AND unavailableFlag IS NULL"
 						, userId);
 
-	return suceededRowNumber;
+	return rowNumber;
     }
 }

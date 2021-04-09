@@ -32,12 +32,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	return new BCryptPasswordEncoder();
     }
 
-    private static final String USER_DATA = "SELECT userName, password, true "
+    private static final String userSql = "SELECT userName, password, true "
     						+ "FROM userData "
     						+ "WHERE userName = ?"
     						+ " AND userData.unavailableFlag IS NULL";
 
-    private static final String ROLE_DATA = "SELECT userName, role "
+    private static final String roleSql = "SELECT userName, role "
     						+ "FROM userData "
     						+ "WHERE userName = ?"
     						+ " AND userData.unavailableFlag IS NULL";
@@ -80,8 +80,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	auth.jdbcAuthentication()
 		.dataSource(dataSource)
-		.usersByUsernameQuery(USER_DATA)
-		.authoritiesByUsernameQuery(ROLE_DATA)
+		.usersByUsernameQuery(userSql)
+		.authoritiesByUsernameQuery(roleSql)
 		.passwordEncoder(passwordEncoder());
     }
 
@@ -94,11 +94,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	try {
 	    request.login(username, password);
-	    String urlMyPage = "/users/mypage";
-	    response.sendRedirect(urlMyPage);
+	    String url = "/users/mypage";
+	    response.sendRedirect(url);
 	} catch (ServletException e) {
-	    String urlLogin = "/users/session/login";
-	    response.sendRedirect(urlLogin);
+	    String url = "/users/session/login";
+	    response.sendRedirect(url);
 	}
     }
 
@@ -106,11 +106,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	try {
 	    request.logout();
-	    String urlLogin = "/users/session/login";
-	    response.sendRedirect(urlLogin);
+	    String url = "/users/session/login";
+	    response.sendRedirect(url);
 	} catch (ServletException e) {
-	    String urlLogin = "/users/session/login";
-	    response.sendRedirect(urlLogin);
+	    String url = "/users/session/login";
+	    response.sendRedirect(url);
 	}
     }
 }

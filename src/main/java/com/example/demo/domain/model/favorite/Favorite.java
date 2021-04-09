@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Favorite {
-    private int favId;
+    private int favoriteId;
     private int userId;
     private int giftId;
     private String guestName;

@@ -36,8 +36,8 @@ public class SearchController {
 	    return "search_result/search_result";
 	}
 
-	List<Gift> selectedGifts = giftService.search(keyword);
-	model.addAttribute("selectedGifts", selectedGifts);
+	List<Gift> gifts = giftService.search(keyword);
+	model.addAttribute("gifts", gifts);
 
 	return "search_result/search_result";
     }
