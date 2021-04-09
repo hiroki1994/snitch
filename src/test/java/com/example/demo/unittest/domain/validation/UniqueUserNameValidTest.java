@@ -1,6 +1,5 @@
 package com.example.demo.unittest.domain.validation;
 
-
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
@@ -20,53 +19,49 @@ import com.example.demo.domain.validation.UniqueUserNameValid;
 @SpringBootTest
 public class UniqueUserNameValidTest {
 
-	@Mock
-	private UserService userService;
+    @Mock
+    private UserService userService;
 
-	@Mock
-	private HttpServletRequest request;;
+    @Mock
+    private HttpServletRequest request;;
 
+    @InjectMocks
+    private UniqueUserNameValid uniqueUserNameValid;
 
-	@InjectMocks
-	private UniqueUserNameValid uniqueUserNameValid;
+    @BeforeEach
+    public void init() {
+	MockitoAnnotations.initMocks(this);
+    }
 
+    @Test
+    public void userName_validatedSuccessfully() throws Exception {
 
-	@BeforeEach
-	public void init() {
-		MockitoAnnotations.initMocks(this);
-	}
+	String userName = "testUser10";
 
-	@Test
-	public void userName_validatedSuccessfully() throws Exception {
+	when(request.getRemoteUser()).thenReturn(null);
+	when(userService.exist(userName)).thenReturn(0);
 
-		String userName = "testUser10";
+	assertThat(uniqueUserNameValid.isValid(userName, null), is(true));
+    }
 
-		when(request.getRemoteUser()).thenReturn(null);
-		when(userService.exist(userName)).thenReturn(0);
+    @Test
+    public void userName_uniqueError() throws Exception {
 
-		assertThat(uniqueUserNameValid.isValid(userName, null), is(true));
-	}
+	String userName = "userName3";
 
-	@Test
-	public void userName_uniqueError() throws Exception {
+	when(request.getRemoteUser()).thenReturn(null);
+	when(userService.exist(userName)).thenReturn(1);
 
-		String userName = "userName3";
+	assertThat(uniqueUserNameValid.isValid(userName, null), is(false));
+    }
 
-		when(request.getRemoteUser()).thenReturn(null);
-		when(userService.exist(userName)).thenReturn(1);
+    @Test
+    public void username_equalToAuthentivatedUserName() throws Exception {
 
+	String userName = "userName3";
 
-		assertThat(uniqueUserNameValid.isValid(userName, null), is(false));
-	}
+	when(request.getRemoteUser()).thenReturn(userName);
 
-
-	@Test
-	public void username_equalToAuthentivatedUserName() throws Exception {
-
-		String userName = "userName3";
-
-		when(request.getRemoteUser()).thenReturn(userName);
-
-		assertThat(uniqueUserNameValid.isValid(userName, null), is(true));
-	}
+	assertThat(uniqueUserNameValid.isValid(userName, null), is(true));
+    }
 }

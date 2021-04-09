@@ -1,6 +1,5 @@
 package com.example.demo.integrationtest.domain.service;
 
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -17,156 +16,149 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.domain.model.user.User;
 import com.example.demo.domain.service.UserService;
 
-
-
-
 @SpringBootTest
 @Transactional
 public class UserServiceTestIT {
 
-	@Autowired
-	UserService userService;
+    @Autowired
+    UserService userService;
 
-	@Test
-	public void createOneUser_suceess() throws Exception {
+    @Test
+    public void createOneUser_suceess() throws Exception {
 
-		User user = new User();
+	User user = new User();
+	user.setUserName("uniqueUserName");
+	user.setMailAddress("mail@gmail.com");
+	user.setPassword("7777");
 
-		user.setUserName("uniqueUserName");
-		user.setMailAddress("mail@gmail.com");
-		user.setPassword("7777");
+	int expected = 1;
+	int actual = userService.createOne(user);
 
-		int expected = 1;
-		int actual = userService.createOne(user);
+	assertEquals(expected, actual);
+    }
 
-		assertEquals(expected, actual);
-	}
+    @Test
+    public void createOneUser_fail_usernameUniqueError() throws Exception {
 
-	@Test
-	public void createOneUser_fail_usernameUniqueError() throws Exception {
+	User user = new User();
+	user.setUserName("userName3");
+	user.setMailAddress("mail@gmail.com");
+	user.setPassword("7777");
 
-		User user = new User();
+	Assertions.assertThrows(DuplicateKeyException.class, () -> {
+	    userService.createOne(user);
+	});
+    }
 
-		user.setUserName("userName3");
-		user.setMailAddress("mail@gmail.com");
-		user.setPassword("7777");
+    @Test
+    public void selectOneUserInfo_success() throws Exception {
 
-		Assertions.assertThrows(DuplicateKeyException.class, () -> {
-			userService.createOne(user);
-		});
-	}
+	String userName = "userName3";
+	User user = userService.selectOne(userName);
 
-	@Test
-	public void selectOneUserInfo_success() throws Exception {
+	assertThat(user, hasProperty("userName", equalTo("userName3")));
+	assertThat(user, hasProperty("mailAddress", equalTo("mailaddress3@gmail.co.jp")));
+	assertThat(user,
+		hasProperty("password", equalTo("$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa")));
+    }
 
-		String userName = "userName3";
-		User user = userService.selectOne(userName);
+    @Test
+    public void selectOneUserInfo_fail_userNameDoesNotExist() throws Exception {
 
-		assertThat(user, hasProperty("userName", equalTo("userName3")));
-		assertThat(user, hasProperty("mailAddress", equalTo("mailaddress3@gmail.co.jp")));
-		assertThat(user, hasProperty("password", equalTo("$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa")));
-	}
+	String userName = "userName5";
 
-	@Test
-	public void selectOneUserInfo_fail_userNameDoesNotExist() throws Exception {
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    userService.selectOne(userName);
+	});
+    }
 
-		String userName = "userName5";
+    @Test
+    public void updateOneUserInfo_success() throws Exception {
 
-		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			userService.selectOne(userName);
-		});
-	}
+	String userName = "userName3";
 
-	@Test
-	public void updateOneUserInfo_success() throws Exception {
+	User user = new User();
+	user.setUserName("userName5");
+	user.setMailAddress("mailaddress3@gmail.co.jp");
+	user.setPassword("password2");
 
-		String userName = "userName3";
+	int expected = 1;
+	int actual = userService.updateOne(user, userName);
 
-		User user = new User();
+	assertEquals(expected, actual);
+    }
 
-		user.setUserName("userName5");
-		user.setMailAddress("mailaddress3@gmail.co.jp");
-		user.setPassword("password2");
+    @Test
+    public void updateOneUserInfo_success_usernameIsUnchanged() throws Exception {
 
-		int expected = 1;
-		int actual = userService.updateOne(user, userName);
+	String userName = "userName3";
 
-		assertEquals(expected, actual);
-	}
+	User user = new User();
+	user.setUserName("userName3");
+	user.setMailAddress("mailaddress3@gmail.co.jp");
+	user.setPassword("password2");
 
-	@Test
-	public void updateOneUserInfo_success_usernameIsUnchanged() throws Exception {
+	int expected = 1;
+	int actual = userService.updateOne(user, userName);
 
-	    	String userName = "userName3";
+	assertEquals(expected, actual);
+    }
 
-		User user = new User();
+    @Test
+    public void updateOneUserInfo_fail_usernameUniqueError() throws Exception {
 
-		user.setUserName("userName3");
-		user.setMailAddress("mailaddress3@gmail.co.jp");
-		user.setPassword("password2");
+	String userName = "userName3";
 
-		int expected = 1;
-		int actual = userService.updateOne(user, userName);
+	User user = new User();
+	user.setUserName("userName4");
+	user.setMailAddress("mailaddress3@gmail.co.jp");
+	user.setPassword("password2");
 
-		assertEquals(expected, actual);
-	}
+	Assertions.assertThrows(DuplicateKeyException.class, () -> {
+	    userService.updateOne(user, userName);
+	});
+    }
 
-	@Test
-	public void updateOneUserInfo_fail_usernameUniqueError() throws Exception {
+    @Test
+    public void deleteOneUser_success() throws Exception {
 
-		String userName = "userName3";
+	String userName = "userName3";
 
-		User user = new User();
+	int expected = 1;
+	int actual = userService.deleteOne(userName);
 
-		user.setUserName("userName4");
-		user.setMailAddress("mailaddress3@gmail.co.jp");
-		user.setPassword("password2");
+	assertEquals(expected, actual);
+    }
 
-		Assertions.assertThrows(DuplicateKeyException.class, () -> {
-			userService.updateOne(user, userName);
-		});
-	}
+    @Test
+    public void deleteOneUser_fail_userNameDoesNotExist() throws Exception {
 
-	@Test
-	public void deleteOneUser_success() throws Exception {
+	String userName = "userName5";
 
-		String userName = "userName3";
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    userService.deleteOne(userName);
+	});
+    }
 
-		int expected = 1;
-		int actual = userService.deleteOne(userName);
+    @Test
+    public void searchEqualUserName_success_found() throws Exception {
 
-		assertEquals(expected, actual);
-	}
+	String userName = "userName3";
 
-	@Test
-	public void deleteOneUser_fail_userNameDoesNotExist() throws Exception {
+	int expected = 1;
+	int actual = userService.exist(userName);
 
-		String userName = "userName5";
+	assertEquals(expected, actual);
+    }
 
-		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			userService.deleteOne(userName);
-		});
-	}
+    @Test
+    public void searchEqualUserName_success_notFound() throws Exception {
 
-	@Test
-	public void searchEqualUserName_success_found() throws Exception {
+	String userName = "uniqueUserName";
 
-		String userName = "userName3";
-		int expected = 1;
+	int expected = 0;
+	int actual = userService.exist(userName);
 
-		int actual = userService.exist(userName);
-
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	public void searchEqualUserName_success_notFound() throws Exception {
-
-		String userName = "uniqueUserName";
-
-		int expected = 0;
-		int actual = userService.exist(userName);
-
-		assertEquals(expected, actual);
-	}
+	assertEquals(expected, actual);
+    }
 }

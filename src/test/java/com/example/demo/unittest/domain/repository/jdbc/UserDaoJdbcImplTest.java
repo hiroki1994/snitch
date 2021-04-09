@@ -20,156 +20,146 @@ import com.example.demo.domain.repository.jdbc.UserDaoJdbcImpl;
 @Transactional
 public class UserDaoJdbcImplTest {
 
-	@Autowired
-	UserDaoJdbcImpl userDaoJdbcImpl;
+    @Autowired
+    UserDaoJdbcImpl userDaoJdbcImpl;
 
-	@Test
-	public void createOneUser_suceess() throws Exception {
+    @Test
+    public void createOneUser_suceess() throws Exception {
 
-		User user = new User();
+	User user = new User();
+	user.setUserName("uniqueUserName");
+	user.setMailAddress("mail@gmail.com");
+	user.setPassword("7777");
 
-		user.setUserName("uniqueUserName");
-		user.setMailAddress("mail@gmail.com");
-		user.setPassword("7777");
+	int expected = 1;
+	int actual = userDaoJdbcImpl.createOne(user);
 
-		int expected = 1;
+	assertEquals(expected, actual);
+    }
 
-		int actual = userDaoJdbcImpl.createOne(user);
+    @Test
+    public void createOneUser_fail_userNameUniqueError() throws Exception {
 
-		assertEquals(expected, actual);
-	}
+	User user = new User();
+	user.setUserName("userName3");
+	user.setMailAddress("mail@gmail.com");
+	user.setPassword("7777");
 
-	@Test
-	public void createOneUser_fail_userNameUniqueError() throws Exception {
+	Assertions.assertThrows(DuplicateKeyException.class, () -> {
+	    userDaoJdbcImpl.createOne(user);
+	});
+    }
 
-		User user = new User();
+    @Test
+    public void selectOneUserInfo_success() throws Exception {
 
-		user.setUserName("userName3");
-		user.setMailAddress("mail@gmail.com");
-		user.setPassword("7777");
+	String userName = "userName3";
 
-		Assertions.assertThrows(DuplicateKeyException.class, () -> {
-			userDaoJdbcImpl.createOne(user);
-		});
-	}
+	User user = userDaoJdbcImpl.selectOne(userName);
 
-	@Test
-	public void selectOneUserInfo_success() throws Exception {
+	assertThat(user, hasProperty("userName", equalTo("userName3")));
+	assertThat(user, hasProperty("mailAddress", equalTo("mailaddress3@gmail.co.jp")));
+	assertThat(user,
+		hasProperty("password", equalTo("$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa")));
+    }
 
-		String userName = "userName3";
+    @Test
+    public void selectOneUserInfo_fail_userNameDoesNotExist() throws Exception {
 
-		User user = userDaoJdbcImpl.selectOne(userName);
+	String userName = "userName5";
 
-		assertThat(user, hasProperty("userName", equalTo("userName3")));
-		assertThat(user, hasProperty("mailAddress", equalTo("mailaddress3@gmail.co.jp")));
-		assertThat(user, hasProperty("password", equalTo("$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa")));
-	}
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    userDaoJdbcImpl.selectOne(userName);
+	});
+    }
 
-	@Test
-	public void selectOneUserInfo_fail_userNameDoesNotExist() throws Exception {
+    @Test
+    public void updateOneUserInfo_success() throws Exception {
 
-		String userName = "userName5";
+	String userName = "userName3";
 
-		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			userDaoJdbcImpl.selectOne(userName);
-		});
-	}
+	User user = new User();
+	user.setUserName("userName5");
+	user.setMailAddress("mailaddress3@gmail.co.jp");
+	user.setPassword("password2");
 
-	@Test
-	public void updateOneUserInfo_success() throws Exception {
+	int expected = 1;
+	int actual = userDaoJdbcImpl.updateOne(user, userName);
 
-		String userName = "userName3";
+	assertEquals(expected, actual);
+    }
 
-		User user = new User();
+    @Test
+    public void updateOneUserInfo_success_usernameIsUnchanged() throws Exception {
 
-		user.setUserName("userName5");
-		user.setMailAddress("mailaddress3@gmail.co.jp");
-		user.setPassword("password2");
+	String userName = "userName3";
 
-		int expected = 1;
+	User user = new User();
+	user.setUserName("userName3");
+	user.setMailAddress("mailaddress3@gmail.co.jp");
+	user.setPassword("password2");
 
-		int actual = userDaoJdbcImpl.updateOne(user, userName);
+	int expected = 1;
+	int actual = userDaoJdbcImpl.updateOne(user, userName);
 
-		assertEquals(expected, actual);
-	}
+	assertEquals(expected, actual);
+    }
 
-	@Test
-	public void updateOneUserInfo_success_usernameIsUnchanged() throws Exception {
+    @Test
+    public void updateOneUserInfo_fail_usernameUniqueError() throws Exception {
 
-		String userName = "userName3";
+	String userName = "userName3";
 
-		User user = new User();
+	User user = new User();
+	user.setUserName("userName4");
+	user.setMailAddress("mailaddress3@gmail.co.jp");
+	user.setPassword("password2");
 
-		user.setUserName("userName3");
-		user.setMailAddress("mailaddress3@gmail.co.jp");
-		user.setPassword("password2");
+	Assertions.assertThrows(DuplicateKeyException.class, () -> {
+	    userDaoJdbcImpl.updateOne(user, userName);
+	});
+    }
 
-		int expected = 1;
+    @Test
+    public void deleteOneUser_success() throws Exception {
 
-		int actual = userDaoJdbcImpl.updateOne(user, userName);
+	String userName = "userName3";
 
-		assertEquals(expected, actual);
-	}
+	int expected = 1;
+	int actual = userDaoJdbcImpl.deleteOne(userName);
 
-	@Test
-	public void updateOneUserInfo_fail_usernameUniqueError() throws Exception {
+	assertEquals(expected, actual);
+    }
 
-		String userName = "userName3";
+    @Test
+    public void deleteOneUser_fail_userNameDoesNotExist() throws Exception {
 
-		User user = new User();
+	String userName = "userName5";
 
-		user.setUserName("userName4");
-		user.setMailAddress("mailaddress3@gmail.co.jp");
-		user.setPassword("password2");
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    userDaoJdbcImpl.deleteOne(userName);
+	});
+    }
 
-		Assertions.assertThrows(DuplicateKeyException.class, () -> {
-			userDaoJdbcImpl.updateOne(user, userName);
-		});
-	}
+    @Test
+    public void searchEqualUserName_success_found() throws Exception {
 
-	@Test
-	public void deleteOneUser_success() throws Exception {
+	String userName = "userName3";
 
-		String userName = "userName3";
+	int expected = 1;
+	int actual = userDaoJdbcImpl.exist(userName);
 
-		int expected = 1;
+	assertEquals(expected, actual);
+    }
 
-		int actual = userDaoJdbcImpl.deleteOne(userName);
+    @Test
+    public void searchEqualUserName_success_notFound() throws Exception {
 
-		assertEquals(expected, actual);
-	}
+	String userName = "uniqueUserName";
 
-	@Test
-	public void deleteOneUser_fail_userNameDoesNotExist() throws Exception {
+	int expected = 0;
+	int actual = userDaoJdbcImpl.exist(userName);
 
-		String userName = "userName5";
-
-		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			userDaoJdbcImpl.deleteOne(userName);
-		});
-	}
-
-	@Test
-	public void searchEqualUserName_success_found() throws Exception {
-
-		String userName = "userName3";
-
-		int expected = 1;
-
-		int actual = userDaoJdbcImpl.exist(userName);
-
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	public void searchEqualUserName_success_notFound() throws Exception {
-
-		String userName = "uniqueUserName";
-
-		int expected = 0;
-
-		int actual = userDaoJdbcImpl.exist(userName);
-
-		assertEquals(expected, actual);
-	}
+	assertEquals(expected, actual);
+    }
 }

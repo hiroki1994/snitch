@@ -1,6 +1,5 @@
 package com.example.demo.integrationtest.interceptor;
 
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -12,21 +11,18 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.demo.domain.model.searchform.SearchForm;
 
-
-
 @SpringBootTest
 @AutoConfigureMockMvc
 public class CustomHandlerInterceptorTest {
 
-	@Autowired
-	private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-	@Test
-	public void addSearchForm() throws Exception {
+    @Test
+    public void addSearchForm() throws Exception {
 
-		SearchForm searchForm = new SearchForm();
+	SearchForm searchForm = new SearchForm();
 
-		mockMvc.perform(get("/"))
-			.andExpect(model().attribute("searchForm", searchForm));
-	}
+	mockMvc.perform(get("/")).andExpect(model().attribute("searchForm", searchForm));
+    }
 }

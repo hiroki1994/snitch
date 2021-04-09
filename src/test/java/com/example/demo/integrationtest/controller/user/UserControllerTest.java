@@ -20,185 +20,188 @@ import com.example.demo.domain.model.user.UserForm;
 @AutoConfigureMockMvc
 public class UserControllerTest {
 
-	@Autowired
-	private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-	@Test
-	@WithMockUser(username = "userName3")
-	public void displayUserInfo() throws Exception {
+    @Test
+    @WithMockUser(username = "userName3")
+    public void displayUserInfo() throws Exception {
 
-		mockMvc.perform(get("/users/edit")
-				.with(csrf()))
-				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("userName3")))
-				.andExpect(content().string(containsString("mailaddress3@gmail.co.jp")));
-	}
+	mockMvc.perform(get("/users/edit")
+		.with(csrf()))
+		.andExpect(status().isOk())
+		.andExpect(content().string(containsString("userName3")))
+		.andExpect(content().string(containsString("mailaddress3@gmail.co.jp")));
+    }
 
-	@Test
-	@WithMockUser(username = "userName5")
-	public void displayUserInfo_fail_userNameDoesNotExist() throws Exception {
+    @Test
+    @WithMockUser(username = "userName5")
+    public void displayUserInfo_fail_userNameDoesNotExist() throws Exception {
 
-		mockMvc.perform(get("/users/edit")
-				.with(csrf()))
-				.andExpect(status().isOk())
-				.andExpect(view().name("error/error"));
-	}
+	mockMvc.perform(get("/users/edit")
+		.with(csrf()))
+		.andExpect(status().isOk())
+		.andExpect(view().name("error/error"));
+    }
 
-	@Test
-	@WithMockUser(username = "userName3")
-	public void updateOneUserInfo_success() throws Exception {
+    @Test
+    @WithMockUser(username = "userName3")
+    public void updateOneUserInfo_success() throws Exception {
 
-		UserForm form = new UserForm();
+	UserForm form = new UserForm();
+	form.setUserName("uniqueUserName");
+	form.setMailAddress("mail@gmail.com");
+	form.setPassword("7777");
 
-		form.setUserName("uniqueUserName");
-		form.setMailAddress("mail@gmail.com");
-		form.setPassword("7777");
+	mockMvc.perform(put("/users")
+		.flashAttr("userForm", form)
+		.with(csrf()))
+		.andExpect(status().isFound())
+		.andExpect(redirectedUrl("/users/mypage"));
+    }
 
-		mockMvc.perform(put("/users").flashAttr("userForm", form).with(csrf()))
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/users/mypage"));
-	}
+    @Test
+    @WithMockUser(username = "userName3")
+    public void updateOneUserInfo_success_usernameIsEqualToAuthentivatedUserName() throws Exception {
 
-	@Test
-	@WithMockUser(username = "userName3")
-	public void updateOneUserInfo_success_usernameIsEqualToAuthentivatedUserName() throws Exception {
+	UserForm form = new UserForm();
+	form.setUserName("userName3");
+	form.setMailAddress("mail@gmail.com");
+	form.setPassword("7777");
 
-		UserForm form = new UserForm();
+	mockMvc.perform(put("/users")
+		.flashAttr("userForm", form)
+		.with(csrf()))
+		.andExpect(status().isFound())
+		.andExpect(redirectedUrl("/users/mypage"));
+    }
 
-		form.setUserName("userName3");
-		form.setMailAddress("mail@gmail.com");
-		form.setPassword("7777");
+    @Test
+    @WithMockUser(username = "userName3")
+    public void updateOneUserInfo_fail_usernameUniqueError() throws Exception {
 
-		mockMvc.perform(put("/users").flashAttr("userForm", form)
-				.with(csrf()))
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/users/mypage"));
-	}
+	UserForm form = new UserForm();
+	form.setUserName("userName4");
+	form.setMailAddress("mail@gmail.com");
+	form.setPassword("7777");
 
-	@Test
-	@WithMockUser(username = "userName3")
-	public void updateOneUserInfo_fail_usernameUniqueError() throws Exception {
+	mockMvc.perform(put("/users")
+		.flashAttr("userForm", form)
+		.with(csrf()))
+		.andExpect(status().isOk())
+		.andExpect(content().string(containsString("入力されたユーザーネームは既に使用されています")));
+    }
 
-		UserForm form = new UserForm();
+    @Test
+    @WithMockUser(username = "userName3")
+    public void updateOneUserInfo_fail_validationError() throws Exception {
 
-		form.setUserName("userName4");
-		form.setMailAddress("mail@gmail.com");
-		form.setPassword("7777");
+	UserForm form = new UserForm();
+	form.setUserName("ああ");
+	form.setMailAddress("mail");
+	form.setPassword("いい");
 
-		mockMvc.perform(put("/users").flashAttr("userForm", form)
-				.with(csrf()))
-				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("入力されたユーザーネームは既に使用されています")));
-	}
+	mockMvc.perform(put("/users")
+		.flashAttr("userForm", form)
+		.with(csrf()))
+		.andExpect(status().isOk())
+		.andExpect(view().name("mypage/edit_user/edit_user"))
+		.andExpect(content().string(containsString("ユーザーネームは3字以上20字以下で入力してください")))
+		.andExpect(content().string(containsString("ユーザーネームは半角英数字で入力してください")))
+		.andExpect(content().string(containsString("ユーザーネームは3字以上20字以下で入力してください")))
+		.andExpect(content().string(containsString("メールアドレス形式で入力してください")))
+		.andExpect(content().string(containsString("パスワードは3字以上20字以下で入力してください")))
+		.andExpect(content().string(containsString("パスワードは半角英数字で入力してください")));
+    }
 
-	@Test
-	@WithMockUser(username = "userName3")
-	public void updateOneUserInfo_fail_validationError() throws Exception {
+    @Test
+    public void displayRegistrationPage() throws Exception {
 
-		UserForm form = new UserForm();
+	mockMvc.perform(get("/users/new")
+		.with(csrf()))
+		.andExpect(status().isOk())
+		.andExpect(content().string(containsString("ユーザー登録画面")));
+    }
 
-		form.setUserName("ああ");
-		form.setMailAddress("mail");
-		form.setPassword("いい");
+    @Test
+    public void createOneUser_suceess() throws Exception {
 
-		mockMvc.perform(put("/users").flashAttr("userForm", form)
-				.with(csrf()))
-				.andExpect(status().isOk())
-				.andExpect(view().name("mypage/edit_user/edit_user"))
-				.andExpect(content().string(containsString("ユーザーネームは3字以上20字以下で入力してください")))
-				.andExpect(content().string(containsString("ユーザーネームは半角英数字で入力してください")))
-				.andExpect(content().string(containsString("ユーザーネームは3字以上20字以下で入力してください")))
-				.andExpect(content().string(containsString("メールアドレス形式で入力してください")))
-				.andExpect(content().string(containsString("パスワードは3字以上20字以下で入力してください")))
-				.andExpect(content().string(containsString("パスワードは半角英数字で入力してください")));
-	}
+	UserForm form = new UserForm();
+	form.setUserName("uniqueUserName");
+	form.setMailAddress("mail@gmail.com");
+	form.setPassword("7777");
 
-	@Test
-	public void displayRegistrationPage() throws Exception {
+	mockMvc.perform(post("/users")
+		.flashAttr("userForm", form)
+		.with(csrf()))
+		.andExpect(status().isFound())
+		.andExpect(redirectedUrl("/users/mypage"));
+    }
 
-		mockMvc.perform(get("/users/new")
-				.with(csrf()))
-				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("ユーザー登録画面")));
-	}
+    @Test
+    public void createOneUser_fail_usernameUniqueError() throws Exception {
 
+	UserForm form = new UserForm();
+	form.setUserName("userName3");
+	form.setMailAddress("mail@gmail.com");
+	form.setPassword("7777");
 
-	@Test
-	public void createOneUser_suceess() throws Exception {
+	mockMvc.perform(post("/users")
+		.flashAttr("userForm", form)
+		.with(csrf()))
+		.andExpect(status().isOk())
+		.andExpect(view().name("registration/registration"))
+		.andExpect(content().string(containsString("入力されたユーザーネームは既に使用されています")));
+    }
 
-		UserForm form = new UserForm();
+    @Test
+    public void createOneUser_fail_ValidationError() throws Exception {
 
-		form.setUserName("uniqueUserName");
-		form.setMailAddress("mail@gmail.com");
-		form.setPassword("7777");
+	UserForm form = new UserForm();
+	form.setUserName("ああ");
+	form.setMailAddress("mail");
+	form.setPassword("いい");
 
-		mockMvc.perform(post("/users").flashAttr("userForm", form).with(csrf()))
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/users/mypage"));
-	}
+	mockMvc.perform(post("/users")
+		.flashAttr("userForm", form)
+		.with(csrf()))
+		.andExpect(status().isOk())
+		.andExpect(view().name("registration/registration"))
+		.andExpect(content().string(containsString("ユーザーネームは3字以上20字以下で入力してください")))
+		.andExpect(content().string(containsString("ユーザーネームは半角英数字で入力してください")))
+		.andExpect(content().string(containsString("ユーザーネームは3字以上20字以下で入力してください")))
+		.andExpect(content().string(containsString("メールアドレス形式で入力してください")))
+		.andExpect(content().string(containsString("パスワードは3字以上20字以下で入力してください")))
+		.andExpect(content().string(containsString("パスワードは半角英数字で入力してください")));
+    }
 
-	@Test
-	public void createOneUser_fail_usernameUniqueError() throws Exception {
+    @Test
+    @WithMockUser(username = "userName3")
+    public void displayWithdrawalPage() throws Exception {
 
-		UserForm form = new UserForm();
+	mockMvc.perform(get("/users/withdrawal")
+		.with(csrf()))
+		.andExpect(status().isOk())
+		.andExpect(content().string(containsString("本当に退会してもよろしいでしょうか?")));
+    }
 
-		form.setUserName("userName3");
-		form.setMailAddress("mail@gmail.com");
-		form.setPassword("7777");
+    @Test
+    @WithMockUser(username = "userName3")
+    public void deleteOneUser_success() throws Exception {
 
-		mockMvc.perform(post("/users").flashAttr("userForm", form).with(csrf()))
-				.andExpect(status().isOk())
-				.andExpect(view().name("registration/registration"))
-				.andExpect(content().string(containsString("入力されたユーザーネームは既に使用されています")));
-	}
+	mockMvc.perform(delete("/users")
+		.with(csrf()))
+		.andExpect(status().isFound())
+		.andExpect(redirectedUrl("/users/session/login"));
+    }
 
-	@Test
-	public void createOneUser_fail_ValidationError() throws Exception {
+    @Test
+    @WithMockUser(username = "userName5")
+    public void deleteOneUser_fail_userNameDoesNotExist() throws Exception {
 
-		UserForm form = new UserForm();
-
-		form.setUserName("ああ");
-		form.setMailAddress("mail");
-		form.setPassword("いい");
-
-		mockMvc.perform(post("/users").flashAttr("userForm", form).with(csrf()))
-				.andExpect(status().isOk())
-				.andExpect(view().name("registration/registration"))
-				.andExpect(content().string(containsString("ユーザーネームは3字以上20字以下で入力してください")))
-				.andExpect(content().string(containsString("ユーザーネームは半角英数字で入力してください")))
-				.andExpect(content().string(containsString("ユーザーネームは3字以上20字以下で入力してください")))
-				.andExpect(content().string(containsString("メールアドレス形式で入力してください")))
-				.andExpect(content().string(containsString("パスワードは3字以上20字以下で入力してください")))
-				.andExpect(content().string(containsString("パスワードは半角英数字で入力してください")));
-	}
-
-	@Test
-	@WithMockUser(username = "userName3")
-	public void displayWithdrawalPage() throws Exception {
-
-		mockMvc.perform(get("/users/withdrawal")
-				.with(csrf()))
-				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("本当に退会してもよろしいでしょうか?")));
-	}
-
-	@Test
-	@WithMockUser(username = "userName3")
-	public void deleteOneUser_success() throws Exception {
-
-		mockMvc.perform(delete("/users")
-				.with(csrf()))
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/users/session/login"));
-	}
-
-	@Test
-	@WithMockUser(username = "userName5")
-	public void deleteOneUser_fail_userNameDoesNotExist() throws Exception {
-
-		mockMvc.perform(delete("/users")
-				.with(csrf()))
-				.andExpect(status().isOk())
-				.andExpect(view().name("error/error"));
-	}
+	mockMvc.perform(delete("/users")
+		.with(csrf()))
+		.andExpect(status().isOk())
+		.andExpect(view().name("error/error"));
+    }
 }

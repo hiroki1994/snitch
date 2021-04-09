@@ -14,15 +14,15 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 public class LoginPageControllerTest {
 
-	@Autowired
-	private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-	@Test
-	public void displayLoginPage() throws Exception {
+    @Test
+    public void displayLoginPage() throws Exception {
 
-		mockMvc.perform(get("/users/session/login"))
-				.andExpect(status().isOk())
-				.andExpect(view().name("login/login"))
-				.andExpect(content().string(containsString("Login")));
-	}
+	mockMvc.perform(get("/users/session/login"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("login/login"))
+		.andExpect(content().string(containsString("Login")));
+    }
 }

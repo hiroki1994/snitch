@@ -22,187 +22,175 @@ import com.example.demo.domain.service.UserService;
 @Transactional
 public class UserServiceTestUT {
 
-	@Mock
-	UserDao userDao;
+    @Mock
+    UserDao userDao;
 
-	@InjectMocks
-	UserService userService;
+    @InjectMocks
+    UserService userService;
 
-	@BeforeEach
-	public void init() {
-		MockitoAnnotations.initMocks(this);
-	}
+    @BeforeEach
+    public void init() {
+	MockitoAnnotations.initMocks(this);
+    }
 
-	@Test
-	public void createOneUser_suceess() throws Exception {
+    @Test
+    public void createOneUser_suceess() throws Exception {
 
-		User user = new User();
+	User user = new User();
+	user.setUserName("uniqueUserName");
+	user.setMailAddress("mail@gmail.com");
+	user.setPassword("7777");
 
-		user.setUserName("uniqueUserName");
-		user.setMailAddress("mail@gmail.com");
-		user.setPassword("7777");
+	when(userDao.createOne(user)).thenReturn(1);
 
-		when(userDao.createOne(user)).thenReturn(1);
+	int expected = 1;
+	int actual = userService.createOne(user);
 
-		int expected = 1;
+	assertEquals(expected, actual);
+    }
 
-		int actual = userService.createOne(user);
+    @Test
+    public void createOneUser_fail_usernameUniqueError() throws Exception {
 
-		assertEquals(expected, actual);
-	}
+	User user = new User();
+	user.setUserName("userName3");
+	user.setMailAddress("mail@gmail.com");
+	user.setPassword("7777");
 
-	@Test
-	public void createOneUser_fail_usernameUniqueError() throws Exception {
+	when(userDao.createOne(user)).thenThrow(DuplicateKeyException.class);
 
-		User user = new User();
+	Assertions.assertThrows(DuplicateKeyException.class, () -> {
+	    userService.createOne(user);
+	});
+    }
 
-		user.setUserName("userName3");
-		user.setMailAddress("mail@gmail.com");
-		user.setPassword("7777");
+    @Test
+    public void selectOneUserInfo_success() throws Exception {
 
-		when(userDao.createOne(user)).thenThrow(DuplicateKeyException.class);
+	String userName = "userName3";
+	User user = new User();
 
-		Assertions.assertThrows(DuplicateKeyException.class, () -> {
-			userService.createOne(user);
-		});
-	}
+	when(userDao.selectOne(userName)).thenReturn(user);
 
-	@Test
-	public void selectOneUserInfo_success() throws Exception {
+	User expected = user;
+	User actual = userService.selectOne(userName);
 
-		String userName = "userName3";
-		User user = new User();
+	assertEquals(expected, actual);
+    }
 
-		when(userDao.selectOne(userName)).thenReturn(user);
+    @Test
+    public void selectOneUserInfo_fail_userNameDoesNotExist() throws Exception {
 
-		User expected = user;
+	String userName = "userName5";
 
-		User actual = userService.selectOne(userName);
+	when(userDao.selectOne(userName)).thenThrow(EmptyResultDataAccessException.class);
 
-		assertEquals(expected, actual);
-	}
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    userService.selectOne(userName);
+	});
+    }
 
-	@Test
-	public void selectOneUserInfo_fail_userNameDoesNotExist() throws Exception {
+    @Test
+    public void updateOneUserInfo_success() throws Exception {
 
-		String userName = "userName5";
+	String userName = "userName3";
 
-		when(userDao.selectOne(userName)).thenThrow(EmptyResultDataAccessException.class);
+	User user = new User();
+	user.setUserName("userName5");
+	user.setMailAddress("mailaddress3@gmail.co.jp");
+	user.setPassword("password2");
 
-		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			userService.selectOne(userName);
-		});
-	}
+	when(userDao.updateOne(user, userName)).thenReturn(1);
 
-	@Test
-	public void updateOneUserInfo_success() throws Exception {
+	int expected = 1;
+	int actual = userService.updateOne(user, userName);
 
-		String userName = "userName3";
+	assertEquals(expected, actual);
+    }
 
-		User user = new User();
+    @Test
+    public void updateOneUserInfo_success_usernameIsUnchanged() throws Exception {
 
-		user.setUserName("userName5");
-		user.setMailAddress("mailaddress3@gmail.co.jp");
-		user.setPassword("password2");
+	String userName = "userName3";
 
-		when(userDao.updateOne(user, userName)).thenReturn(1);
+	User user = new User();
+	user.setUserName("userName3");
+	user.setMailAddress("mailaddress3@gmail.co.jp");
+	user.setPassword("password2");
 
-		int expected = 1;
+	when(userDao.updateOne(user, userName)).thenReturn(1);
 
-		int actual = userService.updateOne(user, userName);
+	int expected = 1;
+	int actual = userService.updateOne(user, userName);
 
-		assertEquals(expected, actual);
-	}
+	assertEquals(expected, actual);
+    }
 
-	@Test
-	public void updateOneUserInfo_success_usernameIsUnchanged() throws Exception {
+    @Test
+    public void updateOneUserInfo_fail_usernameUniqueError() throws Exception {
 
-		String userName = "userName3";
+	String userName = "userName3";
 
-		User user = new User();
+	User user = new User();
+	user.setUserName("userName4");
+	user.setMailAddress("mailaddress3@gmail.co.jp");
+	user.setPassword("password2");
 
-		user.setUserName("userName3");
-		user.setMailAddress("mailaddress3@gmail.co.jp");
-		user.setPassword("password2");
+	when(userDao.updateOne(user, userName)).thenThrow(DuplicateKeyException.class);
 
-		when(userDao.updateOne(user, userName)).thenReturn(1);
+	Assertions.assertThrows(DuplicateKeyException.class, () -> {
+	    userService.updateOne(user, userName);
+	});
+    }
 
-		int expected = 1;
-		int actual = userService.updateOne(user, userName);
+    @Test
+    public void deleteOneUser_success() throws Exception {
 
-		assertEquals(expected, actual);
-	}
+	String userName = "userName3";
 
-	@Test
-	public void updateOneUserInfo_fail_usernameUniqueError() throws Exception {
+	when(userDao.deleteOne(userName)).thenReturn(1);
 
-		String userName = "userName3";
+	int expected = 1;
+	int actual = userService.deleteOne(userName);
 
-		User user = new User();
+	assertEquals(expected, actual);
+    }
 
-		user.setUserName("userName4");
-		user.setMailAddress("mailaddress3@gmail.co.jp");
-		user.setPassword("password2");
+    @Test
+    public void deleteOneUser_fail_userNameDoesNotExist() throws Exception {
 
-		when(userDao.updateOne(user, userName)).thenThrow(DuplicateKeyException.class);
+	String userName = "userName5";
 
-		Assertions.assertThrows(DuplicateKeyException.class, () -> {
-			userService.updateOne(user, userName);
-		});
-	}
+	when(userDao.deleteOne(userName)).thenThrow(EmptyResultDataAccessException.class);
 
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    userService.deleteOne(userName);
+	});
+    }
 
+    @Test
+    public void searchEqualUserName_success_found() throws Exception {
 
-	@Test
-	public void deleteOneUser_success() throws Exception {
+	String userName = "userName3";
 
-		String userName = "userName3";
+	when(userDao.exist(userName)).thenReturn(1);
 
-		when(userDao.deleteOne(userName)).thenReturn(1);
+	int expected = 1;
+	int actual = userService.exist(userName);
 
-		int expected = 1;
-		int actual = userService.deleteOne(userName);
+	assertEquals(expected, actual);
+    }
 
-		assertEquals(expected, actual);
-	}
+    @Test
+    public void searchEqualUserName_success_notFound() throws Exception {
 
-	@Test
-	public void deleteOneUser_fail_userNameDoesNotExist() throws Exception {
+	String userName = "uniqueUserName";
 
-		String userName = "userName5";
+	when(userDao.exist(userName)).thenReturn(0);
 
-		when(userDao.deleteOne(userName)).thenThrow(EmptyResultDataAccessException.class);
+	int expected = 0;
+	int actual = userService.exist(userName);
 
-		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			userService.deleteOne(userName);
-		});
-	}
-
-	@Test
-	public void searchEqualUserName_success_found() throws Exception {
-
-		String userName = "userName3";
-
-		when(userDao.exist(userName)).thenReturn(1);
-
-		int expected = 1;
-
-		int actual = userService.exist(userName);
-
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	public void searchEqualUserName_success_notFound() throws Exception {
-
-		String userName = "uniqueUserName";
-
-		when(userDao.exist(userName)).thenReturn(0);
-
-		int expected = 0;
-
-		int actual = userService.exist(userName);
-
-		assertEquals(expected, actual);
-	}
+	assertEquals(expected, actual);
+    }
 }

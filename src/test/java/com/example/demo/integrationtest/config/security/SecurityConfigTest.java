@@ -21,57 +21,52 @@ import org.springframework.web.context.WebApplicationContext;
 @Transactional
 public class SecurityConfigTest {
 
-	@Autowired
-	private WebApplicationContext context;
+    @Autowired
+    private WebApplicationContext context;
 
-	@Autowired
-	private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-	@BeforeEach
-	public void setup() {
-		mockMvc = MockMvcBuilders
-			.webAppContextSetup(context)
-			.apply(springSecurity())
-			.build();
-	}
+    @BeforeEach
+    public void setup() {
+	mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
+    }
 
-	@Test
-	public void login_success() throws Exception{
+    @Test
+    public void login_success() throws Exception {
 
-		String userName = "userName3";
+	String userName = "userName3";
+	String password = "password";
 
-		String password = "password";
+	mockMvc.perform(post("/users/session/login")
+		.with(csrf())
+		.param("userName", userName)
+		.param("password", password))
+		.andExpect(status().isFound())
+		.andExpect(redirectedUrl("/users/mypage"));
+    }
 
-		mockMvc.perform(post("/users/session/login")
-			.with(csrf())
-			.param("userName", userName)
-			.param("password", password))
-			.andExpect(status().isFound())
-			.andExpect(redirectedUrl("/users/mypage"));
-	}
+    @Test
+    public void login_fail_userNameDoesNotExist() throws Exception {
 
-	@Test
-	public void login_fail_userNameDoesNotExist() throws Exception{
+	String userName = "userName5";
+	String password = "password";
 
-		String userName = "userName5";
+	mockMvc.perform(post("/users/session/login")
+		.with(csrf())
+		.param("userName", userName)
+		.param("password", password))
+		.andExpect(status().isFound())
+		.andExpect(redirectedUrl("/users/session/login"));
+    }
 
-		String password = "password";
+    @Test
+    @WithMockUser(username = "userName3")
+    public void logout_success() throws Exception {
 
-		mockMvc.perform(post("/users/session/login")
-			.with(csrf())
-			.param("userName", userName)
-			.param("password", password))
-			.andExpect(status().isFound())
-			.andExpect(redirectedUrl("/users/session/login"));
-	}
-
-	@Test
-	@WithMockUser(username="userName3")
-	public void logout_success() throws Exception{
-
-		mockMvc.perform(post("/users/session/logout")
-			.with(csrf()))
-			.andExpect(status().isFound())
-			.andExpect(redirectedUrl("/users/session/login"));
-	}
+	mockMvc.perform(post("/users/session/logout")
+		.with(csrf()))
+		.andExpect(status().isFound())
+		.andExpect(redirectedUrl("/users/session/login"));
+    }
 }

@@ -1,6 +1,5 @@
 package com.example.demo.unittest.domain.service;
 
-
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -20,101 +19,96 @@ import com.example.demo.domain.model.gift.Gift;
 import com.example.demo.domain.repository.GiftDao;
 import com.example.demo.domain.service.GiftService;
 
-
-
 @SpringBootTest
 public class GiftServiceTestUT {
 
-	@Mock
-	GiftDao giftDao;
+    @Mock
+    GiftDao giftDao;
 
-	@InjectMocks
-	GiftService giftService;
+    @InjectMocks
+    GiftService giftService;
 
-	@BeforeEach
-	public void init() {
-		MockitoAnnotations.initMocks(this);
-	}
+    @BeforeEach
+    public void init() {
+	MockitoAnnotations.initMocks(this);
+    }
 
-	@Test
-	public void countGiftByKeyword() {
+    @Test
+    public void countGiftByKeyword() {
 
-		String keyword = "マカロン";
+	String keyword = "マカロン";
 
-		when(giftDao.count(keyword)).thenReturn(2);
+	when(giftDao.count(keyword)).thenReturn(2);
 
-		int expected = 2;
-		int actual = giftService.count(keyword);
+	int expected = 2;
+	int actual = giftService.count(keyword);
 
-		assertEquals(expected, actual);
+	assertEquals(expected, actual);
+    }
 
-	}
+    @Test
+    public void countGiftByKeyword_zero() {
 
-	@Test
-	public void countGiftByKeyword_zero() {
+	String keyword = "H#4kこ";
 
-		String keyword = "H#4kこ";
+	when(giftDao.count(keyword)).thenReturn(0);
 
-		when(giftDao.count(keyword)).thenReturn(0);
+	int expected = 0;
+	int actual = giftService.count(keyword);
 
-		int expected = 0;
-		int actual = giftService.count(keyword);
+	assertEquals(expected, actual);
+    }
 
-		assertEquals(expected, actual);
-	}
+    @Test
+    public void searchGift() {
 
-	@Test
-	public void searchGift() {
+	String keyword = "マカロン";
+	List<Gift> selectedGifts = new ArrayList<>();
 
-		String keyword = "マカロン";
+	when(giftDao.search(keyword)).thenReturn(selectedGifts);
 
-		List<Gift> selectedGifts = new ArrayList<>();
+	List<Gift> expected = selectedGifts;
+	List<Gift> actual = giftService.search(keyword);
 
-		when(giftDao.search(keyword)).thenReturn(selectedGifts);
+	assertEquals(expected, actual);
+    }
 
-		List<Gift> expected = selectedGifts;
-		List<Gift> actual = giftService.search(keyword);
+    @Test
+    public void selectManyGifts_success() {
 
-		assertEquals(expected, actual);
-	}
+	List<Gift> selectedGifts = new ArrayList<>();
 
-	@Test
-	public void selectManyGifts_success() {
+	when(giftDao.selectMany()).thenReturn(selectedGifts);
 
-		List<Gift> selectedGifts = new ArrayList<>();
+	List<Gift> expected = selectedGifts;
+	List<Gift> actual = giftService.selectMany();
 
-		when(giftDao.selectMany()).thenReturn(selectedGifts);
+	assertEquals(expected, actual);
+    }
 
-		List<Gift> expected = selectedGifts;
-		List<Gift> actual = giftService.selectMany();
+    @Test
+    public void selectOneGift_success() {
 
-		assertEquals(expected, actual);
-	}
+	int giftId = 1000;
+	Gift gift = new Gift();
 
-	@Test
-	public void selectOneGift_success() {
+	when(giftDao.selectOne(giftId)).thenReturn(gift);
 
-		int giftId = 1000;
+	Gift expected = gift;
+	Gift actual = giftService.selectOne(giftId);
 
-		Gift gift = new Gift();
+	assertEquals(expected, actual);
+    }
 
-		when(giftDao.selectOne(giftId)).thenReturn(gift);
+    @Test
+    public void selectOneGift_fail_giftIdDoesNotExist() {
 
-		Gift expected = gift;
-		Gift actual = giftService.selectOne(giftId);
+	int giftId = 9999;
 
-		assertEquals(expected, actual);
-	}
+	when(giftDao.selectOne(giftId)).thenThrow(EmptyResultDataAccessException.class);
 
-	@Test
-	public void selectOneGift_fail_giftIdDoesNotExist() {
-
-		int giftId = 9999;
-
-		when(giftDao.selectOne(giftId)).thenThrow(EmptyResultDataAccessException.class);
-
-		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-			giftService.selectOne(giftId);
-		});
-	}
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    giftService.selectOne(giftId);
+	});
+    }
 }

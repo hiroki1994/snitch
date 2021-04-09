@@ -18,16 +18,16 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 public class MyPageControllerTest {
 
-	@Autowired
-	private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-	@Test
-	@WithMockUser(username = "userName3")
-	public void displayMypage() throws Exception {
+    @Test
+    @WithMockUser(username = "userName3")
+    public void displayMypage() throws Exception {
 
-		mockMvc.perform(get("/users/mypage")
-				.with(csrf()))
-				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("userName3")));
-	}
+	mockMvc.perform(get("/users/mypage")
+		.with(csrf()))
+		.andExpect(status().isOk())
+		.andExpect(content().string(containsString("userName3")));
+    }
 }

@@ -14,15 +14,15 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 public class AboutControllerTest {
 
-	@Autowired
-	private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-	@Test
-	public void displayAboutPage() throws Exception {
+    @Test
+    public void displayAboutPage() throws Exception {
 
-		mockMvc.perform(get("/about"))
-				.andExpect(status().isOk())
-				.andExpect(view().name("about/about"))
-				.andExpect(content().string(containsString("Snitchとは?")));
-	}
+	mockMvc.perform(get("/about"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("about/about"))
+		.andExpect(content().string(containsString("Snitchとは?")));
+    }
 }

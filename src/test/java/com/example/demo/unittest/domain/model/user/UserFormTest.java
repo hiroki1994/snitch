@@ -1,6 +1,5 @@
 package com.example.demo.unittest.domain.model.user;
 
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -23,142 +22,133 @@ import com.example.demo.domain.validation.ValidGroup2;
 @SpringBootTest
 public class UserFormTest {
 
-	private Validator validator;
+    private Validator validator;
 
-	@BeforeEach
-	public void setup() {
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		validator = factory.getValidator();
-	}
+    @BeforeEach
+    public void setup() {
+	ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+	validator = factory.getValidator();
+    }
 
-	@Test
-	public void setGetUserForm() throws Exception {
+    @Test
+    public void setGetUserForm() throws Exception {
 
-		UserForm UserForm = new UserForm();
+	String userName = "testUser10";
+	String mailAddress = "test@gmail.com";
+	String password = "testpassword10";
 
-		String userName = "testUser10";
-		String mailAddress = "test@gmail.com";
-		String password = "testpassword10";
+	UserForm UserForm = new UserForm();
+	UserForm.setUserName(userName);
+	UserForm.setMailAddress(mailAddress);
+	UserForm.setPassword(password);
 
-		UserForm.setUserName(userName);
-		UserForm.setMailAddress(mailAddress);
-		UserForm.setPassword(password);
+	String actualUserName = UserForm.getUserName();
+	String actualMailAddress = UserForm.getMailAddress();
+	String actualPassword = UserForm.getPassword();
 
-		String actualUserName = UserForm.getUserName();
-		String actualMailAddress = UserForm.getMailAddress();
-		String actualPassword = UserForm.getPassword();
+	assertEquals("testUser10", actualUserName);
+	assertEquals("test@gmail.com", actualMailAddress);
+	assertEquals("testpassword10", actualPassword);
+    }
 
-		assertEquals("testUser10", actualUserName);
-		assertEquals("test@gmail.com", actualMailAddress);
-		assertEquals("testpassword10", actualPassword);
-	}
+    @Test
+    public void setUserForm_validatedSuccessfully() throws Exception {
 
-	@Test
-	public void setUserForm_validatedSuccessfully() throws Exception {
+	UserForm UserForm = new UserForm();
+	UserForm.setUserName("testUser10");
+	UserForm.setMailAddress("test@gmail.com");
+	UserForm.setPassword("testpassword10");
 
-		UserForm UserForm = new UserForm();
+	Set<ConstraintViolation<UserForm>> constraintValidation = validator.validate(UserForm, ValidGroup1.class, ValidGroup2.class);
 
-		UserForm.setUserName("testUser10");
-		UserForm.setMailAddress("test@gmail.com");
-		UserForm.setPassword("testpassword10");
+	assertThat(constraintValidation, is(empty()));
+    }
 
-		Set<ConstraintViolation<UserForm>> constraintValidation = validator.validate(UserForm, ValidGroup1.class, ValidGroup2.class);
+    @Test
+    public void setUserForm_error_blank() throws Exception {
 
-		assertThat(constraintValidation, is(empty()));
-	}
+	UserForm UserForm = new UserForm();
+	UserForm.setUserName("");
+	UserForm.setMailAddress("");
+	UserForm.setPassword("");
 
-	@Test
-	public void setUserForm_error_blank() throws Exception {
+	Set<ConstraintViolation<UserForm>> constraintValidation = validator.validate(UserForm, ValidGroup1.class);
 
-		UserForm UserForm = new UserForm();
+	assertThat(constraintValidation.size(), is(3));
 
-		UserForm.setUserName("");
-		UserForm.setMailAddress("");
-		UserForm.setPassword("");
+	constraintValidation.forEach(result -> {
+	    String propertyPath = result.getPropertyPath().toString();
 
-		Set<ConstraintViolation<UserForm>> constraintValidation = validator.validate(UserForm, ValidGroup1.class);
+	    if (propertyPath.equals("userName")) {
+		assertThat(result.getInvalidValue(), is(""));
+	    } else if (propertyPath.equals("mailAddress")) {
+		assertThat(result.getInvalidValue(), is(""));
+	    } else if (propertyPath.equals("password")) {
+		assertThat(result.getInvalidValue(), is(""));
+	    }
+	});
+    }
 
-		assertThat(constraintValidation.size(), is(3));
+    @Test
+    public void setUserForm_error_length() throws Exception {
 
-		constraintValidation.forEach(result -> {
+	UserForm UserForm = new UserForm();
+	UserForm.setUserName("aa");
+	UserForm.setMailAddress("test@gmail.com");
+	UserForm.setPassword("cc");
 
-			String propertyPath = result.getPropertyPath().toString();
+	Set<ConstraintViolation<UserForm>> constraintValidation = validator.validate(UserForm, ValidGroup2.class);
 
-			if(propertyPath.equals("userName")){
-				assertThat(result.getInvalidValue(), is(""));
-			}else if(propertyPath.equals("mailAddress")){
-				assertThat(result.getInvalidValue(), is(""));
-			}else if(propertyPath.equals("password")){
-				assertThat(result.getInvalidValue(), is(""));
-			}
-		});
-	}
+	assertThat(constraintValidation.size(), is(2));
 
-	@Test
-	public void setUserForm_error_length() throws Exception {
+	constraintValidation.forEach(result -> {
+	    String propertyPath = result.getPropertyPath().toString();
 
-		UserForm UserForm = new UserForm();
+	    if (propertyPath.equals("userName")) {
+		assertThat(result.getInvalidValue(), is("aa"));
+	    } else if (propertyPath.equals("password")) {
+		assertThat(result.getInvalidValue(), is("cc"));
+	    }
+	});
+    }
 
-		UserForm.setUserName("aa");
-		UserForm.setMailAddress("test@gmail.com");
-		UserForm.setPassword("cc");
+    @Test
+    public void setUserForm_error_pattern() throws Exception {
 
-		Set<ConstraintViolation<UserForm>> constraintValidation = validator.validate(UserForm, ValidGroup2.class);
+	UserForm UserForm = new UserForm();
+	UserForm.setUserName("あああ");
+	UserForm.setMailAddress("test@gmail.com");
+	UserForm.setPassword("いいい");
 
-		assertThat(constraintValidation.size(), is(2));
+	Set<ConstraintViolation<UserForm>> constraintValidation = validator.validate(UserForm, ValidGroup2.class);
 
-		constraintValidation.forEach(result -> {
+	assertThat(constraintValidation.size(), is(2));
 
-			String propertyPath = result.getPropertyPath().toString();
+	constraintValidation.forEach(result -> {
+	    String propertyPath = result.getPropertyPath().toString();
 
-			if(propertyPath.equals("userName")){
-				assertThat(result.getInvalidValue(), is("aa"));
-			}else if(propertyPath.equals("password")){
-				assertThat(result.getInvalidValue(), is("cc"));
-			}
-		});
-	}
+	    if (propertyPath.equals("userName")) {
+		assertThat(result.getInvalidValue(), is("あああ"));
+	    } else if (propertyPath.equals("password")) {
+		assertThat(result.getInvalidValue(), is("いいい"));
+	    }
+	});
+    }
 
-	@Test
-	public void setUserForm_error_pattern() throws Exception {
+    @Test
+    public void setUserForm_error_email() throws Exception {
 
-		UserForm UserForm = new UserForm();
+	UserForm userForm = new UserForm();
+	userForm.setUserName("testUser10");
+	userForm.setMailAddress("aa");
+	userForm.setPassword("testpassword10");
 
-		UserForm.setUserName("あああ");
-		UserForm.setMailAddress("test@gmail.com");
-		UserForm.setPassword("いいい");
+	Set<ConstraintViolation<UserForm>> constraintValidation = validator.validate(userForm, ValidGroup2.class);
 
-		Set<ConstraintViolation<UserForm>> constraintValidation = validator.validate(UserForm, ValidGroup2.class);
+	assertThat(constraintValidation.size(), is(1));
 
-		assertThat(constraintValidation.size(), is(2));
+	ConstraintViolation<UserForm> violation = constraintValidation.iterator().next();
 
-		constraintValidation.forEach(result -> {
-
-			String propertyPath = result.getPropertyPath().toString();
-
-			if(propertyPath.equals("userName")){
-				assertThat(result.getInvalidValue(), is("あああ"));
-			}else if(propertyPath.equals("password")){
-				assertThat(result.getInvalidValue(), is("いいい"));
-			}
-		});
-	}
-
-	@Test
-	public void setUserForm_error_email() throws Exception {
-
-		UserForm userForm = new UserForm();
-
-		userForm.setUserName("testUser10");
-		userForm.setMailAddress("aa");
-		userForm.setPassword("testpassword10");
-
-		Set<ConstraintViolation<UserForm>> constraintValidation = validator.validate(userForm, ValidGroup2.class);
-
-		assertThat(constraintValidation.size(), is(1));
-
-		ConstraintViolation<UserForm> violation = constraintValidation.iterator().next();
-
-		assertThat(violation.getInvalidValue(), is("aa"));
-	}
+	assertThat(violation.getInvalidValue(), is("aa"));
+    }
 }

@@ -1,6 +1,5 @@
 package com.example.demo.unittest.domain.model.searchform;
 
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -21,43 +20,41 @@ import com.example.demo.domain.model.searchform.SearchForm;
 @SpringBootTest
 public class SearchFormTest {
 
-	private Validator validator;
+    private Validator validator;
 
-	@BeforeEach
-	public void setup() {
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		validator = factory.getValidator();
-	}
+    @BeforeEach
+    public void setup() {
+	ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+	validator = factory.getValidator();
+    }
 
-	@Test
-	public void setSearchGift_empty() throws Exception {
+    @Test
+    public void setSearchGift_empty() throws Exception {
 
-		SearchForm searchForm = new SearchForm();
+	SearchForm searchForm = new SearchForm();
+	searchForm.setKeyword("チョコ");
 
-		searchForm.setKeyword("チョコ");
+	String actualKeyword = searchForm.getKeyword();
 
-		String actualKeyword = searchForm.getKeyword();
+	assertEquals("チョコ", actualKeyword);
 
-		assertEquals("チョコ", actualKeyword);
+	Set<ConstraintViolation<SearchForm>> constraintValidation = validator.validate(searchForm);
 
-		Set<ConstraintViolation<SearchForm>> constraintValidation = validator.validate(searchForm);
+	assertThat(constraintValidation, is(empty()));
+    }
 
-		assertThat(constraintValidation, is(empty()));
-	}
+    @Test
+    public void searchGift_validationError() throws Exception {
 
-	@Test
-	public void searchGift_validationError() throws Exception {
+	SearchForm searchForm = new SearchForm();
+	searchForm.setKeyword("");
 
-		SearchForm searchForm = new SearchForm();
+	Set<ConstraintViolation<SearchForm>> constraintValidation = validator.validate(searchForm);
 
-		searchForm.setKeyword("");
+	assertThat(constraintValidation.size(), is(1));
 
-		Set<ConstraintViolation<SearchForm>> constraintValidation = validator.validate(searchForm);
+	ConstraintViolation<SearchForm> violation = constraintValidation.iterator().next();
 
-		assertThat(constraintValidation.size(), is(1));
-
-		ConstraintViolation<SearchForm> violation = constraintValidation.iterator().next();
-
-		assertThat(violation.getInvalidValue(), is(""));
-	}
+	assertThat(violation.getInvalidValue(), is(""));
+    }
 }

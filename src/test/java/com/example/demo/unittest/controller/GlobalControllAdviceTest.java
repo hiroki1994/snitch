@@ -17,40 +17,40 @@ import org.springframework.test.web.servlet.MockMvc;
 public class GlobalControllAdviceTest {
 
     @Autowired
-	private MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @Test
-	public void catchEmptyResultDataAccessException() throws Exception {
+    public void catchEmptyResultDataAccessException() throws Exception {
 
-		int giftId = 9999;
+	int giftId = 9999;
 
-		mockMvc.perform(get("/gifts/" + giftId)
-			   .param("giftId", "9999"))
-			   .andExpect(status().isOk())
-			   .andExpect(view().name("error/error"))
-			   .andExpect(content().string(containsString("指定されたページは存在しません")));
-	}
+	mockMvc.perform(get("/gifts/" + giftId)
+		.param("giftId", "9999"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("error/error"))
+		.andExpect(content().string(containsString("指定されたページは存在しません")));
+    }
 
     @Test
-	@WithMockUser(username="userName3")
-	public void catchDataIntegrityViolationException() throws Exception {
+    @WithMockUser(username = "userName3")
+    public void catchDataIntegrityViolationException() throws Exception {
 
-		mockMvc.perform(post("/favorites")
-			.param("giftId", "9999")
-			.with(csrf()))
-			.andExpect(status().isOk())
-			.andExpect(view().name("error/error"));
-	}
+	mockMvc.perform(post("/favorites")
+		.param("giftId", "9999")
+		.with(csrf()))
+		.andExpect(status().isOk())
+		.andExpect(view().name("error/error"));
+    }
 
-	@Test
-	public void catchException() throws Exception {
+    @Test
+    public void catchException() throws Exception {
 
-		String giftId = "H#4kこ";
+	String giftId = "H#4kこ";
 
-		mockMvc.perform(get("/gifts/" + giftId)
-			   .param("giftId", "H#4kこ"))
-			   .andExpect(status().isOk())
-			   .andExpect(view().name("error/error"))
-			   .andExpect(content().string(containsString("指定されたページは存在しません")));
-	}
+	mockMvc.perform(get("/gifts/" + giftId)
+		.param("giftId", "H#4kこ"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("error/error"))
+		.andExpect(content().string(containsString("指定されたページは存在しません")));
+    }
 }
