@@ -11,7 +11,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.domain.model.favorite.FavGift;
+import com.example.demo.domain.model.favorite.Favorite;
 import com.example.demo.domain.repository.FavoriteDao;
 
 @Repository
@@ -21,7 +21,7 @@ public class FavoriteDaoJdbcImpl implements FavoriteDao {
     JdbcTemplate jdbc;
 
     @Override
-    public List<FavGift> selectAll(String userName) throws EmptyResultDataAccessException {
+    public List<Favorite> selectAll(String userName) throws EmptyResultDataAccessException {
 
 	int userId = jdbc.queryForObject("SELECT userId "
 					+ "FROM userData "
@@ -38,11 +38,11 @@ public class FavoriteDaoJdbcImpl implements FavoriteDao {
 								+ " AND favGift.unavailableFlag IS NULL"
 								, userId);
 
-	List<FavGift> allFavGifts = new ArrayList<>();
+	List<Favorite> allFavGifts = new ArrayList<>();
 
 	for (Map<String, Object> map : favGifts) {
 
-	    FavGift favGift = new FavGift();
+	    Favorite favGift = new Favorite();
 	    favGift.setUserId((int) map.get("favId"));
 	    favGift.setUserId((int) map.get("userId"));
 	    favGift.setGiftId((int) map.get("giftId"));

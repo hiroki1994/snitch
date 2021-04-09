@@ -5,42 +5,42 @@ import static org.junit.Assert.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.example.demo.domain.model.favorite.FavGift;
+import com.example.demo.domain.model.favorite.Favorite;
 
 @SpringBootTest
 public class FavoriteTest {
 
     @Test
-    public void setGetFavGift() throws Exception {
+    public void setGetFavorite() throws Exception {
 
-	FavGift favGift = new FavGift();
-	favGift.setFavId((int) 2000);
-	favGift.setUserId((int) 10);
-	favGift.setGiftId((int) 2000);
-	favGift.setGuestName("testGuest");
-	favGift.setGiftName("testGift");
-	favGift.setPrice("testPrice");
-	favGift.setImage("2000.jpg");
-	favGift.setDescription("testDescription");
-	favGift.setShop("testShop");
-	favGift.setAddress("testAddress");
-	favGift.setPhone("testPhone");
-	favGift.setUnavailableFlag(0);
+	Favorite favorite = new Favorite();
+	favorite.setFavId((int) 2000);
+	favorite.setUserId((int) 10);
+	favorite.setGiftId((int) 2000);
+	favorite.setGuestName("testGuest");
+	favorite.setGiftName("testGift");
+	favorite.setPrice("testPrice");
+	favorite.setImage("2000.jpg");
+	favorite.setDescription("testDescription");
+	favorite.setShop("testShop");
+	favorite.setAddress("testAddress");
+	favorite.setPhone("testPhone");
+	favorite.setUnavailableFlag(0);
 
-	int actualFavId = favGift.getFavId();
-	int actualUserId = favGift.getUserId();
-	int actualGiftId = favGift.getGiftId();
-	String actualGuestName = favGift.getGuestName();
-	String actualGiftName = favGift.getGiftName();
-	String actualPrice = favGift.getPrice();
-	String actualImage = favGift.getImage();
-	String actualDescription = favGift.getDescription();
-	String actualShop = favGift.getShop();
-	String actualAddress = favGift.getAddress();
-	String actualPhone = favGift.getPhone();
-	int actualFlag = favGift.getUnavailableFlag();
+	int actualFavoriteId = favorite.getFavId();
+	int actualUserId = favorite.getUserId();
+	int actualGiftId = favorite.getGiftId();
+	String actualGuestName = favorite.getGuestName();
+	String actualGiftName = favorite.getGiftName();
+	String actualPrice = favorite.getPrice();
+	String actualImage = favorite.getImage();
+	String actualDescription = favorite.getDescription();
+	String actualShop = favorite.getShop();
+	String actualAddress = favorite.getAddress();
+	String actualPhone = favorite.getPhone();
+	int actualFlag = favorite.getUnavailableFlag();
 
-	assertEquals(2000, actualFavId);
+	assertEquals(2000, actualFavoriteId);
 	assertEquals(10, actualUserId);
 	assertEquals(2000, actualGiftId);
 	assertEquals("testGuest", actualGuestName);
@@ -55,23 +55,23 @@ public class FavoriteTest {
     }
 
     @Test
-    public void getfavGift_empty() throws Exception {
+    public void getFavorite_empty() throws Exception {
 
-	FavGift favGift = new FavGift();
-	int actualFavId = favGift.getFavId();
-	int actualUserId = favGift.getUserId();
-	int actualGiftId = favGift.getGiftId();
-	String actualGuestName = favGift.getGuestName();
-	String actualGiftName = favGift.getGiftName();
-	String actualPrice = favGift.getPrice();
-	String actualImage = favGift.getImage();
-	String actualDescription = favGift.getDescription();
-	String actualShop = favGift.getShop();
-	String actualAddress = favGift.getAddress();
-	String actualPhone = favGift.getPhone();
-	int actualFlag = favGift.getUnavailableFlag();
+	Favorite favorite = new Favorite();
+	int actualFavoriteId = favorite.getFavId();
+	int actualUserId = favorite.getUserId();
+	int actualGiftId = favorite.getGiftId();
+	String actualGuestName = favorite.getGuestName();
+	String actualGiftName = favorite.getGiftName();
+	String actualPrice = favorite.getPrice();
+	String actualImage = favorite.getImage();
+	String actualDescription = favorite.getDescription();
+	String actualShop = favorite.getShop();
+	String actualAddress = favorite.getAddress();
+	String actualPhone = favorite.getPhone();
+	int actualFlag = favorite.getUnavailableFlag();
 
-	assertEquals(0, actualFavId);
+	assertEquals(0, actualFavoriteId);
 	assertEquals(0, actualUserId);
 	assertEquals(0, actualGiftId);
 	assertEquals(null, actualGuestName);

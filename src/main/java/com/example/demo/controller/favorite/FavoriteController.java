@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.domain.model.favorite.FavGift;
+import com.example.demo.domain.model.favorite.Favorite;
 import com.example.demo.domain.service.FavoriteService;
 
 @Controller
@@ -56,7 +56,7 @@ public class FavoriteController {
 	    return "mypage/favorite/favorite";
 	}
 
-	List<FavGift> allFavGifts = favGiftService.selectAll(userName);
+	List<Favorite> allFavGifts = favGiftService.selectAll(userName);
 	model.addAttribute("allFavGifts", allFavGifts);
 
 	return "mypage/favorite/favorite";

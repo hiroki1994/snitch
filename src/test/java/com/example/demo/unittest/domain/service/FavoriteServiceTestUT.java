@@ -17,7 +17,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.domain.model.favorite.FavGift;
+import com.example.demo.domain.model.favorite.Favorite;
 import com.example.demo.domain.repository.FavoriteDao;
 import com.example.demo.domain.service.FavoriteService;
 
@@ -37,7 +37,7 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
-    public void createOneFavGift_success() throws Exception {
+    public void createOneFavorite_success() throws Exception {
 
 	String userName = "userName3";
 	int giftId = 1000;
@@ -51,7 +51,7 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
-    public void createOneFavGift_fail_giftIdDoesNotExist() throws Exception {
+    public void createOneFavorite_fail_giftIdDoesNotExist() throws Exception {
 
 	String userName = "userName3";
 	int giftId = 9999;
@@ -64,7 +64,7 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
-    public void createOneFavGift_fail_userNameDoesNotExist() throws Exception {
+    public void createOneFavorite_fail_userNameDoesNotExist() throws Exception {
 
 	String userName = "userName5";
 	int giftId = 1000;
@@ -77,7 +77,7 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
-    public void createOneFavGift_fail_userNameAndUserIdDoesNotExist() throws Exception {
+    public void createOneFavorite_fail_userNameAndUserIdDoesNotExist() throws Exception {
 
 	String userName = "userName5";
 	int giftId = 9999;
@@ -90,7 +90,7 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
-    public void deleteOneFavGift_success() throws Exception {
+    public void deleteOneFavorite_success() throws Exception {
 
 	String userName = "userName3";
 	int giftId = 1001;
@@ -104,7 +104,7 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
-    public void deleteOneFavGift_fail_giftIsNotAddedToFavGift() throws Exception {
+    public void deleteOneFavorite_fail_giftIsNotAddedToFavorite() throws Exception {
 
 	String userName = "userName3";
 	int giftId = 1002;
@@ -118,7 +118,7 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
-    public void deleteOneFavGift_fail_giftIdDoesNotExist() throws Exception {
+    public void deleteOneFavorite_fail_giftIdDoesNotExist() throws Exception {
 
 	String userName = "userName3";
 	int giftId = 9999;
@@ -132,7 +132,7 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
-    public void deleteOneFavGift_fail_userNameDoesNotExist() throws Exception {
+    public void deleteOneFavorite_fail_userNameDoesNotExist() throws Exception {
 
 	String userName = "userName5";
 	int giftId = 1000;
@@ -145,7 +145,7 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
-    public void deleteOneFavGift_fail_userNameAndUserIdDoesNotExist() throws Exception {
+    public void deleteOneFavorite_fail_userNameAndUserIdDoesNotExist() throws Exception {
 
 	String userName = "userName5";
 	int giftId = 9999;
@@ -158,7 +158,7 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
-    public void countFavGift_success() throws Exception {
+    public void countFavorite_success() throws Exception {
 
 	String userName = "userName3";
 
@@ -171,7 +171,7 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
-    public void countFavGift_success_NoFavGift() throws Exception {
+    public void countFavorite_success_NoFavorite() throws Exception {
 
 	String userName = "userName4";
 
@@ -184,7 +184,7 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
-    public void countFavGift_fail_userNameDoesNotExist() throws Exception {
+    public void countFavorite_fail_userNameDoesNotExist() throws Exception {
 
 	String userName = "userName5";
 
@@ -196,7 +196,7 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
-    public void searchFavId_success_found() throws Exception {
+    public void searchFavoriteId_success_found() throws Exception {
 
 	String userName = "userName3";
 	int giftId = 1000;
@@ -210,7 +210,7 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
-    public void searchFavId_success_notFound() throws Exception {
+    public void searchFavoriteId_success_notFound() throws Exception {
 
 	String userName = "userName3";
 	int giftId = 1002;
@@ -224,7 +224,7 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
-    public void searchFavId_fail_userNameDoesNotExist() throws Exception {
+    public void searchFavoriteId_fail_userNameDoesNotExist() throws Exception {
 
 	String userName = "userName5";
 	int giftId = 1002;
@@ -238,7 +238,7 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
-    public void searchFavId_fail_userNameAndUserIdDoesNotExist() throws Exception {
+    public void searchFavoriteId_fail_userNameAndUserIdDoesNotExist() throws Exception {
 
 	String userName = "userName5";
 	int giftId = 9999;
@@ -252,21 +252,21 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
-    public void selectAllFavGift_success() throws Exception {
+    public void selectAllFavorites_success() throws Exception {
 
 	String userName = "userName3";
-	List<FavGift> allFavGifts = new ArrayList<>();
+	List<Favorite> favorite = new ArrayList<>();
 
-	when(favoriteDao.selectAll(userName)).thenReturn(allFavGifts);
+	when(favoriteDao.selectAll(userName)).thenReturn(favorite);
 
-	List<FavGift> expected = allFavGifts;
-	List<FavGift> actual = favoriteService.selectAll(userName);
+	List<Favorite> expected = favorite;
+	List<Favorite> actual = favoriteService.selectAll(userName);
 
 	assertEquals(expected, actual);
     }
 
     @Test
-    public void selectAllFavGift_fail_userNameDoesNotExist() throws Exception {
+    public void selectAllFavorites_fail_userNameDoesNotExist() throws Exception {
 
 	String userName = "userName5";
 
@@ -278,7 +278,7 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
-    public void deleteAllFavGift_success() throws Exception {
+    public void deleteAllFavorites_success() throws Exception {
 
 	String userName = "userName3";
 
@@ -291,7 +291,7 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
-    public void deleteAllFavGift_success_addNoFav() throws Exception {
+    public void deleteAllFavorites_success_addNoFavorite() throws Exception {
 
 	String userName = "userName4";
 
@@ -304,7 +304,7 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
-    public void deleteAllFavGift_fail_userNameDoesNotExist() throws Exception {
+    public void deleteAllFavorites_fail_userNameDoesNotExist() throws Exception {
 
 	String userName = "userName5";
 

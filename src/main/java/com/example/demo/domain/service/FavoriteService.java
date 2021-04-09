@@ -7,7 +7,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.domain.model.favorite.FavGift;
+import com.example.demo.domain.model.favorite.Favorite;
 import com.example.demo.domain.repository.FavoriteDao;
 
 @Transactional
@@ -17,7 +17,7 @@ public class FavoriteService {
     @Autowired
     FavoriteDao dao;
 
-    public List<FavGift> selectAll(String userName) {
+    public List<Favorite> selectAll(String userName) {
 	return dao.selectAll(userName);
     }
 

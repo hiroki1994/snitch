@@ -73,7 +73,7 @@ public class GiftServiceTestIT {
     }
 
     @Test
-    public void getGiftList() {
+    public void selectManyGifts() {
 
 	List<Gift> gift = giftService.selectMany();
 

@@ -3,7 +3,7 @@ package com.example.demo.domain.model.favorite;
 import lombok.Data;
 
 @Data
-public class FavGift {
+public class Favorite {
     private int favId;
     private int userId;
     private int giftId;

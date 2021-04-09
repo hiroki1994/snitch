@@ -56,7 +56,7 @@ public class GiftControllerTest {
 
     @Test
     @WithMockUser(username = "userName3")
-    public void displayGiftDetailPage_removeFavButton() throws Exception {
+    public void displayGiftDetailPage_removeFavoriteButton() throws Exception {
 
 	int giftId = 1000;
 
