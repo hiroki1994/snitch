@@ -16,7 +16,7 @@
 <script src="https://kit.fontawesome.com/665f18a48e.js" crossorigin="anonymous"></script>
 
 
-<title>template</title>
+<title>common-part</title>
 </head>
 <body>
 
@@ -38,16 +38,16 @@
 			</div>
 		</div>
 	</nav>
-	<div class="form">
-		<form id="searchBox" th:action="@{/gifts/search}" th:object="${searchForm}" th:method="get">
-			<input id="sbox1" type="text" name="keyword" placeholder="Search" th:field="*{keyword}" />
-			<button type="submit" id="sbtn1">
+	<div class="search-container">
+		<form id="search-box" th:action="@{/gifts/search}" th:object="${searchForm}" th:method="get">
+			<input id="form-content" type="text" name="keyword" placeholder="Search" th:field="*{keyword}" />
+			<button type="submit" id="search-button">
 				<i class="fas fa-search"></i>
 			</button>
 		</form>
-		<div class="searchErrorMSG text-nowrap" th:if="${#fields.hasErrors('searchForm.keyword')}" th:errors="*{searchForm.keyword}" style="color: red"></div>
+		<div class="error-message text-nowrap" th:if="${#fields.hasErrors('searchForm.keyword')}" th:errors="*{searchForm.keyword}" style="color: red"></div>
 	</div>
-	<div class="contentsClass">
+	<div class="contents-class">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-12 main">

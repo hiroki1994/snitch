@@ -10,11 +10,11 @@
 <body layout:fragment="content">
 	<h1>退会</h1>
 	<div class="col-sm-4 offset-sm-4">
-		<div class="deleteWrapper">
+		<div class="delete-wrapper">
 			<h6>
 				<b>本当に退会してもよろしいでしょうか?</b>
 			</h6>
-			<form class="deletePage" th:action="@{/users}" th:method="delete">
+			<form th:action="@{/users}" th:method="delete">
 				<button class="btn btn-danger col-sm-6 text-nowrap" type="submit"><i class="fas fa-user-slash"></i> 退会</button>
 			</form>
 		</div>

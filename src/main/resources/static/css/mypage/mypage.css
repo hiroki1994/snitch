@@ -8,11 +8,11 @@ body {
 	height: 100%;
 }
 
-.mypageWrapper {
+.mypage-wrapper {
 	height: 100vh;
 }
 
-p.pageTitle {
+p.page-title {
 	font-size: 32px;
 }
 

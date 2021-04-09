@@ -8,7 +8,7 @@ body {
 	height: 100%;
 }
 
-.giftDetailWrapper {
+.gift_detail_wrapper {
 	height: 100vh;
 }
 
@@ -87,14 +87,14 @@ p.gift-phone {
 }
 
 @media screen and (max-width: 575px) {
-	#favGift {
+	#favorite {
 		float: left;
 		font-size: 1.1vw;
 		margin-right: 35vw;
 		margin-left: 1vw;
 		margin-bottom: 0vh;
 	}
-	#notFavGift {
+	#unfavorite {
 		float: left;
 		font-size: 1.1vw;
 		margin-right: 35vw;
@@ -104,13 +104,13 @@ p.gift-phone {
 }
 
 @media screen and (min-width: 576px) {
-	#favGift {
+	#favorite {
 		float: left;
 		font-size: 1.1vw;
 		margin-left: 1vw;
 		margin-bottom: 4vh;
 	}
-	#notFavGift {
+	#unfavorite {
 		float: left;
 		font-size: 1.1vw;
 		margin-bottom: 2vh;

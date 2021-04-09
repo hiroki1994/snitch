@@ -8,12 +8,12 @@ body {
 	height: 100%;
 }
 
-.loginWrapper {
+.login-wrapper {
 	height: 100vh;
 	min-width: 300px;
 }
 
-p.pageTitle {
+p.page-title {
 	font-size: 32px;
 }
 

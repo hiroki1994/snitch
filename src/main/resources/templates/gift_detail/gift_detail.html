@@ -9,22 +9,22 @@
 <link th:href="@{../../css/gift_detail/gift_detail.css}" rel="stylesheet"></link>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
-<title>giftDetail</title>
+<title>gift_detail</title>
 </head>
 <body layout:fragment="content">
 
-	<div class="giftDetailWrapper">
+	<div class="gift_detail_wrapper">
 		<div class="gift col-sm-10 offset-sm-1">
 			<div class="gift-left col-sm-5 ">
 				<img class="gift-image" th:src="@{'/image/'+${giftDetail.image}}" alt="gift-image">
 				<div sec:authorize="isAuthenticated()">
-					<form id="favGift" th:action="@{/favorites}" th:method="post">
+					<form id="favorite" th:action="@{/favorites}" th:method="post">
 						<input th:value="${giftDetail.giftId}" name="giftId" type="hidden" />
 						<button th:if="${#bools.isFalse(result)}" class="update-btn btn-warning text-nowrap" style="color: white" type="submit">
 							<i class="fas fa-heart" style="color: white"></i> お気に入り
 						</button>
 					</form>
-					<form id="notFavGift" th:action="@{/favorites}" th:method="delete">
+					<form id="unfavorite" th:action="@{/favorites}" th:method="delete">
 						<input th:value="${giftDetail.giftId}" name="giftId" type="hidden" />
 						<button th:if="${#bools.isTrue(result)}" class="update-btn btn-danger text-nowrap" style="color: white" type="submit">
 							<i class="fas fa-ban" style="color: white"></i> お気に入り解除

@@ -7,8 +7,8 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<div class="loginWrapper">
-			<p class="pageTitle">Login</p>
+		<div class="login-wrapper">
+			<p class="page-title">Login</p>
 			<form th:action="@{/users/session/login}" th:method="post">
 				<p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" class="text-danger">ログインエラーメッセージ</p>
 				<input class="col-sm-4" type="text" name="userName" placeholder="ユーザーネーム" /><br /> <br />
@@ -16,7 +16,7 @@
 				<button class="btn btn-primary col-sm-2" type="submit">ログイン</button>
 			</form>
 			<br />
-			<form class="updatePage" th:action="@{/users/new}" th:method="get">
+			<form class="update-page" th:action="@{/users/new}" th:method="get">
 				<button class="btn btn-success col-sm-2" type="submit">新規登録</button>
 			</form>
 		</div>

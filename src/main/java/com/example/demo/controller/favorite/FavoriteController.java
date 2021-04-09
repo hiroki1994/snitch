@@ -50,7 +50,7 @@ public class FavoriteController {
 
 	String userName = httpServletRequest.getRemoteUser();
 	int favoriteIds = favGiftService.count(userName);
-	model.addAttribute("favIds", favoriteIds);
+	model.addAttribute("favoriteIds", favoriteIds);
 
 	if (favoriteIds == 0) {
 	    return "mypage/favorite/favorite";

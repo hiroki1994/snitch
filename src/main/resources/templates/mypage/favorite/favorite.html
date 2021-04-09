@@ -10,16 +10,16 @@
 
 </head>
 <body layout:fragment="content">
-	<div class="favoriteWrapper">
-		<p class="pageTitle">お気に入り
+	<div class="favorite-wrapper">
+		<p class="page-title">お気に入り
 		<p>
-		<div class="favGift col-sm-8 offset-sm-2">
-			<p class="resultNumber" th:text="${favIds} + '件'"></p>
+		<div class="favorite col-sm-8 offset-sm-2">
+			<p class="count" th:text="${favoriteIds} + '件'"></p>
 			<br />
-			<div class="favGift col-sm-12">
-				<div class="giftList">
-					<div class="gift" th:each="gift : ${favorites}">
-						<div class="gift2">
+			<div class="gift-container col-sm-12">
+				<div class="favorite-list">
+					<div class="gift-container" th:each="gift : ${favorites}">
+						<div class="gift">
 							<a th:href="@{'/gifts/'+${gift.giftId}}"><img class="gift-picture" th:src="@{'/image/'+${gift.image}}" alt="gift-image"></a>
 							<p class="gift-name" th:text="${gift.giftName}"></p>
 							<p class="gift-guest" th:text="${gift.guestName}"></p>

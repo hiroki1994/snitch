@@ -12,15 +12,15 @@
 <!-- 検索結果画面 -->
 <body>
 	<div layout:fragment="content">
-		<div class="searchResult col-sm-8 offset-sm-2">
+		<div class="search-result col-sm-8 offset-sm-2">
 			<p th:if="${giftCount == 0}" class="noResult text-nowrap" th:text="キーワードに該当するお土産はありませんでした。"></p>
 			<br />
 			<p th:if="${giftCount >= 1}" class="resultCount" th:text="${giftCount} + '件見つかりました。'"></p>
 			<br />
-			<div class="gift col-sm-12">
-				<div class="giftList">
-					<div class="gift" th:each="gift : ${gifts}">
-						<div class="gift2">
+			<div class="gift-container col-sm-12">
+				<div class="gift-list">
+					<div class="gift-container" th:each="gift : ${gifts}">
+						<div class="gift">
 							<a th:href="@{'/gifts/'+${gift.giftId}}"><img class="gift-picture" th:src="@{'/image/'+${gift.image}}" alt="gift-image"></a>
 							<p class="gift-name" th:text="${gift.giftName}"></p>
 							<p class="gift-guest" th:text="${gift.guestName}"></p>

@@ -8,7 +8,7 @@ body {
 	height: 100%;
 }
 
-.registrationWrapper {
+.registration-wrapper {
 	height: 100vh;
 }
 
@@ -16,7 +16,7 @@ body {
 	min-width: 310px;
 }
 
-p.pageTitle {
+p.page-title {
 	font-size: 32px;
 }
 

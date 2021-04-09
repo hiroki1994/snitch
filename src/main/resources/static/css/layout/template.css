@@ -69,7 +69,7 @@ body {
 	outline: 0;
 }
 
-.form {
+.search-container {
 	height: 40px;
 	background-color: #A0ADA7;
 	position: relative;
@@ -77,20 +77,20 @@ body {
 	width: 100%;
 }
 
-.searchErrorMSG.text-nowrap {
+.error-message.text-nowrap {
 	padding-top: 107px;
 	text-align: center;
 	font-size: 25px;
 }
 
-#searchBox {
+#search-box {
 	z-index: 100;
 	margin: 0 auto;
 	position: relative;
 	max-width: calc((100vw - 500px)/10 + 200px);
 }
 
-#sbox1 {
+#form-content {
 	width: 100%;
 	padding: 0 10px;
 	position: absolute;
@@ -99,7 +99,7 @@ body {
 	background: #eee;
 }
 
-#sbtn1 {
+#search-button {
 	position: absolute;
 	max-width: 21.5vw;
 	left: calc((100vw - 500px)/10 + 170px);
@@ -114,7 +114,7 @@ body {
 	color: #7fbfff;
 }
 
-.contentsClass {
+.contents-class {
 	background-color: #DACEC2;
 	padding-top: 100px;
 	padding-bottom: 100px;
