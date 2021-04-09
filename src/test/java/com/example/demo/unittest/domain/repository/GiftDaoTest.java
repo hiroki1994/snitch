@@ -49,33 +49,33 @@ public class GiftDaoTest {
     public void searchGift_found() {
 
 	String keyword = "マカロン";
-	List<Gift> giftList = giftDao.search(keyword);
+	List<Gift> gift = giftDao.search(keyword);
 
-	assertThat(giftList, hasItems(hasProperty("giftId", is(1000))));
-	assertThat(giftList, hasItems(hasProperty("guestName", is("中越典子"))));
-	assertThat(giftList, hasItems(hasProperty("giftName", is("マカロン"))));
-	assertThat(giftList, hasItems(hasProperty("price", is("120個入　3938円"))));
-	assertThat(giftList, hasItems(hasProperty("image", is("1000.jpg"))));
-	assertThat(giftList, hasItems(hasProperty("shop", is("ジャン＝ポール･エヴァン伊勢丹新宿店"))));
-	assertThat(giftList, hasItems(hasProperty("address", is("東京都新宿区新宿3-14-1伊勢丹新宿店本館B1階"))));
-	assertThat(giftList, hasItems(hasProperty("phone", is("03-3352-1111"))));
+	assertThat(gift, hasItems(hasProperty("giftId", is(1000))));
+	assertThat(gift, hasItems(hasProperty("guestName", is("中越典子"))));
+	assertThat(gift, hasItems(hasProperty("giftName", is("マカロン"))));
+	assertThat(gift, hasItems(hasProperty("price", is("120個入　3938円"))));
+	assertThat(gift, hasItems(hasProperty("image", is("1000.jpg"))));
+	assertThat(gift, hasItems(hasProperty("shop", is("ジャン＝ポール･エヴァン伊勢丹新宿店"))));
+	assertThat(gift, hasItems(hasProperty("address", is("東京都新宿区新宿3-14-1伊勢丹新宿店本館B1階"))));
+	assertThat(gift, hasItems(hasProperty("phone", is("03-3352-1111"))));
     }
 
     @Test
     public void searchGift_notFound() {
 
 	String keyword = "H#4kこ";
-	List<Gift> giftList = giftDao.search(keyword);
+	List<Gift> gift = giftDao.search(keyword);
 
-	assertThat(giftList, is(empty()));
+	assertThat(gift, is(empty()));
     }
 
     @Test
     public void selectManyGifts() {
 
-	List<Gift> giftList = giftDao.selectMany();
+	List<Gift> gift = giftDao.selectMany();
 
-	assertThat(giftList, hasSize(27));
+	assertThat(gift, hasSize(27));
     }
 
     @Test

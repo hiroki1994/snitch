@@ -63,11 +63,11 @@ public class GiftServiceTestUT {
     public void searchGift() {
 
 	String keyword = "マカロン";
-	List<Gift> selectedGifts = new ArrayList<>();
+	List<Gift> gift = new ArrayList<>();
 
-	when(giftDao.search(keyword)).thenReturn(selectedGifts);
+	when(giftDao.search(keyword)).thenReturn(gift);
 
-	List<Gift> expected = selectedGifts;
+	List<Gift> expected = gift;
 	List<Gift> actual = giftService.search(keyword);
 
 	assertEquals(expected, actual);
@@ -76,11 +76,11 @@ public class GiftServiceTestUT {
     @Test
     public void selectManyGifts_success() {
 
-	List<Gift> selectedGifts = new ArrayList<>();
+	List<Gift> gift = new ArrayList<>();
 
-	when(giftDao.selectMany()).thenReturn(selectedGifts);
+	when(giftDao.selectMany()).thenReturn(gift);
 
-	List<Gift> expected = selectedGifts;
+	List<Gift> expected = gift;
 	List<Gift> actual = giftService.selectMany();
 
 	assertEquals(expected, actual);

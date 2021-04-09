@@ -50,16 +50,16 @@ public class GiftServiceTestIT {
 
 	String keyword = "マカロン";
 
-	List<Gift> selectedGifts = giftService.search(keyword);
+	List<Gift> gift = giftService.search(keyword);
 
-	assertThat(selectedGifts, hasItems(hasProperty("giftId", is(1000))));
-	assertThat(selectedGifts, hasItems(hasProperty("guestName", is("中越典子"))));
-	assertThat(selectedGifts, hasItems(hasProperty("giftName", is("マカロン"))));
-	assertThat(selectedGifts, hasItems(hasProperty("price", is("120個入　3938円"))));
-	assertThat(selectedGifts, hasItems(hasProperty("image", is("1000.jpg"))));
-	assertThat(selectedGifts, hasItems(hasProperty("shop", is("ジャン＝ポール･エヴァン伊勢丹新宿店"))));
-	assertThat(selectedGifts, hasItems(hasProperty("address", is("東京都新宿区新宿3-14-1伊勢丹新宿店本館B1階"))));
-	assertThat(selectedGifts, hasItems(hasProperty("phone", is("03-3352-1111"))));
+	assertThat(gift, hasItems(hasProperty("giftId", is(1000))));
+	assertThat(gift, hasItems(hasProperty("guestName", is("中越典子"))));
+	assertThat(gift, hasItems(hasProperty("giftName", is("マカロン"))));
+	assertThat(gift, hasItems(hasProperty("price", is("120個入　3938円"))));
+	assertThat(gift, hasItems(hasProperty("image", is("1000.jpg"))));
+	assertThat(gift, hasItems(hasProperty("shop", is("ジャン＝ポール･エヴァン伊勢丹新宿店"))));
+	assertThat(gift, hasItems(hasProperty("address", is("東京都新宿区新宿3-14-1伊勢丹新宿店本館B1階"))));
+	assertThat(gift, hasItems(hasProperty("phone", is("03-3352-1111"))));
     }
 
     @Test
@@ -67,17 +67,17 @@ public class GiftServiceTestIT {
 
 	String keyword = "H#4kこ";
 
-	List<Gift> selectedGifts = giftService.search(keyword);
+	List<Gift> gift = giftService.search(keyword);
 
-	assertThat(selectedGifts, is(empty()));
+	assertThat(gift, is(empty()));
     }
 
     @Test
     public void getGiftList() {
 
-	List<Gift> selectedGifts = giftService.selectMany();
+	List<Gift> gift = giftService.selectMany();
 
-	assertThat(selectedGifts, hasSize(27));
+	assertThat(gift, hasSize(27));
     }
 
     @Test

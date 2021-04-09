@@ -48,13 +48,13 @@ public class UserControllerTest {
     @WithMockUser(username = "userName3")
     public void updateOneUserInfo_success() throws Exception {
 
-	UserForm form = new UserForm();
-	form.setUserName("uniqueUserName");
-	form.setMailAddress("mail@gmail.com");
-	form.setPassword("7777");
+	UserForm userForm = new UserForm();
+	userForm.setUserName("uniqueUserName");
+	userForm.setMailAddress("mail@gmail.com");
+	userForm.setPassword("7777");
 
 	mockMvc.perform(put("/users")
-		.flashAttr("userForm", form)
+		.flashAttr("userForm", userForm)
 		.with(csrf()))
 		.andExpect(status().isFound())
 		.andExpect(redirectedUrl("/users/mypage"));
@@ -64,13 +64,13 @@ public class UserControllerTest {
     @WithMockUser(username = "userName3")
     public void updateOneUserInfo_success_usernameIsEqualToAuthentivatedUserName() throws Exception {
 
-	UserForm form = new UserForm();
-	form.setUserName("userName3");
-	form.setMailAddress("mail@gmail.com");
-	form.setPassword("7777");
+	UserForm userForm = new UserForm();
+	userForm.setUserName("userName3");
+	userForm.setMailAddress("mail@gmail.com");
+	userForm.setPassword("7777");
 
 	mockMvc.perform(put("/users")
-		.flashAttr("userForm", form)
+		.flashAttr("userForm", userForm)
 		.with(csrf()))
 		.andExpect(status().isFound())
 		.andExpect(redirectedUrl("/users/mypage"));
@@ -80,13 +80,13 @@ public class UserControllerTest {
     @WithMockUser(username = "userName3")
     public void updateOneUserInfo_fail_usernameUniqueError() throws Exception {
 
-	UserForm form = new UserForm();
-	form.setUserName("userName4");
-	form.setMailAddress("mail@gmail.com");
-	form.setPassword("7777");
+	UserForm userForm = new UserForm();
+	userForm.setUserName("userName4");
+	userForm.setMailAddress("mail@gmail.com");
+	userForm.setPassword("7777");
 
 	mockMvc.perform(put("/users")
-		.flashAttr("userForm", form)
+		.flashAttr("userForm", userForm)
 		.with(csrf()))
 		.andExpect(status().isOk())
 		.andExpect(content().string(containsString("入力されたユーザーネームは既に使用されています")));
@@ -96,13 +96,13 @@ public class UserControllerTest {
     @WithMockUser(username = "userName3")
     public void updateOneUserInfo_fail_validationError() throws Exception {
 
-	UserForm form = new UserForm();
-	form.setUserName("ああ");
-	form.setMailAddress("mail");
-	form.setPassword("いい");
+	UserForm userForm = new UserForm();
+	userForm.setUserName("ああ");
+	userForm.setMailAddress("mail");
+	userForm.setPassword("いい");
 
 	mockMvc.perform(put("/users")
-		.flashAttr("userForm", form)
+		.flashAttr("userForm", userForm)
 		.with(csrf()))
 		.andExpect(status().isOk())
 		.andExpect(view().name("mypage/edit_user/edit_user"))
@@ -126,13 +126,13 @@ public class UserControllerTest {
     @Test
     public void createOneUser_suceess() throws Exception {
 
-	UserForm form = new UserForm();
-	form.setUserName("uniqueUserName");
-	form.setMailAddress("mail@gmail.com");
-	form.setPassword("7777");
+	UserForm userForm = new UserForm();
+	userForm.setUserName("uniqueUserName");
+	userForm.setMailAddress("mail@gmail.com");
+	userForm.setPassword("7777");
 
 	mockMvc.perform(post("/users")
-		.flashAttr("userForm", form)
+		.flashAttr("userForm", userForm)
 		.with(csrf()))
 		.andExpect(status().isFound())
 		.andExpect(redirectedUrl("/users/mypage"));
@@ -141,13 +141,13 @@ public class UserControllerTest {
     @Test
     public void createOneUser_fail_usernameUniqueError() throws Exception {
 
-	UserForm form = new UserForm();
-	form.setUserName("userName3");
-	form.setMailAddress("mail@gmail.com");
-	form.setPassword("7777");
+	UserForm userForm = new UserForm();
+	userForm.setUserName("userName3");
+	userForm.setMailAddress("mail@gmail.com");
+	userForm.setPassword("7777");
 
 	mockMvc.perform(post("/users")
-		.flashAttr("userForm", form)
+		.flashAttr("userForm", userForm)
 		.with(csrf()))
 		.andExpect(status().isOk())
 		.andExpect(view().name("registration/registration"))
@@ -157,13 +157,13 @@ public class UserControllerTest {
     @Test
     public void createOneUser_fail_ValidationError() throws Exception {
 
-	UserForm form = new UserForm();
-	form.setUserName("ああ");
-	form.setMailAddress("mail");
-	form.setPassword("いい");
+	UserForm userForm = new UserForm();
+	userForm.setUserName("ああ");
+	userForm.setMailAddress("mail");
+	userForm.setPassword("いい");
 
 	mockMvc.perform(post("/users")
-		.flashAttr("userForm", form)
+		.flashAttr("userForm", userForm)
 		.with(csrf()))
 		.andExpect(status().isOk())
 		.andExpect(view().name("registration/registration"))
