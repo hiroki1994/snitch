@@ -26,7 +26,8 @@ public class UserDaoJdbcImpl implements UserDao {
     public int create(User user) throws DuplicateKeyException {
 
 	String password = passwordEncoder.encode(user.getPassword());
-	String sql = "INSERT INTO userData(userName, mailAddress, password, role) VALUES(?, ?, ?, ?)";
+	String sql = "INSERT INTO userData(userName, mailAddress, password, role) "
+			+ "VALUES(?, ?, ?, ?)";
 	int rowNumber = jdbc.update(sql, user.getUserName(), user.getMailAddress(), password, user.getRole());
 
 	return rowNumber;
@@ -36,7 +37,9 @@ public class UserDaoJdbcImpl implements UserDao {
     public int update(User user, String userName_LoggedIn) throws DuplicateKeyException {
 
 	String password = passwordEncoder.encode(user.getPassword());
-	String sql = "UPDATE userData SET userName = ?, mailAddress = ?, password = ? WHERE userName = ?";
+	String sql = "UPDATE userData "
+			+ "SET userName = ?, mailAddress = ?, password = ? "
+			+ "WHERE userName = ?";
 	int rowNumber = jdbc.update(sql, user.getUserName(), user.getMailAddress(), password, userName_LoggedIn);
 
 	return rowNumber;
@@ -45,7 +48,10 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public User select(String userName) throws EmptyResultDataAccessException {
 
-	Map<String, Object> singleUser = jdbc.queryForMap("SELECT * FROM userData WHERE userName = ?", userName);
+	Map<String, Object> singleUser = jdbc.queryForMap("SELECT * "
+								+ "FROM userData "
+								+ "WHERE userName = ?"
+								, userName);
 	User user = new User();
 	user.setUserName((String) singleUser.get("userName"));
 	user.setMailAddress((String) singleUser.get("mailAddress"));
@@ -57,8 +63,16 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public int delete(String userName) throws EmptyResultDataAccessException {
 
-	int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
-	int rowNumber = jdbc.update("UPDATE userData SET unavailableFlag = '1' WHERE userId = ? AND unavailableFlag IS NULL", userId);
+	int userId = jdbc.queryForObject("SELECT userId "
+						+ "FROM userData "
+						+ "WHERE userName = ?"
+						, Integer.class, userName);
+
+	int rowNumber = jdbc.update("UPDATE userData "
+					+ "SET unavailableFlag = '1' "
+					+ "WHERE userId = ?"
+					+ " AND unavailableFlag IS NULL"
+					, userId);
 
 	return rowNumber;
     }
@@ -66,12 +80,19 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public int exist(String userName) throws DataAccessException {
 
-	return jdbc.queryForObject("SELECT COUNT(userName) FROM userData WHERE userName = ?", Integer.class, userName);
+	return jdbc.queryForObject("SELECT "
+					+ "COUNT(userName) "
+					+ "FROM userData"
+					+ " WHERE userName = ?"
+					, Integer.class, userName);
     }
 
     public User findUser(String userName) throws DataAccessException {
 
-	Map<String, Object> map = jdbc.queryForMap("SELECT * FROM userData WHERE userName = ?", userName);
+	Map<String, Object> map = jdbc.queryForMap("SELECT * "
+							+ "FROM userData"
+							+ " WHERE userName = ?"
+							, userName);
 	User user = new User();
 	user.setUserName((String) map.get("userName"));
 	user.setMailAddress((String) map.get("mailAddress"));

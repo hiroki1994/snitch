@@ -22,16 +22,27 @@ public class GiftDaoJdbcImpl implements GiftDao {
     @Override
     public int count(String keyword) throws DataAccessException {
 
-	return jdbc.queryForObject("SELECT COUNT(giftId) FROM gift INNER JOIN guest ON gift.guestId = guest.guestId "
-		+ "WHERE CONCAT(giftName, description, shop, address, guestName) LIKE '%'||?||'%' AND gift.unavailableFlag IS NULL",
-		Integer.class, keyword);
+	return jdbc.queryForObject("SELECT "
+					+ "COUNT(giftId) "
+					+ "FROM gift "
+					+ "INNER JOIN guest"
+					+ " ON gift.guestId = guest.guestId "
+					+ "WHERE CONCAT(giftName, description, shop, address, guestName) "
+					+ "LIKE '%'||?||'%'"
+					+ " AND gift.unavailableFlag IS NULL"
+					, Integer.class, keyword);
     }
 
     @Override
     public List<Gift> search(String keyword) throws DataAccessException {
 
-	List<Map<String, Object>> gifts = jdbc.queryForList("SELECT * FROM gift INNER JOIN guest ON gift.guestId = guest.guestId "
-		+ "WHERE CONCAT(giftName, description, shop, address, guestName) LIKE '%'||?||'%' AND gift.unavailableFlag IS NULL",keyword);
+	List<Map<String, Object>> gifts = jdbc.queryForList("SELECT * "
+								+ "FROM gift "
+								+ "INNER JOIN guest"
+								+ " ON gift.guestId = guest.guestId "
+								+ "WHERE CONCAT(giftName, description, shop, address, guestName) "
+								+ "LIKE '%'||?||'%' AND gift.unavailableFlag IS NULL"
+								, keyword);
 
 	List<Gift> selectedGifts = new ArrayList<>();
 
@@ -55,8 +66,12 @@ public class GiftDaoJdbcImpl implements GiftDao {
     @Override
     public List<Gift> selectMany() throws DataAccessException {
 
-	List<Map<String, Object>> gifts = jdbc.queryForList("SELECT * FROM gift INNER JOIN guest ON gift.guestId = guest.guestId "
-		+ "WHERE gift.unavailableFlag IS NULL ORDER BY RANDOM() LIMIT 27");
+	List<Map<String, Object>> gifts = jdbc.queryForList("SELECT * "
+								+ "FROM gift "
+								+ "INNER JOIN guest"
+								+ " ON gift.guestId = guest.guestId "
+								+ "WHERE gift.unavailableFlag IS NULL "
+								+ "ORDER BY RANDOM() LIMIT 27");
 
 	List<Gift> selectedGifts = new ArrayList<>();
 
@@ -80,8 +95,13 @@ public class GiftDaoJdbcImpl implements GiftDao {
     @Override
     public Gift selectOne(int giftId) throws EmptyResultDataAccessException {
 
-	Map<String, Object> singleGift = jdbc.queryForMap("SELECT * FROM gift INNER JOIN guest ON gift.guestId = guest.guestId "
-		+ "WHERE giftId = ? AND gift.unavailableFlag IS NULL",giftId);
+	Map<String, Object> singleGift = jdbc.queryForMap("SELECT * "
+								+ "FROM gift "
+								+ "INNER JOIN guest"
+								+ " ON gift.guestId = guest.guestId "
+								+ "WHERE giftId = ?"
+								+ " AND gift.unavailableFlag IS NULL"
+								, giftId);
 
 	Gift gift = new Gift();
 	gift.setGiftId((int) singleGift.get("giftId"));
