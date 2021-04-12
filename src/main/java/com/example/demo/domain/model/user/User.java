@@ -9,5 +9,5 @@ public class User {
 	private String mailAddress;
 	private String password;
 	private String role;
-	private int isEnabled;
+	private boolean isEnabled;
 }
