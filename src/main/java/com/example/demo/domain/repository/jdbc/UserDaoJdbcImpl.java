@@ -48,7 +48,7 @@ public class UserDaoJdbcImpl implements UserDao {
 
 		String password = passwordEncoder.encode(user.getPassword());
 
-		String sql = "UPDATE userData SET"
+		String sql = "UPDATE users SET"
 			+ " userName = ?,"
 			+ " mailAddress = ?,"
 			+ " password = ?"
@@ -67,7 +67,7 @@ public class UserDaoJdbcImpl implements UserDao {
 	@Override
 	public User select(String userName) throws EmptyResultDataAccessException {
 
-		Map<String, Object> singleUser = jdbc.queryForMap("SELECT * FROM userData WHERE userName = ?", userName);
+		Map<String, Object> singleUser = jdbc.queryForMap("SELECT * FROM users WHERE userName = ? AND isEnabled IS true", userName);
 
 		User user = new User();
 
@@ -81,9 +81,9 @@ public class UserDaoJdbcImpl implements UserDao {
 	@Override
 	public int delete(String userName) throws EmptyResultDataAccessException {
 
-		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
+		int userId = jdbc.queryForObject("SELECT userId FROM users WHERE userName = ?", Integer.class, userName);
 
-		int rowNumber = jdbc.update("UPDATE userData SET unavailableFlag = '1' WHERE userId = ? AND unavailableFlag IS NULL", userId);
+		int rowNumber = jdbc.update("UPDATE users SET isEnabled = 'false' WHERE userId = ? AND isEnabled IS true", userId);
 
 		return rowNumber;
 	}
@@ -96,7 +96,7 @@ public class UserDaoJdbcImpl implements UserDao {
 
 	public User findUser(String userName) throws DataAccessException {
 
-		Map<String, Object> map = jdbc.queryForMap("SELECT * FROM userData WHERE userName = ?", userName);
+		Map<String, Object> map = jdbc.queryForMap("SELECT * FROM users WHERE userName = ?", userName);
 
 		User user = new User();
 
