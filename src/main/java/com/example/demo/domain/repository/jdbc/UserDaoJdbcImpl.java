@@ -53,7 +53,8 @@ public class UserDaoJdbcImpl implements UserDao {
 			+ " mailAddress = ?,"
 			+ " password = ?"
 			+ " WHERE"
-			+ " userName = ?";
+			+ " userName = ?"
+			+ "AND isEnabled IS true";
 
 		int rowNumber = jdbc.update(sql,
 				user.getUserName(),

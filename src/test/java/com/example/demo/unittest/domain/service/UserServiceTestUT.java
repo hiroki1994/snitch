@@ -151,7 +151,25 @@ public class UserServiceTestUT {
 		});
 	}
 
+	@Test
+	public void updateUserInfo_fail_disabledUser() throws Exception {
 
+		String userName = "disabledUser";
+
+		User user = new User();
+
+		user.setUserName("disabledUser2");
+		user.setMailAddress("mailaddress3@gmail.co.jp");
+		user.setPassword("password2");
+
+		when(userDao.update(user, userName)).thenReturn(0);
+
+		int expected = 0;
+		int actual = userService.update(user, userName);
+
+		assertEquals(expected, actual);
+
+	}
 
 	@Test
 	public void deleteUser_success() throws Exception {
@@ -175,6 +193,32 @@ public class UserServiceTestUT {
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
 			userService.delete(userName);
+		});
+	}
+
+	@Test
+	public void deleteUserInfo_fail_disabledUser() throws Exception {
+
+		String userName = "disabledUser";
+
+		when(userDao.delete(userName)).thenReturn(0);
+
+		int expected = 0;
+		int actual = userService.delete(userName);
+
+		assertEquals(expected, actual);
+
+	}
+
+	@Test
+	public void getUserInfo_fail_disabledUser() throws Exception {
+
+		String userName = "disabledUser";
+
+		when(userDao.select(userName)).thenThrow(EmptyResultDataAccessException.class);
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	userService.select(userName);
 		});
 	}
 

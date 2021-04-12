@@ -88,18 +88,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
     @Override
-	protected void configure(AuthenticationManagerBuilder auth) {
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-		try {
 		    auth.jdbcAuthentication()
 		    	.dataSource(dataSource)
 		    	.usersByUsernameQuery(USER_DATA)
 		    	.authoritiesByUsernameQuery(ROLE_DATA)
 		    	.passwordEncoder(passwordEncoder());
-		} catch (Exception e) {
-		    // TODO 自動生成された catch ブロック
-		    e.printStackTrace();
-		}
+
 	}
 
     public static void autoLogin(HttpServletRequest request, String username, String password, HttpServletResponse response) throws IOException {

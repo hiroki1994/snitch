@@ -1,5 +1,6 @@
 INSERT INTO users(userName, mailAddress, password, role) VALUES('userName3', 'mailaddress3@gmail.co.jp', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', 'ROLE_GENERAL');
 INSERT INTO users(userName, mailAddress, password, role) VALUES('userName4', 'mailaddress3@gmail.co.jp', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', 'ROLE_GENERAL');
+INSERT INTO users(userName, mailAddress, password, role, isEnabled) VALUES('disabledUser', 'mailaddress3@gmail.co.jp', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', 'ROLE_GENERAL', 'false');
 
 INSERT INTO recommenders(recommenderName) VALUES('中越典子');
 INSERT INTO recommenders(recommenderName) VALUES('ミムラ');
