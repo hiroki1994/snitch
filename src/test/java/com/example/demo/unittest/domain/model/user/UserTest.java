@@ -21,14 +21,14 @@ public class UserTest {
 		user.setMailAddress("test@gmail.com");
 		user.setPassword("testpassword");
 		user.setRole("ROLE_GENERAL");
-		user.setUnavailableFlag(0);
+		user.setIsEnabled(0);
 
 		int actualId = user.getUserId();
 		String actualName = user.getUserName();
 		String actualMail = user.getMailAddress();
 		String actualPassword = user.getPassword();
 		String actualRole = user.getRole();
-		int actualFlag = user.getUnavailableFlag();
+		int actualFlag = user.getIsEnabled();
 
 		assertEquals(10, actualId);
 		assertEquals("testUser", actualName);
@@ -49,7 +49,7 @@ public class UserTest {
 		String actualMail = user.getMailAddress();
 		String actualPassword = user.getPassword();
 		String actualRole = user.getRole();
-		int actualFlag = user.getUnavailableFlag();
+		int actualFlag = user.getIsEnabled();
 
 		assertEquals(0, actualId);
 		assertEquals(null, actualName);

@@ -27,7 +27,7 @@ public class UserDaoJdbcImpl implements UserDao {
 
 		String password = passwordEncoder.encode(user.getPassword());
 
-		String sql = "INSERT INTO userData("
+		String sql = "INSERT INTO users("
 			+ " userName,"
 			+ " mailAddress,"
 			+ " password,"
@@ -91,7 +91,7 @@ public class UserDaoJdbcImpl implements UserDao {
 	@Override
 	public int exist(String userName) throws DataAccessException {
 
-		return jdbc.queryForObject("SELECT COUNT(userName) FROM userData WHERE userName = ?", Integer.class, userName);
+		return jdbc.queryForObject("SELECT COUNT(userName) FROM users WHERE userName = ?", Integer.class, userName);
 	}
 
 	public User findUser(String userName) throws DataAccessException {

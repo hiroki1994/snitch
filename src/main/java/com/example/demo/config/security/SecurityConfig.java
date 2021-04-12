@@ -36,21 +36,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String USER_DATA = "SELECT"
 			+ " userName,"
 			+ " password,"
-			+ " true"
+			+ " isEnabled AS enabled"
 			+ " FROM"
-			+ " userData"
+			+ " users"
 			+ " WHERE"
-			+ " userName = ?"
-			+ " AND userData.unavailableFlag IS NULL";
+			+ " userName = ?";
 
 	private static final String ROLE_DATA = "SELECT"
 			+ " userName,"
 			+ " role"
 			+ " FROM"
-			+ " userData"
+			+ " users"
 			+ " WHERE"
 			+ " userName = ?"
-			+ " AND userData.unavailableFlag IS NULL";
+			+ " AND users.isEnabled IS true";
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
@@ -89,13 +88,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
     @Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+	protected void configure(AuthenticationManagerBuilder auth) {
 
-		auth.jdbcAuthentication()
-			.dataSource(dataSource)
-			.usersByUsernameQuery(USER_DATA)
-			.authoritiesByUsernameQuery(ROLE_DATA)
-			.passwordEncoder(passwordEncoder());
+		try {
+		    auth.jdbcAuthentication()
+		    	.dataSource(dataSource)
+		    	.usersByUsernameQuery(USER_DATA)
+		    	.authoritiesByUsernameQuery(ROLE_DATA)
+		    	.passwordEncoder(passwordEncoder());
+		} catch (Exception e) {
+		    // TODO 自動生成された catch ブロック
+		    e.printStackTrace();
+		}
 	}
 
     public static void autoLogin(HttpServletRequest request, String username, String password, HttpServletResponse response) throws IOException {
