@@ -11,10 +11,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.domain.model.favorite.FavGift;
@@ -72,6 +70,83 @@ public class FavGiftServiceTestIT {
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
 			favGiftService.create(userName, giftId);
+		});
+	}
+
+	@Test
+	public void createFavGift_fail_disabledUser() throws Exception {
+
+		String userName = "disabledUser";
+		int giftId = 1030;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	favGiftService.create(userName, giftId);
+		});
+	}
+
+	@Test
+	public void createFavGift_fail_disabledGift() throws Exception {
+
+		String userName = "userName6";
+		int giftId = 1031;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	favGiftService.create(userName, giftId);
+		});
+	}
+
+	@Test
+	public void createFavGift_fail_disabledRecommeder() throws Exception {
+
+		String userName = "userName6";
+		int giftId = 1032;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	favGiftService.create(userName, giftId);
+		});
+	}
+
+	@Test
+	public void createFavGift_fail_disabledUser_disabledGift() throws Exception {
+
+		String userName = "disabledUser";
+		int giftId = 1031;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	favGiftService.create(userName, giftId);
+		});
+	}
+
+	@Test
+	public void createFavGift_fail_disabledGift_disabledRecommeder() throws Exception {
+
+		String userName = "userName6";
+		int giftId = 1033;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	favGiftService.create(userName, giftId);
+		});
+	}
+
+	@Test
+	public void createFavGift_fail_disabledUser_disabledRecommeder() throws Exception {
+
+		String userName = "disabledUser";
+		int giftId = 1032;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	favGiftService.create(userName, giftId);
+		});
+	}
+
+	@Test
+	public void createFavGift_fail_disabledUser_disabledGift_disabledRecommeder() throws Exception {
+
+		String userName = "disabledUser";
+		int giftId = 1033;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	favGiftService.create(userName, giftId);
 		});
 	}
 
@@ -147,7 +222,7 @@ public class FavGiftServiceTestIT {
 	@Test
 	public void countFavGift_success_noFavGift() throws Exception {
 
-		String userName = "userName4";
+		String userName = "userName6";
 
 		int expected = 0;
 		int actual = favGiftService.count(userName);
@@ -162,6 +237,80 @@ public class FavGiftServiceTestIT {
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
 			favGiftService.count(userName);
+		});
+	}
+
+	@Test
+	public void countFavGift_fail_disabledUser() throws Exception {
+
+		String userName = "userName4";
+
+		int expected = 0;
+		int actual = favGiftService.count(userName);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void countFavGift_fail_disabledGift() throws Exception {
+
+		String userName = "userName4";
+
+		int expected = 0;
+		int actual = favGiftService.count(userName);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void countFavGift_fail_disabledRecommender() throws Exception {
+
+	    	String userName = "userName4";
+
+		int expected = 0;
+		int actual = favGiftService.count(userName);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void countFavGift_fail_disabledUser_disabledGift() throws Exception {
+
+		String userName = "disabledUser";
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	favGiftService.count(userName);
+		});
+	}
+
+	@Test
+	public void countFavGift_fail_disabledGift_disabledRecommender() throws Exception {
+
+	    	String userName = "userName4";
+
+		int expected = 0;
+		int actual = favGiftService.count(userName);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void countFavGift_fail_disabledUser_disabledRecommender() throws Exception {
+
+		String userName = "disabledUser";
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	favGiftService.count(userName);
+		});
+	}
+
+	@Test
+	public void countFavGift_fail_disabledUser_disabledGift_disabledRecommender() throws Exception {
+
+		String userName = "disabledUser";
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	favGiftService.count(userName);
 		});
 	}
 
@@ -214,6 +363,96 @@ public class FavGiftServiceTestIT {
 	}
 
 	@Test
+	public void searchFavId_fail_disabledUser() throws Exception {
+
+		String userName = "disabledUser";
+		int giftId = 1000;
+
+		boolean expected = false;
+		boolean actual = favGiftService.existFavId(userName, giftId);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void searchFavId_fail_disabledGift()throws Exception {
+
+		String userName = "userName4";
+
+		int giftId = 1031;
+
+		boolean expected = false;
+		boolean actual = favGiftService.existFavId(userName, giftId);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void searchFavId_fail_disabledRecommender()throws Exception {
+
+		String userName = "userName4";
+
+		int giftId = 1032;
+
+		boolean expected = false;
+		boolean actual = favGiftService.existFavId(userName, giftId);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void searchFavId_fail_disabledUser_disabledGift()throws Exception {
+
+		String userName = "disabledUser";
+
+		int giftId = 1031;
+
+		boolean expected = false;
+		boolean actual = favGiftService.existFavId(userName, giftId);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void searchFavId_fail_disabledGift_disabledRecommender()throws Exception {
+
+		String userName = "userName4";
+
+		int giftId = 1033;
+
+		boolean expected = false;
+		boolean actual = favGiftService.existFavId(userName, giftId);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void searchFavId_fail_disabledUser_disabledRecommender()throws Exception {
+
+		String userName = "disabledUser";
+
+		int giftId = 1032;
+
+		boolean expected = false;
+		boolean actual = favGiftService.existFavId(userName, giftId);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void searchFavId_fail_disabledUser_disabledGift_disabledRecommender()throws Exception {
+
+		String userName = "disabledUser";
+
+		int giftId = 1033;
+
+		boolean expected = false;
+		boolean actual = favGiftService.existFavId(userName, giftId);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
 	public void listFavGift_success() throws Exception {
 
 		String userName = "userName3";
@@ -249,6 +488,76 @@ public class FavGiftServiceTestIT {
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
 			favGiftService.selectAll(userName);
+		});
+	}
+
+	@Test
+	public void listFavGift_fail_disabledUser() throws Exception {
+
+		String userName = "disabledUser";
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	favGiftService.selectAll(userName);
+		});
+	}
+
+	@Test
+	public void listFavGift_fail_disabledGift() throws Exception {
+
+		String userName = "userName4";
+
+		List<FavGift> allFavGifts = favGiftService.selectAll(userName);
+
+		assertThat(allFavGifts, is(empty()));
+	}
+
+	@Test
+	public void listFavGift_fail_disabledRecommeder() throws Exception {
+
+		String userName = "userName4";
+
+		List<FavGift> allFavGifts = favGiftService.selectAll(userName);
+
+		assertThat(allFavGifts, is(empty()));
+	}
+
+	@Test
+	public void listFavGift_fail_disabledUser_disabledGift() throws Exception {
+
+		String userName = "disabledUser";
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	favGiftService.selectAll(userName);
+		});
+	}
+
+	@Test
+	public void listFavGift_fail_disabledGift_disabledRecommeder() throws Exception {
+
+		String userName = "userName4";
+
+		List<FavGift> allFavGifts = favGiftService.selectAll(userName);
+
+		assertThat(allFavGifts, is(empty()));
+	}
+
+	@Test
+	public void listFavGift_fail_disabledUser_disabledRecommeder() throws Exception {
+
+		String userName = "disabledUser";
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	favGiftService.selectAll(userName);
+		});
+	}
+
+	@Test
+	public void listFavGift_fail_disabledUser_disabledGift_disabledRecommeder() throws Exception {
+
+		String userName = "disabledUser";
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	favGiftService.selectAll(userName);
 		});
 	}
 

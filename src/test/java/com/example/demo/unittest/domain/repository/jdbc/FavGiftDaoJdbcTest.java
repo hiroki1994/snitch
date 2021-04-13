@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.domain.model.favorite.FavGift;
@@ -41,7 +40,7 @@ public class FavGiftDaoJdbcTest {
 	@Test
 	public void countFavGift_noFavGift() throws Exception {
 
-		String userName = "userName4";
+		String userName = "userName6";
 
 		int expected = 0;
 		int actual = favGiftDaoJdbcImpl.count(userName);
@@ -60,15 +59,88 @@ public class FavGiftDaoJdbcTest {
 	}
 
 	@Test
+	public void countFavGift_fail_disabledUser() throws Exception {
+
+		String userName = "disabledUser";
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.count(userName);
+		});
+	}
+
+	@Test
+	public void countFavGift_fail_disabledGift() throws Exception {
+
+		String userName = "userName4";
+
+		int expected = 0;
+		int actual = favGiftDaoJdbcImpl.count(userName);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void countFavGift_fail_disabledRecommender() throws Exception {
+
+	    	String userName = "userName4";
+
+		int expected = 0;
+		int actual = favGiftDaoJdbcImpl.count(userName);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void countFavGift_fail_disabledUser_disabledGift() throws Exception {
+
+		String userName = "disabledUser";
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.count(userName);
+		});
+	}
+
+	@Test
+	public void countFavGift_fail_disabledGift_disabledRecommender() throws Exception {
+
+	    	String userName = "userName4";
+
+		int expected = 0;
+		int actual = favGiftDaoJdbcImpl.count(userName);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void countFavGift_fail_disabledUser_disabledRecommender() throws Exception {
+
+		String userName = "disabledUser";
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.count(userName);
+		});
+	}
+
+	@Test
+	public void countFavGift_fail_disabledUser_disabledGift_disabledRecommender() throws Exception {
+
+		String userName = "disabledUser";
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.count(userName);
+		});
+	}
+
+	@Test
 	public void listFavGift_success() throws Exception {
 		String userName = "userName3";
 
 		List<FavGift> allFavGifts = favGiftDaoJdbcImpl.selectAll(userName);
 
-		assertThat(allFavGifts, hasItems(hasProperty("favId", is(0))));
+		assertThat(allFavGifts, hasItems(hasProperty("favoriteId", is(1))));
 		assertThat(allFavGifts, hasItems(hasProperty("userId", is(1))));
 		assertThat(allFavGifts, hasItems(hasProperty("giftId", is(1000))));
-		assertThat(allFavGifts, hasItems(hasProperty("guestName", is("中越典子"))));
+		assertThat(allFavGifts, hasItems(hasProperty("recommenderName", is("中越典子"))));
 		assertThat(allFavGifts, hasItems(hasProperty("giftName", is("マカロン"))));
 		assertThat(allFavGifts, hasItems(hasProperty("price", is("120個入　3938円"))));
 		assertThat(allFavGifts, hasItems(hasProperty("image", is("1000.jpg"))));
@@ -80,7 +152,7 @@ public class FavGiftDaoJdbcTest {
 	@Test
 	public void listFavGift_success_noFavGift() throws Exception {
 
-		String userName = "userName4";
+		String userName = "userName6";
 
 		List<FavGift> allFavGifts = favGiftDaoJdbcImpl.selectAll(userName);
 
@@ -94,6 +166,76 @@ public class FavGiftDaoJdbcTest {
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
 			favGiftDaoJdbcImpl.selectAll(userName);
+		});
+	}
+
+	@Test
+	public void listFavGift_fail_disabledUser() throws Exception {
+
+		String userName = "disabledUser";
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.selectAll(userName);
+		});
+	}
+
+	@Test
+	public void listFavGift_fail_disabledGift() throws Exception {
+
+		String userName = "userName4";
+
+		List<FavGift> allFavGifts = favGiftDaoJdbcImpl.selectAll(userName);
+
+		assertThat(allFavGifts, is(empty()));
+	}
+
+	@Test
+	public void listFavGift_fail_disabledRecommeder() throws Exception {
+
+		String userName = "userName4";
+
+		List<FavGift> allFavGifts = favGiftDaoJdbcImpl.selectAll(userName);
+
+		assertThat(allFavGifts, is(empty()));
+	}
+
+	@Test
+	public void listFavGift_fail_disabledUser_disabledGift() throws Exception {
+
+		String userName = "disabledUser";
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	favGiftDaoJdbcImpl.selectAll(userName);
+		});
+	}
+
+	@Test
+	public void listFavGift_fail_disabledGift_disabledRecommeder() throws Exception {
+
+		String userName = "userName4";
+
+		List<FavGift> allFavGifts = favGiftDaoJdbcImpl.selectAll(userName);
+
+		assertThat(allFavGifts, is(empty()));
+	}
+
+	@Test
+	public void listFavGift_fail_disabledUser_disabledRecommeder() throws Exception {
+
+		String userName = "disabledUser";
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	favGiftDaoJdbcImpl.selectAll(userName);
+		});
+	}
+
+	@Test
+	public void listFavGift_fail_disabledUser_disabledGift_disabledRecommeder() throws Exception {
+
+		String userName = "disabledUser";
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	favGiftDaoJdbcImpl.selectAll(userName);
 		});
 	}
 
@@ -136,6 +278,83 @@ public class FavGiftDaoJdbcTest {
 
 		String userName = "userName5";
 		int giftId = 9999;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.create(userName, giftId);
+		});
+	}
+
+	@Test
+	public void createFavGift_fail_disabledUser() throws Exception {
+
+		String userName = "disabledUser";
+		int giftId = 1030;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.create(userName, giftId);
+		});
+	}
+
+	@Test
+	public void createFavGift_fail_disabledGift() throws Exception {
+
+		String userName = "userName6";
+		int giftId = 1031;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.create(userName, giftId);
+		});
+	}
+
+	@Test
+	public void createFavGift_fail_disabledRecommeder() throws Exception {
+
+		String userName = "userName6";
+		int giftId = 1032;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.create(userName, giftId);
+		});
+	}
+
+	@Test
+	public void createFavGift_fail_disabledUser_disabledGift() throws Exception {
+
+		String userName = "disabledUser";
+		int giftId = 1031;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.create(userName, giftId);
+		});
+	}
+
+	@Test
+	public void createFavGift_fail_disabledGift_disabledRecommeder() throws Exception {
+
+		String userName = "userName6";
+		int giftId = 1033;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.create(userName, giftId);
+		});
+	}
+
+	@Test
+	public void createFavGift_fail_disabledUser_disabledRecommeder() throws Exception {
+
+		String userName = "disabledUser";
+		int giftId = 1032;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.create(userName, giftId);
+		});
+	}
+
+	@Test
+	public void createFavGift_fail_disabledUser_disabledGift_disabledRecommeder() throws Exception {
+
+		String userName = "disabledUser";
+		int giftId = 1033;
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
 			favGiftDaoJdbcImpl.create(userName, giftId);
@@ -240,6 +459,90 @@ public class FavGiftDaoJdbcTest {
 
 		String userName = "userName5";
 		int giftId = 9999;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.existFavId(userName, giftId);
+		});
+	}
+
+	@Test
+	public void searchFavId_fail_disabledUser() throws Exception {
+
+		String userName = "disabledUser";
+		int giftId = 1000;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.existFavId(userName, giftId);
+		});
+	}
+
+	@Test
+	public void searchFavId_fail_disabledGift()throws Exception {
+
+		String userName = "userName4";
+
+		int giftId = 1031;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.existFavId(userName, giftId);
+		});
+	}
+
+	@Test
+	public void searchFavId_fail_disabledRecommender()throws Exception {
+
+		String userName = "userName4";
+
+		int giftId = 1032;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.existFavId(userName, giftId);
+		});
+	}
+
+	@Test
+	public void searchFavId_fail_disabledUser_disabledGift()throws Exception {
+
+		String userName = "disabledUser";
+
+		int giftId = 1031;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.existFavId(userName, giftId);
+		});
+	}
+
+	@Test
+	public void searchFavId_fail_disabledGift_disabledRecommender()throws Exception {
+
+		String userName = "userName4";
+
+		int giftId = 1033;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.existFavId(userName, giftId);
+		});
+	}
+
+	@Test
+	public void searchFavId_fail_disabledUser_disabledRecommender()throws Exception {
+
+		String userName = "disabledUser";
+
+		int giftId = 1032;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.existFavId(userName, giftId);
+		});
+	}
+
+
+	@Test
+	public void searchFavId_fail_disabledUser_disabledGift_disabledRecommender()throws Exception {
+
+		String userName = "disabledUser";
+
+		int giftId = 1033;
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
 			favGiftDaoJdbcImpl.existFavId(userName, giftId);

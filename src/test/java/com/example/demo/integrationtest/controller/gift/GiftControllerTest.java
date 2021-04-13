@@ -48,7 +48,7 @@ public class GiftControllerTest {
 		int giftId = 1004;
 
 		mockMvc.perform(get("/gifts/" + giftId)
-			.param("giftId", "1000"))
+			.param("giftId", "1004"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("gift_detail/gift_detail"))
 			.andExpect(content().string(containsString("お気に入り")));
@@ -66,4 +66,32 @@ public class GiftControllerTest {
 			.andExpect(view().name("gift_detail/gift_detail"))
 			.andExpect(content().string(containsString("お気に入り解除")));
 	}
+
+	@Test
+	@WithMockUser(username="disabledUser")
+	public void displayGifts_addFavButton_disabledUser() throws Exception {
+
+		int giftId = 1004;
+
+		mockMvc.perform(get("/gifts/" + giftId)
+			.param("giftId", "1004"))
+			.andExpect(status().isOk())
+			.andExpect(view().name("gift_detail/gift_detail"))
+			.andExpect(content().string(containsString("お気に入り")));
+	}
+
+	@Test
+	@WithMockUser(username="userName3")
+	public void displayGifts_addFavButton_disabledGift() throws Exception {
+
+		int giftId = 1031;
+
+		mockMvc.perform(get("/gifts/" + giftId)
+			.param("giftId", "1031"))
+			.andExpect(status().isOk())
+			.andExpect(view().name("error/error"))
+			.andExpect(content().string(containsString("お気に入り")));
+	}
+
+	//Giftコントローラーの修正も必要
 }

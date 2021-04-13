@@ -1,6 +1,7 @@
 INSERT INTO users(userName, mailAddress, password, role) VALUES('userName3', 'mailaddress3@gmail.co.jp', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', 'ROLE_GENERAL');
 INSERT INTO users(userName, mailAddress, password, role) VALUES('userName4', 'mailaddress3@gmail.co.jp', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', 'ROLE_GENERAL');
 INSERT INTO users(userName, mailAddress, password, role, isEnabled) VALUES('disabledUser', 'mailaddress3@gmail.co.jp', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', 'ROLE_GENERAL', 'false');
+INSERT INTO users(userName, mailAddress, password, role) VALUES('userName6', 'mailaddress3@gmail.co.jp', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', 'ROLE_GENERAL');
 
 INSERT INTO recommenders(recommenderName) VALUES('中越典子');
 INSERT INTO recommenders(recommenderName) VALUES('ミムラ');
@@ -33,6 +34,7 @@ INSERT INTO recommenders(recommenderName) VALUES('秋吉久美子');
 INSERT INTO recommenders(recommenderName) VALUES('上村愛子');
 INSERT INTO recommenders(recommenderName) VALUES('中居正広');
 INSERT INTO recommenders(recommenderName) VALUES('石井一久');
+INSERT INTO recommenders(recommenderName, isEnabled) VALUES('無効リコメンダー', 'false');
 
 INSERT INTO gifts(recommenderId, giftName, price, image, description, shop, address, phone) VALUES('1000', 'マカロン', '120個入　3938円', '1000.jpg', 'ショコラアメール/ショコラヴァニーユ/ショコラフランボワーズショコラキャラメル/ショコラカフェ/ショコラミエルショコラピスターシュ/ショコラベルガモット/ショコラパッションポムアニス/マングコリアンドル/パンオレザン上記、12種類', 'ジャン＝ポール･エヴァン伊勢丹新宿店', '東京都新宿区新宿3-14-1伊勢丹新宿店本館B1階', '03-3352-1111');
 INSERT INTO gifts(recommenderId, giftName, price, image, description, shop, address, phone) VALUES('1001', '五家寶', '細巻6本入り 170円', '1001.jpg', '各種詰め合わせあります。ぷうん、と香るきな粉の香ばしさ、サクッとした歯応え、そしてすうっと溶け入る舌触り・・・・・・。主原料である大豆、糯米、砂糖、水飴等が織りなすこの豊かな風味は、総て独自のものを用い、心のこもった手造りによる『花堤五家寳』ならではのものです。', '花堤', '玉県熊谷市榎町3', '048-521-0471');
@@ -65,7 +67,16 @@ INSERT INTO gifts(recommenderId, giftName, price, image, description, shop, addr
 INSERT INTO gifts(recommenderId, giftName, price, image, description, shop, address, phone) VALUES('1028', 'くるみだれそば', '880円', '1028.jpg', 'くるみに味噌・砂糖などで味付けしたタレでいただく”ざるそば”です。', 'そば工房林檎舎', '長野県北安曇郡白馬村北城八方5289', '0261-71-1566');
 INSERT INTO gifts(recommenderId, giftName, price, image, description, shop, address, phone) VALUES('1029', '中居くんお気に入りのかすてら', 'プレーン（大）2877円', '1029.jpg', 'カステラの概念が変わる、深く、濃厚な味わい。【金澤烏鶏庵】烏骨鶏かすていらプレーン（大）本品は、なかなか生まれない希少な天来烏骨鶏卵をふんだんに使って、職人が1本1本丁寧に焼いております。天来烏骨鶏卵の深い味わいを生かすために、甘味を抑えしっとりと仕上げました。お菓子の街金沢で生まれた逸品を是非ご堪能ください。', '金澤烏鶏庵', '石川県金沢市西念4丁目22', '0120-367-054');
 INSERT INTO gifts(recommenderId, giftName, price, image, description, shop, address, phone) VALUES('1030', 'いちごの微笑', 'いちごの微笑（5000円) 25粒入×2カゴ', '1030.jpg', ')25粒入 【送料無料！】産地直送便お取り寄せグルメ京都レマン館いちごの微笑（5000円) 25粒入×2カゴ特製シロップにつけこんだ苺の中にとろーりまろやかな練乳アイスを入れました。優しいいちごの酸味と練乳の甘みがお口の中でハーモニーを奏でます。大人気商品。', 'レマン舘本店（京都円町）', '京都市中京区西ノ京南円町83', '075-841-4144');
-
+INSERT INTO gifts(recommenderId, giftName, price, image, description, shop, address, phone, isEnabled) VALUES('1000', '無効ギフト', '無効', '無効', '無効', '無効', '無効', '無効', 'false');
+INSERT INTO gifts(recommenderId, giftName, price, image, description, shop, address, phone) VALUES('1031', '無効レコメンダー', '無効', '無効', '無効', '無効', '無効', '無効');
+INSERT INTO gifts(recommenderId, giftName, price, image, description, shop, address, phone, isEnabled) VALUES('1031', '無効ギフト無効レコメンダー', '無効', '無効', '無効', '無効', '無効', '無効', 'false');
 
 INSERT INTO favorites(userId, giftId) VALUES('1', '1000');
 INSERT INTO favorites(userId, giftId) VALUES('1', '1001');
+INSERT INTO favorites(userId, giftId) VALUES('2', '1031');
+INSERT INTO favorites(userId, giftId) VALUES('2', '1032');
+INSERT INTO favorites(userId, giftId) VALUES('2', '1033');
+INSERT INTO favorites(userId, giftId) VALUES('3', '1000');
+INSERT INTO favorites(userId, giftId) VALUES('3', '1031');
+INSERT INTO favorites(userId, giftId) VALUES('3', '1032');
+INSERT INTO favorites(userId, giftId) VALUES('3', '1033');

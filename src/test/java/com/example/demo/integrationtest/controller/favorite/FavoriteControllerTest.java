@@ -68,6 +68,72 @@ public class FavoriteControllerTest {
 	}
 
 	@Test
+	@WithMockUser(username="disabledUser")
+	public void createFavGift_fail_disabledUser() throws Exception {
+
+		mockMvc.perform(post("/favorites")
+				.param("giftId", "1004")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error/error"));
+	}
+
+	@Test
+	@WithMockUser(username="userName6")
+	public void createFavGift_fail_disabledGift() throws Exception {
+
+		mockMvc.perform(post("/favorites")
+				.param("giftId", "1031")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error/error"));
+	}
+
+	@Test
+	@WithMockUser(username="userName6")
+	public void createFavGift_fail_disabledRecommeder() throws Exception {
+
+		mockMvc.perform(post("/favorites")
+				.param("giftId", "1032")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error/error"));
+	}
+
+	@Test
+	@WithMockUser(username="userName6")
+	public void createFavGift_fail_disabledGift_disabledRecommeder() throws Exception {
+
+		mockMvc.perform(post("/favorites")
+				.param("giftId", "1033")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error/error"));
+	}
+
+	@Test
+	@WithMockUser(username="disabledUser")
+	public void createFavGift_fail_disabledUser_disabledRecommeder() throws Exception {
+
+		mockMvc.perform(post("/favorites")
+				.param("giftId", "1032")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error/error"));
+	}
+
+	@Test
+	@WithMockUser(username="disabledUser")
+	public void createFavGift_fail_disabledUser_disabledGift_disabledRecommeder() throws Exception {
+
+		mockMvc.perform(post("/favorites")
+				.param("giftId", "1033")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error/error"));
+	}
+
+	@Test
 	@WithMockUser(username="userName3")
 	public void deleteFavGift_success() throws Exception {
 
@@ -136,7 +202,7 @@ public class FavoriteControllerTest {
 	}
 
 	@Test
-	@WithMockUser(username = "userName4")
+	@WithMockUser(username = "userName6")
 	public void displayFavoriteList_success_noFavGift() throws Exception {
 
 		mockMvc.perform(get("/favorites")
@@ -150,6 +216,82 @@ public class FavoriteControllerTest {
 	@Test
 	@WithMockUser(username = "userName5")
 	public void displayFavoriteList_fail_userNameDoesNotExist() throws Exception {
+
+		mockMvc.perform(get("/favorites")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error/error"));
+	}
+
+	@Test
+	@WithMockUser(username = "disabledUser")
+	public void displayFavoriteList_fail_disabledUser() throws Exception {
+
+		mockMvc.perform(get("/favorites")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error/error"));
+	}
+
+	@Test
+	@WithMockUser(username = "userName4")
+	public void displayFavoriteList_fail_disabledGift() throws Exception {
+
+	    	mockMvc.perform(get("/favorites")
+	    			.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("mypage/favorite/favorite"))
+				.andExpect(content().string(containsString("お気に入り")))
+				.andExpect(content().string(containsString("0件")));
+	}
+
+	@Test
+	@WithMockUser(username = "userName4")
+	public void displayFavoriteList_fail_disabledRecommeder() throws Exception {
+
+	    	mockMvc.perform(get("/favorites")
+	    			.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("mypage/favorite/favorite"))
+				.andExpect(content().string(containsString("お気に入り")))
+				.andExpect(content().string(containsString("0件")));
+	}
+
+	@Test
+	@WithMockUser(username = "disabledUser")
+	public void displayFavoriteList_fail_disabledUser_disabledGift() throws Exception {
+
+	    	mockMvc.perform(get("/favorites")
+	    			.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error/error"));
+	}
+
+	@Test
+	@WithMockUser(username = "userName4")
+	public void displayFavoriteList_fail_disabledGift_disabledRecommeder() throws Exception {
+
+	    	mockMvc.perform(get("/favorites")
+	    			.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("mypage/favorite/favorite"))
+				.andExpect(content().string(containsString("お気に入り")))
+				.andExpect(content().string(containsString("0件")));
+	}
+
+	@Test
+	@WithMockUser(username = "disabledUser")
+	public void displayFavoriteList_fail_disabledUser_disabledRecommeder() throws Exception {
+
+	    	mockMvc.perform(get("/favorites")
+	    			.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error/error"));
+	}
+
+	@Test
+	@WithMockUser(username = "disabledUser")
+	public void displayFavoriteList_fail_disabledUser_disabledGift_disabledRecommeder() throws Exception {
 
 		mockMvc.perform(get("/favorites")
 				.with(csrf()))
