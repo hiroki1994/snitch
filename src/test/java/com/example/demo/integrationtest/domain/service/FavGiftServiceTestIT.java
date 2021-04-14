@@ -220,7 +220,7 @@ public class FavGiftServiceTestIT {
 	}
 
 	@Test
-	public void countFavGift_success_noFavGift() throws Exception {
+	public void countFavGift_zero_noFavGift() throws Exception {
 
 		String userName = "userName6";
 
@@ -241,7 +241,7 @@ public class FavGiftServiceTestIT {
 	}
 
 	@Test
-	public void countFavGift_fail_disabledUser() throws Exception {
+	public void countFavGift_zero_disabledUser() throws Exception {
 
 		String userName = "userName4";
 
@@ -252,7 +252,7 @@ public class FavGiftServiceTestIT {
 	}
 
 	@Test
-	public void countFavGift_fail_disabledGift() throws Exception {
+	public void countFavGift_zero_disabledGift() throws Exception {
 
 		String userName = "userName4";
 
@@ -263,7 +263,7 @@ public class FavGiftServiceTestIT {
 	}
 
 	@Test
-	public void countFavGift_fail_disabledRecommender() throws Exception {
+	public void countFavGift_zero_disabledRecommender() throws Exception {
 
 	    	String userName = "userName4";
 
@@ -284,7 +284,7 @@ public class FavGiftServiceTestIT {
 	}
 
 	@Test
-	public void countFavGift_fail_disabledGift_disabledRecommender() throws Exception {
+	public void countFavGift_zero_disabledGift_disabledRecommender() throws Exception {
 
 	    	String userName = "userName4";
 

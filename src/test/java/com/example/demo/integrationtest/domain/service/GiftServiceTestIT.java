@@ -49,6 +49,39 @@ public class GiftServiceTestIT {
 	}
 
 	@Test
+	public void countGiftByKeyword_zero_disabledGift() {
+
+		String keyword = "無効ギフト";
+
+		int expected = 0;
+		int actual = giftService.count(keyword);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void countGiftByKeyword_zero_disabledRecommender() {
+
+		String keyword = "無効レコメンダー";
+
+		int expected = 0;
+		int actual = giftService.count(keyword);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void countGiftByKeyword_zero_disabledGift_disabledRecommender() {
+
+		String keyword = "無効ギフト無効レコメンダー";
+
+		int expected = 0;
+		int actual = giftService.count(keyword);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
 	public void searchGift_found() {
 		String keyword = "マカロン";
 
@@ -71,6 +104,33 @@ public class GiftServiceTestIT {
 		List<Gift> selectedGifts = giftService.search(keyword);
 
 		assertThat(selectedGifts, is(empty()));
+	}
+
+	@Test
+	public void searchGift_notFound_disabledGift() {
+		String keyword = "無効ギフト";
+
+		List<Gift> giftList = giftService.search(keyword);
+
+		assertThat(giftList, is(empty()));
+	}
+
+	@Test
+	public void searchGift_notFound_disabledRecommender() {
+		String keyword = "無効レコメンダー";
+
+		List<Gift> giftList = giftService.search(keyword);
+
+		assertThat(giftList, is(empty()));
+	}
+
+	@Test
+	public void searchGift_notFound_disabledGift_disabledRecommender() {
+		String keyword = "無効ギフト無効レコメンダー";
+
+		List<Gift> giftList = giftService.search(keyword);
+
+		assertThat(giftList, is(empty()));
 	}
 
 	@Test
@@ -105,6 +165,36 @@ public class GiftServiceTestIT {
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
 			giftService.selectOne(giftId);
+		});
+	}
+
+	@Test
+	public void selectOneGift_fail_disabledGift() {
+
+		int giftId = 1031;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	giftService.selectOne(giftId);
+		});
+	}
+
+	@Test
+	public void selectOneGift_fail_disabledRecommender() {
+
+		int giftId = 1032;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	giftService.selectOne(giftId);
+		});
+	}
+
+	@Test
+	public void selectOneGift_fail_disabledGift_disabledRecommender() {
+
+		int giftId = 1033;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	giftService.selectOne(giftId);
 		});
 	}
 }

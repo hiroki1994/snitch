@@ -82,16 +82,40 @@ public class GiftControllerTest {
 
 	@Test
 	@WithMockUser(username="userName3")
-	public void displayGifts_addFavButton_disabledGift() throws Exception {
+	public void displayGifts_fail_disabledGift() throws Exception {
 
 		int giftId = 1031;
 
 		mockMvc.perform(get("/gifts/" + giftId)
-			.param("giftId", "1031"))
-			.andExpect(status().isOk())
-			.andExpect(view().name("error/error"))
-			.andExpect(content().string(containsString("お気に入り")));
+			   .param("giftId", "1031"))
+			   .andExpect(status().isOk())
+			   .andExpect(view().name("error/error"))
+			   .andExpect(content().string(containsString("指定されたページは存在しません")));
 	}
 
-	//Giftコントローラーの修正も必要
+	@Test
+	@WithMockUser(username="userName3")
+	public void displayGifts_fail_disabledRecommender() throws Exception {
+
+		int giftId = 1032;
+
+		mockMvc.perform(get("/gifts/" + giftId)
+			   .param("giftId", "1032"))
+			   .andExpect(status().isOk())
+			   .andExpect(view().name("error/error"))
+			   .andExpect(content().string(containsString("指定されたページは存在しません")));
+	}
+
+	@Test
+	@WithMockUser(username="userName3")
+	public void displayGifts_fail_disabledGift_disabledRecommender() throws Exception {
+
+		int giftId = 1033;
+
+		mockMvc.perform(get("/gifts/" + giftId)
+			   .param("giftId", "1033"))
+			   .andExpect(status().isOk())
+			   .andExpect(view().name("error/error"))
+			   .andExpect(content().string(containsString("指定されたページは存在しません")));
+	}
 }

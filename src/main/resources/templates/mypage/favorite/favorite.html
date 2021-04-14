@@ -22,7 +22,7 @@
 				<div class="gift2">
 		    		<a th:href="@{'/gifts/'+${gift.giftId}}"><img class="gift-picture" th:src="@{'/image/'+${gift.image}}" alt="gift-image"></a>
 					<p class="gift-name" th:text="${gift.giftName}"></p>
-					<p class="gift-guest"th:text="${gift.guestName}"></p>
+					<p class="gift-guest"th:text="${gift.recommenderName}"></p>
 				</div>
 			</div>
 		</div>

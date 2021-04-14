@@ -49,13 +49,46 @@ public class GiftDaoTest {
 	}
 
 	@Test
+	public void countGiftByKeyword_zero_disabledGift() {
+
+		String keyword = "無効ギフト";
+
+		int expected = 0;
+		int actual = giftDao.count(keyword);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void countGiftByKeyword_zero_disabledRecommender() {
+
+		String keyword = "無効レコメンダー";
+
+		int expected = 0;
+		int actual = giftDao.count(keyword);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void countGiftByKeyword_zero_disabledGift_disabledRecommender() {
+
+		String keyword = "無効ギフト無効レコメンダー";
+
+		int expected = 0;
+		int actual = giftDao.count(keyword);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
 	public void searchGift_found() {
 		String keyword = "マカロン";
 
 		List<Gift> giftList = giftDao.search(keyword);
 
 		assertThat(giftList, hasItems(hasProperty("giftId", is(1000))));
-		assertThat(giftList, hasItems(hasProperty("guestName", is("中越典子"))));
+		assertThat(giftList, hasItems(hasProperty("recommenderName", is("中越典子"))));
 		assertThat(giftList, hasItems(hasProperty("giftName", is("マカロン"))));
 		assertThat(giftList, hasItems(hasProperty("price", is("120個入　3938円"))));
 		assertThat(giftList, hasItems(hasProperty("image", is("1000.jpg"))));
@@ -67,6 +100,33 @@ public class GiftDaoTest {
 	@Test
 	public void searchGift_notFound() {
 		String keyword = "H#4kこ";
+
+		List<Gift> giftList = giftDao.search(keyword);
+
+		assertThat(giftList, is(empty()));
+	}
+
+	@Test
+	public void searchGift_notFound_disabledGift() {
+		String keyword = "無効ギフト";
+
+		List<Gift> giftList = giftDao.search(keyword);
+
+		assertThat(giftList, is(empty()));
+	}
+
+	@Test
+	public void searchGift_notFound_disabledRecommender() {
+		String keyword = "無効レコメンダー";
+
+		List<Gift> giftList = giftDao.search(keyword);
+
+		assertThat(giftList, is(empty()));
+	}
+
+	@Test
+	public void searchGift_notFound_disabledGift_disabledRecommender() {
+		String keyword = "無効ギフト無効レコメンダー";
 
 		List<Gift> giftList = giftDao.search(keyword);
 
@@ -89,7 +149,7 @@ public class GiftDaoTest {
 		Gift gift = giftDao.selectOne(giftId);
 
 		assertThat(gift, hasProperty("giftId", equalTo(1000)));
-		assertThat(gift, hasProperty("guestName", equalTo("中越典子")));
+		assertThat(gift, hasProperty("recommenderName", equalTo("中越典子")));
 		assertThat(gift, hasProperty("giftName", equalTo("マカロン")));
 		assertThat(gift, hasProperty("price", equalTo("120個入　3938円")));
 		assertThat(gift, hasProperty("image", equalTo("1000.jpg")));
@@ -105,6 +165,36 @@ public class GiftDaoTest {
 
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
 			giftDao.selectOne(giftId);
+		});
+	}
+
+	@Test
+	public void selectOneGift_fail_disabledGift() {
+
+		int giftId = 1031;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	giftDao.selectOne(giftId);
+		});
+	}
+
+	@Test
+	public void selectOneGift_fail_disabledRecommender() {
+
+		int giftId = 1032;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	giftDao.selectOne(giftId);
+		});
+	}
+
+	@Test
+	public void selectOneGift_fail_disabledGift_disabledRecommender() {
+
+		int giftId = 1033;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	giftDao.selectOne(giftId);
 		});
 	}
 }
