@@ -585,4 +585,36 @@ public class FavGiftDaoTest {
 			favGiftDao.deleteMany(userName);
 		});
 	}
+
+	@Test
+	public void deleteAllFavGift_fail_disabledUser() throws Exception {
+
+		String userName = "disabledUser";
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	favGiftDao.deleteMany(userName);
+		});
+	}
+
+	@Test
+	public void deleteAllFavGift_fail_disabledGift() throws Exception {
+
+		String userName = "userName4";
+
+		int expected = 0;
+		int actual = favGiftDao.deleteMany(userName);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void deleteAllFavGift_fail_disabledRecommeder() throws Exception {
+
+		String userName = "userName4";
+
+		int expected = 0;
+		int actual = favGiftDao.deleteMany(userName);
+
+		assertEquals(expected, actual);
+	}
 }

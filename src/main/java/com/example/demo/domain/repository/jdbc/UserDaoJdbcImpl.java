@@ -82,7 +82,7 @@ public class UserDaoJdbcImpl implements UserDao {
 	@Override
 	public int delete(String userName) throws EmptyResultDataAccessException {
 
-		int userId = jdbc.queryForObject("SELECT userId FROM users WHERE userName = ?", Integer.class, userName);
+		int userId = jdbc.queryForObject("SELECT userId FROM users WHERE userName = ? AND isEnabled IS true", Integer.class, userName);
 
 		int rowNumber = jdbc.update("UPDATE users SET isEnabled = 'false' WHERE userId = ? AND isEnabled IS true", userId);
 

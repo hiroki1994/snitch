@@ -182,10 +182,9 @@ public class UserDaoJdbcImplTest {
 
 		String userName = "disabledUser";
 
-		int expected = 0;
-		int actual = userDaoJdbcImpl.delete(userName);
-
-		assertEquals(expected, actual);
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			userDaoJdbcImpl.delete(userName);
+		});
 
 	}
 

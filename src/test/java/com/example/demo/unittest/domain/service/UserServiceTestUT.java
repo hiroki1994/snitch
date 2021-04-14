@@ -201,13 +201,11 @@ public class UserServiceTestUT {
 
 		String userName = "disabledUser";
 
-		when(userDao.delete(userName)).thenReturn(0);
+		when(userDao.delete(userName)).thenThrow(EmptyResultDataAccessException.class);
 
-		int expected = 0;
-		int actual = userService.delete(userName);
-
-		assertEquals(expected, actual);
-
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			userService.delete(userName);
+		});
 	}
 
 	@Test

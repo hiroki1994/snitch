@@ -187,11 +187,9 @@ public class UserDaoTest {
 
 		String userName = "disabledUser";
 
-		int expected = 0;
-		int actual = userDao.delete(userName);
-
-		assertEquals(expected, actual);
-
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+		    	userDao.delete(userName);
+		});
 	}
 
 	@Test

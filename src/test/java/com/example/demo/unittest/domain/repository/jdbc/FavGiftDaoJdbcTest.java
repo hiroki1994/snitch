@@ -420,6 +420,83 @@ public class FavGiftDaoJdbcTest {
 	}
 
 	@Test
+	public void deleteFavGift_fail_disabledUser() throws Exception {
+
+		String userName = "disabledUser";
+		int giftId = 1000;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.delete(userName, giftId);
+		});
+	}
+
+	@Test
+	public void deleteFavGift_fail_disabledGift() throws Exception {
+
+		String userName = "username6";
+		int giftId = 1031;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.delete(userName, giftId);
+		});
+	}
+
+	@Test
+	public void deleteFavGift_fail_disabledRecommender() throws Exception {
+
+		String userName = "username6";
+		int giftId = 1031;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.delete(userName, giftId);
+		});
+	}
+
+	@Test
+	public void deleteFavGift_fail_disabledUser_disabledGift() throws Exception {
+
+		String userName = "disabledUser";
+		int giftId = 1031;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.delete(userName, giftId);
+		});
+	}
+
+	@Test
+	public void deleteFavGift_fail_disabledGift_disabledRecommender() throws Exception {
+
+		String userName = "username6";
+		int giftId = 1033;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.delete(userName, giftId);
+		});
+	}
+
+	@Test
+	public void deleteFavGift_fail_disabledUser_disabledRecommender() throws Exception {
+
+		String userName = "disabledUser";
+		int giftId = 1032;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.delete(userName, giftId);
+		});
+	}
+
+	@Test
+	public void deleteFavGift_fail_disabledUser_disabledGift_disabledRecommender() throws Exception {
+
+		String userName = "disabledUser";
+		int giftId = 1033;
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.delete(userName, giftId);
+		});
+	}
+
+	@Test
 	public void searchFavId_success_found()throws Exception {
 
 		String userName = "userName3";
@@ -579,5 +656,37 @@ public class FavGiftDaoJdbcTest {
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
 			favGiftDaoJdbcImpl.deleteMany(userName);
 		});
+	}
+
+	@Test
+	public void deleteAllFavGift_fail_disabledUser() throws Exception {
+
+		String userName = "disabledUser";
+
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+			favGiftDaoJdbcImpl.deleteMany(userName);
+		});
+	}
+
+	@Test
+	public void deleteAllFavGift_fail_disabledGift() throws Exception {
+
+		String userName = "userName4";
+
+		int expected = 0;
+		int actual = favGiftDaoJdbcImpl.deleteMany(userName);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void deleteAllFavGift_fail_disabledRecommeder() throws Exception {
+
+		String userName = "userName4";
+
+		int expected = 0;
+		int actual = favGiftDaoJdbcImpl.deleteMany(userName);
+
+		assertEquals(expected, actual);
 	}
 }

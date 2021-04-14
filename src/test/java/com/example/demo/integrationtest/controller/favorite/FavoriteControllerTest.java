@@ -189,6 +189,83 @@ public class FavoriteControllerTest {
 	}
 
 	@Test
+	@WithMockUser(username="disabledUser")
+	public void deleteFavGift_fail_disabledUser() throws Exception {
+
+		mockMvc.perform(delete("/favorites")
+				.param("giftId", "1000")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error/error"));
+	}
+
+	@Test
+	@WithMockUser(username="userName4")
+	public void deleteFavGift_fail_disabledGift() throws Exception {
+
+		mockMvc.perform(delete("/favorites")
+				.param("giftId", "1031")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error/error"));
+	}
+
+	@Test
+	@WithMockUser(username="userName4")
+	public void deleteFavGift_fail_disabledRecommender() throws Exception {
+
+		mockMvc.perform(delete("/favorites")
+				.param("giftId", "1032")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error/error"));
+	}
+
+	@Test
+	@WithMockUser(username="disabledUser")
+	public void deleteFavGift_fail_disabledUser_disabledGift() throws Exception {
+
+		mockMvc.perform(delete("/favorites")
+				.param("giftId", "1031")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error/error"));
+	}
+
+	@Test
+	@WithMockUser(username="userName4")
+	public void deleteFavGift_fail_disabledGift_disabledRecommender() throws Exception {
+
+		mockMvc.perform(delete("/favorites")
+				.param("giftId", "1033")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error/error"));
+	}
+
+	@Test
+	@WithMockUser(username="disabledUser")
+	public void deleteFavGift_fail_disabledUser_disabledRecommender() throws Exception {
+
+		mockMvc.perform(delete("/favorites")
+				.param("giftId", "1032")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error/error"));
+	}
+
+	@Test
+	@WithMockUser(username="disabledUser")
+	public void deleteFavGift_fail_disabledUser_disabledGift_disabledRecommender() throws Exception {
+
+		mockMvc.perform(delete("/favorites")
+				.param("giftId", "1033")
+				.with(csrf()))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error/error"));
+	}
+
+	@Test
 	@WithMockUser(username = "userName3")
 	public void displayFavoriteList_success() throws Exception {
 
