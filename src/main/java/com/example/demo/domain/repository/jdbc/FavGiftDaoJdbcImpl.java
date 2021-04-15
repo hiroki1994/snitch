@@ -120,9 +120,11 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 								+ "AND recommenders.isEnabled IS true"
 								, Integer.class, giftId);
 
-		int suceededRowNumber = jdbc.update("INSERT INTO favorites(userId, giftId) "
-							+ "VALUES(?, ?)"
-							, userId, enabledGiftId);
+		int suceededRowNumber = jdbc.update("INSERT INTO favorites("
+								+ "userId, "
+								+ "giftId) "
+								+ "VALUES(?, ?)"
+								, userId, enabledGiftId);
 
 		return suceededRowNumber;
 	}

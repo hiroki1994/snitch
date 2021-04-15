@@ -34,22 +34,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	private static final String USER_DATA = "SELECT"
-			+ " userName,"
-			+ " password,"
-			+ " isEnabled AS enabled"
-			+ " FROM"
-			+ " users"
-			+ " WHERE"
-			+ " userName = ?";
+							+ " userName,"
+							+ " password,"
+							+ " isEnabled AS enabled"
+							+ " FROM"
+							+ " users"
+							+ " WHERE"
+							+ " userName = ?";
 
 	private static final String ROLE_DATA = "SELECT"
-			+ " userName,"
-			+ " role"
-			+ " FROM"
-			+ " users"
-			+ " WHERE"
-			+ " userName = ?"
-			+ " AND users.isEnabled IS true";
+							+ " userName,"
+							+ " role"
+							+ " FROM"
+							+ " users"
+							+ " WHERE"
+							+ " userName = ?"
+							+ " AND users.isEnabled IS true";
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
