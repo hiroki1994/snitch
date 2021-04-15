@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,7 +45,7 @@ public class FavGiftServiceTestIT {
 		String userName = "userName3";
 		int giftId = 9999;
 
-		Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
 			favGiftService.create(userName, giftId);
 		});
 	}
@@ -536,10 +535,10 @@ public class FavGiftServiceTestIT {
 
 		List<FavGift> allFavGifts = favGiftService.selectAll(userName);
 
-		assertThat(allFavGifts, hasItems(hasProperty("favId", is(0))));
+		assertThat(allFavGifts, hasItems(hasProperty("favoriteId", is(1))));
 		assertThat(allFavGifts, hasItems(hasProperty("userId", is(1))));
 		assertThat(allFavGifts, hasItems(hasProperty("giftId", is(1000))));
-		assertThat(allFavGifts, hasItems(hasProperty("guestName", is("中越典子"))));
+		assertThat(allFavGifts, hasItems(hasProperty("recommenderName", is("中越典子"))));
 		assertThat(allFavGifts, hasItems(hasProperty("giftName", is("マカロン"))));
 		assertThat(allFavGifts, hasItems(hasProperty("price", is("120個入　3938円"))));
 		assertThat(allFavGifts, hasItems(hasProperty("image", is("1000.jpg"))));

@@ -121,7 +121,7 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 								, Integer.class, giftId);
 
 		int suceededRowNumber = jdbc.update("INSERT INTO favorites(userId, giftId) "
-							+ "VALUE(?, ?)"
+							+ "VALUES(?, ?)"
 							, userId, enabledGiftId);
 
 		return suceededRowNumber;

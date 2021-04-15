@@ -203,22 +203,22 @@ public class FavoriteControllerTest {
 	@WithMockUser(username="userName4")
 	public void deleteFavGift_fail_disabledGift() throws Exception {
 
-		mockMvc.perform(delete("/favorites")
+	    mockMvc.perform(delete("/favorites")
 				.param("giftId", "1031")
 				.with(csrf()))
-				.andExpect(status().isOk())
-				.andExpect(view().name("error/error"));
+				.andExpect(status().isFound())
+				.andExpect(redirectedUrl("/gifts/" + 1031));
 	}
 
 	@Test
 	@WithMockUser(username="userName4")
 	public void deleteFavGift_fail_disabledRecommender() throws Exception {
 
-		mockMvc.perform(delete("/favorites")
+	    mockMvc.perform(delete("/favorites")
 				.param("giftId", "1032")
 				.with(csrf()))
-				.andExpect(status().isOk())
-				.andExpect(view().name("error/error"));
+				.andExpect(status().isFound())
+				.andExpect(redirectedUrl("/gifts/" + 1032));
 	}
 
 	@Test
@@ -239,8 +239,8 @@ public class FavoriteControllerTest {
 		mockMvc.perform(delete("/favorites")
 				.param("giftId", "1033")
 				.with(csrf()))
-				.andExpect(status().isOk())
-				.andExpect(view().name("error/error"));
+				.andExpect(status().isFound())
+				.andExpect(redirectedUrl("/gifts/" + 1033));
 	}
 
 	@Test

@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -140,7 +139,7 @@ public class FavGiftDaoTest {
 
 		List<FavGift> allFavGifts = favGiftDao.selectAll(userName);
 
-		assertThat(allFavGifts, hasItems(hasProperty("favoriteId", is(0))));
+		assertThat(allFavGifts, hasItems(hasProperty("favoriteId", is(1))));
 		assertThat(allFavGifts, hasItems(hasProperty("userId", is(1))));
 		assertThat(allFavGifts, hasItems(hasProperty("giftId", is(1000))));
 		assertThat(allFavGifts, hasItems(hasProperty("recommenderName", is("中越典子"))));
@@ -261,7 +260,7 @@ public class FavGiftDaoTest {
 		String userName = "userName3";
 		int giftId = 9999;
 
-		Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
+		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
 			favGiftDao.create(userName, giftId);
 		});
 	}

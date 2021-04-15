@@ -88,7 +88,7 @@ public class GiftServiceTestIT {
 		List<Gift> selectedGifts = giftService.search(keyword);
 
 		assertThat(selectedGifts, hasItems(hasProperty("giftId", is(1000))));
-		assertThat(selectedGifts, hasItems(hasProperty("guestName", is("中越典子"))));
+		assertThat(selectedGifts, hasItems(hasProperty("recommenderName", is("中越典子"))));
 		assertThat(selectedGifts, hasItems(hasProperty("giftName", is("マカロン"))));
 		assertThat(selectedGifts, hasItems(hasProperty("price", is("120個入　3938円"))));
 		assertThat(selectedGifts, hasItems(hasProperty("image", is("1000.jpg"))));
@@ -149,7 +149,7 @@ public class GiftServiceTestIT {
 		Gift gift = giftService.selectOne(giftId);
 
 		assertThat(gift, hasProperty("giftId", equalTo(1000)));
-		assertThat(gift, hasProperty("guestName", equalTo("中越典子")));
+		assertThat(gift, hasProperty("recommenderName", equalTo("中越典子")));
 		assertThat(gift, hasProperty("giftName", equalTo("マカロン")));
 		assertThat(gift, hasProperty("price", equalTo("120個入　3938円")));
 		assertThat(gift, hasProperty("image", equalTo("1000.jpg")));
