@@ -23,9 +23,20 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	@Override
 	public List<FavGift> selectAll(String userName) throws EmptyResultDataAccessException {
 
-		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
+		int userId = jdbc.queryForObject("SELECT userId "
+							+ "FROM users "
+							+ "WHERE userName = ? "
+							+ "AND isEnabled IS true"
+							, Integer.class, userName);
 
-		List<Map<String, Object>> favGifts = jdbc.queryForList("SELECT * FROM favGift INNER JOIN gift ON favGift.giftId = gift.giftId INNER JOIN guest ON gift.guestId = guest.guestId WHERE userId = ? AND favGift.unavailableFlag IS NULL", userId);
+		List<Map<String, Object>> favGifts = jdbc.queryForList("SELECT * "
+										+ "FROM favorites "
+										+ "INNER JOIN gifts ON favorites.giftId = gifts.giftId "
+										+ "INNER JOIN recommenders ON gifts.recommenderId = recommenders.recommenderId "
+										+ "WHERE userId = ? "
+										+ "AND gifts.isEnabled IS true "
+										+ "AND recommenders.isEnabled IS true"
+										, userId);
 
 		List<FavGift> allFavGifts = new ArrayList<>();
 
@@ -33,10 +44,10 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 
 			FavGift favGift = new FavGift();
 
-			favGift.setUserId((int)map.get("favId"));
+			favGift.setFavoriteId((int)map.get("favoriteId"));
 			favGift.setUserId((int)map.get("userId"));
 			favGift.setGiftId((int)map.get("giftId"));
-			favGift.setGuestName((String)map.get("guestName"));
+			favGift.setRecommenderName((String)map.get("recommenderName"));
 			favGift.setGiftName((String)map.get("giftName"));
 			favGift.setPrice((String)map.get("price"));
 			favGift.setImage((String)map.get("image"));
@@ -53,9 +64,21 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	@Override
 	public int existFavId(String userName, int giftId) throws EmptyResultDataAccessException {
 
-		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
+		int userId = jdbc.queryForObject("SELECT userId "
+							+ "FROM users "
+							+ "WHERE userName = ? "
+							+ "AND isEnabled IS true"
+							, Integer.class, userName);
 
-		int favId = jdbc.queryForObject("SELECT favId FROM favGift WHERE userId = ? AND giftId = ? AND favGift.unavailableFlag IS NULL", Integer.class, userId, giftId);
+		int favId = jdbc.queryForObject("SELECT favoriteId "
+								+ "FROM favorites "
+								+ "INNER JOIN gifts ON favorites.giftId = gifts.giftId "
+								+ "INNER JOIN recommenders ON gifts.recommenderId = recommenders.recommenderId "
+								+ "WHERE favorites.userId = ? "
+								+ "AND favorites.giftId = ? "
+								+ "AND gifts.isEnabled IS true "
+								+ "AND recommenders.isEnabled IS true"
+								, Integer.class, userId, giftId);
 
 		return favId;
 	}
@@ -63,9 +86,20 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	@Override
 	public int count(String userName) throws EmptyResultDataAccessException {
 
-		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
+		int userId = jdbc.queryForObject("SELECT userId "
+							+ "FROM users "
+							+ "WHERE userName = ? "
+							+ "AND isEnabled IS true"
+							, Integer.class, userName);
 
-		int favIds = jdbc.queryForObject("SELECT COUNT(favId) FROM favGift WHERE userId = ? AND favGift.unavailableFlag IS NULL", Integer.class, userId);
+		int favIds = jdbc.queryForObject("SELECT COUNT(favorites.favoriteId) "
+							+ "FROM favorites "
+							+ "INNER JOIN gifts ON favorites.giftId = gifts.giftId "
+							+ "INNER JOIN recommenders ON gifts.recommenderId = recommenders.recommenderId "
+							+ "WHERE favorites.userId = ? "
+							+ "AND gifts.isEnabled IS true "
+							+ "AND recommenders.isEnabled IS true"
+							, Integer.class, userId);
 
 		return favIds;
 	}
@@ -73,9 +107,24 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	@Override
 	public int create(String userName, int giftId) throws DataIntegrityViolationException, EmptyResultDataAccessException {
 
-		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
+		int userId = jdbc.queryForObject("SELECT userId "
+							+ "FROM users WHERE userName = ? "
+							+ "AND isEnabled IS true"
+							, Integer.class, userName);
 
-		int suceededRowNumber = jdbc.update("INSERT INTO favGift(userId, giftId) VALUES(?, ?)", userId, giftId);
+		int enabledGiftId = jdbc.queryForObject("SELECT giftId "
+								+ "FROM gifts "
+								+ "INNER JOIN recommenders ON gifts.recommenderId = recommenders.recommenderId "
+								+ "WHERE gifts.giftId = ?"
+								+ "AND gifts.isEnabled IS true "
+								+ "AND recommenders.isEnabled IS true"
+								, Integer.class, giftId);
+
+		int suceededRowNumber = jdbc.update("INSERT INTO favorites("
+								+ "userId, "
+								+ "giftId) "
+								+ "VALUES(?, ?)"
+								, userId, enabledGiftId);
 
 		return suceededRowNumber;
 	}
@@ -83,9 +132,22 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	@Override
 	public int delete(String userName, int giftId)throws EmptyResultDataAccessException {
 
-		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
+		int userId = jdbc.queryForObject("SELECT userId "
+							+ "FROM users "
+							+ "WHERE userName = ? "
+							+ "AND isEnabled IS true"
+							, Integer.class, userName);
 
-		int suceededRowNumber = jdbc.update("UPDATE favGift SET unavailableFlag = '1' WHERE userId = ? AND giftId = ? AND favGift.unavailableFlag IS NULL", userId, giftId);
+		int suceededRowNumber = jdbc.update("DELETE "
+							+ "FROM favorites "
+							+ "USING gifts, recommenders "
+							+ "WHERE favorites.giftId = gifts.giftId "
+							+ "AND gifts.recommenderId = recommenders.recommenderId "
+							+ "AND favorites.userId = ? "
+							+ "AND favorites.giftId = ?"
+							+ "AND gifts.isEnabled IS true "
+							+ "AND recommenders.isEnabled IS true"
+							, userId, giftId);
 
 		return suceededRowNumber;
 	}
@@ -93,9 +155,21 @@ public class FavGiftDaoJdbcImpl implements FavGiftDao {
 	@Override
 	public int deleteMany(String userName)throws DataAccessException{
 
-		int userId = jdbc.queryForObject("SELECT userId FROM userData WHERE userName = ?", Integer.class, userName);
+		int userId = jdbc.queryForObject("SELECT userId "
+							+ "FROM users "
+							+ "WHERE userName = ?"
+							+ "AND isEnabled IS true"
+							, Integer.class, userName);
 
-		int suceededRowNumber = jdbc.update("UPDATE favGift SET unavailableFlag = '1' WHERE userId = ? AND unavailableFlag IS NULL", userId);
+		int suceededRowNumber = jdbc.update("DELETE "
+							+ "FROM favorites "
+							+ "USING gifts, recommenders "
+							+ "WHERE favorites.giftId = gifts.giftId "
+							+ "AND gifts.recommenderId = recommenders.recommenderId "
+							+ "AND favorites.userId = ? "
+							+ "AND gifts.isEnabled IS true "
+							+ "AND recommenders.isEnabled IS true"
+							, userId);
 
 		return suceededRowNumber;
 	}

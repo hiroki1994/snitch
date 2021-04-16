@@ -34,23 +34,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	private static final String USER_DATA = "SELECT"
-			+ " userName,"
-			+ " password,"
-			+ " true"
-			+ " FROM"
-			+ " userData"
-			+ " WHERE"
-			+ " userName = ?"
-			+ " AND userData.unavailableFlag IS NULL";
+							+ " userName,"
+							+ " password,"
+							+ " isEnabled AS enabled"
+							+ " FROM"
+							+ " users"
+							+ " WHERE"
+							+ " userName = ?";
 
 	private static final String ROLE_DATA = "SELECT"
-			+ " userName,"
-			+ " role"
-			+ " FROM"
-			+ " userData"
-			+ " WHERE"
-			+ " userName = ?"
-			+ " AND userData.unavailableFlag IS NULL";
+							+ " userName,"
+							+ " role"
+							+ " FROM"
+							+ " users"
+							+ " WHERE"
+							+ " userName = ?"
+							+ " AND users.isEnabled IS true";
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
@@ -91,11 +90,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-		auth.jdbcAuthentication()
-			.dataSource(dataSource)
-			.usersByUsernameQuery(USER_DATA)
-			.authoritiesByUsernameQuery(ROLE_DATA)
-			.passwordEncoder(passwordEncoder());
+		    auth.jdbcAuthentication()
+		    	.dataSource(dataSource)
+		    	.usersByUsernameQuery(USER_DATA)
+		    	.authoritiesByUsernameQuery(ROLE_DATA)
+		    	.passwordEncoder(passwordEncoder());
+
 	}
 
     public static void autoLogin(HttpServletRequest request, String username, String password, HttpServletResponse response) throws IOException {

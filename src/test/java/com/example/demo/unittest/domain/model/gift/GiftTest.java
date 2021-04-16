@@ -17,8 +17,8 @@ public class GiftTest {
 		Gift gift = new Gift();
 
 		gift.setGiftId((int)2000);
-		gift.setGuestId((int)2000);
-		gift.setGuestName("testGuest");
+		gift.setRecommenderId((int)2000);
+		gift.setRecommenderName("testGuest");
 		gift.setGiftName("testGift");
 		gift.setPrice("testPrice");
 		gift.setImage("2000.jpg");
@@ -26,11 +26,11 @@ public class GiftTest {
 		gift.setShop("testShop");
 		gift.setAddress("testAddress");
 		gift.setPhone("testPhone");
-		gift.setUnavailableFlag(0);
+		gift.setEnabled(true);
 
 		int actualGiftId = gift.getGiftId();
-		int actualGuestId = gift.getGuestId();
-		String actualGuestName = gift.getGuestName();
+		int actualRecommenderId = gift.getRecommenderId();
+		String actualRecommenderName = gift.getRecommenderName();
 		String actualGiftName = gift.getGiftName();
 		String actualPrice = gift.getPrice();
 		String actualImage = gift.getImage();
@@ -38,11 +38,11 @@ public class GiftTest {
 		String actualShop = gift.getShop();
 		String actualAddress = gift.getAddress();
 		String actualPhone = gift.getPhone();
-		int actualFlag = gift.getUnavailableFlag();
+		boolean actualFlag = gift.isEnabled();
 
 		assertEquals(2000, actualGiftId);
-		assertEquals(2000, actualGuestId);
-		assertEquals("testGuest", actualGuestName);
+		assertEquals(2000, actualRecommenderId);
+		assertEquals("testGuest", actualRecommenderName);
 		assertEquals("testGift", actualGiftName);
 		assertEquals("testPrice", actualPrice);
 		assertEquals("2000.jpg", actualImage);
@@ -50,7 +50,7 @@ public class GiftTest {
 		assertEquals("testShop", actualShop);
 		assertEquals("testAddress", actualAddress);
 		assertEquals("testPhone", actualPhone);
-		assertEquals(0, actualFlag);
+		assertEquals(true, actualFlag);
 	}
 
 	@Test
@@ -59,8 +59,8 @@ public class GiftTest {
 		Gift gift = new Gift();
 
 		int actualGiftId = gift.getGiftId();
-		int actualGuestId = gift.getGuestId();
-		String actualGuestName = gift.getGuestName();
+		int actualRecommenderId = gift.getRecommenderId();
+		String actualRecommenderName = gift.getRecommenderName();
 		String actualGiftName = gift.getGiftName();
 		String actualPrice = gift.getPrice();
 		String actualImage = gift.getImage();
@@ -68,11 +68,11 @@ public class GiftTest {
 		String actualShop = gift.getShop();
 		String actualAddress = gift.getAddress();
 		String actualPhone = gift.getPhone();
-		int actualFlag = gift.getUnavailableFlag();
+		boolean actualFlag = gift.isEnabled();
 
 		assertEquals(0, actualGiftId);
-		assertEquals(0, actualGuestId);
-		assertEquals(null, actualGuestName);
+		assertEquals(0, actualRecommenderId);
+		assertEquals(null, actualRecommenderName);
 		assertEquals(null, actualGiftName);
 		assertEquals(null, actualPrice);
 		assertEquals(null, actualImage);
@@ -80,6 +80,6 @@ public class GiftTest {
 		assertEquals(null, actualShop);
 		assertEquals(null, actualAddress);
 		assertEquals(null, actualPhone);
-		assertEquals(0, actualFlag);
+		assertEquals(false, actualFlag);
 	}
 }
