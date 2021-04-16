@@ -66,6 +66,21 @@ public class SecurityConfigTest {
 	}
 
 	@Test
+	public void login_fail_disabledUser() throws Exception{
+
+		String userName = "disabledUser";
+
+		String password = "password";
+
+		mockMvc.perform(post("/users/session/login")
+			.with(csrf())
+			.param("userName", userName)
+			.param("password", password))
+			.andExpect(status().isFound())
+			.andExpect(redirectedUrl("/users/session/login"));
+	}
+
+	@Test
 	@WithMockUser(username="userName3")
 	public void logout() throws Exception{
 

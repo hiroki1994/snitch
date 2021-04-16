@@ -4,7 +4,6 @@ package com.example.demo.unittest.domain.model.favorite;
 import static org.junit.Assert.*;
 
 import org.junit.jupiter.api.Test;
-
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.demo.domain.model.favorite.FavGift;
@@ -17,10 +16,10 @@ public class FavGiftTest {
 
 		FavGift favGift = new FavGift();
 
-		favGift.setFavId((int)2000);
+		favGift.setFavoriteId((int)2000);
 		favGift.setUserId((int)10);
 		favGift.setGiftId((int)2000);
-		favGift.setGuestName("testGuest");
+		favGift.setRecommenderName("testGuest");
 		favGift.setGiftName("testGift");
 		favGift.setPrice("testPrice");
 		favGift.setImage("2000.jpg");
@@ -28,12 +27,12 @@ public class FavGiftTest {
 		favGift.setShop("testShop");
 		favGift.setAddress("testAddress");
 		favGift.setPhone("testPhone");
-		favGift.setUnavailableFlag(0);
+		favGift.setEnabled(true);
 
-		int actualFavId = favGift.getFavId();
+		int actualFavId = favGift.getFavoriteId();
 		int actualUserId = favGift.getUserId();
 		int actualGiftId = favGift.getGiftId();
-		String actualGuestName = favGift.getGuestName();
+		String actualGuestName = favGift.getRecommenderName();
 		String actualGiftName = favGift.getGiftName();
 		String actualPrice = favGift.getPrice();
 		String actualImage = favGift.getImage();
@@ -41,7 +40,7 @@ public class FavGiftTest {
 		String actualShop = favGift.getShop();
 		String actualAddress = favGift.getAddress();
 		String actualPhone = favGift.getPhone();
-		int actualFlag = favGift.getUnavailableFlag();
+		boolean actualFlag = favGift.isEnabled();
 
 		assertEquals(2000, actualFavId);
 		assertEquals(10, actualUserId);
@@ -54,7 +53,7 @@ public class FavGiftTest {
 		assertEquals("testShop", actualShop);
 		assertEquals("testAddress", actualAddress);
 		assertEquals("testPhone", actualPhone);
-		assertEquals(0, actualFlag);
+		assertEquals(true, actualFlag);
 	}
 
 	@Test
@@ -62,10 +61,10 @@ public class FavGiftTest {
 
 		FavGift favGift = new FavGift();
 
-		int actualFavId = favGift.getFavId();
+		int actualFavId = favGift.getFavoriteId();
 		int actualUserId = favGift.getUserId();
 		int actualGiftId = favGift.getGiftId();
-		String actualGuestName = favGift.getGuestName();
+		String actualGuestName = favGift.getRecommenderName();
 		String actualGiftName = favGift.getGiftName();
 		String actualPrice = favGift.getPrice();
 		String actualImage = favGift.getImage();
@@ -73,7 +72,7 @@ public class FavGiftTest {
 		String actualShop = favGift.getShop();
 		String actualAddress = favGift.getAddress();
 		String actualPhone = favGift.getPhone();
-		int actualFlag = favGift.getUnavailableFlag();
+		boolean actualFlag = favGift.isEnabled();
 
 		assertEquals(0, actualFavId);
 		assertEquals(0, actualUserId);
@@ -87,6 +86,6 @@ public class FavGiftTest {
 		assertEquals(null, actualShop);
 		assertEquals(null, actualAddress);
 		assertEquals(null, actualPhone);
-		assertEquals(0, actualFlag);
+		assertEquals(false, actualFlag);
 	}
 }
