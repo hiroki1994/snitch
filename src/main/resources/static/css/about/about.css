@@ -8,19 +8,19 @@ body {
 	height: 100%;
 }
 
-.aboutPageWrapper{
+.about-wrapper {
 	height: 100vh;
 }
 
-p.title{
- 	font-size: 10vh;
- 	color: white;
+p.title {
+	font-size: 5vw;
+	color: white;
 }
 
-p.outline{
-	font-size: 7vh;
+p.outline {
+	font-size: 3vw;
 }
 
-p.description{
-	font-size: 4vh;
+p.description {
+	font-size: 1.6vw;
 }
