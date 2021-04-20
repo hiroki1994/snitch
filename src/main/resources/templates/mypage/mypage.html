@@ -1,35 +1,34 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/template}"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/common}"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
-	<meta charset="UTF-8">
-	<title>mypage</title>
-	<script src="https://kit.fontawesome.com/665f18a48e.js" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<title>mypage</title>
+<script src="https://kit.fontawesome.com/665f18a48e.js" crossorigin="anonymous"></script>
 
-	<link th:href="@{../css/mypage/mypage.css}" rel="stylesheet"></link>
+<link th:href="@{../css/mypage/mypage.css}" rel="stylesheet"></link>
 </head>
 <body layout:fragment="content">
-<div class= "mypageWrapper">
-	<div sec:authorize="isAuthenticated()">
-		<p class="pageTitle"><span sec:authentication="name"></span>様のマイページ</p>
-　　 </div>
-    <div class="mypageTool col-sm-4 offset-sm-4">
-    	<form class="favoritePage" th:action="@{/favorites}" th:method="get">
-			<button class="favorite-btn btn-warning col-sm-12 text-nowrap" type="submit" style="color:white"><i class="fas fa-heart"></i> お気に入り</button>
-		</form>
-    	<br />
-		<form class="updatePage" th:action="@{/users/edit}" th:method="get">
-			<button class="update-btn btn-success col-sm-12 text-nowrap" type="submit"><i class="fas fa-user-edit"></i> 登録情報更新</button>
-
-		</form>
-        <br />
-        <form class="deletePage" th:action="@{/users/withdrawal}" th:method="get">
-			<button class="delete-btn btn-danger col-sm-12 text-nowrap" type="submit"><i class="fas fa-user-slash"></i> 退会</button>
-		</form>
-    </div>
-</div>
+	<div class="mypage-wrapper">
+		<div sec:authorize="isAuthenticated()">
+			<p class="page-title">
+				<span sec:authentication="name"></span>様のマイページ
+			</p>
+		</div>
+		<div class="mypage-contents col-sm-4 offset-sm-4">
+			<form class="favorite-page" th:action="@{/favorites}" th:method="get">
+				<button class="favorite-btn btn-warning col-sm-12 text-nowrap" type="submit" style="color: white"><i class="fas fa-heart"></i> お気に入り</button>
+			</form>
+			<br />
+			<form class="update-page" th:action="@{/users/edit}" th:method="get">
+				<button class="update-btn btn-success col-sm-12 text-nowrap" type="submit"><i class="fas fa-user-edit"></i> 登録情報更新</button>
+			</form>
+			<br />
+			<form class="delete-page" th:action="@{/users/withdrawal}" th:method="get">
+				<button class="delete-btn btn-danger col-sm-12 text-nowrap" type="submit"><i class="fas fa-user-slash"></i> 退会</button>
+			</form>
+		</div>
+	</div>
 </body>
 </html>

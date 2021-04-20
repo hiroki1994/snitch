@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/template}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/common}">
 <head>
-	<meta charset="UTF-8">
-	<title>Error</title>
-	<link th:href="@{/css/error/error.css}" rel="stylesheet"></link>
+<meta charset="UTF-8">
+<title>Error</title>
+<link th:href="@{/css/error/error.css}" rel="stylesheet"></link>
 </head>
 <body>
 	<div layout:fragment="content">
-		<div class="errorWrapper">
+		<div class="error-wrapper">
 			<p th:text="${message}"></p>
 		</div>
 	</div>

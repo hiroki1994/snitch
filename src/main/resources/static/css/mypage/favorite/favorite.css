@@ -8,82 +8,80 @@ body {
 	height: 100%;
 }
 
-.favoriteWrapper {
+.favorite-wrapper {
 	height: 100vh;
 }
 
-.favGift.col-sm-12{
-	background-color:#FCF9F4;
- 	position: relative;
- 	float:left;
- }
+.gift-container.col-sm-12 {
+	background-color: #FCF9F4;
+	position: relative;
+	float: left;
+}
 
-p.pageTitle {
+p.page-title {
 	font-size: 32px;
 }
 
-
-p.resultNumber {
+p.count {
 	float: left;
 	font-size: 1.5vw;
 	margin-left: 15px;
 }
 
 @media screen and (min-width: 1px) and (max-width: 575px) {
-.giftList {
-     margin-left: 4vw;
-}
+	.favorite-list {
+		margin-left: 4vw;
+	}
 }
 
 @media screen and (min-width: 576px) and (max-width: 827px) {
-.giftList {
-     margin-left: 10vw;
-}
+	.favorite-list {
+		margin-left: 10vw;
+	}
 }
 
 @media screen and (min-width: 828px) and (max-width: 922px) {
-.giftList {
+	.favorite-list {
 
-}
+	}
 }
 
 @media screen and (min-width: 923px) and (max-width: 1041px) {
-.giftList {
-    margin-left: 1vw;
-}
+	.favorite-list {
+		margin-left: 1vw;
+	}
 }
 
 @media screen and (min-width: 1042px) and (max-width: 1199px) {
-.giftList {
-    margin-left: 2vw;
-}
+	.favorite-list {
+		margin-left: 2vw;
+	}
 }
 
 @media screen and (min-width: 1200px) {
-.giftList {
-    margin-left: 2vw;
-    margin-right: 1vw;
+	.favorite-list {
+		margin-left: 2vw;
+		margin-right: 1vw;
+	}
 }
+
+.gift-container {
+	margin: 1vw;
+	float: left;
 }
 
 .gift {
-	margin: 1vw;
- 	float: left;
-}
-
-.gift2 {
 	width: 17vw;
 }
 
-
-img.gift-picture{
+img.gift-picture {
 	width: 100%;
 	height: auto;
 }
 
 p.gift-name {
 	font-size: 1vw;
-	font-weight:bold;
+	font-weight: bold;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;

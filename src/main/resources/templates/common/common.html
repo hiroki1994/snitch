@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+
+<head>
+<meta charset="UTF-8"></meta>
+
+<link th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}" rel="stylesheet"></link>
+<script th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+
+<link th:href="@{../css/common/common.css}" rel="stylesheet"></link>
+<link th:href="@{../../css/common/common.css}" rel="stylesheet"></link>
+
+
+<script src="https://kit.fontawesome.com/665f18a48e.js" crossorigin="anonymous"></script>
+
+
+<title>common</title>
+</head>
+<body>
+
+	<nav class="navbar">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="logo" href="/"><img alt="siteLogo" src="../../css/logo/logo.png" /></a>
+				<ul class="navbar-list">
+					<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+					<li class="nav-item" sec:authorize="isAnonymous()"><a class="nav-link" href="/users/session/login">Login</a></li>
+					<li class="nav-item"><a class="nav-link" href="/about">About Snitch</a></li>
+					<li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" href="/users/mypage">MyPage</a></li>
+					<li class="nav-link" sec:authorize="isAuthenticated()">
+						<form class="form-signout" th:action="@{/users/session/logout}" th:method="post">
+							<button class="logout-btn" type="submit">Logout</button>
+						</form>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="search-container">
+		<form id="search-box" th:action="@{/gifts/search}" th:object="${searchForm}" th:method="get">
+			<input id="form-content" type="text" name="keyword" placeholder="渋谷 石橋 チョコ" th:field="*{keyword}" />
+			<button type="submit" id="search-button">
+				<i class="fas fa-search"></i>
+			</button>
+		</form>
+		<div class="error-message text-nowrap" th:if="${#fields.hasErrors('searchForm.keyword')}" th:errors="*{searchForm.keyword}" style="color: red"></div>
+	</div>
+	<div class="contents-class">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12 main">
+					<div layout:fragment="content"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<small>&copy;2020-2021 hiroki1994</small>
+	</footer>
+</body>
+</html>

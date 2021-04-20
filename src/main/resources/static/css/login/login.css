@@ -8,16 +8,16 @@ body {
 	height: 100%;
 }
 
-.loginWrapper{
+.login-wrapper {
 	height: 100vh;
 	min-width: 300px;
 }
 
-p.pageTitle {
+p.page-title {
 	font-size: 32px;
 }
 
-button.btn.btn-primary.col-sm-2{
+button.btn.btn-primary.col-sm-2 {
 	width: 150px;
 }
 

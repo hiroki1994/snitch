@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/template}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/common}">
 
 <head>
-	<meta charset="UTF-8">
-	<title>about</title>
-	<link th:href="@{../../css/about/about.css}" rel="stylesheet"></link>
+<meta charset="UTF-8">
+<title>about</title>
+<link th:href="@{../../css/about/about.css}" rel="stylesheet"></link>
 </head>
 
 <body>
 	<div layout:fragment="content">
-		<div class="aboutPageWrapper">
+		<div class="about-wrapper">
 			<p class="title">Snitchとは?</p>
 			<p class="outline">Snitchは著名人御用達のお土産専門サイトです。​</p>
-			<p class="description">当サイトでは、2018年3月に惜しくも放送終了した<br>
-			「とんねるずのみなさんのおかげでした」の人気コーナー「食わず嫌い王」にて紹介されたお土産のみ掲載しております。<br>
-​			番組のファンだった方、どんなお土産にを買おうか困っている方、小腹を満たしたい方など<br>あらゆる方に楽しんでいただきたく
-​			当サイトはスタートしました。</p>
+			<p class="description">
+				当サイトでは、2018年3月に惜しくも放送終了した<br>
+				「とんねるずのみなさんのおかげでした」の人気コーナー「食わず嫌い王」にて紹介されたお土産のみ掲載しております。<br>
+				番組のファンだった方、どんなお土産にを買おうか困っている方、小腹を満たしたい方など<br>あらゆる方に楽しんでいただきたく当サイトはスタートしました。
+			</p>
 		</div>
 	</div>
 </body>

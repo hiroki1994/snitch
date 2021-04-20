@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/template}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/common}">
 
 
 <head>
-	<meta charset="UTF-8">
-	<title>403Error</title>
-	<link th:href="@{/css/error/403.css}" rel="stylesheet"></link>
+<meta charset="UTF-8">
+<title>403Error</title>
+<link th:href="@{/css/error/403.css}" rel="stylesheet"></link>
 </head>
 <body>
 	<div layout:fragment="content">
-		<div class="error403Wrapper">
+		<div class="error-403-wrapper">
 			<p>ログアウト後アクセス可能です</p>
 		</div>
 	</div>
