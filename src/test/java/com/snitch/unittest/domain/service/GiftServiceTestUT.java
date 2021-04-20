@@ -60,6 +60,45 @@ public class GiftServiceTestUT {
     }
 
     @Test
+    public void countGiftByKeyword_zero_disabledGift() {
+
+	String keyword = "無効ギフト";
+
+	when(giftDao.count(keyword)).thenReturn(0);
+
+	int expected = 0;
+	int actual = giftService.count(keyword);
+
+	assertEquals(expected, actual);
+    }
+
+    @Test
+    public void countGiftByKeyword_zero_disabledRecommender() {
+
+	String keyword = "無効レコメンダー";
+
+	when(giftDao.count(keyword)).thenReturn(0);
+
+	int expected = 0;
+	int actual = giftService.count(keyword);
+
+	assertEquals(expected, actual);
+    }
+
+    @Test
+    public void countGiftByKeyword_zero_disabledGift_disabledRecommender() {
+
+	String keyword = "無効ギフト無効レコメンダー";
+
+	when(giftDao.count(keyword)).thenReturn(0);
+
+	int expected = 0;
+	int actual = giftService.count(keyword);
+
+	assertEquals(expected, actual);
+    }
+
+    @Test
     public void searchGift() {
 
 	String keyword = "マカロン";
@@ -104,6 +143,42 @@ public class GiftServiceTestUT {
     public void selectOneGift_fail_giftIdDoesNotExist() {
 
 	int giftId = 9999;
+
+	when(giftDao.selectOne(giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    giftService.selectOne(giftId);
+	});
+    }
+
+    @Test
+    public void selectOneGift_fail_disabledGift() {
+
+	int giftId = 1031;
+
+	when(giftDao.selectOne(giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    giftService.selectOne(giftId);
+	});
+    }
+
+    @Test
+    public void selectOneGift_fail_disabledRecommender() {
+
+	int giftId = 1032;
+
+	when(giftDao.selectOne(giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    giftService.selectOne(giftId);
+	});
+    }
+
+    @Test
+    public void selectOneGift_fail_disabledGift_disabledRecommender() {
+
+	int giftId = 1033;
 
 	when(giftDao.selectOne(giftId)).thenThrow(EmptyResultDataAccessException.class);
 

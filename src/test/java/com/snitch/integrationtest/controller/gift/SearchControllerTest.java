@@ -43,6 +43,42 @@ public class SearchControllerTest {
     }
 
     @Test
+    public void searchGift_notFound_disabledGift() throws Exception {
+
+	String keyword = "無効ギフト";
+
+	mockMvc.perform(get("/gifts/search")
+		.param("keyword", keyword))
+		.andExpect(status().isOk())
+		.andExpect(view().name("search_result/search_result"))
+		.andExpect(content().string(containsString("キーワードに該当するお土産はありませんでした。")));
+    }
+
+    @Test
+    public void searchGift_notFound_disabledRecommender() throws Exception {
+
+	String keyword = "無効レコメンダー";
+
+	mockMvc.perform(get("/gifts/search")
+		.param("keyword", keyword))
+		.andExpect(status().isOk())
+		.andExpect(view().name("search_result/search_result"))
+		.andExpect(content().string(containsString("キーワードに該当するお土産はありませんでした。")));
+    }
+
+    @Test
+    public void searchGift_notFound_disabledGift_disabledRecommender() throws Exception {
+
+	String keyword = "無効ギフト無効レコメンダー";
+
+	mockMvc.perform(get("/gifts/search")
+		.param("keyword", keyword))
+		.andExpect(status().isOk())
+		.andExpect(view().name("search_result/search_result"))
+		.andExpect(content().string(containsString("キーワードに該当するお土産はありませんでした。")));
+    }
+
+    @Test
     public void searchGift_validationError() throws Exception {
 
 	String keyword = " ";

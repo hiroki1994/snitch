@@ -45,6 +45,16 @@ public class UserControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "disabledUser")
+    public void displayUserInfo_fail_disabledUser() throws Exception {
+
+	mockMvc.perform(get("/users/edit")
+		.with(csrf()))
+		.andExpect(status().isOk())
+		.andExpect(view().name("error/error"));
+    }
+
+    @Test
     @WithMockUser(username = "userName3")
     public void updateOneUserInfo_success() throws Exception {
 
@@ -90,6 +100,23 @@ public class UserControllerTest {
 		.with(csrf()))
 		.andExpect(status().isOk())
 		.andExpect(content().string(containsString("入力されたユーザーネームは既に使用されています")));
+    }
+
+    @Test
+    @WithMockUser(username = "disabledUser")
+    public void updateUserInfo_fail_disabledUser() throws Exception {
+
+	UserForm form = new UserForm();
+
+	form.setUserName("disabledUser2");
+	form.setMailAddress("mail@gmail.com");
+	form.setPassword("7777");
+
+	mockMvc.perform(put("/users")
+		.flashAttr("userForm", form)
+		.with(csrf()))
+		.andExpect(status().isFound())
+		.andExpect(redirectedUrl("/users/session/login"));
     }
 
     @Test
@@ -198,6 +225,16 @@ public class UserControllerTest {
     @Test
     @WithMockUser(username = "userName5")
     public void deleteOneUser_fail_userNameDoesNotExist() throws Exception {
+
+	mockMvc.perform(delete("/users")
+		.with(csrf()))
+		.andExpect(status().isOk())
+		.andExpect(view().name("error/error"));
+    }
+
+    @Test
+    @WithMockUser(username = "disabledUser")
+    public void deleteOneUser_fail_disabledUser() throws Exception {
 
 	mockMvc.perform(delete("/users")
 		.with(csrf()))

@@ -32,7 +32,7 @@
 					</form>
 				</div>
 				<div class="gift-text">
-					<p class="gift-guest" th:text="'紹介ゲスト: ' + ${giftDetail.guestName}"></p>
+					<p class="gift-guest" th:text="'紹介ゲスト: ' + ${giftDetail.recommenderName}"></p>
 					<p class="gift-price" th:text="${giftDetail.price}"></p>
 					<p class="gift-shop" th:text="${giftDetail.shop}"></p>
 					<p id="gift-address" th:text="${giftDetail.address}"></p>
@@ -46,7 +46,6 @@
 				<p class="gift-description" th:text="${giftDetail.description}"></p>
 				<!-- Google Mapの表示 -->
 				<div id="map"></div>
-
 				<script>
 					console.log(document.getElementById("gift-address").textContent);
 					var gift_address = document.getElementById("gift-address").textContent;

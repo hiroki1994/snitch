@@ -29,7 +29,7 @@ public class GiftController {
 
 	Gift gift = giftService.selectOne(giftId);
 	detail.setGiftId(gift.getGiftId());
-	detail.setGuestName(gift.getGuestName());
+	detail.setRecommenderName(gift.getRecommenderName());
 	detail.setGiftName(gift.getGiftName());
 	detail.setPrice(gift.getPrice());
 	detail.setImage(gift.getImage());

@@ -6,10 +6,7 @@
 <meta charset="UTF-8">
 <title>searchResult</title>
 <link th:href="@{../css/search_result/search_result.css}" rel="stylesheet"></link>
-
-
 </head>
-<!-- 検索結果画面 -->
 <body>
 	<div layout:fragment="content">
 		<div class="search-result col-sm-8 offset-sm-2">
@@ -23,7 +20,7 @@
 						<div class="gift">
 							<a th:href="@{'/gifts/'+${gift.giftId}}"><img class="gift-picture" th:src="@{'/image/'+${gift.image}}" alt="gift-image"></a>
 							<p class="gift-name" th:text="${gift.giftName}"></p>
-							<p class="gift-guest" th:text="${gift.guestName}"></p>
+							<p class="gift-guest" th:text="${gift.recommenderName}"></p>
 						</div>
 					</div>
 				</div>

@@ -74,6 +74,16 @@ public class UserDaoJdbcImplTest {
     }
 
     @Test
+    public void selectOneUserInfo_fail_disabledUser() throws Exception {
+
+	String userName = "disabledUser";
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    userDaoJdbcImpl.selectOne(userName);
+	});
+    }
+
+    @Test
     public void updateOneUserInfo_success() throws Exception {
 
 	String userName = "userName3";
@@ -121,6 +131,24 @@ public class UserDaoJdbcImplTest {
     }
 
     @Test
+    public void updateUserInfo_fail_disabledUser() throws Exception {
+
+	String userName = "disabledUser";
+
+	User user = new User();
+
+	user.setUserName("disabledUser2");
+	user.setMailAddress("mailaddress3@gmail.co.jp");
+	user.setPassword("password2");
+
+	int expected = 0;
+	int actual = userDaoJdbcImpl.updateOne(user, userName);
+
+	assertEquals(expected, actual);
+
+    }
+
+    @Test
     public void deleteOneUser_success() throws Exception {
 
 	String userName = "userName3";
@@ -139,6 +167,17 @@ public class UserDaoJdbcImplTest {
 	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
 	    userDaoJdbcImpl.deleteOne(userName);
 	});
+    }
+
+    @Test
+    public void deleteUserInfo_fail_disabledUser() throws Exception {
+
+	String userName = "disabledUser";
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    userDaoJdbcImpl.deleteOne(userName);
+	});
+
     }
 
     @Test

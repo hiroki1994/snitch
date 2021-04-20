@@ -29,7 +29,10 @@ public class SecurityConfigTest {
 
     @BeforeEach
     public void setup() {
-	mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
+	mockMvc = MockMvcBuilders
+		.webAppContextSetup(context)
+		.apply(springSecurity())
+		.build();
     }
 
     @Test
@@ -50,6 +53,21 @@ public class SecurityConfigTest {
     public void login_fail_userNameDoesNotExist() throws Exception {
 
 	String userName = "userName5";
+	String password = "password";
+
+	mockMvc.perform(post("/users/session/login")
+		.with(csrf())
+		.param("userName", userName)
+		.param("password", password))
+		.andExpect(status().isFound())
+		.andExpect(redirectedUrl("/users/session/login"));
+    }
+
+    @Test
+    public void login_fail_disabledUser() throws Exception{
+
+	String userName = "disabledUser";
+
 	String password = "password";
 
 	mockMvc.perform(post("/users/session/login")

@@ -32,15 +32,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	return new BCryptPasswordEncoder();
     }
 
-    private static final String userSql = "SELECT userName, password, true "
-    						+ "FROM userData "
-    						+ "WHERE userName = ?"
-    						+ " AND userData.unavailableFlag IS NULL";
+    private static final String userSql = "SELECT userName, password, isEnabled AS enabled "
+					+ "FROM users "
+					+ "WHERE userName = ?";
 
     private static final String roleSql = "SELECT userName, role "
-    						+ "FROM userData "
-    						+ "WHERE userName = ?"
-    						+ " AND userData.unavailableFlag IS NULL";
+					+ "FROM users "
+					+ "WHERE userName = ? "
+					+ "AND users.isEnabled IS true";
+
 
     @Override
     public void configure(WebSecurity web) throws Exception {

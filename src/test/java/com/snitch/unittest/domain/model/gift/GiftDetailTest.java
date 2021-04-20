@@ -15,7 +15,7 @@ public class GiftDetailTest {
 
 	GiftDetail giftDetail = new GiftDetail();
 	giftDetail.setGiftId((int) 2000);
-	giftDetail.setGuestName("testGuest");
+	giftDetail.setRecommenderName("testRecommender");
 	giftDetail.setGiftName("testgift");
 	giftDetail.setPrice("testPrice");
 	giftDetail.setImage("2000.jpg");
@@ -25,7 +25,7 @@ public class GiftDetailTest {
 	giftDetail.setPhone("testPhone");
 
 	int actualGiftId = giftDetail.getGiftId();
-	String actualGuestName = giftDetail.getGuestName();
+	String actualRecommenderName = giftDetail.getRecommenderName();
 	String actualGiftName = giftDetail.getGiftName();
 	String actualPrice = giftDetail.getPrice();
 	String actualImage = giftDetail.getImage();
@@ -35,7 +35,7 @@ public class GiftDetailTest {
 	String actualPhone = giftDetail.getPhone();
 
 	assertEquals(2000, actualGiftId);
-	assertEquals("testGuest", actualGuestName);
+	assertEquals("testRecommender", actualRecommenderName);
 	assertEquals("testgift", actualGiftName);
 	assertEquals("testPrice", actualPrice);
 	assertEquals("2000.jpg", actualImage);
@@ -50,7 +50,7 @@ public class GiftDetailTest {
 
 	GiftDetail giftDetail = new GiftDetail();
 	int actualGiftId = giftDetail.getGiftId();
-	String actualGuestName = giftDetail.getGuestName();
+	String actualRecommenderName = giftDetail.getRecommenderName();
 	String actualGiftName = giftDetail.getGiftName();
 	String actualPrice = giftDetail.getPrice();
 	String actualImage = giftDetail.getImage();
@@ -60,7 +60,7 @@ public class GiftDetailTest {
 	String actualPhone = giftDetail.getPhone();
 
 	assertEquals(0, actualGiftId);
-	assertEquals(null, actualGuestName);
+	assertEquals(null, actualRecommenderName);
 	assertEquals(null, actualGiftName);
 	assertEquals(null, actualPrice);
 	assertEquals(null, actualImage);

@@ -17,7 +17,7 @@ public class FavoriteTest {
 	favorite.setFavoriteId((int) 2000);
 	favorite.setUserId((int) 10);
 	favorite.setGiftId((int) 2000);
-	favorite.setGuestName("testGuest");
+	favorite.setRecommenderName("testRecommender");
 	favorite.setGiftName("testGift");
 	favorite.setPrice("testPrice");
 	favorite.setImage("2000.jpg");
@@ -25,12 +25,12 @@ public class FavoriteTest {
 	favorite.setShop("testShop");
 	favorite.setAddress("testAddress");
 	favorite.setPhone("testPhone");
-	favorite.setUnavailableFlag(0);
+	favorite.setEnabled(true);
 
 	int actualFavoriteId = favorite.getFavoriteId();
 	int actualUserId = favorite.getUserId();
 	int actualGiftId = favorite.getGiftId();
-	String actualGuestName = favorite.getGuestName();
+	String actualRecommenderName = favorite.getRecommenderName();
 	String actualGiftName = favorite.getGiftName();
 	String actualPrice = favorite.getPrice();
 	String actualImage = favorite.getImage();
@@ -38,12 +38,12 @@ public class FavoriteTest {
 	String actualShop = favorite.getShop();
 	String actualAddress = favorite.getAddress();
 	String actualPhone = favorite.getPhone();
-	int actualFlag = favorite.getUnavailableFlag();
+	boolean actualFlag = favorite.isEnabled();
 
 	assertEquals(2000, actualFavoriteId);
 	assertEquals(10, actualUserId);
 	assertEquals(2000, actualGiftId);
-	assertEquals("testGuest", actualGuestName);
+	assertEquals("testRecommender", actualRecommenderName);
 	assertEquals("testGift", actualGiftName);
 	assertEquals("testPrice", actualPrice);
 	assertEquals("2000.jpg", actualImage);
@@ -51,7 +51,7 @@ public class FavoriteTest {
 	assertEquals("testShop", actualShop);
 	assertEquals("testAddress", actualAddress);
 	assertEquals("testPhone", actualPhone);
-	assertEquals(0, actualFlag);
+	assertEquals(true, actualFlag);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class FavoriteTest {
 	int actualFavoriteId = favorite.getFavoriteId();
 	int actualUserId = favorite.getUserId();
 	int actualGiftId = favorite.getGiftId();
-	String actualGuestName = favorite.getGuestName();
+	String actualRecommenderName = favorite.getRecommenderName();
 	String actualGiftName = favorite.getGiftName();
 	String actualPrice = favorite.getPrice();
 	String actualImage = favorite.getImage();
@@ -69,13 +69,12 @@ public class FavoriteTest {
 	String actualShop = favorite.getShop();
 	String actualAddress = favorite.getAddress();
 	String actualPhone = favorite.getPhone();
-	int actualFlag = favorite.getUnavailableFlag();
+	boolean actualFlag = favorite.isEnabled();
 
 	assertEquals(0, actualFavoriteId);
 	assertEquals(0, actualUserId);
 	assertEquals(0, actualGiftId);
-	assertEquals(null, actualGuestName);
-	assertEquals(null, actualGuestName);
+	assertEquals(null, actualRecommenderName);
 	assertEquals(null, actualGiftName);
 	assertEquals(null, actualPrice);
 	assertEquals(null, actualImage);
@@ -83,6 +82,6 @@ public class FavoriteTest {
 	assertEquals(null, actualShop);
 	assertEquals(null, actualAddress);
 	assertEquals(null, actualPhone);
-	assertEquals(0, actualFlag);
+	assertEquals(false, actualFlag);
     }
 }

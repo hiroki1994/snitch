@@ -90,6 +90,97 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
+    public void createOnefavorite_fail_disabledUser() throws Exception {
+
+	String userName = "disabledUser";
+	int giftId = 1030;
+
+	when(favoriteDao.createOne(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    favoriteService.createOne(userName, giftId);
+	});
+    }
+
+    @Test
+    public void createOnefavorite_fail_disabledGift() throws Exception {
+
+	String userName = "userName6";
+	int giftId = 1031;
+
+	when(favoriteDao.createOne(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    favoriteService.createOne(userName, giftId);
+	});
+    }
+
+    @Test
+    public void createOnefavorite_fail_disabledRecommeder() throws Exception {
+
+	String userName = "userName6";
+	int giftId = 1032;
+
+	when(favoriteDao.createOne(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    favoriteService.createOne(userName, giftId);
+	});
+    }
+
+    @Test
+    public void createOnefavorite_fail_disabledUser_disabledGift() throws Exception {
+
+	String userName = "disabledUser";
+	int giftId = 1031;
+
+	when(favoriteDao.createOne(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    favoriteService.createOne(userName, giftId);
+	});
+    }
+
+    @Test
+    public void createOnefavorite_fail_disabledGift_disabledRecommeder() throws Exception {
+
+	String userName = "userName6";
+	int giftId = 1033;
+
+	when(favoriteDao.createOne(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    favoriteService.createOne(userName, giftId);
+	});
+    }
+
+    @Test
+    public void createOnefavorite_fail_disabledUser_disabledRecommeder() throws Exception {
+
+	String userName = "disabledUser";
+	int giftId = 1032;
+
+	when(favoriteDao.createOne(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    favoriteService.createOne(userName, giftId);
+	});
+    }
+
+    @Test
+    public void createOnefavorite_fail_disabledUser_disabledGift_disabledRecommeder() throws Exception {
+
+	String userName = "disabledUser";
+	int giftId = 1033;
+
+	when(favoriteDao.createOne(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    favoriteService.createOne(userName, giftId);
+	});
+    }
+
+    @Test
     public void deleteOneFavorite_success() throws Exception {
 
 	String userName = "userName3";
@@ -158,6 +249,97 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
+    public void deleteOnefavorite_fail_disabledUser() throws Exception {
+
+	String userName = "disabledUser";
+	int giftId = 1000;
+
+	when(favoriteDao.deleteOne(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    favoriteService.deleteOne(userName, giftId);
+	});
+    }
+
+    @Test
+    public void deleteOnefavorite_fail_disabledGift() throws Exception {
+
+	String userName = "username6";
+	int giftId = 1031;
+
+	when(favoriteDao.deleteOne(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    favoriteService.deleteOne(userName, giftId);
+	});
+    }
+
+    @Test
+    public void deleteOnefavorite_fail_disabledRecommender() throws Exception {
+
+	String userName = "username6";
+	int giftId = 1031;
+
+	when(favoriteDao.deleteOne(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    favoriteService.deleteOne(userName, giftId);
+	});
+    }
+
+    @Test
+    public void deleteOnefavorite_fail_disabledUser_disabledGift() throws Exception {
+
+	String userName = "disabledUser";
+	int giftId = 1031;
+
+	when(favoriteDao.deleteOne(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    favoriteService.deleteOne(userName, giftId);
+	});
+    }
+
+    @Test
+    public void deleteOnefavorite_fail_disabledGift_disabledRecommender() throws Exception {
+
+	String userName = "username6";
+	int giftId = 1033;
+
+	when(favoriteDao.deleteOne(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    favoriteService.deleteOne(userName, giftId);
+	});
+    }
+
+    @Test
+    public void deleteOnefavorite_fail_disabledUser_disabledRecommender() throws Exception {
+
+	String userName = "disabledUser";
+	int giftId = 1032;
+
+	when(favoriteDao.deleteOne(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    favoriteService.deleteOne(userName, giftId);
+	});
+    }
+
+    @Test
+    public void deleteOnefavorite_fail_disabledUser_disabledGift_disabledRecommender() throws Exception {
+
+	String userName = "disabledUser";
+	int giftId = 1033;
+
+	when(favoriteDao.deleteOne(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    favoriteService.deleteOne(userName, giftId);
+	});
+    }
+
+    @Test
     public void countFavorite_success() throws Exception {
 
 	String userName = "userName3";
@@ -173,7 +355,7 @@ public class FavoriteServiceTestUT {
     @Test
     public void countFavorite_success_NoFavorite() throws Exception {
 
-	String userName = "userName4";
+	String userName = "userName6";
 
 	when(favoriteDao.count(userName)).thenReturn(0);
 
@@ -187,6 +369,94 @@ public class FavoriteServiceTestUT {
     public void countFavorite_fail_userNameDoesNotExist() throws Exception {
 
 	String userName = "userName5";
+
+	when(favoriteDao.count(userName)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    favoriteService.count(userName);
+	});
+    }
+
+    @Test
+    public void countfavorite_zero_disabledUser() throws Exception {
+
+	String userName = "userName4";
+
+	when(favoriteDao.count(userName)).thenReturn(0);
+
+	int expected = 0;
+	int actual = favoriteService.count(userName);
+
+	assertEquals(expected, actual);
+    }
+
+    @Test
+    public void countfavorite_zero_disabledGift() throws Exception {
+
+	String userName = "userName4";
+
+	when(favoriteDao.count(userName)).thenReturn(0);
+
+	int expected = 0;
+	int actual = favoriteService.count(userName);
+
+	assertEquals(expected, actual);
+    }
+
+    @Test
+    public void countfavorite_zero_disabledRecommender() throws Exception {
+
+	String userName = "userName4";
+
+	when(favoriteDao.count(userName)).thenReturn(0);
+
+	int expected = 0;
+	int actual = favoriteService.count(userName);
+
+	assertEquals(expected, actual);
+    }
+
+    @Test
+    public void countfavorite_fail_disabledUser_disabledGift() throws Exception {
+
+	String userName = "disabledUser";
+
+	when(favoriteDao.count(userName)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    favoriteService.count(userName);
+	});
+    }
+
+    @Test
+    public void countfavorite_zero_disabledGift_disabledRecommender() throws Exception {
+
+	String userName = "userName4";
+
+	when(favoriteDao.count(userName)).thenReturn(0);
+
+	int expected = 0;
+	int actual = favoriteService.count(userName);
+
+	assertEquals(expected, actual);
+    }
+
+    @Test
+    public void countfavorite_fail_disabledUser_disabledRecommender() throws Exception {
+
+	String userName = "disabledUser";
+
+	when(favoriteDao.count(userName)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    favoriteService.count(userName);
+	});
+    }
+
+    @Test
+    public void countfavorite_fail_disabledUser_disabledGift_disabledRecommender() throws Exception {
+
+	String userName = "disabledUser";
 
 	when(favoriteDao.count(userName)).thenThrow(EmptyResultDataAccessException.class);
 
@@ -252,6 +522,110 @@ public class FavoriteServiceTestUT {
     }
 
     @Test
+    public void searchFavoriteId_fail_disabledUser() throws Exception {
+
+	String userName = "disabledUser";
+	int giftId = 1000;
+
+	when(favoriteDao.exist(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	boolean expected = false;
+	boolean actual = favoriteService.exist(userName, giftId);
+
+	assertEquals(expected, actual);
+    }
+
+    @Test
+    public void searchFavoriteId_fail_disabledGift() throws Exception {
+
+	String userName = "userName4";
+
+	int giftId = 1031;
+
+	when(favoriteDao.exist(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	boolean expected = false;
+	boolean actual = favoriteService.exist(userName, giftId);
+
+	assertEquals(expected, actual);
+    }
+
+    @Test
+    public void searchFavoriteId_fail_disabledRecommender() throws Exception {
+
+	String userName = "userName4";
+
+	int giftId = 1032;
+
+	when(favoriteDao.exist(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	boolean expected = false;
+	boolean actual = favoriteService.exist(userName, giftId);
+
+	assertEquals(expected, actual);
+    }
+
+    @Test
+    public void searchFavoriteId_fail_disabledUser_disabledGift() throws Exception {
+
+	String userName = "disabledUser";
+
+	int giftId = 1031;
+
+	when(favoriteDao.exist(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	boolean expected = false;
+	boolean actual = favoriteService.exist(userName, giftId);
+
+	assertEquals(expected, actual);
+    }
+
+    @Test
+    public void searchFavoriteId_fail_disabledGift_disabledRecommender() throws Exception {
+
+	String userName = "userName4";
+
+	int giftId = 1033;
+
+	when(favoriteDao.exist(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	boolean expected = false;
+	boolean actual = favoriteService.exist(userName, giftId);
+
+	assertEquals(expected, actual);
+    }
+
+    @Test
+    public void searchFavoriteId_fail_disabledUser_disabledRecommender() throws Exception {
+
+	String userName = "disabledUser";
+
+	int giftId = 1032;
+
+	when(favoriteDao.exist(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	boolean expected = false;
+	boolean actual = favoriteService.exist(userName, giftId);
+
+	assertEquals(expected, actual);
+    }
+
+    @Test
+    public void searchFavoriteId_fail_disabledUser_disabledGift_disabledRecommender() throws Exception {
+
+	String userName = "disabledUser";
+
+	int giftId = 1033;
+
+	when(favoriteDao.exist(userName, giftId)).thenThrow(EmptyResultDataAccessException.class);
+
+	boolean expected = false;
+	boolean actual = favoriteService.exist(userName, giftId);
+
+	assertEquals(expected, actual);
+    }
+
+    @Test
     public void selectAllFavorites_success() throws Exception {
 
 	String userName = "userName3";
@@ -274,6 +648,99 @@ public class FavoriteServiceTestUT {
 
 	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
 	    favoriteService.selectAll(userName);
+	});
+    }
+
+    @Test
+    public void selectAllFavorites_fail_disabledUser() throws Exception {
+
+	String userName = "disabledUser";
+
+	when(favoriteDao.selectAll(userName)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    favoriteDao.selectAll(userName);
+	});
+    }
+
+    @Test
+    public void selectAllFavorites_fail_disabledGift() throws Exception {
+
+	String userName = "userName4";
+
+	List<Favorite> allfavorites = new ArrayList<>();
+
+	when(favoriteDao.selectAll(userName)).thenReturn(allfavorites);
+
+	List<Favorite> expected = allfavorites;
+	List<Favorite> actual = favoriteService.selectAll(userName);
+
+	assertEquals(expected, actual);
+    }
+
+    @Test
+    public void selectAllFavorites_fail_disabledRecommeder() throws Exception {
+
+	String userName = "userName4";
+
+	List<Favorite> allfavorites = favoriteService.selectAll(userName);
+
+	when(favoriteDao.selectAll(userName)).thenReturn(allfavorites);
+
+	List<Favorite> expected = allfavorites;
+	List<Favorite> actual = favoriteService.selectAll(userName);
+
+	assertEquals(expected, actual);
+    }
+
+    @Test
+    public void selectAllFavorites_fail_disabledUser_disabledGift() throws Exception {
+
+	String userName = "disabledUser";
+
+	when(favoriteDao.selectAll(userName)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    favoriteDao.selectAll(userName);
+	});
+    }
+
+    @Test
+    public void selectAllFavorites_fail_disabledGift_disabledRecommeder() throws Exception {
+
+	String userName = "userName4";
+
+	List<Favorite> allfavorites = favoriteService.selectAll(userName);
+
+	when(favoriteDao.selectAll(userName)).thenReturn(allfavorites);
+
+	List<Favorite> expected = allfavorites;
+	List<Favorite> actual = favoriteService.selectAll(userName);
+
+	assertEquals(expected, actual);
+    }
+
+    @Test
+    public void selectAllFavorites_fail_disabledUser_disabledRecommeder() throws Exception {
+
+	String userName = "disabledUser";
+
+	when(favoriteDao.selectAll(userName)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    favoriteDao.selectAll(userName);
+	});
+    }
+
+    @Test
+    public void selectAllFavorites_fail_disabledUser_disabledGift_disabledRecommeder() throws Exception {
+
+	String userName = "disabledUser";
+
+	when(favoriteDao.selectAll(userName)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    favoriteDao.selectAll(userName);
 	});
     }
 
@@ -313,5 +780,68 @@ public class FavoriteServiceTestUT {
 	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
 	    favoriteService.deleteMany(userName);
 	});
+    }
+
+    @Test
+    public void deleteAllFavorite_success_addNoFav() throws Exception {
+
+	String userName = "userName4";
+
+	when(favoriteDao.deleteMany(userName)).thenReturn(0);
+
+	int expected = 0;
+	int actual =favoriteService.deleteMany(userName);
+
+	assertEquals(expected, actual);
+    }
+
+    @Test
+    public void deleteAllFavorite_fail_userNameDoesNotExist() throws Exception {
+
+	String userName = "userName5";
+
+	when(favoriteDao.deleteMany(userName)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	   favoriteService.deleteMany(userName);
+	});
+    }
+
+    @Test
+    public void deleteAllFavorite_fail_disabledUser() throws Exception {
+
+	String userName = "disabledUser";
+
+	when(favoriteDao.deleteMany(userName)).thenThrow(EmptyResultDataAccessException.class);
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	   favoriteService.deleteMany(userName);
+	});
+    }
+
+    @Test
+    public void deleteAllFavorite_fail_disabledGift() throws Exception {
+
+	String userName = "userName4";
+
+	when(favoriteDao.deleteMany(userName)).thenReturn(0);
+
+	int expected = 0;
+	int actual =favoriteService.deleteMany(userName);
+
+	assertEquals(expected, actual);
+    }
+
+    @Test
+    public void deleteAllFavorite_fail_disabledRecommeder() throws Exception {
+
+	String userName = "userName4";
+
+	when(favoriteDao.deleteMany(userName)).thenReturn(0);
+
+	int expected = 0;
+	int actual =favoriteService.deleteMany(userName);
+
+	assertEquals(expected, actual);
     }
 }

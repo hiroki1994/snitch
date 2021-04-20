@@ -74,6 +74,16 @@ public class UserDaoTest {
     }
 
     @Test
+    public void selectOneUserInfo_fail_disabledUser() throws Exception {
+
+	String userName = "disabledUser";
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    userDao.selectOne(userName);
+	});
+    }
+
+    @Test
     public void updateOneUserInfo_success() throws Exception {
 
 	String userName = "userName3";
@@ -121,6 +131,24 @@ public class UserDaoTest {
     }
 
     @Test
+    public void updateUserInfo_fail_disabledUser() throws Exception {
+
+	String userName = "disabledUser";
+
+	User user = new User();
+
+	user.setUserName("disabledUser2");
+	user.setMailAddress("mailaddress3@gmail.co.jp");
+	user.setPassword("password2");
+
+	int expected = 0;
+	int actual = userDao.updateOne(user, userName);
+
+	assertEquals(expected, actual);
+
+    }
+
+    @Test
     public void deleteOneUser_success() throws Exception {
 
 	String userName = "userName3";
@@ -135,6 +163,16 @@ public class UserDaoTest {
     public void deleteOneUser_fail_userNameDoesNotExist() throws Exception {
 
 	String userName = "userName5";
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    userDao.deleteOne(userName);
+	});
+    }
+
+    @Test
+    public void deleteUserInfo_fail_disabledUser() throws Exception {
+
+	String userName = "disabledUser";
 
 	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
 	    userDao.deleteOne(userName);

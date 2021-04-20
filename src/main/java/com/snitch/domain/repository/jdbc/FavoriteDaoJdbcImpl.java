@@ -24,18 +24,18 @@ public class FavoriteDaoJdbcImpl implements FavoriteDao {
     public List<Favorite> selectAll(String userName) throws EmptyResultDataAccessException {
 
 	int userId = jdbc.queryForObject("SELECT userId "
-					+ "FROM userData "
-					+ "WHERE userName = ?"
+					+ "FROM users "
+					+ "WHERE userName = ? "
+					+ "AND isEnabled IS true"
 					, Integer.class, userName);
 
 	List<Map<String, Object>> favorites = jdbc.queryForList("SELECT * "
-								+ "FROM favGift "
-								+ "INNER JOIN gift"
-								+ " ON favGift.giftId = gift.giftId "
-								+ "INNER JOIN guest "
-								+ " ON gift.guestId = guest.guestId "
-								+ "WHERE userId = ?"
-								+ " AND favGift.unavailableFlag IS NULL"
+								+ "FROM favorites "
+								+ "INNER JOIN gifts ON favorites.giftId = gifts.giftId "
+								+ "INNER JOIN recommenders ON gifts.recommenderId = recommenders.recommenderId "
+								+ "WHERE userId = ? "
+								+ "AND gifts.isEnabled IS true "
+								+ "AND recommenders.isEnabled IS true"
 								, userId);
 
 	List<Favorite> allFavorites = new ArrayList<>();
@@ -43,10 +43,10 @@ public class FavoriteDaoJdbcImpl implements FavoriteDao {
 	for (Map<String, Object> map : favorites) {
 
 	    Favorite favorite = new Favorite();
-	    favorite.setUserId((int) map.get("favId"));
+	    favorite.setFavoriteId((int) map.get("favoriteId"));
 	    favorite.setUserId((int) map.get("userId"));
 	    favorite.setGiftId((int) map.get("giftId"));
-	    favorite.setGuestName((String) map.get("guestName"));
+	    favorite.setRecommenderName((String) map.get("recommenderName"));
 	    favorite.setGiftName((String) map.get("giftName"));
 	    favorite.setPrice((String) map.get("price"));
 	    favorite.setImage((String) map.get("image"));
@@ -63,16 +63,20 @@ public class FavoriteDaoJdbcImpl implements FavoriteDao {
     public int exist(String userName, int giftId) throws EmptyResultDataAccessException {
 
 	int userId = jdbc.queryForObject("SELECT userId "
-					+ "FROM userData "
-					+ "WHERE userName = ?"
+					+ "FROM users "
+					+ "WHERE userName = ? "
+					+ "AND isEnabled IS true"
 					, Integer.class, userName);
 
-	int favoriteId = jdbc.queryForObject("SELECT favId "
-					+ "FROM favGift "
-					+ "WHERE userId = ?"
-					+ " AND giftId = ? "
-					+ " AND favGift.unavailableFlag IS NULL"
-					, Integer.class, userId, giftId);
+	int favoriteId = jdbc.queryForObject("SELECT favoriteId "
+						+ "FROM favorites "
+						+ "INNER JOIN gifts ON favorites.giftId = gifts.giftId "
+						+ "INNER JOIN recommenders ON gifts.recommenderId = recommenders.recommenderId "
+						+ "WHERE favorites.userId = ? "
+						+ "AND favorites.giftId = ? "
+						+ "AND gifts.isEnabled IS true "
+						+ "AND recommenders.isEnabled IS true"
+						, Integer.class, userId, giftId);
 
 	return favoriteId;
     }
@@ -81,15 +85,19 @@ public class FavoriteDaoJdbcImpl implements FavoriteDao {
     public int count(String userName) throws EmptyResultDataAccessException {
 
 	int userId = jdbc.queryForObject("SELECT userId "
-					+ "FROM userData "
-					+ "WHERE userName = ?"
+					+ "FROM users "
+					+ "WHERE userName = ? "
+					+ "AND isEnabled IS true"
 					, Integer.class, userName);
 
-	int favoriteIds = jdbc.queryForObject("SELECT COUNT(favId) "
-					+ "FROM favGift "
-					+ "WHERE userId = ?"
-					+ " AND favGift.unavailableFlag IS NULL"
-					, Integer.class, userId);
+	int favoriteIds = jdbc.queryForObject("SELECT COUNT(favorites.favoriteId) "
+						+ "FROM favorites "
+						+ "INNER JOIN gifts ON favorites.giftId = gifts.giftId "
+						+ "INNER JOIN recommenders ON gifts.recommenderId = recommenders.recommenderId "
+						+ "WHERE favorites.userId = ? "
+						+ "AND gifts.isEnabled IS true "
+						+ "AND recommenders.isEnabled IS true"
+						, Integer.class, userId);
 
 	return favoriteIds;
     }
@@ -98,13 +106,23 @@ public class FavoriteDaoJdbcImpl implements FavoriteDao {
     public int createOne(String userName, int giftId) throws DataIntegrityViolationException, EmptyResultDataAccessException {
 
 	int userId = jdbc.queryForObject("SELECT userId "
-					+ "FROM userData "
-					+ "WHERE userName = ?"
+					+ "FROM users WHERE userName = ? "
+					+ "AND isEnabled IS true"
 					, Integer.class, userName);
 
-	int rowNumber = jdbc.update("INSERT INTO favGift(userId, giftId) "
-						+ "VALUES(?, ?)"
-						, userId, giftId);
+	int enabledGiftId = jdbc.queryForObject("SELECT giftId "
+						+ "FROM gifts "
+						+ "INNER JOIN recommenders ON gifts.recommenderId = recommenders.recommenderId "
+						+ "WHERE gifts.giftId = ?"
+						+ "AND gifts.isEnabled IS true "
+						+ "AND recommenders.isEnabled IS true"
+						, Integer.class, giftId);
+
+	int rowNumber = jdbc.update("INSERT INTO favorites("
+					+ "userId, "
+					+ "giftId) "
+					+ "VALUES(?, ?)"
+					, userId, enabledGiftId);
 
 	return rowNumber;
     }
@@ -113,16 +131,21 @@ public class FavoriteDaoJdbcImpl implements FavoriteDao {
     public int deleteOne(String userName, int giftId) throws EmptyResultDataAccessException {
 
 	int userId = jdbc.queryForObject("SELECT userId "
-					+ "FROM userData "
-					+ "WHERE userName = ?"
+					+ "FROM users "
+					+ "WHERE userName = ? "
+					+ "AND isEnabled IS true"
 					, Integer.class, userName);
 
-	int rowNumber = jdbc.update("UPDATE favGift "
-						+ "SET unavailableFlag = '1' "
-						+ "WHERE userId = ?"
-						+ " AND giftId = ?"
-						+ " AND favGift.unavailableFlag IS NULL"
-						, userId, giftId);
+	int rowNumber = jdbc.update("DELETE "
+					+ "FROM favorites "
+					+ "USING gifts, recommenders "
+					+ "WHERE favorites.giftId = gifts.giftId "
+					+ "AND gifts.recommenderId = recommenders.recommenderId "
+					+ "AND favorites.userId = ? "
+					+ "AND favorites.giftId = ?"
+					+ "AND gifts.isEnabled IS true "
+					+ "AND recommenders.isEnabled IS true"
+					, userId, giftId);
 
 	return rowNumber;
     }
@@ -131,15 +154,20 @@ public class FavoriteDaoJdbcImpl implements FavoriteDao {
     public int deleteMany(String userName) throws DataAccessException {
 
 	int userId = jdbc.queryForObject("SELECT userId "
-					+ "FROM userData "
+					+ "FROM users "
 					+ "WHERE userName = ?"
+					+ "AND isEnabled IS true"
 					, Integer.class, userName);
 
-	int rowNumber = jdbc.update("UPDATE favGift "
-						+ "SET unavailableFlag = '1' "
-						+ "WHERE userId = ?"
-						+ " AND unavailableFlag IS NULL"
-						, userId);
+	int rowNumber = jdbc.update("DELETE "
+					+ "FROM favorites "
+					+ "USING gifts, recommenders "
+					+ "WHERE favorites.giftId = gifts.giftId "
+					+ "AND gifts.recommenderId = recommenders.recommenderId "
+					+ "AND favorites.userId = ? "
+					+ "AND gifts.isEnabled IS true "
+					+ "AND recommenders.isEnabled IS true"
+					, userId);
 
 	return rowNumber;
     }

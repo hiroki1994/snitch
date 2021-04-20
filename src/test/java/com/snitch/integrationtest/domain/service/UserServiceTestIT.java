@@ -73,6 +73,16 @@ public class UserServiceTestIT {
     }
 
     @Test
+    public void selectOneUserInfo_fail_disabledUser() throws Exception {
+
+	String userName = "disabledUser";
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    userService.selectOne(userName);
+	});
+    }
+
+    @Test
     public void updateOneUserInfo_success() throws Exception {
 
 	String userName = "userName3";
@@ -120,6 +130,24 @@ public class UserServiceTestIT {
     }
 
     @Test
+    public void updateOneUserInfo_fail_disabledUser() throws Exception {
+
+	String userName = "disabledUser";
+
+	User user = new User();
+
+	user.setUserName("disabledUser2");
+	user.setMailAddress("mailaddress3@gmail.co.jp");
+	user.setPassword("password2");
+
+	int expected = 0;
+	int actual = userService.updateOne(user, userName);
+
+	assertEquals(expected, actual);
+
+    }
+
+    @Test
     public void deleteOneUser_success() throws Exception {
 
 	String userName = "userName3";
@@ -134,6 +162,16 @@ public class UserServiceTestIT {
     public void deleteOneUser_fail_userNameDoesNotExist() throws Exception {
 
 	String userName = "userName5";
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    userService.deleteOne(userName);
+	});
+    }
+
+    @Test
+    public void deleteOneUser_fail_disabledUser() throws Exception {
+
+	String userName = "disabledUser";
 
 	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
 	    userService.deleteOne(userName);

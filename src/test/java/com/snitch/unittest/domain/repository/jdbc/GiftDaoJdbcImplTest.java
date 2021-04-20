@@ -44,6 +44,39 @@ public class GiftDaoJdbcImplTest {
     }
 
     @Test
+    public void countGiftByKeyword_zero_disabledGift() {
+
+	String keyword = "無効ギフト";
+
+	int expected = 0;
+	int actual = giftDaoJdbcImpl.count(keyword);
+
+	assertEquals(expected, actual);
+    }
+
+    @Test
+    public void countGiftByKeyword_zero_disabledRecommender() {
+
+	String keyword = "無効レコメンダー";
+
+	int expected = 0;
+	int actual = giftDaoJdbcImpl.count(keyword);
+
+	assertEquals(expected, actual);
+    }
+
+    @Test
+    public void countGiftByKeyword_zero_disabledGift_disabledRecommender() {
+
+	String keyword = "無効ギフト無効レコメンダー";
+
+	int expected = 0;
+	int actual = giftDaoJdbcImpl.count(keyword);
+
+	assertEquals(expected, actual);
+    }
+
+    @Test
     public void searchGift_found() {
 
 	String keyword = "マカロン";
@@ -51,7 +84,7 @@ public class GiftDaoJdbcImplTest {
 	List<Gift> gift = giftDaoJdbcImpl.search(keyword);
 
 	assertThat(gift, hasItems(hasProperty("giftId", is(1000))));
-	assertThat(gift, hasItems(hasProperty("guestName", is("中越典子"))));
+	assertThat(gift, hasItems(hasProperty("recommenderName", is("中越典子"))));
 	assertThat(gift, hasItems(hasProperty("giftName", is("マカロン"))));
 	assertThat(gift, hasItems(hasProperty("price", is("120個入　3938円"))));
 	assertThat(gift, hasItems(hasProperty("image", is("1000.jpg"))));
@@ -71,6 +104,33 @@ public class GiftDaoJdbcImplTest {
     }
 
     @Test
+    public void searchGift_notFound_disabledGift() {
+	String keyword = "無効ギフト";
+
+	List<Gift> giftList = giftDaoJdbcImpl.search(keyword);
+
+	assertThat(giftList, is(empty()));
+    }
+
+    @Test
+    public void searchGift_notFound_disabledRecommender() {
+	String keyword = "無効レコメンダー";
+
+	List<Gift> giftList = giftDaoJdbcImpl.search(keyword);
+
+	assertThat(giftList, is(empty()));
+    }
+
+    @Test
+    public void searchGift_notFound_disabledGift_disabledRecommender() {
+	String keyword = "無効ギフト無効レコメンダー";
+
+	List<Gift> giftList = giftDaoJdbcImpl.search(keyword);
+
+	assertThat(giftList, is(empty()));
+    }
+
+    @Test
     public void selectManyGifts() {
 
 	List<Gift> gift = giftDaoJdbcImpl.selectMany();
@@ -86,7 +146,7 @@ public class GiftDaoJdbcImplTest {
 	Gift gift = giftDaoJdbcImpl.selectOne(giftId);
 
 	assertThat(gift, hasProperty("giftId", equalTo(1000)));
-	assertThat(gift, hasProperty("guestName", equalTo("中越典子")));
+	assertThat(gift, hasProperty("recommenderName", equalTo("中越典子")));
 	assertThat(gift, hasProperty("giftName", equalTo("マカロン")));
 	assertThat(gift, hasProperty("price", equalTo("120個入　3938円")));
 	assertThat(gift, hasProperty("image", equalTo("1000.jpg")));
@@ -99,6 +159,36 @@ public class GiftDaoJdbcImplTest {
     public void selectOneGift_fail_giftIdDoesNotExist() {
 
 	int giftId = 9999;
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    giftDaoJdbcImpl.selectOne(giftId);
+	});
+    }
+
+    @Test
+    public void selectOneGift_fail_disabledGift() {
+
+	int giftId = 1031;
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    giftDaoJdbcImpl.selectOne(giftId);
+	});
+    }
+
+    @Test
+    public void selectOneGift_fail_disabledRecommender() {
+
+	int giftId = 1032;
+
+	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+	    giftDaoJdbcImpl.selectOne(giftId);
+	});
+    }
+
+    @Test
+    public void selectOneGift_fail_disabledGift_disabledRecommender() {
+
+	int giftId = 1033;
 
 	Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
 	    giftDaoJdbcImpl.selectOne(giftId);

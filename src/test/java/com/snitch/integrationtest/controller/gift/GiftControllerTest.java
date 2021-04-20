@@ -48,7 +48,7 @@ public class GiftControllerTest {
 	int giftId = 1004;
 
 	mockMvc.perform(get("/gifts/" + giftId)
-		.param("giftId", "1000"))
+		.param("giftId", "1004"))
 		.andExpect(status().isOk())
 		.andExpect(view().name("gift_detail/gift_detail"))
 		.andExpect(content().string(containsString("お気に入り")));
@@ -65,5 +65,58 @@ public class GiftControllerTest {
 		.andExpect(status().isOk())
 		.andExpect(view().name("gift_detail/gift_detail"))
 		.andExpect(content().string(containsString("お気に入り解除")));
+    }
+
+    @Test
+    @WithMockUser(username = "disabledUser")
+    public void displayGifts_addFavButton_disabledUser() throws Exception {
+
+	int giftId = 1004;
+
+	mockMvc.perform(get("/gifts/" + giftId)
+			.param("giftId", "1004"))
+			.andExpect(status().isOk())
+			.andExpect(view()
+			.name("gift_detail/gift_detail"))
+			.andExpect(content().string(containsString("お気に入り")));
+    }
+
+    @Test
+    @WithMockUser(username = "userName3")
+    public void displayGifts_fail_disabledGift() throws Exception {
+
+	int giftId = 1031;
+
+	mockMvc.perform(get("/gifts/" + giftId)
+		.param("giftId", "1031"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("error/error"))
+		.andExpect(content().string(containsString("指定されたページは存在しません")));
+    }
+
+    @Test
+    @WithMockUser(username = "userName3")
+    public void displayGifts_fail_disabledRecommender() throws Exception {
+
+	int giftId = 1032;
+
+	mockMvc.perform(get("/gifts/" + giftId)
+		.param("giftId", "1032"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("error/error"))
+		.andExpect(content().string(containsString("指定されたページは存在しません")));
+    }
+
+    @Test
+    @WithMockUser(username = "userName3")
+    public void displayGifts_fail_disabledGift_disabledRecommender() throws Exception {
+
+	int giftId = 1033;
+
+	mockMvc.perform(get("/gifts/" + giftId)
+		.param("giftId", "1033"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("error/error"))
+		.andExpect(content().string(containsString("指定されたページは存在しません")));
     }
 }

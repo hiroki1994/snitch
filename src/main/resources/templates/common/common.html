@@ -40,7 +40,7 @@
 	</nav>
 	<div class="search-container">
 		<form id="search-box" th:action="@{/gifts/search}" th:object="${searchForm}" th:method="get">
-			<input id="form-content" type="text" name="keyword" placeholder="Search" th:field="*{keyword}" />
+			<input id="form-content" type="text" name="keyword" placeholder="渋谷 石橋 チョコ" th:field="*{keyword}" />
 			<button type="submit" id="search-button">
 				<i class="fas fa-search"></i>
 			</button>
